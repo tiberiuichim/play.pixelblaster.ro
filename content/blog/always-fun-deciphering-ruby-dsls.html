@@ -1,0 +1,124 @@
++++
+draft = false
+date = "2016-12-24T08:47:35-01:00"
+title = "Always fun, deciphering Ruby DSLs (part 1)"
+tags = ["rants", "DSL", "Ruby", "Rails"]
+created = "2016-12-23T22:39:18-01:00"
+modified = "2016-12-26T15:31:04-01:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2016/12/24/always-fun-deciphering-ruby-dsls"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2016/12/24/always-fun-deciphering-ruby-dsls"
+]
++++
+
+<p>I never back down from a new system or programming language and thankfully my daily work has exposed me to some Ruby and Rails code. So I've been learning some, just enough to be able to tweak code, fix bugs and make minor additions. I'm not a fan of the Ruby on Rails design, but I enjoy it as a challenge.</p>
+<p>One thing that I found difficult was writing code that uses some of the many DSLs created by the community. My work has exposed me to Retire (an old ElasticSearch integration library), but now I just saw some code on ActiveAdmin's homepage and I thought I'll have some fun trying to understand it.</p>
+<p>The code, taken verbatim from <a class="external-link" href="http://activeadmin.info/">http://activeadmin.info/</a></p>
+<pre><code class="ruby"><span class="c1"># app/admin/products.rb</span>
+<span class="no">ActiveAdmin</span><span class="o">.</span><span class="n">register</span> <span class="no">Product</span> <span class="k">d</span>
+
+  <span class="c1"># Create sections on the index screen</span>
+  <span class="n">scope</span> <span class="ss">:all</span><span class="p">,</span> <span class="ss">default:</span> <span class="kp">true</span>
+  <span class="n">scope</span> <span class="ss">:available</span>
+  <span class="n">scope</span> <span class="ss">:drafts</span>
+
+  <span class="c1"># Filterable attributes on the index screen</span>
+  <span class="n">filter</span> <span class="ss">:title</span>
+  <span class="n">filter</span> <span class="ss">:author</span><span class="p">,</span> <span class="ss">as:</span> <span class="ss">:select</span><span class="p">,</span> <span class="ss">collection:</span> <span class="nb">-&gt;</span><span class="p">{</span> <span class="no">Product</span><span class="o">.</span><span class="n">authors</span> <span class="p">}</span>
+  <span class="n">filter</span> <span class="ss">:price</span>
+  <span class="n">filter</span> <span class="ss">:created_at</span>
+
+  <span class="c1"># Customize columns displayed on the index screen in the table</span>
+  <span class="n">index</span> <span class="k">do</span>
+    <span class="n">column</span> <span class="ss">:title</span>
+    <span class="n">column</span> <span class="s2">"Price"</span><span class="p">,</span> <span class="ss">sortable:</span> <span class="ss">:price</span> <span class="k">do</span> <span class="o">|</span><span class="n">product</span><span class="o">|</span>
+      <span class="n">number_to_currency</span> <span class="n">product</span><span class="o">.</span><span class="n">price</span>
+    <span class="k">end</span>
+    <span class="n">default_actions</span>
+  <span class="k">end</span>
+
+<span class="k">end</span></code></pre>
+<p>Let's start!</p>
+<p>First line, first WTF:</p>
+<pre><code class="ruby"><span class="no">ActiveAdmin</span><span class="o">.</span><span class="n">register</span> <span class="no">Product</span> <span class="k">do</span></code></pre>
+<p>I can't really tell if the do...end block is something that will be called on the Product class, or it's something that will be passed to the ActiveAdmin.register method call. I'll asume the block is passed to the register call.</p>
+<p>Next line, it was a big WTF when I've first started working on my project. My usual learning method is to just start working and whenever I see something that I don't understand, I'll stop and research it. It makes for nice, strong impressions (smiley). Of course, what impresses is the ease with which those colons switch sides, left and right of the word. Let's just say Python doesn't have that.&nbsp;</p>
+<p>So, this line&nbsp;</p>
+<pre><code class="ruby">  <span class="n">scope</span> <span class="ss">:all</span><span class="p">,</span> <span class="ss">default:</span> <span class="kp">true</span></code></pre>
+<p>is translated to something like</p>
+<pre>scope(Symbol('all'), {Symbol('default'): True})</pre>
+<p>Even now that I had a vague idea what it means, it took me a bit to translate. Python doesn't have symbols, it is idiomatic to use strings instead, so it would be usually written as:</p>
+<pre>scope('all', {'default': True})</pre>
+<p>I don't think that's too bad. A lot more clear what happens. I initially thought that :strings are just a Ruby way of not writing quotes, but a few hours spent trying to understand why Ruby on Rails breaks for no apparent reason somewhere deep inside taught me, the hard way, that those are magic names that can be just created on the spot, no need to import them and they'll always match if the given name is identical. AKA symbols. Worst part is when you need to do somestrvar.tosym just to be able to test some matches, when that string comes from "the outside".</p>
+<p>I don't really like that code can be written in multiple ways, each with its own intricacies. This simplified way of declaring a hashmap in the method parameters can only be used as last parameter? Just a sample from an interactive irb session:</p>
+<pre>irb(main):001:0&gt; def x (a, b) puts a; puts b; end
+irb(main):002:0&gt; x :all, default: true
+all
+{:default=&gt;true}
+=&gt; nil
+irb(main):003:0&gt; x default: true, :all
+SyntaxError: (irb):003: syntax error, unexpected '\n', expecting =&gt;
+        from /usr/bin/irb:11:in `&lt;main&gt;'</pre>
+<p>Moving on... multiple times calling the same method? Why???</p>
+<pre><code class="ruby">  <span class="n">scope</span> <span class="ss">:all</span><span class="p">,</span> <span class="ss">default:</span> <span class="kp">true</span>
+  <span class="n">scope</span> <span class="ss">:available</span>
+  <span class="n">scope</span> <span class="ss">:drafts</span></code></pre>
+<p><code class="ruby"><span class="ss">Without reading the code or the documentation, I feel that any of my guesses could be wrong. The comment above that code helps a bit:</span></code></p>
+<pre>&nbsp;&nbsp;<span class="c1"># Create sections on the index screen</span></pre>
+<p><img class="image-right" src="../features.png/image_mini" alt="ActiveAdmin Features" /> So, after thinking, reading the homepage, looking at that pretty pic, my guess is: first line defines a new section on the "front page" that will show "all" products, and it will be the default section. The next two lines define two other sections that will filter "available" products and "drafts" products.</p>
+<div>Next lines: the filter calls. First line, same old, but the second line... WTF? yet another Ruby syntax kink?</div>
+<div>
+<pre><code class="ruby"><span class="n">filter</span> <span class="ss">:author</span><span class="p">,</span> <span class="ss">as:</span> <span class="ss">:select</span><span class="p">,</span> <span class="ss">collection:</span> <span class="nb">-&gt;</span><span class="p">{</span> <span class="no">Product</span><span class="o">.</span><span class="n">authors</span> <span class="p">}</span></code></pre>
+</div>
+<p><code class="ruby"><span class="p">Ok, ok, ok. "filter" is method name, the rest are parameters. First argument, :author, that's a symbol. After that comes a hashmap with two members, at keys :as and :collection. The weirdest is that -&gt; sign and the accolades. That will be an inline anonymous block, but I've only understood that by replicating this code in irb:</span></code></p>
+<pre><code class="ruby"><span class="p">irb(main):034:0&gt; x :first, as: 'blabla', default: -&gt;{1} &nbsp;&nbsp;&nbsp;
+first
+
+{:as=&gt;"blabla", :default=&gt;#&lt;Proc:0x000000014d81a8@(irb):34 (lambda)&gt;}
+</span></code></pre>
+<p><code class="ruby">I'm guessing the reason that it cannot simply pass "Product.authors" to collection is that ruby will call the .authors method (as there's no attribute access in Ruby, only methods call). Is there a way to pass a Ruby method without calling it, without defining a lambda? Who knows, maybe I'll find out at one point.</code></p>
+<p><code class="ruby"><span class="p">And the last method call. Ruby blocks are strange for me. I get them, I grok them, but they're just opaque. "Hey you, method there, here is some code, take it and 'eval' it in your scope. Don't worry, I promise it will be cool". Meh... &nbsp;</span></code></p>
+<p><code class="ruby"><span class="p"></span></code></p>
+<pre><code class="ruby">  <span class="c1"># Customize columns displayed on the index screen in the table</span>
+  <span class="n">index</span> <span class="k">do</span>
+    <span class="n">column</span> <span class="ss">:title</span>
+    <span class="n">column</span> <span class="s2">"Price"</span><span class="p">,</span> <span class="ss">sortable:</span> <span class="ss">:price</span> <span class="k">do</span> <span class="o">|</span><span class="n">product</span><span class="o">|</span>
+      <span class="n">number_to_currency</span> <span class="n">product</span><span class="o">.</span><span class="n">price</span>
+    <span class="k">end</span>
+    <span class="n">default_actions</span>
+  <span class="k">end</span></code></pre>
+<p><code class="ruby"><span class="p">But we're already inside a block started at first line, "</span></code><span class="no">ActiveAdmin</span><span class="o">.</span><span class="n">register</span> <span class="no">Product</span> <span class="k">do". So where "scope", "filter" and "index" come from? I'm guessing they belong to the ActiveAdmin class?</span></p>
+<p><span class="k">As I've already mentioned, I can't understand Ruby DSLs and my lack of experience with the language means that I always end up having to read the code. No documentation could replace that, in my experience, for this particular case.</span></p>
+<p><span class="k">So, reading through the active_admin.rb file. WTF?</span></p>
+<pre><span class="k"><span class="pl-k">class</span> <span class="pl-en"><span class="pl-smi">&lt;&lt; self</span></span></span></pre>
+<p><span class="k"><span class="pl-en"><span class="pl-smi">Ah... so there's a module as the parent level, now we're defining a class that "inherits???" self? So, aparently just regular Ruby business: http://stackoverflow.com/questions/2505067/class-self-idiom-in-ruby As far as I can understand, we're adding the code that follows (from inside the class definition) to the module "class definition instance".</span></span></span></p>
+<pre>    attr_accessor :application
+
+    def application
+      @application ||= ::ActiveAdmin::Application.new
+    end</pre>
+<p>So this ActiveAdmin module gets an instance variable called "application", accessible through the "application" accessor. It will be created, if it doesn't exist, by instantiating ActiveAdmin::Application.&nbsp;</p>
+<p>Next, another oddity:</p>
+<pre>delegate <span class="pl-c1">:register</span>,      <span class="pl-c1">to:</span> <span class="pl-c1">:application</span></pre>
+We're delegating any calls to a method called "register" to the "application" object? It appears so&nbsp;http://api.rubyonrails.org/classes/Module.html#method-i-delegate
+<div>&nbsp;</div>
+<div>So, next to research is that Application class. Inside active_admin/application.rb we have the "register" method:</div>
+<pre>    # Registers a brand new configuration for the given resource.
+    def register(resource, options = {}, &amp;block)
+      ns = options.fetch(:namespace){ default_namespace }
+      namespace(ns).register resource, options, &amp;block
+    end</pre>
+<p>So, in our "ActiveAdmin<span class="o">.</span><span class="n">register</span> <span class="no">Product</span> <span class="k">do" line, we've passed resource as Product, no options, but we did pass a block, specified here as a reference to a block. They are further passed to a namespace construction. After more indirection, going through&nbsp;</span>active_admin/namespace.rb with&nbsp;</p>
+<pre>parse_registration_block(config, resource_class, <span class="pl-k">&amp;</span>block) <span class="pl-k">if</span> <span class="pl-k">block_given?</span></pre>
+<p>we get to this</p>
+<pre>&nbsp; &nbsp; &nbsp; config.dsl = ResourceDSL.new(config, resource_class)
+&nbsp; &nbsp; &nbsp; config.dsl.run_registration_block(&amp;block)</pre>
+<p>run_registration_block just evaluates the block in the dsl context. And we finally get to see what the index call does:</p>
+<pre>    # Configure the index page for the resource
+    def index(options = {}, &amp;block)
+      options[:as] ||= :table
+      config.set_page_presenter :index, ActiveAdmin::PagePresenter.new(options, &amp;block)
+    end</pre>
+<p>Another indirection. We need to look at PagePresenter. Which just stores the options... and actually the set_page_presenter pottentially does some stuff?</p>
+<p>to be continued...</p>

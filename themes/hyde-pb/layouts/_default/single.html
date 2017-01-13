@@ -5,7 +5,23 @@
   <div class="content container">
     <article class="post">
       <h1>{{ .Title }}</h1>
-      <span class="post-date">{{ .Date.Format "Mon, Jan 2, 2006" }}</span>
+
+
+      <div class="related">
+        <h5>Tags</h5>
+        <ul class="related-posts">
+          {{ range .Params.tags }}
+          <li>
+            <a href="/tags/{{ . | urlize }}">{{ . }}</a>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+
+      <div class="post-date">
+        <span >{{ .Date.Format "Mon, Jan 2, 2006" }}</span>,
+        <span id="wc"> {{ .FuzzyWordCount }} Words </span>
+      </div>
       {{ .Content }}
     </article>
 

@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2006-08-29T21:51:48-03:00"
+title = "Checking for a role or a permission in a context"
+tags = ["cookbook", "Plone"]
+created = "2006-08-29T21:48:55-03:00"
+modified = "2006-08-29T21:51:48-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/08/29/checking-for-a-role-or-a-permission-in-a-context"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2006/08/29/checking-for-a-role-or-a-permission-in-a-context"
+]
++++
+
+<p>There are two very useful methods to check for certain security settings offered by the Plone API. First, to check if a user has a certain role, the following snippet can be used:<br /></p><pre>roles_user_has = portal_membership.getCandidateLocalRoles(here)</pre><p>To check if a user has a certain permission, this API method can be used:<br /></p><pre>portal_membership.checkPermission('Manage portal', here)</pre>

@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2006-10-04T18:53:43-03:00"
+title = "Easy install of actions with CMFQuickInstaller"
+tags = ["cookbook", "Plone"]
+created = "2006-10-04T18:48:16-03:00"
+modified = "2006-10-04T18:53:43-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/10/04/easy-install-of-actions-with-cmfquickinstaller"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2006/10/04/easy-install-of-actions-with-cmfquickinstaller"
+]
++++
+
+<p>Although superseded by GenericSetup, this method is still useful and quick to setup. Basically, CMFQI will install actions defined in an xml file called "actions" located in the Extension folder. This behavior is documented in the CMFQI documentation files. An example follows below:<br /> </p><pre>&lt;portal_actions&gt;<br />  name=Manage group users<br />  id=userconfig<br />  action=string:manage_project_users<br />  condition=member<br />  permission=View<br />  category=folder<br />  visible=1<br />&lt;/portal_actions&gt;</pre>

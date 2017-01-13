@@ -1,0 +1,58 @@
++++
+draft = false
+date = "2009-02-28T17:47:14-02:00"
+title = "Success on a one year old problem installing CacheFu"
+tags = ["zope2", "rants", "cookbook"]
+created = "2009-02-28T17:12:46-02:00"
+modified = "2009-02-28T17:47:14-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu"
+]
++++
+
+<p>I've upgraded CacheFu (Products.CacheSetup) to the latest 1.2 for some of the websites that I manage, in a Plone 2.5 cluster. One of them had a problem that I haven't been able to track previously, due to limited time: on a reinstall of CacheSetup, due to product upgrades, CacheFu couldn't be installed anymore. The traceback was something like:</p>
+<pre>this product has already been installed without Quickinstaller!failed:
+Traceback (most recent call last):
+
+  File "/home/zope/z29/Products/CMFQuickInstallerTool/QuickInstallerTool.py", line 330, in installProduct
+
+  File "/home/zope/p25/parts/zope2/lib/python/Products/ExternalMethod/ExternalMethod.py", line 225, in __call__
+    try: return f(*args, **kw)
+
+  File "/home/zope/p25/eggs/Products.CacheSetup-1.2-py2.4.egg/Products/CacheSetup/Extensions/Install.py", line 35, in install
+    policy_utils.addCachePolicies(self, out)
+
+  File "/home/zope/p25/eggs/Products.CacheSetup-1.2-py2.4.egg/Products/CacheSetup/Extensions/policy_utils.py", line 72, in addCachePolicies
+    p.addCacheRules(rules)
+
+  File "/home/zope/p25/eggs/Products.CacheSetup-1.2-py2.4.egg/Products/CacheSetup/Extensions/policy_2.py", line 13, in addCacheRules
+    rules.invokeFactory(id=id, type_name='PolicyHTTPCacheManagerCacheRule')
+
+  File "/home/zope/z29/Products/CMFCore/PortalFolder.py", line 408, in invokeFactory
+
+  File "/home/zope/z29/Products/CMFCore/TypesTool.py", line 934, in constructContent
+
+  File "/home/zope/z29/Products/CMFCore/TypesTool.py", line 343, in constructInstance
+
+  File "/home/zope/z29/Products/CMFCore/TypesTool.py", line 574, in _constructInstance
+
+  File "", line 6, in addPolicyHTTPCacheManagerCacheRule
+
+  File "/home/zope/p25/parts/zope2/lib/python/OFS/ObjectManager.py", line 301, in _setObject
+    v = self._checkId(id)
+
+  File "/home/zope/z29/Products/CMFCore/Skinnable.py", line 223, in _checkId
+
+  File "/home/zope/p25/parts/zope2/lib/python/OFS/ObjectManager.py", line 95, in checkValidId
+    raise BadRequest, (
+
+BadRequest: The id "httpcache" is invalid - it is already in use.
+</pre>
+<p>One other weird thing are the paths in this traceback: /home/zope/z29 doesn't exist anymore, the database was moved from a different server. I think it's related to the persistent product entries in the Control_Panels, which can be cleared. Not a big problem. In the log, there was also an entry related to this traceback:</p>
+<pre>2009-02-28 17:01:18 CRITICAL txn.-1223480432 A storage error occurred during the second phase of the two-phase commit.  Resources may be in an inconsistent state
+</pre>
+<p>Now, the solution is really simple, but I needed to debug the policy_2 module to find this:&nbsp;</p>
+<pre>rules.invokeFactory(id=id, type_name='PolicyHTTPCacheManagerCacheRule')</pre>
+<p>didn't work because there was a document in the root called "rules". Nobody expects the spamish Acquisition! And I didn't either... Lesson? Zope 2 was designed to be too smart for its own good, thus violating the KISS principle. Still love it, though.</p>

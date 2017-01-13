@@ -1,0 +1,27 @@
++++
+draft = false
+date = "2008-04-08T20:20:18-03:00"
+title = "A tip on debugging Zope 2 with ZEO"
+tags = ["zope2", "Plone"]
+created = "2008-04-08T20:16:43-03:00"
+modified = "2008-08-27T18:01:03-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2008/04/08/a-tip-on-debugging-zope-2-with-zeo"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2008/04/08/a-tip-on-debugging-zope-2-with-zeo"
+]
++++
+
+<p>I'm having some troubles with CacheFu, and I've resorted to deleting some objects from a debug prompt, which is very easy to get at if one runs the Zope under ZEO. Still, I couldn't delete the objects because I was getting Unauthorized errors. Luckily, there is #plone, from which I got the following tip:</p>
+<pre>&lt;naro&gt; from AccessControl.SecurityManagement import newSecurityManager
+&lt;naro&gt; user = app.acl_users.getUser('admin')
+&lt;naro&gt; newSecurityManager(None, user)
+</pre>
+<p>Thanks, naro!&nbsp;</p>
+<p>Update: I realize now that I didn't write how to connect to ZEO:</p>
+<pre>#bin/instance debug
+</pre>
+<p>or</p>
+<pre>#bin/zopectl debug
+</pre>
+<p>This will connect the ZEO client and drop you in a python shell</p>

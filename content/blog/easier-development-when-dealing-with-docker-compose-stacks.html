@@ -1,0 +1,32 @@
++++
+draft = false
+date = "2016-12-13T09:26:44-01:00"
+title = "Easier development when dealing with docker-compose stacks"
+tags = ["docker-compose", "docker", "cookbook", "Plone", "tutorial"]
+created = "2016-12-13T08:58:35-01:00"
+modified = "2016-12-13T09:26:44-01:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks"
+]
++++
+
+<p>For some time I've had to deal with two separate, docker-compose based application stacks. One of them combining a Ruby on Rails app with a whole suite of ElasticSearch nodes, sidekiq worker, Postgresql, nginx, the whole shebang. Another is just a plain Zope/Plone stack, but the difficulties remain the same: when I wanted to do production debugging or just plain development using that environment, I needed something that can be started manually, in the whole stack. I don't want to have to deal with <a class="external-link" href="https://pypi.python.org/pypi/rpdb/">rpdb</a>&nbsp;or remote byebug just to be able to debug. I want to poke around the whole stacks and see what happens.&nbsp;</p>
+<p>So my solution was, in both cases, to configure another service in the docker-compose stack that just did nothing.</p>
+<pre>...
+debug:
+ &nbsp;image: plone
+ &nbsp;ports:
+ &nbsp;&nbsp;&nbsp;- "8090:8080"
+ &nbsp;volumes:
+ &nbsp;&nbsp;&nbsp;- ./src:/plone/instance/src
+ &nbsp;entrypoint: sh -c "tail -f /dev/null"
+</pre>
+<p>Something like the above. Notice the entry point, which just keeps the container up, but does nothing. Now I can run</p>
+<pre>docker exec -it debug_1 bash</pre>
+<p>And inside the container, I can edit the eggs to set a pdb.trace() line whereever, then start the instance:&nbsp;</p>
+<pre>bin/standalone fg</pre>
+<p>Why go through this trouble instead of just running the plone container with something like</p>
+<pre>docker run --name debug plone</pre>
+<p>Usually docker-compose stack are entertwined services that need connecting to one another. My given service debug could be linked to whatever other service: postfix, postgresql, elasticsearch, etc. Why go through the trouble of linking manually, from the command line, when I can just get docker-compose to do it?</p>

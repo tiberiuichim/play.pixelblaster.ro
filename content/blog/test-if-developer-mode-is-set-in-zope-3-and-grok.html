@@ -1,0 +1,24 @@
++++
+draft = false
+date = "2010-01-15T11:29:22-02:00"
+title = "Test if developer mode is set in Zope 3 and Grok"
+tags = ["Grok", "zope3", "cookbook"]
+created = "2010-01-15T11:23:51-02:00"
+modified = "2010-02-05T12:14:07-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok"
+]
++++
+
+<p>I've started an application that uses <a class="external-link" href="http://gitweb.dolmen-project.org/">Dolmen</a>, a lightweight CMS built on top of <a class="external-link" href="http://grok.zope.org/">Grok</a>, and I want to be able to "rollup" the <a class="external-link" href="http://pypi.python.org/pypi/megrok.resource/">megrok.resource</a> files based on the devmode setting that was set in the zope.conf file. After a bit of digging, I came up with this code that tells me the current devmode setting for the running instance:</p>
+<pre>from zope.app.applicationcontrol.applicationcontrol import applicationController
+from zope.app.applicationcontrol.interfaces import IRuntimeInfo
+
+def get_debug_mode():
+&nbsp;&nbsp;&nbsp; """Returns the devmode setting for a running zope instance"""
+
+&nbsp;&nbsp;&nbsp; rti = IRuntimeInfo(applicationController)
+&nbsp;&nbsp;&nbsp; return rti.getDeveloperMode() == "On"</pre>
+<p>&nbsp;</p>

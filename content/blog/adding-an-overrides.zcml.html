@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2006-10-15T19:54:07-03:00"
+title = "Adding an overrides.zcml"
+tags = ["zope3", "cookbook", "Plone"]
+created = "2006-10-15T19:50:22-03:00"
+modified = "2006-10-15T19:54:07-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/10/15/adding-an-overrides.zcml"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2006/10/15/adding-an-overrides.zcml"
+]
++++
+
+<p>According to <a href="http://zope3.pov.lt/irclogs/%23zope3-dev.2006-08-24.log.html" target="_self">this discussion</a> on <a href="irc://zope3-dev@freenode.net" target="_self">#zope3-dev</a>, one must do the following to get overrides to take effect:</p><ul><li>add an product-overrides.zcml in which to include &lt;include package="foo" file="overrides.zcml" /&gt;</li><li>the *-overrides.zcml slugs needs to be loaded with includeOverrides</li></ul>

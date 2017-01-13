@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2007-08-15T11:45:32-03:00"
+title = "Scripting Adobe Indesign with Python"
+tags = ["Python", "cookbook"]
+created = "2007-08-15T11:02:58-03:00"
+modified = "2007-08-15T11:45:32-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2007/08/15/scripting-adobe-indesign-with-python"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2007/08/15/scripting-adobe-indesign-with-python"
+]
++++
+
+<p>I'm working on a larger project, with various components and one of the components is producing content with Plone which is then to be imported into Indesign, where each item from Plone gets to fill in a 2 page template. There are about 500 of these items, so this can't be done manually. InDesign is stupid (or maybe plugin friendly / commercially clever) enough that, even though it can import XML files and even perform XSLT transformations on them and has a "Clone repeating elements" option on import, it can't create new frames or pages. The import procedure, which is a beast in itself, depends on having content placeholders tagged with the proper tags, but it doesn't keep the tags when copy&amp;pasting elements. So the only option left is to script the entire import procedure. Fortunately, InDesign can be scripted through COM and its DOM is the same when accessing it through either its own JavaScript engine or Python, with the help of win32com.</p><p>First steps to get started is to install the win32com extensions. Next, start PythonWin and use the Tools menu to start the "COM Makepy utility",  select the "Adobe InDesign CS2 Type Library". Next, try this in a Python prompt.</p><pre>&gt;&gt;&gt; import win32com.client<br />&gt;&gt;&gt; app = win32com.client.Dispatch('InDesign.Application')<br />&gt;&gt;&gt; doc = app.Documents.FirstItem()<br />&gt;&gt;&gt; pages = doc.Pages<br />&gt;&gt;&gt; newpage = pages.Add()<br /></pre><p>Unfortunately, doing a dir(app) won't show all elements available, for example the Documents collection. There are some very good resources to get me started, though: several InDesign tutorials and scripting references from Adobe, the ExtendedScriptToolkit which shows the DOM tree for the document once you assign it to a local variable and execute the script, and the Visual Basic Editor, whose Object Browser can be used to look at the available methods and properties for objects (you'll need to add the Indesign Type library as reference first).</p>

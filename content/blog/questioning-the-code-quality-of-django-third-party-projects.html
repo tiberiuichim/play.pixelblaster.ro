@@ -1,0 +1,61 @@
++++
+draft = false
+date = "2009-10-07T19:17:32-03:00"
+title = "Questioning the quality of code in Django third-party projects"
+tags = ["rants", "Django"]
+created = "2009-10-07T18:21:41-03:00"
+modified = "2009-11-09T21:37:51-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/10/07/questioning-the-code-quality-of-django-third-party-projects"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2009/10/07/questioning-the-code-quality-of-django-third-party-projects"
+]
++++
+
+<p>I'm not sure how I feel about this... In some ways, I think it's very positive that a relative newcomer can just jump in and release an opensource project that can be taken and reused by others. Did Django allowed this? That's very positively PHP-like...</p>
+<p>I'm talking about a glimpse at some code that I caught while helping my brother integrate the Diamandas forum to a site he's doing. It stunned me that it has the marks of a developer that is not very experienced with the language or the framework, but it's moving at a speed that is too great to stop and fix or check what he's doing.</p>
+<p>This:</p>
+<pre>pr = False&nbsp; &nbsp; &nbsp; &nbsp; 
+if forum.use_prefixes:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+    p = Prefix.objects.filter(forums=forum)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+    if len(p) &gt; 0:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+        pr = []&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+        for i in p:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+            pr.append(i)
+</pre>
+<p>is a fragment from an apparently <a class="external-link" href="http://code.google.com/p/diamanda/source/browse/trunk/diamandas/myghtyboard/modelwrappers.py#47">nice Django forum add-on</a>. First, it could easily be rewritten as:</p>
+<pre>pr = []
+if forum.use_prefixes:
+&nbsp;&nbsp;&nbsp; pr = Prefix.objects.filter(forums=forum)
+</pre>
+<p>Suppose you don't trust the Django queryset results to really behave like a list (that could happen for some legitimate reasons, but I'm sure that's not the case here). Then you could write the last line as:</p>
+<pre>pr = list(Prefix.objects.filter(forums=forum))</pre>
+<p>Of course, no more lazy loading of objects and a bit more memory consumption. More, about the looks of this code:</p>
+<ul>
+<li>"len(p) &gt; 0" can be rewritten as "if p"</li><li>why define the "pr" as a False value instead of an empty list, which will become at one point?</li><li>why use the "i" name for a prefix object type, when this is typically used as an integer counter?</li></ul>
+<p>Further on that page there's</p>
+<pre>tp = TopicPrefix(topic=new_place)
+tp.save()
+tp.prefix=pr
+tp.save()
+</pre>
+<p>I haven't tried this, but I'm pretty sure that only one call to save() is needed. Probably more odd things could be found, but I haven't tried to look further - I already found the source of my brother's problems.</p>
+<p>These superficial aspects are the ones that make me also question the architectural choices that were made for this add-on, the overall quality of the code that might impact performance, etc. How can I trust an application that has bits of code like this? I'm pretty sure that this particular developer (I haven't bothered tracking exactly who it was) has a bright future in the Django community and will probably polish his Python skills to generate good code. Overall, the Python and Django communities will also benefit from an influx of new developers. But I'm left feeling insecure about my decision to write code for the Django platform. I'm mostly (or I want to be) an integrator and I depend on good third-party addons, which Django seems to have a lot. But if two out of three projects that I have tried (Satchmo and Diamandas) left me confused, how else should I feel? Ironically, the one project that I have really liked (LFS) came from a Zope developer... So maybe we need a bigger Zope &gt; Django migration phenomena.</p>
+<p>UPDATE: well, it looks like Django isn't free of promoting (IMHO) stupid solutions, too. Check out this piece of code from the <a class="external-link" href="http://docs.djangoproject.com/en/dev/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display">Django admin documentation</a>:</p>
+<pre>return self.birthday.strftime('%Y')[:3] == '195'
+</pre>
+<p>This smells a lot like stupid code that beginner PHP programmers would write. When you're dealing with a number (the year), why convert it to a string? The code itself yields correct results, but the method used feels stupid. I'd rather see something like:</p>
+<pre>return 1949 &lt; self.birthday.year &lt; 1960
+</pre>
+<p>Another one, not a bug, but a design decision from Django, which forces third party projects like Pinax to mangle with the syspath just to get django happy:</p>
+<pre>  File "/home/tibi/work/lib/python2.5/site-packages/django/contrib/auth/models.py", line 283, in get_profile
+    app_label, model_name = settings.AUTH_PROFILE_MODULE.split('.')
+</pre>
+<p>What's my AUTH_PROFILE_MODULE set to?</p>
+<pre>AUTH_PROFILE_MODULE = 'pinax.apps.basic_profiles.Profile'
+</pre>
+<p>Actually, thinking more about this: "pinax.apps.basic_profiles.Profile" is not even a real path, Profile is a class in "models.py", so it might be valid for Django to request its special rules there. Valid, but non-intuitive and non-standard for the rest of the Python world.</p>
+<p>Another weird stuff, this time in Pinax. Looks like really young code, which hasn't been subjected to a thorough code review yet: friends_app/views.py. This is file has some weird indentation problems (some lines get indented more then they need to be). What about this piece of code:</p>
+<pre>authsub_token = request.session.get('authsub_token')
+del request.session['authsub_token']</pre>
+<p>If 'authsub_token' is not in the session, (as it was my case, which made me discover this), you'll get an error on the second line. Of course, this bug highlights the more important problem, of the missing authsub_token, but what about the careless programming?</p>

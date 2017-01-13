@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2007-03-20T10:22:51-02:00"
+title = "Freeciv rediscovered"
+tags = ["Windows", "fun", "Linux"]
+created = "2007-03-20T08:41:45-02:00"
+modified = "2007-03-21T10:18:40-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2007/03/20/freeciv-rediscovered"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2007/03/20/freeciv-rediscovered"
+]
++++
+
+<p>I've recently "rediscovered" Freeciv. I'm a very casual gamer (15 minutes/day), but also an old, addicted, Civilization fan. Lately I've been looking for a nice game to play on my Linux desktops and I've found that Freeciv is finally getting some good graphics, as this was my biggest turn off I've had with it before. I've tried first the SDL client on Windows, but it is buggy and tends to freeze its popup windows. The GTK Windows client is a lot better, works quite flawless as far as I can tell. I've compiled the Linux version (on Ubuntu Edgy), first I've tried the SDL client, but it complained (at configure time) about a missing sdl-image library, which I have (and no -dev version in my apt sources). Using the freeland-big tiles, the game had a huge memory footprint (40% of 1024 Mb RAM). The most apparent improvements are new tile graphics, with bigger size, new graphics for the city titles on the play screen, a new full-screen mode, even for the GTK version and a tree-based research screen. There is another tileset on the freeciv.org site, called Freeland-big. This has, IMHO, some improved tiles. Click on the image below to see the new graphics I'm talking about (this is the default tileset). And another one, this time on <a href="http://www.flickr.com/photos/60787066@N00/428083858/">Linux, with Freeland-big tileset</a>.<br /></p><p><a title="Freeciv 2.1 screenshot" href="topic_images/freeciv.jpg"><img class="image-inline" src="topic_images/freeciv.jpg/image_preview" alt="Freeciv 2.1 screenshot" /></a></p><p>UPDATE: Using the svn/trunk version the huge memory footprint problem of the Linux client is solved, but I can't use the freeland-big tileset anymore. To compile it on Ubuntu, I first had to apt-get install automake1.8 and libgtk2.0-dev. After that, run autoconf.sh to start the configure script generation and then make install. <br /></p>

@@ -1,0 +1,21 @@
++++
+draft = false
+date = "2009-11-09T20:54:51-02:00"
+title = "Get a project imported into subversion and start working imediately on it"
+tags = ["management", "programming"]
+created = "2009-11-09T20:47:00-02:00"
+modified = "2009-11-09T20:56:22-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/11/09/get-a-project-imported-into-subversion-and-start-working-imediately-on-it"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2009/11/09/get-a-project-imported-into-subversion-and-start-working-imediately-on-it"
+]
++++
+
+<p>I managed to figure out how to beat one awkward piece of workflow when starting new project: I always start hacking on a project, then I notice that I haven't been working on a svn checkout (it's the chicken or the egg problem). So I need to do a svn import, delete my copy of the project, checkout the svn version and start hacking at my project again. This workaround is agravated, though, when working with buildouts. I can't svn import the entire folder, because lots of generated folders and files will end up in subversion, which I don't want. Cleaning my original, running import and regenerate the buildout is a workflow killer.</p>
+<p>The solution is simple, and goes like this: instead of importing the entire buildout folder, I can run</p>
+<pre>svn import . http://my/subversion/path/ --depth empty -m "initial import"</pre>
+<p>or I can just create a folder in my repository with svn mkdir</p>
+<p>Next, checkout the empty folder from the repository into my buildout</p>
+<pre>svn co http://my/subversion/path/ .</pre>
+<p>Now I can cherry-pick whatever I want committed, with svn add. Problem solved!</p>

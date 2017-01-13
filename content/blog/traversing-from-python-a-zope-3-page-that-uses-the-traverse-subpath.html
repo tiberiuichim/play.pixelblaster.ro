@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2007-04-13T11:38:52-03:00"
+title = "Traversing from Python a Zope 3 page that uses the traverse subpath"
+tags = ["zope3", "cookbook"]
+created = "2007-04-13T11:21:06-03:00"
+modified = "2007-04-13T16:56:58-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2007/04/13/traversing-from-python-a-zope-3-page-that-uses-the-traverse-subpath"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2007/04/13/traversing-from-python-a-zope-3-page-that-uses-the-traverse-subpath"
+]
++++
+
+<p>Getting the traverse subpath in Zope 2 is relatively easy and involves almost no tricks. Doing the same thing in Zope3 is a bit more involved, but <a href="http://wiki.zope.org/zope3/HowDoIGrabVariablesFromArbitraryURLs">nevertheless still relatively easy</a>. What might not be obvious at first is how to traverse to the page from Python code. Call me slow, but it took me about 2 minutes to think of the solution.<br />The idea is: I have a page along these lines: http://localhost/site/tips/page_context/next. 'tips' is the page that is published, 'page_context' is a string that contains a unique page context key for which I get the tips and 'next' is an operation I want to do, based on which I get the tips content. I'm doing this because I'm storing in the session a history of 'seen tips', so that I can navigate them forward/backward. <br /></p><p>So how does one get that page from python code? Like this:</p><pre>page_context = 'my_page'<br />tips_page = getMultiAdapter((self.context, self.request), name='tips')<br />tip_content = tips_page.publishTraverse(self.request, page_context).publishTraverse(self.request, 'next')()</pre><p><br /></p>

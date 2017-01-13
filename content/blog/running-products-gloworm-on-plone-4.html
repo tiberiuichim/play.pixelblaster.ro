@@ -1,0 +1,27 @@
++++
+draft = false
+date = "2011-01-04T19:09:02-02:00"
+title = "Running Products.Gloworm on Plone 4"
+tags = ["cookbook", "Plone"]
+created = "2011-01-04T18:59:51-02:00"
+modified = "2011-01-04T19:35:23-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2011/01/04/running-products-gloworm-on-plone-4"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2011/01/04/running-products-gloworm-on-plone-4"
+]
++++
+
+<p>For some reason, the TTW developer tools tend to get neglected in the Plone world. A valuable tools such as Clouseau has fallen out of favour and now Gloworm, the @@manage-viewlets replacement/complement won't run in Plone 4 (at least at version 1.0, which is the latest right now on PyPI).</p>
+<p>Fortunately, Gloworm has been updated in svn trunk. To get the latest version you need to add it to sources (in buildout.cfg or develop.cfg):</p>
+<pre>[buildout]
+eggs +=
+&nbsp;&nbsp;&nbsp;&nbsp; Products.Gloworm
+
+[sources]
+Products.Gloworm = svn https://weblion.psu.edu/svn/weblion/weblion/Products.Gloworm/trunk/
+</pre>
+<p>Next, run in the shell:</p>
+<pre>#bin/develop co Products.Gloworm
+#bin/develop rb
+</pre>

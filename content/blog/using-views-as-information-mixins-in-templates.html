@@ -1,0 +1,30 @@
++++
+draft = false
+date = "2008-06-01T22:30:29-03:00"
+title = "Using views as information mixins in templates"
+tags = ["zope2", "zope3", "cookbook"]
+created = "2008-06-01T22:18:30-03:00"
+modified = "2008-06-01T22:30:29-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2008/06/01/using-views-as-information-mixins-in-templates"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2008/06/01/using-views-as-information-mixins-in-templates"
+]
++++
+
+<p>This may be basic trick for some, a non-obvious usage of views for others, who knows, I'm documenting it here anyway. I've been using this technique for quite some time without giving it much thought.</p>
+<p>There are times when I have an object in a template. I want to display information associated with that object. This information is already coded in a @@detail view on this object. Suppose this example (in mostly pseudocode):</p>
+<pre>class PersonDetail(BrowserView):
+    """Show detail about a person"""
+    def name(self):
+        return compute_somehow_name()
+
+class CommentDetail(BrowserView):
+    """Show details about a comment"""
+</pre>
+<p>Now we have the following template for the CommentDetail view:</p>
+<pre>&lt;div tal:define='person comment/author; person_info nocall:person/@@detail'&gt;
+    &lt;a tal:attributes="href person/@@absolute_url" tal:content="person_info/name"&gt;The author&lt;/a&gt;
+&lt;/div&gt;
+</pre>
+<p>Notice the nocall: keyword placed in from of the person/@@detail call. This ensures that the @@detail view is instantiated, but not called (so it is not rendered). This way we have access to the view class attributes, properly associated to the Person context.</p>

@@ -1,0 +1,41 @@
++++
+draft = false
+date = "2016-06-13T23:49:14-02:00"
+title = "How to use pgloader to migrate sqlite database to postgresql"
+tags = ["Docker", "cookbook", "Postgresql", "SQLite", "Kotti"]
+created = "2016-06-13T23:27:56-02:00"
+modified = "2016-07-19T13:14:37-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql"
+]
++++
+
+<p>I needed to migrate a Kotti database, from its default sqlite file store, to Postgresql. Clued in by StackOverflow, I've tried using <a class="external-link" href="https://github.com/dimitri/pgloader">pgloader</a>, but the version coming with Ubuntu is old: 2.x instead of the brand new 3.x. But the jump to 3.x meant a switch in programming languages as well: the new one is written in Lisp. I didn't want to install and compile the whole Lisp bundle just to run pgloader and I didn't find a binary distribution either, and after a recent exposure to Docker, I thought I'll give the dockerized version of pgloader a try.</p>
+<p>After following the steps to <a class="external-link" href="https://docs.docker.com/engine/installation/linux/ubuntulinux/">install Docker</a>, took me a bit to figure out the process (note: I'm running all this in a VMWare virtual machine, so I can afford taking a lot of unsecure shortcuts):</p>
+<p>First, the local Postgresql database needs to be configured to run on an IP, to allow the dockerized pgloader process to connect to it.</p>
+<pre>sudo vim &nbsp;/etc/postgresql/9.3/main/pg_hba.conf</pre>
+<p>Change the network settings to allow connections from all:</p>
+<pre># IPv4 local connections:
+host &nbsp; &nbsp;all &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; all &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0.0.0.0/0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; md5</pre>
+<div>Also, we will need to enable listening on TCP connections:</div>
+<pre>sudo vim &nbsp;/etc/postgresql/9.3/main/postgresql.conf</pre>
+<div>and add a listen_addresses line</div>
+<pre>listen_addresses = '*'<span class="Apple-tab-span">		</span># what IP address(es) to listen on;</pre>
+<div>Install Dockerized pgloader according to instructions:</div>
+<pre><code>docker pull dimitri/pgloader</code></pre>
+<p>I've created a file named "convert" with the commands for pgloader, to do the conversion:</p>
+<pre>load database  
+    from 'mydb.db'  
+    into postgresql://user:password@192.168.1.20/mydb
+
+with reset sequences, create no tables, include no drop, create no indexes, disable triggers
+set work_mem to '200MB', maintenance_work_mem to '512 MB';</pre>
+<p>For the IP of the postgresql I've used the one attached to eth0.</p>
+<div>Because I didn't trust pgloader to convert all the nuances of the database relations, before running the conversion, I've started once Kotti, bin/pserve app.ini so that it will create the initial database structure. After that, truncated the nodes table so that it will erase most of the database content:</div>
+<pre>psql mydb
+truncate table nodes cascade
+truncate table nodes principals</pre>
+<div>Now, the trick is to put this 'convert' file, together with the 'mydb.db' sqlite file in the same folder and map that folder as a volume when running the pgloader command:</div>
+<pre>sudo docker run --rm --name pgloader -v /path/to/data/:/data dimitri/pgloader:latest pgloader /data/convert</pre>

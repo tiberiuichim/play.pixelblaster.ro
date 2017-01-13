@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2006-10-06T21:04:15-03:00"
+title = "Internationalization with Plone"
+tags = ["cookbook", "Plone"]
+created = "2006-10-06T20:22:05-03:00"
+modified = "2006-10-06T21:31:59-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/10/06/internationalization-with-plone"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2006/10/06/internationalization-with-plone"
+]
++++
+
+<p>To generate automatically a .pot file necessary for translating msgids inside template files you need to get i18ndude (really easy since it was placed in cheeseshop):</p><pre>sudo easy_install i18ndude</pre><p>Since I'm using ArchGenXML, I already have a generated.pot file created. I've renamed this file to old.pot and ran this (in the i18n folder):</p><pre>i18ndude rebuild-pot --pot ./generated.pot --merge old.pot --create MyProduct ./../skins/MyProduct/<br /></pre><p>This command builds a pot file by looking at files in the skins folder and merging the extracted msgids with the ones in old.pot. Of course, the templates need to have the i18n:translate entries inside in order to be recognized by i18ndude. Now that I have the pot file, I can use KBabel to create the translated .po files. Only thing left to do is make sure my templates use the MyProduct i18n domain. To load the catalog I needed to restart zope. If the wrong catalog is loaded, delete the catalog from the Zope Control Panel &gt; PlacelessTranslation service and the .mo file from the &lt;zope_instance&gt;/var/pts, after which zope has to be restarted.<br /></p><p>The rest of the internationalization (translated content) is beautifully covered by LinguaPlone.<br /></p>

@@ -1,0 +1,34 @@
++++
+draft = false
+date = "2009-11-17T19:00:49-02:00"
+title = "The case against Django templates"
+tags = ["rants", "Django"]
+created = "2009-11-17T13:48:43-02:00"
+modified = "2009-11-18T08:03:04-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/11/17/the-case-against-django-templates-1"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2009/11/17/the-case-against-django-templates-1"
+]
++++
+
+<p>I have many grudges against the django templating language and its templates (in short, I hate them), so I'm gathering evidence to support what my "spider sense" tells me. Today the template tag system goes under fire.</p>
+<p>Given the following template fragment:</p>
+<pre>{% load i18n %}
+{% load avatar_tags %}
+{% load voting_tags %}
+{% load pagination_tags %}
+{% load extra_voting_tags %}
+{% load in_filter %}
+{% load extra_tagging_tags %}
+{% load sorting_tags %}</pre>
+<p>Which one is responsible for the following "anchor" tag?</p>
+<pre>{% anchor "hotness" "reddit-like hotness" %}</pre>
+<p>That's the equivalent of diving into a python module, with lots of "from X import *" at the top. Where do you find the definition of a symbol? At least, if it were Python, I could do a tag search in Vim, or a "go to definition" in Eclipse. If this practice is frowned upon in the rest of the Python world, why are so many programmers praising the Django templating system? Am I the only mad man here? My problems with this tag is that it doesn't translate the content, so I'll need to grep for its source and change it.</p>
+<p>The template tags in Django are about extending the templating language, as to provide the programmer with new and specialized ways to interact with the template and its environment. The reason for this "tag inflation" is that the django templating language, for all its richness (by tags and filters numbers, I mean), is really limited. Python expressions are not allowed, and for every imaginable use case, there needs to be a tag, specialized or not.</p>
+<p>How would Zope 3 solve, for example, a problem similar to the one the "anchor" tag handles? Well, rendering a special link for a content item could be as easy as</p>
+<pre>&lt;a href="" tal:replace="someobject/@@hotness_link"&gt;&lt;img src="hotness.gif" /&gt;&lt;/a&gt;
+</pre>
+<p>Is this better? I think so. I'm editing HTML, and the &lt;a /&gt; tag is way better in expressing what the end result will be, compared to a simple {% anchor %} tag. Even more, the &lt;img /&gt; tag inside is purely cosmetic, just to cue the viewer of what the final result will be. The entire &lt;a /&gt; tag, with its content, will be replaced by whatever result is rendered calling the the someobject/@@hotness_link view. Finding the source of the hotness_link view is easily introspectable TTW using a debug tool such as <a class="external-link" href="http://svn.zope.org/lovely.skinbrowser/">lovely.skinbrowser</a>.</p>
+<p>The ZPT templates from Zope 3 can also give you a mechanism where you can add new expression types, but there's just one or two packages in the wild that define new expression types. Now compare this to the regular Django projects, were defining new tags is something that almost all projects do.</p>
+<p>In conclusion, even though Django templates are much more imperative then ZPT, which are very declarative, they don't achieve the power and simplicity that they strive for.</p>

@@ -1,0 +1,29 @@
++++
+draft = false
+date = "2011-06-28T17:08:06-03:00"
+title = "Getting the superclasses for a python object"
+tags = ["zope2", "zope3", "cookbook", "Plone"]
+created = "2011-06-28T17:01:55-03:00"
+modified = "2011-06-28T17:09:03-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2011/06/28/getting-the-superclasses-for-a-python-object"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2011/06/28/getting-the-superclasses-for-a-python-object"
+]
++++
+
+<p>Zope 2 (and Plone) persistent objects usually have an intricate inheritance tree. Finding what classes an object inherits can be a time consuming task, hunting through the various eggs for the relevant source code. Below is a little snippet that shows how to easily get the list of superclasses:</p>
+<pre>(Pdb) pp type(ff).mro()
+(&lt;class 'plone.app.blob.subtypes.image.ExtensionBlobField'&gt;,
+&nbsp;&lt;class 'archetypes.schemaextender.field.TranslatableExtensionField'&gt;,
+&nbsp;&lt;class 'archetypes.schemaextender.field.BaseExtensionField'&gt;,
+&nbsp;&lt;class 'plone.app.blob.field.BlobField'&gt;,
+&nbsp;&lt;class 'Products.Archetypes.Field.ObjectField'&gt;,
+&nbsp;&lt;class 'Products.Archetypes.Field.Field'&gt;,
+&nbsp;&lt;class 'Products.Archetypes.Layer.DefaultLayerContainer'&gt;,
+&nbsp;&lt;class 'plone.app.blob.mixins.ImageFieldMixin'&gt;,
+&nbsp;&lt;class 'Products.Archetypes.Field.ImageField'&gt;,
+&nbsp;&lt;class 'Products.Archetypes.Field.FileField'&gt;,
+&nbsp;&lt;type 'ExtensionClass.Base'&gt;,
+&nbsp;&lt;type 'object'&gt;)</pre>
+<p>&nbsp;Credit goes to the <a class="external-link" href="http://pybites.blogspot.com/2009/01/mro-magic.html">original post</a> where I found this.</p>

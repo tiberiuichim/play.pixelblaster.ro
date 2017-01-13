@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2006-07-24T21:03:12-03:00"
+title = "Using z3 style events"
+tags = ["cookbook", "Plone"]
+created = "2006-07-24T20:52:16-03:00"
+modified = "2006-07-24T21:34:00-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/07/24/simple-form-of-using-z3-style-events"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2006/07/24/simple-form-of-using-z3-style-events"
+]
++++
+
+<p>Based on my previous entry on at_post_create_script, I was curios on how to achieve something like that using z3 style events. Now, I know that it's not the same and the following events are meant only to replace manage_afterAdd and so on, but I'm pretty sure that there are (or will be) events fired that would replace the at_post_* scripts.</p><p>So, easy as it gets:</p><p>Create a new python package inside the zope Products folder, add the following method inside __init__.py :</p><pre>def addedATDoc(ob, event):<br />    print "called"<br />    print ob<br />    print event</pre><p>Now add a configure.zcml file with the following content:</p><pre>&lt;configure<br />    xmlns="http://namespaces.zope.org/zope"<br />    xmlns:five="http://namespaces.zope.org/five"&gt;<br /><br />&lt;subscriber<br />      for="Products.ATContentTypes.interface.IATDocument<br />         zope.app.container.interfaces.IObjectAddedEvent"<br />         handler="Products.specialevent.addedATDoc"<br />/&gt;<br /></pre><p>Start zope in debug mode (with zopectl fg) and watch the terminal when a Plone Page is created. Only problem with this method is that it's zope-wise, instead of being site-wise. <a href="http://www.dieter.handshake.de/z23/index.html" target="_self">localevent</a> is a product that should help with that.<br /></p>

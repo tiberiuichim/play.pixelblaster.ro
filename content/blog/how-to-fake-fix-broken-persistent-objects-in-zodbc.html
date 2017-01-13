@@ -1,0 +1,42 @@
++++
+draft = false
+date = "2016-08-18T16:56:38-02:00"
+title = "How to fake fix broken persistent objects in ZODB"
+tags = ["debugging", "zope2", "ZODB", "zope", "cookbook", "Plone"]
+created = "2016-08-18T16:47:52-02:00"
+modified = "2016-08-18T16:57:12-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodbc"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodbc"
+]
++++
+
+<p>I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.</p>
+<p>My solution, because I didn't care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys.modules:</p>
+<pre>class NavigableString(unicode):
+    def __new__(cls):
+        return unicode.__new__(cls)
+
+    def __getstate__(self):
+        return self.__dict__
+
+
+class Tag(object):
+    def __getstate__(self):
+        return self.__dict__
+
+
+class BeautifulSoup(object):
+    def __getstate__(self):
+        return self.__dict__
+
+
+class fake_bs3(object):
+    NavigableString = NavigableString
+    Tag = Tag
+    BeautifulSoup = BeautifulSoup
+
+import sys
+sys.modules['BeautifulSoup'] = fake_bs3</pre>
+<div>&nbsp;</div>

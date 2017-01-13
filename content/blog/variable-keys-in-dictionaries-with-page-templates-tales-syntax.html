@@ -1,0 +1,22 @@
++++
+draft = false
+date = "2009-02-11T19:45:41-02:00"
+title = "Variable keys in dictionaries with Page Templates TALES syntax"
+tags = ["zope", "zope2", "zope3", "cookbook", "Plone"]
+created = "2009-02-11T19:40:48-02:00"
+modified = "2009-02-16T11:32:43-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax"
+]
++++
+
+<p>I admit, I didn't knew this until now. In the following construction:</p>
+<pre>&lt;div tal:content="somedict/keyname/someattr" /&gt;</pre>
+<p>"keyname" is taken as a string, it's the literal name of the key for the somedict mapping. To use a variable instead of the literal value of the key name, I used to do:</p>
+<pre>&lt;div tal:content="python somedict[key].someattr" /&gt;</pre>
+<p>Browsing through the zope.app.catalog code, I saw that there's actually a way to use the TALES syntax:</p>
+<pre>&lt;div tal:content="somedict/?key/someattr" /&gt;
+</pre>
+<p>I'm not sure that this works with TTW code in Zope 2 (I expect that it works with browser views), so I'll just have to try this next time I have the chance.</p>

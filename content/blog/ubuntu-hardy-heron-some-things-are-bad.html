@@ -1,0 +1,19 @@
++++
+draft = false
+date = "2008-03-28T09:53:44-02:00"
+title = "Ubuntu Hardy Heron: some things are bad"
+tags = ["rants", "Linux"]
+created = "2008-03-28T09:33:31-02:00"
+modified = "2008-03-28T10:09:59-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2008/03/28/ubuntu-hardy-heron-some-things-are-bad"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2008/03/28/ubuntu-hardy-heron-some-things-are-bad"
+]
++++
+
+<p>Note to self: always create a root account on Ubuntu. <br /></p>
+<p>I've updated my laptop to Kubuntu Hardy Heron, and while some things worked fine, there are a couple of stupid bugs that chained to make my life hard.</p>
+<p>First of all, why did the Network Configuration applet in Settings Manager in KDE saw fit to delete the hostname of my localhost, tibi-laptop, from /etc/hosts? Now I can't run anything with sudo, as it imediately aborts with an error "No hostname tibi-laptop". Why can't my laptop find any Access Point if there wasn't one accessible at boot time? Why, when I've started Ubuntu in single mode, was I greeted with a dialog that asked me to select an option (continue normally, drop in root shell, fix X) but which didn't allow me to select anything (the keyboard wasn't properly recognized, even though that I have a perfectly regular keyboard on my laptop). Why does the reboot never finishes and maxes out the CPU? <br /></p>
+<p>The only way I could fix the hosts problem, while avoiding to hunt for some Linux cd, was to boot in Windows and install <a href="http://ext2fsd.sourceforge.net/">Ext2fsd</a> and after that I was able to mount and change the /etc/hosts file.<br /></p>
+<p>These things are basic, they should just work. I'm aware that Hardy is beta right now and I'm using the KDE part of Hardy, but with Gutsy, (even though that applet always screwed up my network settings), I never had these problems. Shouldn't things go forward instead of backwards?<br /></p>

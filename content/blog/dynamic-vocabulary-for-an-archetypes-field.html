@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2006-10-05T02:08:44-03:00"
+title = "Dynamic vocabulary for an Archetypes field"
+tags = ["cookbook", "Plone"]
+created = "2006-10-05T02:02:45-03:00"
+modified = "2006-10-05T02:09:11-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/10/05/dynamic-vocabulary-for-an-archetypes-field"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2006/10/05/dynamic-vocabulary-for-an-archetypes-field"
+]
++++
+
+<p>I keep forgetting how to do dynamic vocabularies for an AT field. As explained in the Vocabulary() method in Field.py, this method will return either the list defined in the vocabulary parameter of the field, or, among others, the list resulting from calling the method defined in the string given as value to the vocabulary parameter.</p><p>The code below will make the explanation easier to understand:</p><pre>... <br />    LinesField(<br />        name='domains',<br />        vocabulary='getVocabularyForDomains' )<br />...<br />    def getVocabularyForDomains(self):<br />        return ['first', 'second', 'third', 'etc']</pre>

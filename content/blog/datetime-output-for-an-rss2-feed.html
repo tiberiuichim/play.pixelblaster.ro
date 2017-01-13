@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2006-09-21T20:04:54-03:00"
+title = "Datetime output for an RSS2 feed"
+tags = ["cookbook", "Plone"]
+created = "2006-09-21T20:02:50-03:00"
+modified = "2006-09-21T20:04:54-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/09/21/datetime-output-for-an-rss2-feed"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2006/09/21/datetime-output-for-an-rss2-feed"
+]
++++
+
+<p>To display properly, an RSS 2 feed needs to have the date entered in something resembling this format:</p><pre>&lt;pubDate&gt;Thu, 21 Sep 2006 15:15:26 GMT&lt;/pubDate&gt;</pre><p>This is needed to get a date to display in this format:</p><pre>&lt;pubDate tal:content="python: DateTime(res.Date).rfc822()"&gt; &lt;/pubDate&gt;</pre>

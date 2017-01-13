@@ -1,0 +1,35 @@
++++
+draft = false
+date = "2008-12-03T12:05:20-02:00"
+title = "Specific imports versus module imports in Python"
+tags = ["Python", "rants"]
+created = "2008-12-03T11:22:16-02:00"
+modified = "2008-12-03T12:53:56-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2008/12/03/specific-imports-versus-module-imports-in-python"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2008/12/03/specific-imports-versus-module-imports-in-python"
+]
++++
+
+<p>I've always been a fan of explicit, separate imports in Python, vs generic module imports. Maybe it's because I like things to be explicit, or I've been spoiled by the way Eclipse Pydev deals with auto-importing, but I have an aversion towards generic module imports. To keep the code style consistent, I even rewrite to this style any foreign code that ends up in my code.</p>
+<p>Specifically, I'm talking about:</p>
+<pre>from foo import Bar
+Bar()</pre>
+<p>vs</p>
+<pre>import foo
+foo.Bar()
+</pre>
+<p>Needless to say, I like the first style better.</p>
+<p>There are advantages and disadvantages for each of the above methods:</p>
+<ul><li>general module imports demand less from the editor (the programmer needs to type less "import" lines and the editor doesn't need to be very much aware of Python - emacs and vim users will probably favor this style)</li><li>but it makes it hard sometimes to figure out where a module comes from. Example: you're deep down reading a module and you encounter a line referencing the component module. Now, where does that component module comes from? Could be both of the following imports:<br /></li></ul>
+<pre>from zope.app import component
+from zope import component</pre>
+<p>Of course, some people sensed this problem and write code like:</p>
+<pre>class MyView(object):
+&nbsp;&nbsp;&nbsp; template = zope.app.pagetemplate.ViewPageTemplateFile('template.pt')
+</pre>
+<p>But this code is hard to read, hard to write and is almost at the limit with the self-imposed line length of 80 characters, which means most of the times it needs to be broken in two lines.</p>
+<p>Today I became aware of what I consider the biggest advantage of using specific import (from foo import Bar). Heavy refactoring, in the absence of a comprehensive test suite, is a lot easier! When starting the program, the imports will fail and you get an immediate pointer to where you need to make a fix. If I would have used a generic module import, the error will have appeared only when trying to use the piece of code that calls foo.Bar().</p>
+<p>TL;DR: use specific imports! If your editor doesn't support it, take some time to look at Eclipse Pydev or Netbeans, two free IDEs with Python support. You'll get:</p>
+<ul><li> easier refactoring <br /></li><li> better code legibility</li><li>I'll be happier when I need to reuse code snippets :-)<br /></li></ul>

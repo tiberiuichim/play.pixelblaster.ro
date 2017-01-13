@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2007-03-23T15:00:13-02:00"
+title = "Getting the registered Zope 3 skin name for an interface"
+tags = ["zope3", "cookbook"]
+created = "2007-03-23T14:19:23-02:00"
+modified = "2007-06-07T16:59:36-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2007/03/23/getting-the-registered-zope-3-skin-name-for-an-interface"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2007/03/23/getting-the-registered-zope-3-skin-name-for-an-interface"
+]
++++
+
+<p><b>Problem:</b> I need to get the skin name for a Zope 3 interface registered as skin.</p><p><b>Solution</b></p><p>Starting with Zope 3.3, the <a href="http://kpug.zwiki.org/WhatIsNewInZope33#simplify-skinning">skinning mechanism has been simplified and skins are now just interfaces</a>. This means that a skin interface is now a named utility for the IBrowserSkinType. To get the name with which this class has been registered as an utility, something along these lines is needed:</p><pre>&gt;&gt;&gt; from myapp.layer import IMyAppSkin<br />&gt;&gt;&gt; from zope.app.apidoc.component import getUtilities<br />&gt;&gt;&gt; from zope.publisher.interfaces.browser import IBrowserSkinType<br />&gt;&gt;&gt; skins = getUtilities(IBrowserSkinType)<br />&gt;&gt;&gt; for skinreg in skins:<br />...     if skinreg.component == IMyAppSkin:<br />...         skin_name = skinreg.name<br />...         break<br /></pre><p>I'm using the apidoc module here, which feels a bit like cheating. Another, "apidoc-free" version is something like this:</p><pre>&gt;&gt;&gt; from zope.component import getGlobalSiteManager<br />&gt;&gt;&gt; gsm = getGlobalSiteManager()<br />&gt;&gt;&gt; skins = gsm.getUtilitiesFor(IBrowserSkinType)<br />&gt;&gt;&gt; for skinreg in skins:<br />...     if IMyAppSkin == skinreg[1]:<br />...         skin_name = skinreg[0]<br />...         break<br /><br /></pre><p>getUtilitiesFor() returns a list of tuples, for example: [(u'Basic', &lt;InterfaceClass zope.app.basicskin.IBasicSkin&gt;), (u'Debug', &lt;InterfaceClass zope.app.debugskin.IDebugSkin&gt;), ... ]</p><p>UPDATE: fixed a small bug in the second example, that's what you get if I don't test...<br /></p><p>You can get the current skin interface with: <br /></p><pre>curentSkinInterface = [iskin for iskin in interface.directlyProvidedBy(self.request) if <br />							IBrowserSkinType.providedBy(iskin)][0]</pre>

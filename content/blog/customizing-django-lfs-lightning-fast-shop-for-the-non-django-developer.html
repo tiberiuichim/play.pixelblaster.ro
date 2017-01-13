@@ -1,0 +1,25 @@
++++
+draft = false
+date = "2009-09-17T22:59:23-03:00"
+title = "Customizing Django LFS (Lightning Fast Shop) for the non-django developer"
+tags = ["rants", "cookbook", "Django"]
+created = "2009-09-17T21:26:41-03:00"
+modified = "2009-09-17T22:59:23-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/09/17/customizing-django-lfs-lightning-fast-shop-for-the-non-django-developer"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2009/09/17/customizing-django-lfs-lightning-fast-shop-for-the-non-django-developer"
+]
++++
+
+<p>I'm not a Django developer, but I have a project that involves deploying a LFS site, and it took me a bit of time and effort to understand how to customize its templates and resources. This all may seem obvious to the any Django developer, but I'm not, so I think this info needs to be out there.</p>
+<p>As a side note, at first I have reviewed Satchmo, as it seemed to have more traction in the Django community (being a Zope/Plone developer, I am more aware of the previous work done by the LFS developer, the EasyShop). The Satchmo installation, for the un-initiated, seems to be a nightmare of many different settings that needed to be tweaked, skeletons that don't work OOTB, at least in the way I have installed them. On top of all this,  it seems to think that I also need to develop some sort of project that will integrate with the Satchmo shop (but this may be due to Django). What happened to treating your product as the end product? After a bit of effort, I had one instance running and ready to review it. Several days, in another Linux virtual machine (I've switched from VMWare to VirtualBox), I've tried to install Satchmo again, this time using djangorecipe. I didn't have the same patience, though.</p>
+<p>A short look at LFS convinced me to at least give it a try: there is a buildout that can be installed easily (although there were a few dependencies that I had to install), the "backend" is polished compared to the default django admin views used by Satchmo, and, while it is simpler, less featured, than Satchmo, it does everything I need.</p>
+<p>Onward to customizing the LFS: my goal is to be able to change templates (for example, the base layout) and publish a new logo.</p>
+<p>I've created a new folder "mytheme" inside the buildout, with two subfolders: "templates" and "static". The path to the templates folder needs to be inserted in the "TEMPLATES_DIRS" variables from settings.py. To customize the base template, for example, I've created a  "lfs/base.html" file inside the "templates" folder. Its content can be copied from the original in the lfs_theme folder. I've added a new line in the header section, pointing to a new CSS file that will customize the base LFS stylesheet.</p>
+<pre>&lt;link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}mytheme/css/custom.css" /&gt;</pre>
+<p>As a side note, this templates folder can be used for overriding any other template: templates in Django are usually denoted by a relative path, and you need only to replicate this path inside our overriding templates folder.</p>
+<p>Next, overriding and creating new resources: I have created a "static" folder inside "mytheme" and I've linked to it inside the lfs_project/media folder. Inside the "mytheme" folder I can now host images and files, in 2 new "css" and "img" subfolders. Back in my customized base.html, I have changed the logo path:</p>
+<pre>&lt;img class="logo" src="{{ MEDIA_URL }}mytheme/img/logo.jpg" alt="Logo" /&gt;</pre>
+<p>That's about it: I got a custom CSS, the ability to customize templates and to point to new images. I'm happy for now.</p>
+<p>As I have said in the beginning, this is all basic stuff. No harm done in pointing to the obvious though, as there seem to be many new developers flocking to Django, all with different level of expertise.</p>

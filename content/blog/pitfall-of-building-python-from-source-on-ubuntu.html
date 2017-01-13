@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2006-10-29T12:32:46-02:00"
+title = "Pitfall of building python from source on Ubuntu"
+tags = ["Linux"]
+created = "2006-10-29T12:19:17-02:00"
+modified = "2006-10-29T12:32:46-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/10/29/pitfall-of-building-python-from-source-on-ubuntu"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2006/10/29/pitfall-of-building-python-from-source-on-ubuntu"
+]
++++
+
+<p>Zope 3.3 doesn't work well with the python 2.4.4 that comes with Ubuntu Edgy. Something about a readline change somewhere in the python standard library. So I had to build python 2.4.3 from source. Being an impatient being, I haven't give it much thought and just unpacked the python tarball, hit ./configure and make install. I ended up with python installed in /usr/local/bin/python, which would be really really cool if Ubuntu wouldn't depend on python and wouldn't place /usr/local/bin at the beginning of $PATH. The problem became apparent when a simple upgrade failed because of a missing xdg python package. <br />I changed the PATH and erased /usr/local/bin from it, restarted the update and everything was fine. Searching for a bit in /etc revealed a login.defs file that contains the PATH as it would be defined for the users. I changed this file, but I don't have the patience to update now, so I presume that on my next update /usr/local/bin would be moved to the back of the $PATH, as I have specified in it.<br /></p>

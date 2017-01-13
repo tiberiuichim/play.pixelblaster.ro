@@ -50,7 +50,7 @@ def hugo_doc(e):
         fields[field.get('name')] = (field.text or '').strip()
 
     if fields['keywords']:
-        fields['tags'] = fields['keywords'].replace('(', '[').replace(')', ']')
+        fields['tags'] = json.dumps(eval(fields['keywords']))
 
     for fname in ['created', 'modified', 'effective']:
         fields[fname] = df(fields[fname])

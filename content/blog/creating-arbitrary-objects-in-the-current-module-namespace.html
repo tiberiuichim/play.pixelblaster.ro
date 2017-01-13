@@ -1,0 +1,16 @@
++++
+draft = false
+date = "2006-08-16T20:26:30-03:00"
+title = "Creating arbitrary objects in the current module namespace"
+tags = ["Python", "cookbook"]
+created = "2006-08-16T20:23:52-03:00"
+modified = "2006-08-17T15:40:01-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace"
+]
++++
+
+<p>This short recipe will show how to create arbitrary named objects in the current module namespace. Either globals() or locals() can be used for the task, depending on the namespace where the variables have to be created (global or local). <br /></p>
+<pre><code>&gt;&gt;&gt; for i in range(10):<br />&gt;&gt;&gt;    globals()['test%s' % i] = i<br />&gt;&gt;&gt; print test0<br />0<br />&gt;&gt;&gt; print test1<br />1<br /></code></pre>

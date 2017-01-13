@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2006-08-04T15:09:38-03:00"
+title = "Getting the real path of a zope product"
+tags = ["zope2", "cookbook", "Plone"]
+created = "2006-08-04T15:07:03-03:00"
+modified = "2006-08-04T15:09:38-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/08/04/getting-the-real-path-of-a-zope-product"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2006/08/04/getting-the-real-path-of-a-zope-product"
+]
++++
+
+<p>To get the path of a zope product, one can use the following snippet:</p><pre>from Globals import package_home<br />product_path = package_home(product_globals)</pre>

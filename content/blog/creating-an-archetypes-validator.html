@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2006-08-27T17:34:36-03:00"
+title = "Creating an Archetypes validator"
+tags = ["cookbook", "Plone"]
+created = "2006-08-27T16:42:08-03:00"
+modified = "2006-08-27T18:12:26-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/08/27/creating-an-archetypes-validator"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2006/08/27/creating-an-archetypes-validator"
+]
++++
+
+<p>Archetypes validators are used in the schema definition for a field. Default validators include isEmail, isURL, etc. <br /></p><p>This is how to create a new validator:</p><p>First, the validator has to be registered with Archetypes, or zope will complain at startup and ignore the validator. So add something like this in the __init__.py of the product:<br /></p><pre>from Products.validation import validation<br />from validators import SamePasswordValidator<br />validation.register(SamePasswordValidator('isSamePassword'))</pre>Next, the source code for the validator (validators.py):<br /><pre>from Products.validation.interfaces import ivalidator<br /><br />class SamePasswordValidator:<br />    __implements__ = (ivalidator,)<br /><br />    def __init__(self, name):<br />        self.name = name<br /><br />    def __call__(self, value, *args, **kwargs):<br />        instance    = kwargs.get('instance', None)<br />        req = kwargs['REQUEST']<br />        pass1 = req.form.get('password', None)<br />        if pass1 &lt;&gt; value:<br />            return """Validation failed: You need to enter the password twice."""<br /></pre>

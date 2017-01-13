@@ -1,0 +1,23 @@
++++
+draft = false
+date = "2008-11-18T15:10:43-02:00"
+title = "Subversion 1.5 + default instalation Plone 3.1 buildout: no problems here"
+tags = ["cookbook", "buildout", "Plone"]
+created = "2008-11-18T15:02:02-02:00"
+modified = "2008-11-18T15:10:43-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2008/11/18/subversion-1-5-default-instalation-plone-3-1-buildout-no-problems-here"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2008/11/18/subversion-1-5-default-instalation-plone-3-1-buildout-no-problems-here"
+]
++++
+
+<p>I've hit the setuptools + subversion 1.5 problem again with a freshly install Plone 3.1.7 buildout: I've added my egg develop folder in zinstance/src/, I've added the egg in the relevant sections in buildout.cfg, but it wouldn't work because of the incompatibility with the old setuptools version.</p>
+<p>The solution is to upgrade the installed setuptools to the latest version. For example, for a standalone Plone installed at /home/tibi/Plone, we have this structure:</p>
+<pre>/home/tibi/Plone
+&nbsp;&nbsp; /Python-2.4
+&nbsp;&nbsp; /buildout-cache
+&nbsp;&nbsp; /zinstance</pre>
+<p>I've changed directory to the Python-2.4 from above and ran:</p>
+<pre>bin/easy_install -U setuptools</pre>
+<p>Then I could succesfully run the buildout in the zinstance folder.</p>

@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2007-02-15T16:31:10-02:00"
+title = "Using Zope Page Templates macros in other templates"
+tags = ["zope3", "cookbook"]
+created = "2007-02-15T15:54:09-02:00"
+modified = "2007-02-15T16:43:15-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2007/02/15/using-zope-page-templates-macros-in-other-templates"
+author = "Tiberiu Ichim"
+aliases = [
+    "/blog/archive/2007/02/15/using-zope-page-templates-macros-in-other-templates"
+]
++++
+
+<p>I won't try to discuss here the benefits of ZPT macros vs. viewlets and content providers or viceversa or when to use each of them, I'll just show a simple (basic even) technique of reusing template code across page templates, using the macros mechanism.</p><p>Trying to get the macros with something like context/@@page_with_macros/macros/the_macro doesn't work, as BrowserView (and BrowserPage) doesn't know anything about Zope Page Templates. Of course, that's also because Zope 3 doesn't directly publishes templates, only pages. The technique involves setting the page template who's macros you want to access as attributes of the curent page, something along these lines:</p><pre>class MyPage(BrowserPage):rows<br />     macro_template = ViewPageTemplate('template_with_macros.pt)</pre><p>In the template associated with this page, you can have:<br /></p><pre>&lt;metal:macro metal:use-macro="view/macro_template/macros/the_macro"&gt;</pre><p><br /></p>
