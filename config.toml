@@ -1,0 +1,6 @@
+languageCode = "en-us"
+title = "Programming Playground"
+baseurl = "http://play.pixelblaster.ro/"
+
+[Params]
+ Author = "Tiberiu Ichim"
