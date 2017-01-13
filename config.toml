@@ -1,6 +1,32 @@
+# theme = "hyde"
+# theme = "strange-case"
+theme = "hyde-pb"
 languageCode = "en-us"
-title = "Programming Playground"
-baseurl = "http://play.pixelblaster.ro/"
+title = "The Plone Expanse"
+description ="Zope/Plone tips and tutorial, by Tiberiu Ichim"
+baseurl = "http://play.pixelblaster.ro"
+Paginate = 10
 
-[Params]
- Author = "Tiberiu Ichim"
+[permalinks]
+    # Optional. Change the permalink format for the 'post' content type.
+    # The format shown here is the same one Jekyll/Octopress uses by default.
+    blog = "/blog/:year/:month/:day/:title/"
+
+[params]
+Author = "Tiberiu Ichim"
+Description = "My thoughts, tutorials and rants on programming with a focus on the Plone, Zope, with a dash of everything else"
+Copyright = "@2016 Tiberiu Ichim"
+CopyrightTibi = "@2016 Tiberiu Ichim"
+Categories = ['asta', 'este']
+
+layoutReverse = true
+disqusShortName = "play-pixelblaster-ro"
+# themeColor = "theme-base-08"
+
+[[menu.main]]
+    name = "Github"
+    post = "<span class='glyphicon glyphicon-fire'></span>"
+    url = "https://github.com/tiberiuichim"
+
+[taxonomies]
+tag = "tags"

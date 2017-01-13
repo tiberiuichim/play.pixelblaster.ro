@@ -1,8 +1,9 @@
-#!/home/tibi/tools/bin/python
+#!./bin/python
 
 from lxml import etree
-from urlparse import urlsplit
+from urlparse import urlparse
 import codecs
+import json
 import os
 import pendulum
 
@@ -13,11 +14,14 @@ BLOGPOST = u"""+++
 draft = false
 date = "{effective}"
 title = "{title}"
-keywords = "{subject}"
+tags = {tags}
 created = "{created}"
 modified = "{modified}"
 permaLink = "{permaLink}"
 author = "Tiberiu Ichim"
+aliases = [
+    "{alias}"
+]
 +++
 
 {text}
@@ -34,18 +38,25 @@ def df(s):
     return d.to_iso8601_string()
 
 
+def toalias(s):
+    """Extract the path from a URL"""
+    url = urlparse(s)
+    return url.path
+
+
 def hugo_doc(e):
     fields = {}
     for field in e.xpath('field'):
         fields[field.get('name')] = (field.text or '').strip()
 
     if fields['keywords']:
-        fields['subject'] = ', '.join(eval(fields['keywords']))
+        fields['tags'] = fields['keywords'].replace('(', '[').replace(')', ']')
 
     for fname in ['created', 'modified', 'effective']:
         fields[fname] = df(fields[fname])
 
     fields['title'] = fields['title'].replace('"', '')
+    fields['alias'] = toalias(fields['permaLink'])
     return BLOGPOST.format(**fields)
 
 
@@ -61,7 +72,7 @@ def write_hugo_post(base, path, hugodoc):
     parents, slug = frags[:-1], frags[-1]
 
     name = slug + '.html'
-    basedir = os.path.join(base, *parents)
+    basedir = os.path.join(base, parents[0])    # /content/blog
     if not os.path.exists(basedir):
         os.makedirs(basedir)
     fpath = os.path.join(basedir, name)
@@ -81,7 +92,7 @@ def main():
     e = etree.fromstring(xml)
     for entry in e.xpath('//entry'):
         link = entry.xpath("field[@name='permaLink']")[0].text
-        path = urlsplit(link)[2]
+        path = urlparse(link).path
 
         write_hugo_post(OUT, path, hugo_doc(entry))
 
