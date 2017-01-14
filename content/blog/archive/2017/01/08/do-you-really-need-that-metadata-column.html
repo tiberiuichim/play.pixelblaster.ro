@@ -1,0 +1,49 @@
++++
+draft = false
+date = "2017-01-08T09:21:46-01:00"
+title = "Do you really need that metadata column?"
+keywords = "zope2, zope, cookbook, Plone, tutorial, ZCatalog"
+created = "2017-01-08T08:41:30-01:00"
+modified = "2017-01-08T12:31:14-01:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2017/01/08/do-you-really-need-that-metadata-column"
+author = "Tiberiu Ichim"
++++
+
+<p>It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&nbsp;</p>
+<p>As an example: when exploring collective.portlet.collectionfilter I've noticed that the definition of the filters need both the index name and the metadata column. Ex:</p>
+<pre>GROUPBY_CRITERIA = {
+    'Subject': {
+        'index': 'Subject',  # For querying
+        'metadata': 'Subject',  # For constructing the list
+        'display_modifier': None,  # For modifying list items (e.g. dates)
+        'query_range': None  # For range searches (e.g. for dates or numbers)
+    },
+...</pre>
+<div>The metadata is needed because the search result is a whole bag of brains and the portlet groups results by their values, so it needs to know the real values. With minimal changes it is possible to avoid the need for that metadata column.</div>
+<p>This is the original code in collectionfilter.py:</p>
+<pre>attr = GROUPBY_CRITERIA[self.data.group_by]['metadata']
+mod = GROUPBY_CRITERIA[self.data.group_by]['display_modifier']
+
+grouped_results = {}
+for item in results:
+    val = getattr(item, attr, None)
+    if callable(val):
+        val = val()
+    if not getattr(val, '__iter__', False):
+        val = [val]</pre>
+<div>And these are the minimal changes:</div>
+<pre>mod = GROUPBY_CRITERIA[self.data.group_by]['display_modifier']
+
+catalog = getToolByName(self.context, 'portal_catalog')
+unindex = catalog._catalog.indexes[idx]._unindex
+
+grouped_results = {}
+for item in results:
+    rid = item._brain.getRID()
+    # val = getattr(item, attr, None)
+    val = unindex.get(rid)
+    if callable(val):
+        val = val()
+    if not getattr(val, '__iter__', False):
+        val = [val]</pre>
+<p>It reads the field values from the _unindex mapping of the indexes (which exist for most of the indexes in the Plone catalog. Exceptions are indexes for Title, Description, getObjPositionInParent and SearchableText). Most of the ZCatalog indexes have two mappings where they store information: the forward "mapping" (field value =&gt; objectid) and the reverse mapping (object id =&gt; field value). In this above snippet we're reading the reverse mapping to get the original field value. So, no need for a dedicated metadata column.</p>

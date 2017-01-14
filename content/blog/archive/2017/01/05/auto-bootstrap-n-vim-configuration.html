@@ -1,0 +1,19 @@
++++
+draft = false
+date = "2017-01-05T19:01:08-01:00"
+title = "Auto-bootstrap (n)vim configuration"
+keywords = "cookbook, vim"
+created = "2017-01-05T18:56:15-01:00"
+modified = "2017-01-05T19:01:08-01:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2017/01/05/auto-bootstrap-n-vim-configuration"
+author = "Tiberiu Ichim"
++++
+
+<p>Ever since I've moved to Neovim and redid my whole setup, I've had this piece of code at the top of my init.vim:</p>
+<pre><code>if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+</code></pre>
+Together with the rest of that dotfile, it automatically bootstraps the whole plugins install process, which makes moving to a new machine a simple operation of just cloning the repo in the proper location, start once Neovim to let it bootstrap, then boom, everything fits in place. For reference, my nvim configuration is here&nbsp;https://github.com/tiberiuichim/dotfiles/blob/master/nvim/init.vim

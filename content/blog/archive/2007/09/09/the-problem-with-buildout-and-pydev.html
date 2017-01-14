@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2007-09-09T12:40:53-03:00"
+title = "The problem with buildout and PyDev"
+keywords = "zope3, cookbook"
+created = "2007-09-09T11:35:53-03:00"
+modified = "2007-09-09T12:41:44-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2007/09/09/the-problem-with-buildout-and-pydev"
+author = "Tiberiu Ichim"
++++
+
+<p>Lately it has been possible to develop and simply deploy a Zope 3 based application by organizing code in a single Python package that uses zope3 packages as dependency,  plus a <a href="http://svn.zope.org/zc.zope3recipes/">buildout recipe that creates a running zope 3 instance</a> based on these eggs. For anyone using Eclipse + PyDev, this approach has the following inconvenience: the `eggs` folder can't be properly imported as external source folder for the project. Eclipse knows about eggs, but only when they're in marked in a .pth file, inside the site-packages folder. Creating a .pth file in the eggs folder and reimporting the folder won't do any good, PyDev continues to ignore the eggs. <br /></p><p>Solution? Let me introduce <a href="http://svn.plone.org/svn/collective/pb.recipes.pydev/">pb.recipes.pydev</a>, which generates a .pydevproject file, based on the dependencies of a bunch of specified eggs (for example, the zope3-dependent application that you're developing). Closing and reopening the project in Eclipse, after generating that file, will reindex the packages and will enable <i>sweet</i> auto-completion, auto-import and "go to source", provided you have the PyDev Extensions. <br /></p><p>The recipe has a couple of problems at the moment: <br /></p><ul><li>it triggers recomputing the egg dependencies, which is already done once by the buildout process, <br /></li><li>it overwrites the .pydevproject file with a possibly simplified version</li><li>Eclipse doesn't import zipped egg files, so you'll have to keep the the eggs unpacked.<br /></li></ul>

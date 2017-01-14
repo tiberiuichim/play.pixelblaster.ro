@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2007-02-06T10:32:23-02:00"
+title = "Better load time for Plone sites"
+keywords = "cookbook, Plone"
+created = "2007-02-06T10:12:05-02:00"
+modified = "2007-02-08T12:59:12-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2007/02/06/better-load-time-for-plone-sites"
+author = "Tiberiu Ichim"
++++
+
+<p>You probably know by now that Plone sites are better suited at content creation that content delivery. Still, the Plone solution is too good to pass even when creating simpler sites, where +99% of the trafic will be anonymous one. And when you have a good hammer, everything looks like a nail.</p><p>One of the various problems that Plone has when delivering this brochure type of websites is that the page weight is pretty high. On an average page that loads some images (a logo and a splash image), a Plone page can weight at about 500 kb. Pretty high, especially when the page doesn't seem too "different". The Javascript files loaded for this page are about one third of its weight and probably not used, if your website doesn't use the livesearch, search engine word highlight, internal search word highlight, the icons for external links or any other "gimmicks" that Plone uses to enhance the user experience. <br /></p><p>To prevent these files to load for the anonymous user, place the following condition for the undersired javascript files in portal_javascripts:</p><pre>python: not portal.portal_membership.isAnonymousUser()</pre><p>In my case, after some testing, I've decided to leave the following files untouched, to make it possible for site editors to login from the site:</p><pre>register_function.js<br />plone_javascript_variables.js<br />cookie_functions.js<br />login.js<br /></pre><p>Next, a look at the css files that are being loaded will show some possibility for improvement there as well, but not as dramatic. Many of the files there can be conditioned with the same line as above, but this depends on the type of website being developed.</p><p>You can enable the debug mode for both portal_javascripts and portal_css to help observe which file gets loaded. Of course, placing those conditions in portal_javascripts and portal_css will probably most likely increase the load on the server, but the trade-off is probably worth it.<br /></p><p>And finally, enabling mod_cache and mod_deflate for the website will help even further reduce the number of bytes needed to be loaded from the Plone site. <br /></p>

@@ -1,0 +1,39 @@
++++
+draft = false
+date = "2011-03-09T18:09:19-02:00"
+title = "Export/import users in and out of Plone"
+keywords = "cookbook, Plone"
+created = "2011-03-09T18:03:13-02:00"
+modified = "2011-03-09T18:09:19-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2011/03/09/export-import-users-in-and-out-of-plone"
+author = "Tiberiu Ichim"
++++
+
+<p>A dirty quick method of importing and exporting the users (only usernames and passwords) out of Plone, using 2 external methods. Code below, not much else to say.</p>
+<pre>import cPickle
+
+def export(self):
+    pas = self.acl_users
+    users = pas.source_users
+    passwords = users._user_passwords
+    result = dict(passwords)
+
+    f = open('/tmp/out.blob', 'w')
+    cPickle.dump(result, f)
+    f.close()
+
+    return "done"
+
+def import_users(self):
+    pas = self.acl_users
+    users = pas.source_users
+    f = open('/tmp/out.blob')
+    res = cPickle.load(f)
+    f.close()
+
+    for uid, pwd in res.items():
+        users.addUser(uid, uid, pwd)
+
+    return "done"
+</pre>
+<h2><br /></h2>

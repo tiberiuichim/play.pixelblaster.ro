@@ -1,0 +1,85 @@
++++
+draft = false
+date = "2007-12-17T18:16:36-02:00"
+title = "Template layout options when developing with Zope 3"
+keywords = "zope3, cookbook"
+created = "2007-12-17T18:05:47-02:00"
+modified = "2008-01-07T18:46:46-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2007/12/17/template-layout-options-when-developing-with-zope-3"
+author = "Tiberiu Ichim"
++++
+
+<p>When developing a Zope 2 site, the way the templates would be laid out is obvious: create a template for the site layout, use macros and slots to fill in that template and use the CMF skin overriding mechanism when you have to customize a certain template or Python script for another skin. Plone has been using this mechanism very successfully.<br /></p>
+<p>With Zope 3 the path is not very clear. There are several mechanisms, each with its advantages and disadvantages. Let's take an example website, let's say a multinational company website and discuss how will these various solutions apply.</p>
+<h3>Insert rendered HTML with TAL</h3>
+<p>This method of including content from another page (let's say template for now) resembles PHP's include(); I'd still call this method superior to the PHP method of including another page as, with Zope, you can render that page based on the context on which it is called:</p>
+<pre>&lt;div tal:replace="structure context/@@footer" /&gt;<br /></pre>
+<p>Simple, but has drawbacks: on each page of the website you'll have to "copy" the basic site structure and insert the specifics of the page in clearly delimited areas. For more then a few pages, this makes it very hard to change the basic website structure, as it would require changing all the pages in the site. Plus, you can't easily define reusable templates because you can't fill those templates with values except based on the context for which they are rendered.<br /></p>
+<h3>METAL: Macros and Slots, just like "classic Plone"</h3>
+<p>The classic PageTemplates method of separating the site layout from the general page layout has been to use the METAL extension, namely macros and slots. This would be achieved as such:</p>
+<p>First, we have the site template, let's call it <i>template.pt</i></p>
+<pre>&lt;html metal:define-macro="page"&gt;<br />	&lt;head metal:define-slot="header"&gt;<br />		&lt;title&gt;Some title&lt;/title&gt;<br />	&lt;/head&gt;<br />	&lt;body metal:define-slot="body"&gt;<br />		Body content comes here<br />	&lt;/body&gt;<br />&lt;/html&gt;<br /></pre>
+<p>Next, we need to make this macro available. First, we publish this page under the "view_macros" page name and add it to the 'page_macros' tuple of the `standard_macros` view. Some notes about this special view: it is a special browser view which implements the zope.interface.common.mapping.IItemMapping (see for example the standard_macros.py from zope.app.basicskin and zope.app.rotterdam). This special view has a list of page names that provide macros and a list of aliases between macros (for example, you might want to have the "page" macro also available under the "dialog" macro name).</p>
+<p>You then reference this macro from your page, let's say our main page of the website, the `page.pt` file:</p>
+<pre>&lt;html metal:use-macro="context/@@standard_macros/page"&gt;<br />	&lt;head metal:fill-slot="header"&gt;<br />		&lt;title&gt;MyTitle&lt;/title&gt;<br />	&lt;/head&gt;<br />	&lt;body metal:fill-slot="body"&gt;<br />		Content here...<br />	&lt;/body&gt;<br />&lt;/html&gt;<br /></pre>
+<p>You can, of course, add new pages that will hold macros and add them to the macro_pages tuple of the StandardMacros view, reference them from the template and so on.</p>
+<p>Another method of getting some macros inside your templates is to reference that template from the browser page class. For example:</p>
+<pre>class MainPage(BrowserPage):<br />	macros = ViewPageTemplate('/path/to/macros.pt')<br /></pre>
+<p>And, inside the template associated with this MainPage class:</p>
+<pre>&lt;div metal:use-macro="view/macros/some_macro"&gt;<br /></pre>
+<h3>z3c.macro: no more bickering with standard_macros<br /></h3>
+<p>One of the problems with the method described in the previous section is that, if you want to add new macro pages you need to override standard_macros in your skin layer or define another view to act as a macro provider. z3c.macro is a package that tries to overcome this by creating an easy way to register and retrieve new macros.</p>
+<p>To register a new macro, let's say the `page` macro from template.pt, you'd do something like this:<br /></p>
+<pre>&lt;configure xmlns:z3c="<a href="http://namespaces.zope.org/z3c">http://namespaces.zope.org/z3c</a>"&gt;<br />    &lt;z3c:macro template="template.pt" name="page" /&gt;<br />&lt;/configure&gt;<br /></pre>
+<p>To use this macro, in our study case, inside page.pt we'd do:</p>
+<pre>&lt;html metal:use-macro="macro:page"&gt;<br />...<br />&lt;/html&gt;</pre>
+<h3>Viewlets and content providers</h3>
+<p>Let's continue developing our study website. We'll probably want a navigation menu for the website. If we would continue to use macros, we would develop a macro, insert it into the main template and be done with it. But what happens if we want to customize this navigation menu for just one page? Or maybe several special case pages... We'd have to implement a lot of logic on the macro, to check for the special cases, etc. Ugly and hard. <br /></p>
+<p>The solution in Zope 3 are the Content Providers, which, thanks to interfaces, would allow you to override per interface what is being rendered. They are a special type of zope views (as they are dependent on the browser layer) that provide content. For example, in our study website, a navigation menu can be inserted in every page by creating a content provider, something like this:<br /></p>
+<pre>from zope.contentprovider.interfaces import IContentProvider<br />from zope.publisher.interfaces.browser import IDefaultBrowserLayer<br />from zope.publisher.interfaces.browser import IBrowserView<br /><br />class MainSiteNavigation(object):<br />    implements(IContentProvider)<br />    adapts(Interface, IDefaultBrowserLayer, IBrowserView)<br /><br />    def __init__(self, context, request, view):<br />        self.context = context<br />        self.request = request<br />        self.__parent__ = view<br /><br />    def update(self):<br />        pass<br /><br />    render = ViewPageTemplateFile('navigation.pt')<br /></pre>
+<p>And register it like:</p>
+<pre>&lt;adapter factory=".browser.MainSiteNavigation" name="main_site_navigation" /&gt;<br /></pre>
+<p>Overriding this provider for, lets say, the press releases content objects, is a simple matter of:</p>
+<pre>class PressReleasesNavigation(object):<br />    adapts(IPressRelease, IDefaultBrowserLayer, IBrowserView)<br />    render = ViewPageTemplateFile('press_releases_navigation.pt')<br /></pre>
+<p>And register it the same way:</p>
+<pre>&lt;adapter factory=".browser.PressReleasesNavigation" name="main_site_navigation" /&gt;<br /></pre>
+<p>Viewlets and viewlet managers are a step forward: a viewlet manager is a content provider for which you can register, per context interface type, `viewlets`. The viewlet manager then places all the rendered viewlets in its allocated slot in the template. <br /></p>
+<p>The viewlet mechanism is beneficial through the fact that you can "decouple" the content from the template: now you can control what "boxes" appear in each page by just adding/removing registrations for viewlets, no editing of macros, templates or code required.<br /></p>
+<h3>Break the template from class with z3c.viewtemplate</h3>
+<p>Let's continue with our study case website. Suppose this company has multiple websites, hosted one the same server, one for each country, with some shared content and slightly different layout and templates. In this case, multiple skins applied to the same Zope site are great, but you get into the pains of having to override (or reregister) the classes just to be able to specify a different template.</p>
+<p>One of the possible solutions is the z3c.viewtemplate packages. It allows you to register the template separately for a view, so that you can override it, per browser layer.<br /></p>
+<p>Let's have an example. Suppose we want to be able to change the main page on one of the skin layers, to add another column. Presume we were using a MainSitePage browser page, with a main_page.pt template and now we want to override it. We'll need to change the MainSitePage class, something like this:</p>
+<pre>class MainSitePage(object):<br />    template = RegisteredPageTemplate()<br /><br />    def __call__(self):<br />        return self.template()<br /><br /></pre>
+<p>or simply inherit from BaseView:</p>
+<pre>class MainSitePage(BaseView):<br />    ...<br /></pre>
+<p>And now we can register a templates per browser layer:</p>
+<pre>&lt;browser:template for=".browser.MainSitePage" template="main_page.pt" layer=".SkinLayerOne" /&gt;</pre>
+<p>You can override the template for viewlets, too, if you inherit from a superclass such as this:</p>
+<pre>class BaseViewlet(object):<br /><br />    template = RegisteredPageTemplate()<br /><br />    def render(self):<br />        return self.template()<br /></pre>
+<p>In practice you'll have something like this: <br /></p>
+<ul><li>a main site template that will provide the layout and maybe insert viewlet managers, using the standard_macros mechanism<br /></li><li>the page will use the `page` macro and fill in the `content`slot of the main template and only deal with the specifics of the page (there's nothing special about these names, they're just the usual convention).<br /></li></ul>
+<p>You can define a viewlet manager and use viewlets for the `content area`, but you should probably avoid this as it will probably mean that you'll have to deal with forms inside viewlets and this will be difficult to handle properly.<br /></p>
+<h3>Introducing z3c.template, a better version of z3c.viewtemplate</h3>
+<p>z3c.template is a package similar to z3c.viewtemplate (it allows separate registration of templates from the view code), but it also aims to separate the definition and registration of the layout of a page from the actual `content`.<br /></p>
+<p>Let's suppose we're implementing our site using z3c.template and we have the press releases page. For each page we will have a layout template and a content template, but we can skip the definition of the layout template by inheriting a base class. <br /></p>
+<p>The layout template will contain:</p>
+<pre>&lt;html&gt;<br />&lt;head&gt;<br />    &lt;title tal:content="view/title" /&gt;<br />&lt;head&gt;<br />&lt;body&gt;<br />    &lt;div tal:replace="view/render" /&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;<br /></pre>
+<p>The layout template, which, in the previous step, provided the `page` macro will be registered as:<br /></p>
+<pre>&lt;configure xmlns:z3c="<a href="http://namespaces.zope.org/z3c">http://namespaces.zope.org/z3c</a>"&gt;<br />    &lt;z3c:layout template="main_template" for=".interfaces.ISitePage" /&gt;<br />&lt;/configure&gt;<br /></pre>
+<p>We need a browser view that knows how to use the layout template and the content template:</p>
+<pre>class SitePage(BrowserPage):<br />    zope.interface.implements(ISitePage)<br /><br />    template = None<br />    layout = None<br /><br />    title = None<br /><br />    def update(self):<br />        pass<br /><br />    def render(self):<br />        if self.template is None:<br />            template = zope.component.getMultiAdapter(<br />                     (self, self.request), IContentTemplate)<br />            return template(self)<br />        return self.template()<br />    <br />    def __call__(self):<br />        self.update()<br />        if self.layout is None:<br />            layout = zope.component.getMultiAdapter((self, self.request),<br />                          interfaces.ILayoutTemplate)<br />            return layout(self)<br />        return self.layout()<br /></pre>
+<p>Our view class will then inherit the SitePage class:</p>
+<pre>class PressReleaseViewPage(SitePage):<br /><br />    @property<br />    def title(self):<br />        return u"Press release: " + self.context.title<br /></pre>
+<p>And then we can simply register a content template for the class:</p>
+<pre>&lt;configure xmlns:z3c="<a href="http://namespaces.zope.org/z3c">http://namespaces.zope.org/z3c</a>"&gt;<br />    &lt;z3c:template template="press_review_view.pt" for="IPressReview" /&gt;<br />&lt;/configure&gt;<br /></pre>
+<p>Note: z3c.template has several other features: named templates and the possibility to 'publish' macros from templates.<br /></p>
+<p>All this is very nice, but there are a couple of problems: you'll need to do some work to support forms, and why bother writing the SitePage class, when there's a package that does all this, and more? Its name is...<br /></p>
+<h3>z3c.pagelet</h3>
+<p>This package introduces a new type of browser page: pagelet. A pagelet is a page with a layout template: you define the layout with the mechanisms introduced in z3c.template, but the `SitePage` base class is no longer necessary, as it is provided by the z3c.pagelet package. Inside the layout template you include the `pagelet` content provider:</p>
+<pre>&lt;div tal:replace="structure provider: pagelet" /&gt;</pre>
+<p>The list of goodies continues: the package includes replacements for the formlib base classes: EditForm, AddForm and so on. Even more, using z3c.skin.pagelet you get a starter skin that has all the bits in place to bootstrap developing a pagelet based website (including, for example, "pagelet-ified" exception pages).<br /></p>
+<p>To register a pagelet you do something like (notice the similarity to a browser:page registration):</p>
+<pre>  &lt;z3c:pagelet<br />      name="index.html"<br />      for=".interfaces.PressRelease"<br />      class=".views.IndexPagelet"<br />      layer=".interfaces.ICompanyWebsiteLayer"<br />      permission="zope.View"<br />      /&gt;<br /></pre>
+<h3>More pointers and packages</h3>
+<ul><li><b>z3c.macroviewlet</b> - Allows you to write the a complete template of the website in one file and also define some of the macros of this template as viewlets.</li><li><b>z3c.pt</b>: a faster version of PageTemplates, but with several restrictions (no macro support, no TAL paths and expressions)</li><li><b>gocept.form</b>: contains integration of z3c.form with z3c.pagelet</li><li><b>z3c.formui</b>: Use overridable templates with z3c.form using the z3c.template mechanism<br /></li><li><a href="http://planet-soc.com/node/631">Detailed experience (and troubles) of using z3c.pagelet</a></li><li><a href="http://kpug.zwiki.org/WhatIsNewInZope33#simplify-skinning">Overview of Zope skins and layers</a></li></ul>
+Updated to fix some mistakes<br />

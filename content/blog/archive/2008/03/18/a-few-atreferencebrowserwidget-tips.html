@@ -1,0 +1,20 @@
++++
+draft = false
+date = "2008-03-18T18:03:19-02:00"
+title = "A few ATReferenceBrowserWidget tips"
+keywords = "cookbook, Plone"
+created = "2008-03-18T17:47:39-02:00"
+modified = "2008-11-21T22:16:15-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2008/03/18/a-few-atreferencebrowserwidget-tips"
+author = "Tiberiu Ichim"
++++
+
+<p>On a Plone 2.5 project I'm working I have a content type that has 3 reference association to another content type. ArchGenXML generated the fields with the same name, which means that in the interface there will be just one field, as they overwrite each other. To have them working I need to rename them, but how to do this from the model? Agx, at first glance, doesn't have support for this. While playing and even trying to change agx to support this use case, I've noticed that agx considers the "association end" as the one meaningful: all tagged values set to it are reflected in the generated case. So the solution to this problem is to set a "name" tagged value in the "end" of the direct associations relationships. Check the following screenshot from Poseidon to see what I mean:</p>
+<p>&nbsp;</p>
+<p><a title="Field name in association" class="internal-link" href="../../../../../field_name_in_association.png"><img class="image-inline" src="../../../../../field_name_in_association.png/image_mini" alt="Field name in association" /></a></p>
+<p>&nbsp;</p>
+<p>Another issue, this time directly related to the ATReferenceBrowserIssue, is the startup directory support. The widget has support for defaults set in portal_properties/site_properties, a property called refwidget_startupdirectories. The wording of this property's description in the README left me, as a non-native English speaker, a bit clueless. After some digging and debugging, I found out that the format for the lines there is:</p>
+<pre>/pathA:/pathB
+</pre>
+<p>where pathA is a path relative to the Plone site root; when you call the reference browser widget for an object in this path, the second path, pathB is returned as a base for browsing for objects. Even after I have understood the thing about the two colon separated path, it didn't work for me because I was refering to paths with their absolute paths (based in the Zope root) instead of their paths relative to the Plone site.</p>
+<p>&nbsp;</p>

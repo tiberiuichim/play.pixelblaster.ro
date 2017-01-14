@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-10-01T18:31:06-03:00"
+title = "Zope3: Registering a help page"
+keywords = "zope3"
+created = "2006-10-01T18:30:32-03:00"
+modified = "2006-10-01T18:31:06-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/10/01/zope3-registering-a-help-page"
+author = "Tiberiu Ichim"
++++
+
+<pre> &lt;configure<br />        xmlns="http://namespaces.zope.org/zope"<br />        xmlns:help="http://namespaces.zope.org/help"<br />        &gt;<br /><br />    &lt;!-- Register Help Topics --&gt;<br /><br />    &lt;help:register<br />        id="zmi"<br />        title="Zope ZMI"<br />        doc_path="./help/ui.stx"<br />        resources="mgmt-main-1.png"<br />        /&gt;<br /><br />    &lt;help:register <br />        id="welcome"<br />        parent="onlinehelp"<br />        title="Welcome"<br />        doc_path="./help/welcome.stx"<br />        /&gt;<br /><br />    &lt;help:register<br />        id="onlinehelp"<br />        title="Online Help System"<br />        doc_path="./help/README.stx"<br />        /&gt;<br /><br />    &lt;help:register<br />        id="styleguide"<br />        title="Zope Style Guide"<br />        doc_path="styleguides.txt"<br />        class="zope.app.onlinehelp.onlinehelptopic.RESTOnlineHelpTopic"<br />        /&gt;<br /><br />    &lt;help:register<br />        id="css"<br />        parent="styleguide"<br />        title="CSS Style Guide"<br />        doc_path="index.html"<br />        class="zope.app.onlinehelp.onlinehelptopic.ZPTOnlineHelpTopic"<br />        /&gt;<br /><br />    &lt;/configure&gt;<br /></pre>

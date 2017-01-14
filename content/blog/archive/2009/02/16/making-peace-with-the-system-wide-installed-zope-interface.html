@@ -1,0 +1,14 @@
++++
+draft = false
+date = "2009-02-16T11:31:15-02:00"
+title = "Making peace with the system-wide installed zope.interface"
+keywords = "zope, zope3, cookbook"
+created = "2009-02-16T11:15:07-02:00"
+modified = "2009-02-23T10:40:34-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/02/16/making-peace-with-the-system-wide-installed-zope-interface"
+author = "Tiberiu Ichim"
++++
+
+<p>While testing software to play music from a computer on my network, I have discovered <a class="external-link" href="http://elisa.fluendo.com/">Elisa</a>, which is a wonderful piece of software built in Python and <a class="external-link" href="http://wiki.zope.org/zope3/Zope3Wiki">zope.interface</a>. The package manager helpfully installed a python-zopeinterface package, which turned out to break one of the apps I've been working on (one of the packages that is used depends on a more recent version of zope.interface and breaks with a missing object import). Adding an explicit dependency on zope.interface&gt;=3.5 didn't help either. The egg was installed and a reference to it was inserted in the generated script wrapper for the buildout's bin folder, but the system zope.interface was found.</p>
+<p>The solution that I have found was to make sure the zope.interface dependency is listed in the last position in the install_requires section of setup.py. This has the effect of placing the zope.interface egg path first in the generated script, and thus solving the problem.</p>
+<p>UPDATE: On another project I'm working on, this solution didn't work. Buildout would complain about a version conflict and would drop the building process. The solution was to setup a separate virtualenv bootstrapped with --no-site-packages and use the python from that virtualenv to bootstrap the buildout environment. I think it's a bug in zc.buildout, as it should have obeyed the versions section of buildout, plus the explicit dependency in install_requires of my package setup.py</p>

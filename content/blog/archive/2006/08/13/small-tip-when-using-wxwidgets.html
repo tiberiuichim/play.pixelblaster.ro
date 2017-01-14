@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-08-13T18:09:58-03:00"
+title = "Small tip when using wxWidgets"
+keywords = "Python, cookbook"
+created = "2006-08-13T18:06:00-03:00"
+modified = "2006-08-13T18:10:30-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/08/13/small-tip-when-using-wxwidgets"
+author = "Tiberiu Ichim"
++++
+
+<p>Always put your controls in a sizer inside a panel. So, the actual tree would be frame &gt; sizer &gt; panel &gt; sizer &gt; ... controls</p><p>The reason is that the panel component will enable tab traversal. Also, the panel can so be used to group the widgets into logical groups, to facilitate traversing them with the tab key. Oh, did I mention <a href="http://wxglade.sf.net" target="_self">wxGlade</a> (from cvs) rules? <br /></p>

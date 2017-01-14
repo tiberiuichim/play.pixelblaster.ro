@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-09-16T21:56:19-03:00"
+title = "Short checklist for Postfix + MySQL + Dovecot + SASL authentication on Fedora"
+keywords = "cookbook, Linux"
+created = "2006-09-16T20:36:30-03:00"
+modified = "2006-09-16T21:56:19-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/09/16/short-checklist-for-postfix-mysql-dovecot-sasl-authentication-on-fedora"
+author = "Tiberiu Ichim"
++++
+
+<p>1. Postfix needs to be rebuilt with Mysql enabled</p><p>Follow this tutorial: <a href="http://postfix.wiki.xs4all.nl/index.php?title=Virtual_Users_and_Domains_with_Courier-IMAP_and_MySQL" target="_self">http://postfix.wiki.xs4all.nl/index.php?title=Virtual_Users_and_Domains_with_Courier-IMAP_and_MySQL</a></p><p>This one also helps: <a href="http://www.howtoforge.com/fedora_virtual_postfix_mysql_quota_courier">Virtual Users And Domains With Postfix, Courier And MySQL (Fedora Core 5) | HowtoForge - Linux Howtos and Tutorials</a></p><p>2. Instal cyrus-sasl and cyrus-sasl-sql.</p><p>Configure /etc/sysconfig/saslauthd to run with the rimap mechanism </p><p>3. Start saslauthd<br /></p>

@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2008-04-15T19:23:09-03:00"
+title = "In case you're having problems installing ssl-for-setuptools..."
+keywords = "zope3, zope2, Plone"
+created = "2008-04-15T19:19:37-03:00"
+modified = "2008-04-15T19:23:09-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools"
+author = "Tiberiu Ichim"
++++
+
+<p>I've stumbled on this error when trying to install a easyshop buildout:<br /></p>
+<pre>Exception: No SSL support found<br />An error occured when trying to install ssl-for-setuptools 1.10.Look above this message for any errors thatwere output by easy_install.<br />While:<br />  Installing instance.<br />  Getting distribution for 'ssl-for-setuptools'.<br />Error: Couldn't install: ssl-for-setuptools 1.10<br /></pre>
+<p>After scratching my head for a while, I've found the solution:</p>
+<pre># apt-get install libssl-dev</pre>

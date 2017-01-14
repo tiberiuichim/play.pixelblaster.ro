@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-10-24T23:34:16-03:00"
+title = "How to define a new skin in Zope 3"
+keywords = "zope3, cookbook"
+created = "2006-10-24T23:26:31-03:00"
+modified = "2006-10-24T23:34:51-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/10/24/how-to-define-a-new-skin-in-zope-3"
+author = "Tiberiu Ichim"
++++
+
+<p>Lifted from <a href="http://svn.zope.org/Zope3/trunk/src/zope/app/rotterdam/configure.zcml?rev=70148&amp;view=markup" target="_self">zope.app.rotterdam</a></p><ul><li>Create a new browser skin layer</li></ul><pre>from zope.publisher.interfaces.browser import IBrowserRequest<br />from zope.publisher.interfaces.browser import IDefaultBrowserLayer<br /><br />class rotterdam(IBrowserRequest):<br />    """Layer for registering Rotterdam-specific macros."""<br /><br />class Rotterdam(rotterdam, IDefaultBrowserLayer):<br />    """The ``Rotterdam`` skin.<br /><br />    It is available via ``++skin++Rotterdam``.<br />    """<br /></pre><ul><li>Register the skin in configure.zcml</li></ul><pre>&lt;interface<br />      interface="zope.app.rotterdam.Rotterdam"<br />      type="zope.publisher.interfaces.browser.IBrowserSkinType"<br />      name="Rotterdam"<br />      /&gt;<br /></pre><p>Declaring a resource and a page for the skin</p><pre> &lt;browser:resource<br />      name="zope3.css"<br />      file="zope3.css"<br />      layer="zope.app.rotterdam.rotterdam" /&gt;<br /><br />&lt;browser:page<br />      for="*"<br />      name="standard_macros"<br />      permission="zope.View"<br />      class=".standardmacros.StandardMacros"<br />      layer="zope.app.rotterdam.rotterdam"<br />      allowed_interface="zope.interface.common.mapping.IItemMapping"<br />      /&gt;<br /></pre>

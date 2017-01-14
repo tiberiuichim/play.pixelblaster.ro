@@ -1,0 +1,18 @@
++++
+draft = false
+date = "2009-03-02T10:31:54-02:00"
+title = "A bug in subversion and a workaround"
+keywords = "cookbook"
+created = "2009-03-02T10:27:58-02:00"
+modified = "2009-03-02T10:32:25-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/03/02/a-bug-in-subversion-and-a-workaround"
+author = "Tiberiu Ichim"
++++
+
+<p>I'm checking out a large repository and svn keeps getting blocked, for some reason (bad network, maybe). When running update again, it complains that the checkout should be cleaned, but the cleanup operation doesn't succeed, with something like this:</p>
+<pre>tibi@xps:~/svn/vs/data$ svn cleanup                    
+svn: In directory '.'                                                
+svn: Error processing command 'modify-wcprop' in '.'                 
+svn: 'setup.config' is not under version control
+</pre>
+<p>Searching on then net for a solution didn't yield anything, so the one that I have found was to empty the .svn/log file (by default is read only) and then to run svn up again.</p>

@@ -1,0 +1,15 @@
++++
+draft = false
+date = "2009-11-30T11:57:54-02:00"
+title = "Odd thing in Django: the date filter takes PHP as reference instead of Python"
+keywords = "rants, Django"
+created = "2009-11-30T11:48:52-02:00"
+modified = "2009-11-30T11:58:06-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/11/30/odd-thing-in-django-the-date-filter-takes-php-as-reference-instead-of-python"
+author = "Tiberiu Ichim"
++++
+
+<p>I wonder what possible explanation there is for the behaviour of the date template filter.</p>
+<pre>Uses the same format as PHP's date() function (http://php.net/date) with some custom extensions.
+</pre>
+<p>I understand where Django comes from, but I think this sort of things should be more aligned with the rest of the Python world.</p>

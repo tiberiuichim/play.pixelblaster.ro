@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-08-27T14:37:40-03:00"
+title = "Specify creation roles for AGX generated content"
+keywords = "cookbook, Plone"
+created = "2006-08-27T14:33:02-03:00"
+modified = "2006-08-27T14:37:40-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/08/27/specify-creation-roles-for-agx-generated-content"
+author = "Tiberiu Ichim"
++++
+
+<p>An observation: when you want to specify the roles that are required for a user to have in order to create a piece of content, you'll have to also specify a creation permission.</p><p>This means that the following tagged values are required, to something like:</p><pre>creation_permission = Create MyContent<br />creation_roles = python: ('Anonymous', 'Member')</pre><p>This generates the following code in config.py:</p><pre>DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"<br />setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, ('Manager', 'Owner'))<br />ADD_CONTENT_PERMISSIONS = {<br />    'MyContent': 'Create MyContent',<br />}<br /><br />setDefaultRoles('Create MyContent',  ('Anonymous', 'Member'))</pre><p><br /></p>

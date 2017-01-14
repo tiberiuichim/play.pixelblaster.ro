@@ -1,0 +1,20 @@
++++
+draft = false
+date = "2007-11-14T17:21:44-02:00"
+title = "Trying out eggs and applications with workingenv, without poluting the system python"
+keywords = "Python, cookbook"
+created = "2007-11-14T17:14:05-02:00"
+modified = "2007-11-14T17:24:03-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2007/11/14/trying-out-eggs-and-applications-with-workingenv-without-poluting-the-system-python"
+author = "Tiberiu Ichim"
++++
+
+<p>Ever since I've started working with zc.buildout I've grown to love the whole "environment as project" setup that it provides: eggs and python packages are installed and contained in the buildout and they don't polute the system packages. There is another alternative: workingenv, which, while simpler in scope, it is easier to setup and use. For example, recently I've wanted to see if lxml 2.0 can be installed in my system. I've had problems with the earlier alphas, which made it difficult or impossible to compile the egg. First, I've installed workingenv.py in my system:</p>
+<pre>sudo easy_install workingenv</pre>
+<p>Then I made a folder ~/tmp/lx, which I then used as a workingenv environment:</p>
+<pre>workingenv ~/tmp/lx</pre>
+<p>Next, I've activated the environment:<br /></p>
+<pre>source ~/tmp/lx/bin/activate</pre>
+<p>And finally, I could easy_install my desired egg:</p>
+<pre>~/tmp/lx/bin/easy_install lxml<br /></pre>
+<p>It took a while to compile, but in the end I had the egg installed in ~/tmp/lx/lib/python2.5/ and, while the workingenv was activated with "source bin/activate", I could run the system's python and have the eggs installed in the workingenv available to me.</p>

@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-10-07T19:47:47-03:00"
+title = "Little bits of info about CMFFormController"
+keywords = "cookbook, Plone"
+created = "2006-10-07T19:40:25-03:00"
+modified = "2006-10-07T21:20:11-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/10/07/little-bits-of-info-about-cmfformcontroller"
+author = "Tiberiu Ichim"
++++
+
+<p>One thing the documentation doesn't clearly state: you can set the status to a value and have that value defined as an action in the metadata file, basically redirecting the flow of the controller sequence to that action. <br /></p><p>To make things clear, I'll paste some code. In the login_initial.cpy.metadata file from CMFPlone we have this bit of code:<br /></p><pre>[actions]<br />action.success=traverse_to:string:login_next<br />action.login_change_password=traverse_to:string:login_password</pre><p>So basically we have two actions defined, depending on the type of status returned.</p><p>In the login_initial.cpy file there's this snippet:</p><pre># afterwards, change the password if necessary<br />if state.getKwargs().get('must_change_password',0):<br />    state.set(status='login_change_password')<br />return state<br /></pre><p>So, if the there's a 'must_change_password' in the state, the next action will be login_password.</p><p>Another method to achieve this would have been using the setNextAction method, something like this: <br /></p><pre>state.setNextAction('redirect_to:string:%s/createObject?type_name=ServiceProviderHome' % home.absolute_url())<br />return state<br /></pre><p>NOTE: to use setNextAction you shouldn't define any action in the metadata file. According to the documentation, 'As with the .metadata file, the default action specified in the script can be overridden via the ZMI.  This allows site managers to override post-script actions without having to customize your code.'</p>

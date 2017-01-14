@@ -1,0 +1,18 @@
++++
+draft = false
+date = "2009-04-16T17:32:14-03:00"
+title = "The sorry state of internationalization in Plone"
+keywords = "rants, Plone"
+created = "2009-04-16T13:50:14-03:00"
+modified = "2009-04-17T16:16:13-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/04/16/the-sorry-state-of-internationalization-in-plone"
+author = "Tiberiu Ichim"
++++
+
+<p>Ever since Plone 2.5 stopped being the hot new thing in the Plone world, the state of content internationalization support in Plone has been declining. Partly due to the difficulty of extending Zope 2 products, LinguaPlone has always been a hack, but at least back then it worked. These days I'm not heavily involved with Plone, but whenever I need to add LinguaPlone to a Plone 3 site, I cringe and weep, especially that those projects never allocate time for me to fix the obvious problems. Some of those problems, in current Plone 3.3 rc2 are:</p>
+<ul><li>the flags are no longer grayed to indicate that a certain translation is unavailable</li><li>the switchLanguage script doesn't work anymore, it won't redirect you to the translated content; the LanguageTool is broken (won't take VHM into consideration) and an update was released, but the versions.cfg file on plone.org hasn't been updated yet, so you need to add a [versions] section, with the correct specification for the Products.PloneLanguageTool</li><li>the changeLanguage script was removed, in favor of doing a direct translation. Wops, now it's possible to translate into neutral, which gets you fast into an ugly traceback that you won't be able to get rid of.</li><li>the language neutral behaviour for fields is broken. Example: I have a content type with the neutral fields, when translating a content item the content of those fields is erased. This is something that I'll have to fix.<br /></li></ul>
+<p>On the upside, the translation management mechanism (after some hickups) has improved.</p>
+<p>I don't have access to the Plone subversion. I already had some discussions with two of the developers that have done the latest changes to LP, but they either didn't understand the problems or didn't have time to do the fixes themselves. To make it easier for myself and stimulate my interest in the LP development, I have copied the latest LP trunk to Collective, in a location called <a class="external-link" href="http://svn.plone.org/svn/collective/Products.LinguaPlone-Unofficial/trunk/">Products.LinguaPlone-Unofficial</a>. This version also has a check for the case when there's a translation into Neutral, so it should fix the error detailed above.</p>
+<p>Update:</p>
+<p>Another problems solved: I've wanted to be able to switch languages based on the subdomain (ro.site.com, en.site.com), which should be supported by the PloneLanguageTool, but didn't work for me. Digging down, I found the problem: plone.i18n.locales.cctld has a list that associates TLDs to languages, but most of the TLDs don't have a language associated to them! This issue should be at least highlighted in the documentation for PloneLanguageTool.</p>
+<p>One more weird problem, which caused me to blame LP for even more problems than it has at fault: upgrading as site from Plone 3.2 to 3.3 rc2 broke the LP language selector, by making the default Plone one override the LP one (where it should be the other way). I was able to solve the problem by customizing the template for the LP language selector (with no change)</p>

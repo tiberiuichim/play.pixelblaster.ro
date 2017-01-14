@@ -1,0 +1,20 @@
++++
+draft = false
+date = "2009-02-05T20:21:12-02:00"
+title = "Reset the generations level for a Zope application"
+keywords = "zope3, cookbook"
+created = "2009-02-05T20:11:03-02:00"
+modified = "2009-02-16T11:32:31-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/02/05/reset-the-generations-level-for-a-zope-application"
+author = "Tiberiu Ichim"
++++
+
+<p>While developing an application and writing some migration code (using zope.app.generations), I had the need to reset the generation number recorded in the database for my application to a version lower than the current generation number (because my generation code didn't run properly and I didn't want to create bogus generation files). To solve this issue, in a pdb prompt I had to run:</p>
+<pre>(Pdb) db = self.request.publication.db
+(Pdb) conn = db.open()
+(Pdb) conn.root()['zope.app.generations']['myapp.generations'] = 0
+(Pdb) import transaction
+(Pdb) transaction.commit()
+(Pdb) c
+</pre>
+<p>Not much to it, and this info can be easily obtained by reading the zope.app.generations source code.</p>

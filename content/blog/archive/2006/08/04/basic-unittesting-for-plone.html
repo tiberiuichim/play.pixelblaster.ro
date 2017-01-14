@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-08-04T16:28:23-03:00"
+title = "Basic unittesting for Plone"
+keywords = "cookbook, Plone"
+created = "2006-08-04T16:24:23-03:00"
+modified = "2006-08-04T16:29:17-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/08/04/basic-unittesting-for-plone"
+author = "Tiberiu Ichim"
++++
+
+<p>Create a new package called "tests" inside the product. Add modules that begin with test*, like testSetup. Next, run the tests with zope/bin/zopectl test -s Products.MyProduct (zope 2.9)<br /></p><pre>from Testing import ZopeTestCase<br /><br />ZopeTestCase.installProduct('DRFSkin')<br /><br />from Products.PloneTestCase.PloneTestCase import PloneTestCase<br />from Products.PloneTestCase.PloneTestCase import FunctionalTestCase<br />from Products.PloneTestCase.PloneTestCase import setupPloneSite<br /><br />setupPloneSite(products=('DRFSkin',))<br /><br />class TestTool(PloneTestCase):<br /><br />      def afterSetUp(self):<br />          pass<br /><br />      def testProductPath(self):<br />          x = True<br />          self.failUnless( x )<br /><br />def test_suite():<br />    from unittest import TestSuite, makeSuite<br />    suite = TestSuite()<br />    <br />    suite.addTest(makeSuite(TestTool))<br />    <br />    return suite<br /></pre><p>Reference: <a href="http://plone.org/documentation/tutorial/testing/tutorial-all-pages" target="_self">http://plone.org/documentation/tutorial/testing/tutorial-all-pages</a></p>

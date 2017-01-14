@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-09-05T22:03:04-03:00"
+title = "Override the default actions for an ArchGenXML based Archetype"
+keywords = "cookbook, Plone"
+created = "2006-09-05T21:54:30-03:00"
+modified = "2006-09-05T22:03:04-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/09/05/override-the-default-actions-for-an-archgenxml-based-archetype"
+author = "Tiberiu Ichim"
++++
+
+<p>To specify the default view for an AT archetype the "view" action needs to be overriden. Adding a default_actions=True tagged value in the model will generate a view action that will use the base_view template. To be able to change the view action, default_actions should be deleted from the model and replaced with a base_actions=my_actions.<br /></p><p>The my_actions statement could look like this:<br /></p><pre>my_actions = (<br />       {'action': 'string:${object_url}/base_edit',<br />        'category': 'object',<br />        'id': 'edit',<br />        'name': 'Edit',<br />        'permissions': ('Modify portal content',),<br />       },<br /><br />       {'action': 'string:${object_url}/confirmationpage_view',<br />        'category': 'object',<br />        'id': 'view',<br />        'name': 'View',<br />        'permissions': ('View',),<br />       },<br />    )</pre><p>Inside the class declaration, this will result in the following code:</p><pre>    actions = my_actions +  (<br /><br />    )</pre><p>Replacing the 'view' action is the corect solution to replace the default view. If the content type is derived from ATCT or uses TemplateMixin, a 'default_view' tagged value should also be added<br /></p>

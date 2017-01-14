@@ -1,0 +1,33 @@
++++
+draft = false
+date = "2010-08-22T14:05:56-03:00"
+title = "Migrating content (folders) from Plone 3 to Plone 4 via zexp import"
+keywords = "Plone"
+created = "2010-08-22T13:25:10-03:00"
+modified = "2010-08-22T14:06:27-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2010/08/22/migrating-content-folders-from-plone-3-to-plone-4-via-zexp-import"
+author = "Tiberiu Ichim"
++++
+
+<p>I had a need (and a problem) moving some content from a Zope 2.10/ Plone 3.3 instance to a Zope 2.12/Plone 4 instance. The path I have chosen was that of the least resistence, which for me was exporting the folder I was interested as a zexp file from the old instance and importing it in the new Plone instance. According to some members of the #plone IRC channel, this method of getting content from one zope instance to another is not possible, or at least not supported. I supposed that's correct, zexp import works best for moving content between identical zope instances, but, as they say, necessity is the mother of learning.</p>
+<p>The issue is that the implementation of folders has changed from Plone 3 to 4 to use  BTrees, which greatly improves performance. The problem is that, when viewing imported folders, I got the following traceback:</p>
+<div>
+<pre>Traceback (innermost last):
+
+    * Module ZPublisher.Publish, line 116, in publish
+    * Module ZPublisher.BaseRequest, line 434, in traverse
+    * Module Products.CMFCore.DynamicType, line 150, in __before_publishing_traverse__
+    * Module Products.CMFDynamicViewFTI.fti, line 215, in queryMethodID
+    * Module Products.CMFDynamicViewFTI.fti, line 182, in defaultView
+    * Module Products.CMFPlone.PloneTool, line 840, in browserDefault
+    * Module Products.CMFPlone.PloneTool, line 708, in getDefaultPage
+    * Module Products.CMFPlone.utils, line 81, in getDefaultPage
+    * Module plone.app.layout.navigation.defaultpage, line 32, in getDefaultPage
+    * Module plone.app.layout.navigation.defaultpage, line 75, in getDefaultPage
+    * Module Products.BTreeFolder2.BTreeFolder2, line 337, in has_key
+
+AttributeError: 'NoneType' object has no attribute 'has_key' 
+</pre>
+</div>
+<p>The solution was to call @@migrate-btrees on the imported folder, which fixes that folder and makes it conform to the latest implementation.</p>
+<p>One final note, the default Plone buildout doesn't have a folder called "import" anywhere in the buildout, so one needs to be created inside the "client home folder", which is the folder of your plone and buildout instance, the one that hosts the bin, parts and var folders.</p>

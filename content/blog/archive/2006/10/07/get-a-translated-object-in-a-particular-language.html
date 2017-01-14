@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-10-07T14:13:26-03:00"
+title = "Get a translated object in a particular language"
+keywords = "cookbook, Plone"
+created = "2006-10-07T14:02:20-03:00"
+modified = "2006-10-07T14:13:26-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/10/07/get-a-translated-object-in-a-particular-language"
+author = "Tiberiu Ichim"
++++
+
+<p>Sometimes there is a need to get a translated piece of content in a particular language. Some examples include messing around with ATVM or stitching together a front page for a multilanguage website from editable content (site editors love pretty interfaces where they can tweak and edit every piece of a website). This piece of code is a bit older, but still does the job well. The boundLanguages/getLanguageBindings thing could be replaced with getPreferredLanguage() and I'm pretty sure LinguaPlone got a prettier API than this, but it's a starting point in the right direction. I probably should replace this code more "modern" stuff when I get the time.<br /> </p><pre>#bind context=context<br /><br />page='training_description'<br /><br />boundLanguages = context.portal_languages.getLanguageBindings()<br />prefLang = boundLanguages[0]<br />obj = getattr(context, page, None)<br />if obj == None:<br />    return ""    <br />trans = obj.getTranslations()<br /><br />if trans.has_key(prefLang):<br />    return trans[prefLang][0].CookedBody()<br />else:<br />    return obj.CookedBody()<br /></pre>

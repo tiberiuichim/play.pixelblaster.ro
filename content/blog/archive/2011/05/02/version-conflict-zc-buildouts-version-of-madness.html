@@ -1,0 +1,44 @@
++++
+draft = false
+date = "2011-05-02T10:13:55-03:00"
+title = "Version conflict: zc.buildout's version of madness"
+keywords = "rants, cookbook"
+created = "2011-05-01T12:48:51-03:00"
+modified = "2012-12-04T05:25:43+00:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2011/05/02/version-conflict-zc-buildouts-version-of-madness"
+author = "Tiberiu Ichim"
++++
+
+<p>I'm not even trying to understand what happens, because it's aggravating to see buildouts fail like this:</p>
+<pre>While:
+&nbsp; Installing.
+&nbsp; Getting section zope2.
+&nbsp; Initializing section zope2.
+&nbsp; Installing recipe plone.recipe.zope2install.
+Error: There is a version conflict.
+We already have: setuptools 0.6c9</pre>
+<p>or, worse, this:</p>
+<pre>While:
+&nbsp; Installing.
+&nbsp; Getting section zope2.
+&nbsp; Initializing section zope2.
+&nbsp; Installing recipe plone.recipe.zope2install.
+Error: There is a version conflict.
+We already have: zc.buildout 1.5.2</pre>
+<p>Well, technically I know what happens: for example, zc.buildout is latest 2.0a1 now, but I've already installed 1.5.2 in my virtualenv (the bootstrap process failed hard, there are a tons of bugs there, I've had more failures in bootstrap then success, lately) and I had one product in my buildout which depended on zc.buildout, so it tried to pull the latest, only to get a version conflict.</p>
+<p>I wish zc.buildout would behave more inteligently. Even specifying&nbsp;</p>
+<pre class="literal-block">prefer-final = true<br /></pre>
+<p>didn't do much to solve my problems. The only way to solve the problem was to add the following to the buildout.cfg file:</p>
+<pre>[buildout]
+...
+versions = versions
+
+[versions]
+zc.buildout =1.5.2
+setuptools = 0.6c9
+
+</pre>
+<p>UPDATE: a better solution is to have:</p>
+<pre>[versions]
+zc.buildout =
+setuptools =</pre>

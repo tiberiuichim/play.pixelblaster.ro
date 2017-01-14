@@ -1,0 +1,29 @@
++++
+draft = false
+date = "2009-11-05T21:06:48-02:00"
+title = "Django gotcha: the urls.py needs to define the 404 view"
+keywords = "cookbook, Django"
+created = "2009-11-05T20:59:29-02:00"
+modified = "2009-11-08T21:38:21-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/11/05/django-gotcha-the-urls-py-needs-to-define-the-404-view"
+author = "Tiberiu Ichim"
++++
+
+<p>Probably this is documented somewhere in the Django docs, but, I mean, who has time to read the docs? :-) In the urls.py file for my project I didn't do a</p>
+<pre>from django.conf.urls.defaults import *</pre>
+<p>because that's just bad style. Instead I've just imported what I needed: patterns, include and url. Later on I got this error in my email:</p>
+<pre>Traceback (most recent call last):
+
+  File "/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/handlers/base.py", line 118, in get_response
+    callback, param_dict = resolver.resolve404()
+
+  File "/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/urlresolvers.py", line 263, in resolve404
+    return self._resolve_special('404')
+
+  File "/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/urlresolvers.py", line 255, in _resolve_special
+    callback = getattr(self.urlconf_module, 'handler%s' % view_type)
+
+AttributeError: 'module' object has no attribute 'handler404'
+</pre>
+<p>Just looking at the error I could determine the cause: my urlconf module (urls.py) didn't have a handler404 view defined, so I just gave up and replaced my specific imports with the asterisk import.</p>
+<p>On a side note, what's up with Django logging? By default, the only way to log errors in production environments is by email. Really!? If I would want emails, I'd setup the syslog to email me those entries. I already have the logwatch emailing me stuff that happens on my server. One step above is django-db-log, which I haven't tried yet, but which seems to be logging errors to the db. Word is that real logging, using the logging python module, will be introduced in Django 1.2.</p>

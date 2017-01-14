@@ -1,0 +1,18 @@
++++
+draft = false
+date = "2007-01-25T18:54:20-02:00"
+title = "Hosting Zope 3 on FreeBSD"
+keywords = "zope3, cookbook"
+created = "2007-01-25T13:16:49-02:00"
+modified = "2007-01-25T18:54:20-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2007/01/25/hosting-zope-3-on-freebsd"
+author = "Tiberiu Ichim"
++++
+
+<p>Today I had to setup the hosting of a Zope 3 application on a FreeBSD server. I don't have much love for FreeBSD as I'm used to the Debian way of doing things, but after a couple of hours of tweaking the apache configuration files and the application I managed to get it properly running on that server.</p><p>Some pointers to quickly getting things done:</p><p>default apache on FreeBSD doesn't have mod_proxy installed. You need to recompile apache from /usr/ports/www/apache22, specifically enabling mod_proxy</p><p><code>make WITH_PROXY_MODULES=yes<br /></code></p><p>Then make deinstall &amp; make reinstall<br /></p><p>The following needs to be added to your httpd.conf:<br />
+<code>
+LoadModule proxy_module libexec/apache22/mod_proxy.so<br />
+LoadModule proxy_balancer_module libexec/apache22/mod_proxy_balancer.so<br />
+LoadModule proxy_ftp_module libexec/apache22/mod_proxy_ftp.so<br />
+LoadModule proxy_http_module libexec/apache22/mod_proxy_http.so<br />
+LoadModule proxy_connect_module libexec/apache22/mod_proxy_connect.so</code></p><p>(thanks to this page: http://sneezr.net/articles/2007/01/03/apache-2-2-gotchas)</p><p>One issue that surfaced when testing the zope3 setup was that the resources were not found on the server, using the following vhost settings:<br /></p><pre>&lt;VirtualHost *:80&gt;<br />    ServerName pixelblaster.ro<br />    ServerAlias www.pixelblaster.ro<br />    RewriteEngine on<br />    RewriteRule ^(/?.*) http://localhost:8080/test_site/++vh++http:%{SERVER_NAME}:80/++$1 [P,L]<br />    ProxyVia On<br />    ## prevent the webserver from beeing used as proxy<br />   &lt;LocationMatch "^[^/]"&gt;<br />      Deny from all<br />  &lt;/LocationMatch&gt;<br />&lt;/VirtualHost&gt;</pre>The "test_site" was a simple folder with a index_html page, but when accessing @@contents.html, all the resources (images, css) were missing. Tracing the problem through <a href="http://mail.zope.org/pipermail/zope3-dev/2004-October/012456.html">this thread</a> to <a href="http://mail.zope.org/pipermail/zope3-dev/2004-October/012474.html">Jim Fulton's response</a> it seems that the 'test_site' should be made a site, in the Zope 3 sense, and things really start working after that.<br />

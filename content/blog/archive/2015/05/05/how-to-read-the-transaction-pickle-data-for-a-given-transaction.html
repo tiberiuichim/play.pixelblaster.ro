@@ -1,0 +1,54 @@
++++
+draft = false
+date = "2015-05-05T08:07:56+07:00"
+title = "ZODB: How to get and read objects from an undo information"
+keywords = "zope, debugging, ZODB, cookbook"
+created = "2015-05-05T07:54:54+07:00"
+modified = "2015-05-05T14:06:59+07:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2015/05/05/how-to-read-the-transaction-pickle-data-for-a-given-transaction"
+author = "Tiberiu Ichim"
++++
+
+<p>This is useful for example if you have transactions that cause writes to the database and you don't know what has been written. First, identify the ID of the transaction that you're interested. In the Undo tab of Zope, inspect the checkbox for the transaction and copy the part that looks like an id from its value.</p>
+<p>Then, in a zope debugging shell (started with bin/instance debug), I've done:</p>
+<pre>&gt;&gt;&gt; import base64, cPickle
+&gt;&gt;&gt; webtid = "QTY1MjhoaytpMVU9"
+
+# DB will be the "database", as represented in Zope.
+&gt;&gt;&gt; db = app._p_jar.db()
+
+# Storage will be an instance of FileStorage. I don't think 
+# it's possible to achieve this connected through ZEO.
+&gt;&gt;&gt; storage = db.storage
+
+# This is the "real" transaction id
+&gt;&gt;&gt; tid = base64.decodestring(webtid + "\n")
+
+# Now we'll get a "transaction position", a position 
+# in the filestorage where the transaction begins
+&gt;&gt;&gt; tpos = storage._txn_find(tid, True)
+
+# This will be the transaction header. This is the info that's 
+# shown in the Undo UI.
+&gt;&gt;&gt; th = storage._read_txn_header(tpos)
+&gt;&gt;&gt; print th.status, th.descr, th.user
+
+# Now we get the "data position", the position in the zodb where 
+# the objects of that transaction sit
+&gt;&gt;&gt; pos = tpos + th.headerlen()
+
+# This will be the data header
+&gt;&gt;&gt; dh = storage._read_data_header(pos)
+
+# we're very much interested in the oid
+&gt;&gt;&gt; oid = dh.oid
+&gt;&gt;&gt; pickle_data, tid = storage.load(oid)
+
+# heh, zodb is just a pickle store, you knew that, right?
+&gt;&gt;&gt; print pickle_data
+&gt;&gt;&gt; print cPickle.loads(pickle_data)
+
+# but it's easier to get the object using the zope machinery
+&gt;&gt;&gt; obj = app._p_jar[oid] 
+&gt;&gt;&gt; print obj</pre>
+<p>The zope process needs to be configured with a FileStorage, not a ClientStorage (aka Zeo client).</p>

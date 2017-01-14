@@ -1,0 +1,14 @@
++++
+draft = false
+date = "2009-08-05T11:39:26-03:00"
+title = "ReportLab is one frustrating piece of software..."
+keywords = "Python, rants"
+created = "2009-08-05T11:20:56-03:00"
+modified = "2009-08-05T12:49:40-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/08/05/reportlab-is-one-frustrating-piece-of-software"
+author = "Tiberiu Ichim"
++++
+
+<p>I'm starting to grow a strong dislike to it, enough to steer me off Python to JVM, with Jython or Scala. Case in point: its authors considered that it's appropriate to overload the Paragraph class from the platypus module, to make it accept a form of "xml". There's no switch to disable this behavior and its xml handling is something straight out of the 90's: no namespaces, no validation. What happens for example, when you're trying to make a paragraph with the text:</p>
+<pre> "Some html documents contain &lt;img&gt; tags"</pre>
+<p>That's right, you'll encounter an error. The "&lt;img&gt;" fragment is interpreted as an img tag for the Paragraph, which will then complain that it's missing a src attribute. I wonder how can ReportLab be promoted as an enterprise solution and still display this behavior. The easiest solution, in my opinion, would be to create a new class that accepts properly formated xml, and RL's special tags need to be isolated in a new namespace. Fortunately, for the time being, I can do a replace for the "&lt;" character with the &amp;lt; entity.</p>

@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-08-06T19:37:16-03:00"
+title = "Getting a list of catalog indexes and metadata"
+keywords = "cookbook, Plone"
+created = "2006-08-06T19:34:13-03:00"
+modified = "2006-08-06T19:37:16-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/08/06/getting-a-list-of-catalog-indexes-and-metadata"
+author = "Tiberiu Ichim"
++++
+
+<p>I recently had a need to get a list of the indexes from the portal_catalog.</p><p>While the metadata has an API method to get it, using something along:</p><pre>pc = getToolByName(self, 'portal_catalog')<br />metadatas = pc.enumerateColumns()</pre><p>I couldn't find the equivalent API method to get the Indexes. After digging through the DTML files used by ZCatalog, I came up with the following method:</p><pre>pc = getToolByName(self, 'portal_catalog')<br />indexes = pc.Indexes.objectIds()</pre>

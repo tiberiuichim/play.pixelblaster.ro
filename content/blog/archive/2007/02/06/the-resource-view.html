@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2007-02-06T16:17:17-02:00"
+title = "The /@@/ resource view"
+keywords = "zope3, cookbook"
+created = "2007-02-06T16:01:14-02:00"
+modified = "2007-02-06T21:34:12-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2007/02/06/the-resource-view"
+author = "Tiberiu Ichim"
++++
+
+<p>I recently encountered a problem that I presume would be pretty common when creating a site based on the z3c.layer.minimal browser layer: the resources, although accessible as ++resource++resource_name, are not accessible at the default location used by packages as zc.resourcelibrary: http://localhost/site/@@/resource_name</p><p>The reason, as I have guessed, was that a certain page or view was missing, not being registered for the IMinimalLayer, which doesn't inherit from the IBrowserDefaultLayer. Grepping for "@@" didn't yield anything meaningful, and left me struggling to understand how zope deals with pages. While searching on how to register new browser menus, I've encountered the @@ view declaration and imediately saw what the problem was: its declaration doesn't include the "@" character! After I've added the following registration in my zcml files, the problem dissapeared and resourcelibrary resources were finally found at their proper location:</p><pre>    &lt;configure package="zope.app.publisher.browser"&gt;<br /><br />        &lt;!-- Solves the resources lookup problem /@@/ --&gt;<br /><br />        &lt;page name="" for="zope.app.component.interfaces.ISite"<br />            class="zope.app.publisher.browser.resources.Resources"<br />            permission="zope.Public"<br />            allowed_interface="zope.publisher.interfaces.browser.IBrowserPublisher"<br />            layer="act.coursebuilder.layer.common.ICourseBuilderCommonLayer" /&gt;<br /><br />    &lt;/configure&gt;</pre>

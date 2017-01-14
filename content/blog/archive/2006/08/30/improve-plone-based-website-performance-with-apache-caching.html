@@ -1,0 +1,14 @@
++++
+draft = false
+date = "2006-08-30T00:38:53-03:00"
+title = "Improve Plone-based website performance with simple Apache caching"
+keywords = "cookbook, Plone, Linux"
+created = "2006-08-30T00:30:58-03:00"
+modified = "2006-08-30T01:34:54-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/08/30/improve-plone-based-website-performance-with-apache-caching"
+author = "Tiberiu Ichim"
++++
+
+<p>I won't go too much into details, and this is more for my own personal reference, but using this short recipe I was able to increase by up to 100 times the performance of a plone based website. For a lot more details and more advanced techniques for caching, integration with squid and cachefu, visit the Plone documentation HowTo section.</p><p> The website hosts mostly news updates, and is edited mostly by an editorial staff, under a 24 hours cycle. The configuration file is extremely simple and can be droped in for any website that has a similar profile (or any website that has a closed editorial staff)<br /></p><p>Requirements: apache 2 + mod_disk_cache + mod_expires<br /></p>
+
+<pre>    &lt;LocationMatch "^[^/]"&gt;<br />        Deny from all<br />    &lt;/LocationMatch&gt;<br /><br />    &lt;IfModule mod_disk_cache.c&gt;<br />        CacheEnable disk /<br />        CacheRoot /var/cache/http<br />        CacheSize 5<br />        CacheMaxExpire 24<br />        CacheLastModifiedFactor 0.1<br />        CacheDefaultExpire 3<br />            #expires in 3 hours<br />        CacheGcInterval 3<br />            #check each hour the cache and delete the obsolete files<br />    &lt;/IfModule&gt;<br /><br />    &lt;IfModule mod_deflate.c&gt;<br />        SetOutputFilter DEFLATE<br />    &lt;/IfModule&gt;<br /><br />    ExpiresActive On<br />    ExpiresByType image/gif A10800<br />    ExpiresByType image/png A10800<br />    ExpiresByType image/jpeg A10800<br />    ExpiresByType text/css A10800<br />    ExpiresByType text/javascript A10800<br />    ExpiresByType application/x-javascript A10800<br />    ExpiresByType text/html A10800<br />    ExpiresByType text/xml A10800</pre><p><br /></p>

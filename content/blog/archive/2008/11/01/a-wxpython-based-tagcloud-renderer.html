@@ -1,0 +1,128 @@
++++
+draft = false
+date = "2008-11-01T19:36:20-02:00"
+title = "A wxPython based tagcloud renderer"
+keywords = "Python, cookbook"
+created = "2008-11-01T18:57:34-02:00"
+modified = "2008-11-03T14:04:09-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2008/11/01/a-wxpython-based-tagcloud-renderer"
+author = "Tiberiu Ichim"
++++
+
+<p>This is a small example app that will render a tag cloud with various font weights/height, based on their weight in the cloud. Not much to say here, hope it is useful to someone. It has actually been easier to design and create then expected, the only difficulty was in figuring out how to resize the buttons based on the size of their label. The algorithm could be improved to generate the cloud in a single pass, but I'm not gonna bother, it works fast enough right now.</p>
+<pre>import wx
+
+TAGS = [
+ ['animals', 0],
+ ['architecture', 2],
+ ['art', 5],
+ ['august', 1],
+ ['australia', 1],
+ ['autumn', 3],
+ ['baby', 5],
+ ['band', 1],
+ ['barcelona', 3],
+ ['beach', 2],
+ ['berlin', 5],
+ ['bird', 1],
+ ['birthday', 0],
+ ['black', 1],
+ ['blackandwhite', 5],
+ ['blue', 2],
+ ['boston', 3],
+ ['bw', 5],
+ ['california', 1],
+ ['cameraphone', 1],
+ ['camping', 1],
+ ['canada', 4],
+ ['canon', 0],
+ ['car', 5],
+ ['cat', 3],
+ ['chicago', 4],
+ ['china', 5],
+ ['christmas', 0],
+ ['church', 0],
+ ['city', 1],
+ ['clouds', 3],
+ ['color', 5],
+ ['concert', 5],
+ ['cute', 3],
+ ['dance', 0],
+ ['day', 5],
+ ['de', 4],
+ ['dog', 0],
+ ['england', 5],
+ ['europe', 4],
+ ['fall', 1],
+ ['family', 4],
+ ['festival', 1],
+ ['film', 1],
+ ['florida', 2],
+ ['flower', 1]
+]
+
+WIDTH = 500
+
+def getwidth(line):
+    return sum([l.GetSize()[0] for l in line])
+
+def getheight(line):
+    return max([l.GetSize()[1] for l in line])
+
+
+class TopFrame(wx.Frame):
+    
+    def __init__(self, *args, **kwargs):
+        wx.Frame.__init__(self, *args, **kwargs)
+        self.SetSize((500,400))
+
+        lines = []
+        
+        for tag in TAGS:
+            l = wx.Button(self, -1, tag[0], style=wx.NO_BORDER|wx.BU_EXACTFIT)
+            weight = ((tag[1] % 2) and wx.BOLD) or wx.NORMAL
+            l.SetFont(wx.Font(10 + tag[1], wx.DEFAULT, wx.NORMAL, weight, 0, ""))
+            l.SetSize(l.GetBestSize())
+            w, _h = l.GetSize()
+            if lines:
+                line_width = getwidth(lines[-1]) 
+                if (line_width + w) &gt; WIDTH:   #make a new line
+                    lines.append([l])
+                else:
+                    lines[-1].append(l)   
+            else:   #lines is empty
+                lines.append([l])
+        
+        row_pos = 0
+        for line in lines:
+            height = getheight(line)
+            row_w = 0
+            w = getwidth(line)
+            spacer = (WIDTH - w) / len(line)
+            
+            for l in line:
+                dh = row_pos + height - l.GetSize()[1]
+                l.MoveXY(row_w, dh)
+                row_w += l.GetSize()[0] + spacer
+                
+            row_pos += height
+
+
+class MyApp(wx.App):
+
+    def OnInit(self):
+        wx.InitAllImageHandlers()
+        frame = TopFrame(None, - 1, "")
+        self.SetTopWindow(frame)
+        
+        frame.Show()
+        return 1
+    
+
+def start():
+    app = MyApp(0)
+    app.MainLoop()
+    
+if __name__ == "__main__":
+    start()
+</pre>

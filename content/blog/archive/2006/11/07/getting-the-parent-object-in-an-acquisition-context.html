@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-11-07T14:55:09-02:00"
+title = "Getting the parent object in an acquisition context"
+keywords = "zope2, cookbook, Plone"
+created = "2006-11-07T14:54:07-02:00"
+modified = "2006-11-07T14:55:09-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/11/07/getting-the-parent-object-in-an-acquisition-context"
+author = "Tiberiu Ichim"
++++
+
+<p>To get the parent of an object, you'd have to use this code:</p><pre>myparent = aq_inner.aq_parent.aq_self</pre>

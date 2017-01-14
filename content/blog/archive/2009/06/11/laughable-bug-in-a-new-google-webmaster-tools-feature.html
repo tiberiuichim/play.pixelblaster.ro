@@ -1,0 +1,18 @@
++++
+draft = false
+date = "2009-06-11T15:53:16-03:00"
+title = "Laughable bug in a new Google Webmaster Tools feature"
+keywords = "debugging, rants, nginx"
+created = "2009-06-11T15:14:43-03:00"
+modified = "2009-06-11T15:59:32-03:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature"
+author = "Tiberiu Ichim"
++++
+
+<p>Somebody at Google has screwed up in a laughable manner. Webmaster Tools just got a new feature: the ability to tell Google that you have moved a site to a new domain. I'm in the same situation with one site that I manage: <a class="external-link" href="http://www.caleidoscop.org.ro">www.caleidoscop.org.ro</a> has been moved recently to <a class="external-link" href="http://www.caleidoscop.org">www.caleidoscop.org</a>. Although I have done my best (I still need to persuade nginx to generate 301 redirects instead of 302) to ease this transition and absolutely everything pointing to the .org.ro&nbsp; is redirected to the .org address, Google is really slow in picking the change and the Webmaster Tools show links from caleidoscop.org.ro as the main source of links to the new .org domain. Unfortunately, as things stand now, it's impossible for me to use this feature: Google doesn't recognize *.org.ro as being a "root level domain", as can be seen in the next two screenshots. I wonder, org.uk domains have the same problems?</p>
+<p>&nbsp;</p>
+<h3>First, the bug<br /></h3>
+<p><img class="image-inline image-inline" src="/blog/topic_images/snapshot3.png/image_preview" alt="Bug in Google Webmaster Tools" /></p>
+<h3><br /></h3>
+<h3>And this is how it's supposed to look<br /></h3>
+<p><img class="image-inline image-inline" src="/blog/topic_images/snapshot4.png/image_preview" alt="This is how it's supposed to look" /></p>

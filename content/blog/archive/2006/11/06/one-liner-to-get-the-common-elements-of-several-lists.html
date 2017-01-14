@@ -1,0 +1,12 @@
++++
+draft = false
+date = "2006-11-06T23:14:38-02:00"
+title = "One liner to get the common elements of several lists"
+keywords = "Python, cookbook"
+created = "2006-11-06T23:06:29-02:00"
+modified = "2006-11-07T14:48:34-02:00"
+permaLink = "http://play.pixelblaster.ro/blog/archive/2006/11/06/one-liner-to-get-the-common-elements-of-several-lists"
+author = "Tiberiu Ichim"
++++
+
+<p>While doing an exercise with a mockup catalog and indexes, I ran into the problem of filtering several lists and returning the common elements from the list. The following example demonstrate the usage of reduce(), one of the functional programming constructs that are less common and obvious in their usage.</p><pre>&gt;&gt;&gt; a = [1,2,3,4]<br />&gt;&gt;&gt; b = [2,3,4,5]<br />&gt;&gt;&gt; c = [1,2,4,6]<br />&gt;&gt;&gt; d = [0,2,3]<br />&gt;&gt;&gt; z = [a,b,c,d]<br />&gt;&gt;&gt; z = reduce(lambda i,j:list(set(i).intersection(j)), z)<br />&gt;&gt;&gt; z<br />[2]<br /></pre>
