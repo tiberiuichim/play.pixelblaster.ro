@@ -22,7 +22,14 @@ Paginate = 10
     # themeColor = "theme-base-08"
 
 [[menu.main]]
+    name = "RSS"
+    weight = 1
+    post = "<i class='fa fa-rss' aria-hidden='true'></i>"
+    url = "/index.xml"
+
+[[menu.main]]
     name = "Github"
+    weight = 2
     post = "<i class='fa fa-github-alt' aria-hidden='true'></i>"
     url = "https://github.com/tiberiuichim"
 
