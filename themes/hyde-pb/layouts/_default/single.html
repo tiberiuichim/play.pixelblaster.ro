@@ -6,17 +6,10 @@
     <article class="post">
       <h1>{{ .Title }}</h1>
 
-
-      <div class="related">
-        <h5>Tags</h5>
-        <ul class="related-posts">
-          {{ range .Params.tags }}
-          <li>
-            <a href="/tags/{{ . | urlize }}">{{ . }}</a>
-          </li>
-          {{ end }}
-        </ul>
-      </div>
+      <p class="post-tags">
+        <i class='fa fa-tags' aria-hidden='true'></i>
+        {{ range $i, $e := .Params.tags }}{{ if $i }}, {{end}}<a href="/tags/{{ $e | urlize }}">{{ . }}</a>{{ end }}
+      </p>
 
       <div class="post-date">
         <span >{{ .Date.Format "Mon, Jan 2, 2006" }}</span>,

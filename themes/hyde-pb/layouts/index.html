@@ -5,17 +5,18 @@
 
   <div class="content container">
     <section class="posts">
-      {{ $paginator := .Paginate (where .Data.Pages "Type" "blog") }}
+      {{ $paginator := .Paginate (where .Data.Pages "Type" "blog") 10 }}
       {{ range $paginator.Pages }}
 
+      {{ if isset .Params "tags" }}
       <div class="post">
         <h2 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-        <p>
-          {{ if isset .Params "categories" }}
-          &middot;
-          {{ range .Params.categories }}<a class="label" href="{{ "/categories/" | absURL }}{{ . | urlize }}">{{ . }}</a>{{ end }}
-          {{ end }}
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          {{ range $i, $e := .Params.tags }}{{ if $i }}, {{end}}<a href="/tags/{{ $e | urlize }}">{{ . }}</a>{{ end }}
         </p>
+
         <span class="post-date"><time>{{ .Date.Format "Jan 2, 2006" }}</time></span>
 
         <p class="discreet">{{ .Summary }} [...]</p>
@@ -25,6 +26,7 @@
         </div>
 
       </div>
+      {{end}}
       {{ end }}
 
       {{ partial "pagination.html" . }}

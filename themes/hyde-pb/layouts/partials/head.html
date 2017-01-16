@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
   {{ if .IsHome }}
-  <title>{{ .Site.Title }}</title>
+  <title>{{ .Site.Title }} - a Zope/Plone blog by Tiberiu Ichim</title>
   {{ else }}
   <title>{{ .Title }} &middot; {{ .Site.Title }}</title>
   {{ end }}
@@ -18,7 +18,26 @@
   <link rel="stylesheet" href="{{ .Site.BaseURL }}css/poole.css">
   <link rel="stylesheet" href="{{ .Site.BaseURL }}css/syntax.css">
   <link rel="stylesheet" href="{{ .Site.BaseURL }}css/hyde.css">
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+  integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet"
+  href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  <!-- <link rel="stylesheet" href="{{ .Site.BaseURL }}css/tomorrow&#45;night.css"> -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('pre').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });
+  </script>
+
 
   <!-- Icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">

@@ -3,27 +3,22 @@
 
 {{ partial "sidebar.html" . }}
 
-  <!-- <div class="content container"> -->
-  <!--   <ul class="posts"> -->
-  <!--       {{ range .Data.Pages }} -->
-  <!--       <li> -->
-  <!--         <span><a href="{{ .Permalink }}">{{ .Title }}</a> <time class="pull&#45;right post&#45;list">{{ .Date.Format "Mon, Jan 2, 2006" }}</time></span> -->
-  <!--       </li> -->
-  <!--       {{ end }} -->
-  <!--   </ul> -->
-  <!-- </div> -->
-
-
 <div class="content container">
   <h1>Content tagged with "{{ .Title }}"</h1>
   <ul class="posts">
   {{ range .Data.Pages }}
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a>
-    {{ if isset .Params "tags" }}
-    &middot;
-    {{ range .Params.tags }}<a class="label" href="{{ "/tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>{{ end }}
-    {{ end }}</span>
-    &middot; <time>{{ .Date.Format "Jan 2, 2006" }}</time></li>
+  <li>
+
+    <time>{{ .Date.Format "2006" }}</time>:
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+
+      <!-- {{ if isset .Params "tags" }} -->
+      <!-- <p class="post&#45;tags"> -->
+      <!--   <i class='fa fa&#45;tags' aria&#45;hidden='true'></i> -->
+      <!--   {{ range $i, $e := .Params.tags }}{{ if $i }}, {{end}}<a href="/tags/{{ $e | urlize }}">{{ . }}</a>{{ end }} -->
+      <!-- </p> -->
+      <!-- {{end}} -->
+    </li>
   {{ end }}
   </ul>
 </div>

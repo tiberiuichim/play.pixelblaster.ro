@@ -4,7 +4,7 @@ theme = "hyde-pb"
 languageCode = "en-us"
 title = "The Plone Expanse"
 description ="Zope/Plone tips and tutorial, by Tiberiu Ichim"
-baseurl = "http://play.pixelblaster.ro"
+baseurl = "http://play.pixelblaster.ro/"
 Paginate = 10
 
 [permalinks]
@@ -13,20 +13,18 @@ Paginate = 10
     blog = "/blog/:year/:month/:day/:title/"
 
 [params]
-Author = "Tiberiu Ichim"
-Description = "My thoughts, tutorials and rants on programming with a focus on the Plone, Zope, with a dash of everything else"
-Copyright = "@2016 Tiberiu Ichim"
-CopyrightTibi = "@2016 Tiberiu Ichim"
-Categories = ['asta', 'este']
+    Author = "Tiberiu Ichim"
+    Description = "My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else"
+    Copyright = "@2016 Tiberiu Ichim"
 
-layoutReverse = true
-disqusShortName = "play-pixelblaster-ro"
-# themeColor = "theme-base-08"
+    layoutReverse = true
+    disqusShortName = "play-pixelblaster-ro"
+    # themeColor = "theme-base-08"
 
 [[menu.main]]
     name = "Github"
-    post = "<span class='glyphicon glyphicon-fire'></span>"
+    post = "<i class='fa fa-github-alt' aria-hidden='true'></i>"
     url = "https://github.com/tiberiuichim"
 
 [taxonomies]
-tag = "tags"
+    tag = "tags"
