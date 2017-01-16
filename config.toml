@@ -22,14 +22,20 @@ Paginate = 10
     # themeColor = "theme-base-08"
 
 [[menu.main]]
+    name = "Tags"
+    weight = 5
+    post = "<i class='fa fa-tags' aria-hidden='true'></i>"
+    url = "/tags"
+
+[[menu.main]]
     name = "RSS"
-    weight = 1
+    weight = 10
     post = "<i class='fa fa-rss' aria-hidden='true'></i>"
     url = "/index.xml"
 
 [[menu.main]]
     name = "Github"
-    weight = 2
+    weight = 20
     post = "<i class='fa fa-github-alt' aria-hidden='true'></i>"
     url = "https://github.com/tiberiuichim"
 

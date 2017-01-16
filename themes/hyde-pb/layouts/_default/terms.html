@@ -1,0 +1,20 @@
+{{ partial "head.html" . }}
+<body class="{{ .Site.Params.themeColor }} {{if .Site.Params.layoutReverse}}layout-reverse{{end}}">
+
+  {{ partial "sidebar.html" . }}
+
+  <div class="content container">
+    <h1>Explore by tag</h1>
+    <div class="terms-list">
+      <ul>
+        {{ $data := .Data }}
+        {{ range $key, $value := .Data.Terms.ByCount }}
+        {{ $url := printf "/%s/%s" $data.Plural ($value.Name | urlize) }}
+        <li><a href="{{ $url | absURL }}">{{ $value.Name |title }}</a> {{ $value.Count }}</li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
