@@ -4,7 +4,7 @@ theme = "hyde-pb"
 languageCode = "en-us"
 title = "The Plone Expanse"
 description ="Zope/Plone tips and tutorial, by Tiberiu Ichim"
-baseurl = "http://play.pixelblaster.ro/"
+baseurl = "/"
 Paginate = 10
 
 [permalinks]
