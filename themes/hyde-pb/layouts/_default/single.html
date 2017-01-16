@@ -3,12 +3,13 @@
   {{ partial "sidebar.html" . }}
 
   <div class="content container">
+
     <article class="post">
       <h1>{{ .Title }}</h1>
 
       <p class="post-tags">
-        <i class='fa fa-tags' aria-hidden='true'></i>
-        {{ range $i, $e := .Params.tags }}{{ if $i }}, {{end}}<a href="/tags/{{ $e | urlize }}">{{ . }}</a>{{ end }}
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      {{ range $i, $e := .Params.tags }}{{ if $i }}, {{end}}<a href="/tags/{{ $e | urlize }}">{{ . }}</a>{{ end }}
       </p>
 
       <div class="post-date">
@@ -16,7 +17,25 @@
         <span id="wc"> {{ .FuzzyWordCount }} Words </span>
       </div>
       {{ .Content }}
+
+      <div id="nextprev">
+        {{ if .PrevInSection }}
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="{{.PrevInSection.Permalink}}"> {{.PrevInSection.Title}}</a>
+        </p>
+        {{ end }}
+        {{ if .NextInSection }}
+        <p class="next-link">
+        Next:
+        <a class="next" href="{{.NextInSection.Permalink}}"> {{.NextInSection.Title}}</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        {{ end }}
+      </div>
     </article>
+
 
     <h2>Comments</h2>
     {{ partial "disqus" . }}

@@ -1,2 +1,2 @@
 #!/bin/sh
-./bin/hugo server --buildDrafts
+./bin/hugo server --buildDrafts --ignoreCache

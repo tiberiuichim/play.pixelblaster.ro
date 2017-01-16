@@ -297,3 +297,11 @@ tbody tr:nth-child(odd) th {
     display: block;
     width: 100%;
 }
+#nextprev {
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1px solid #999;
+}
+#nextprev .next-link {
+    text-align: right;
+}
