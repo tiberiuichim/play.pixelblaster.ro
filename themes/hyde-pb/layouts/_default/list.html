@@ -1,27 +1,21 @@
 {{ partial "head.html" . }}
 <body class="{{ .Site.Params.themeColor }} {{if .Site.Params.layoutReverse}}layout-reverse{{end}}">
 
-{{ partial "sidebar.html" . }}
+  {{ partial "sidebar.html" . }}
 
-<div class="content container">
-  <h1>Content tagged with "{{ .Title }}"</h1>
-  <ul class="posts">
-  {{ range .Data.Pages }}
-  <li>
-
-    <time>{{ .Date.Format "2006" }}</time>:
-    <a href="{{ .Permalink }}">{{ .Title }}</a>
-
-      <!-- {{ if isset .Params "tags" }} -->
-      <!-- <p class="post&#45;tags"> -->
-      <!--   <i class='fa fa&#45;tags' aria&#45;hidden='true'></i> -->
-      <!--   {{ range $i, $e := .Params.tags }}{{ if $i }}, {{end}}<a href="/tags/{{ $e | urlize }}">{{ . }}</a>{{ end }} -->
-      <!-- </p> -->
-      <!-- {{end}} -->
-    </li>
-  {{ end }}
-  </ul>
-</div>
+  <div class="content container">
+    <h1> Content tagged with "{{ .Title }}" </h1>
+    <ul class="posts">
+      {{ range .Data.Pages }}
+      <li>
+        <time>{{ .Date.Format "2006" }}</time>:
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+      </li>
+      {{ end }}
+    </ul>
+    <p> <a href="{{ .RSSLink }}"><i class='fa fa-rss' aria-hidden='true'></i>
+      Follow this tag by RSS </a> </p>
+  </div>
 
 </body>
 </html>
