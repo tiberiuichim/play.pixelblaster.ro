@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Specific imports versus module imports in Python &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Specific imports versus module imports in Python</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/python">Python</a>, <a href="/tags/rants">rants</a>
+      </p>
+
+      <div class="post-date">
+        <span >Wed, Dec 3, 2008</span>,
+        <span id="wc"> 400 Words </span>
+      </div>
+      <p>I've always been a fan of explicit, separate imports in Python, vs generic module imports. Maybe it's because I like things to be explicit, or I've been spoiled by the way Eclipse Pydev deals with auto-importing, but I have an aversion towards generic module imports. To keep the code style consistent, I even rewrite to this style any foreign code that ends up in my code.</p>
+<p>Specifically, I'm talking about:</p>
+<pre>from foo import Bar
+Bar()</pre>
+<p>vs</p>
+<pre>import foo
+foo.Bar()
+</pre>
+<p>Needless to say, I like the first style better.</p>
+<p>There are advantages and disadvantages for each of the above methods:</p>
+<ul><li>general module imports demand less from the editor (the programmer needs to type less "import" lines and the editor doesn't need to be very much aware of Python - emacs and vim users will probably favor this style)</li><li>but it makes it hard sometimes to figure out where a module comes from. Example: you're deep down reading a module and you encounter a line referencing the component module. Now, where does that component module comes from? Could be both of the following imports:<br /></li></ul>
+<pre>from zope.app import component
+from zope import component</pre>
+<p>Of course, some people sensed this problem and write code like:</p>
+<pre>class MyView(object):
+&nbsp;&nbsp;&nbsp; template = zope.app.pagetemplate.ViewPageTemplateFile('template.pt')
+</pre>
+<p>But this code is hard to read, hard to write and is almost at the limit with the self-imposed line length of 80 characters, which means most of the times it needs to be broken in two lines.</p>
+<p>Today I became aware of what I consider the biggest advantage of using specific import (from foo import Bar). Heavy refactoring, in the absence of a comprehensive test suite, is a lot easier! When starting the program, the imports will fail and you get an immediate pointer to where you need to make a fix. If I would have used a generic module import, the error will have appeared only when trying to use the piece of code that calls foo.Bar().</p>
+<p>TL;DR: use specific imports! If your editor doesn't support it, take some time to look at Eclipse Pydev or Netbeans, two free IDEs with Python support. You'll get:</p>
+<ul><li> easier refactoring <br /></li><li> better code legibility</li><li>I'll be happier when I need to reuse code snippets :-)<br /></li></ul>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2008/11/23/moving-to-intrepid-and-kde-4.1/"> Moving to Intrepid and KDE 4.1</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2009/01/06/crossroads-a-very-good-load-balancing-solution/"> Crossroads: a very good load balancing solution</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

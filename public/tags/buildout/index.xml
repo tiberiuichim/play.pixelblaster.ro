@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Buildout on The Plone Expanse</title>
+    <link>/tags/buildout/index.xml</link>
+    <description>Recent content in Buildout on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/buildout/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Some issues with zc.recipe.egg&#39;s python option</title>
+      <link>/blog/2010/05/12/some-issues-with-zc.recipe.eggs-python-option/</link>
+      <pubDate>Wed, 12 May 2010 11:21:44 -0300</pubDate>
+      
+      <guid>/blog/2010/05/12/some-issues-with-zc.recipe.eggs-python-option/</guid>
+      <description>&lt;p&gt;I&#39;ve recently had to integrate a script/package into a Plone 2.5 buildout that runs on top of Python 2.4. Due to that package&#39;s dependence of a sane imaplib (and the one in Python 2.4 is buggy), I had to run the script with python2.6. To make a script run on a different python, you need to do:&lt;/p&gt;
+&lt;pre&gt;[myscript]
+recipe = zc.regipe.egg
+eggs = 
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; myegg
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; IMAPClient
+python = python26&lt;/pre&gt;
+&lt;p&gt;The python26 option is actually the name of a buildout part that configures the python executable path&lt;/p&gt;
+&lt;pre&gt;[python26]
+python = /usr/bin/python26
+&lt;/pre&gt;
+&lt;p&gt;Now the problems. I&#39;ve had various buildouts fail with a message &#34;Cannot find egg myegg&#34;. After a bit of effort, we managed to trace the cause to this problem:&lt;/p&gt;
+&lt;p&gt;First, the python path in the [python26] part was incorect. Second, even if it pointed to the proper binary, the -devel packages for that python needed to be installed.&lt;/p&gt;
+&lt;p&gt;Well, now I know. Hopefully I&#39;ll remember it for the next time when I&#39;ll encounter the problem.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Another cause for buildout failures: system distributed Python</title>
+      <link>/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/</link>
+      <pubDate>Thu, 28 Jan 2010 21:29:31 -0200</pubDate>
+      
+      <guid>/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/</guid>
+      <description>&lt;p&gt;I&#39;ve had a buildout bootstrap process failure, this time a weird one, perhaps I should document the bug and report it.&lt;/p&gt;
+&lt;p&gt;The latest Ubuntu version which I have installed (Lucid Lynx) comes with a package called python-pkg-resources, which packages &lt;a class=&#34;external-link&#34; href=&#34;http://www.python.org/dev/peps/pep-0365/&#34;&gt;pkg_resources&lt;/a&gt;, which used to be available only through the setuptools distribution. Buildout&#39;s bootstrap.py  tries to guess if Setuptools or Distribute are installed by checking the availability of pkg_resources; by guessing wrong it all comes to a crash at the end.&lt;/p&gt;
+&lt;p&gt;I&#39;m not very interested in debugging these types of problems anymore. Distribution/packaging tools should just work. I want to focus on my work, not debug the toolchain. No more corner cases or whatver. So I&#39;m gonna compile separate Pythons in the future, especially when dealing with older Zope/Plones.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dear PyPi uploaders: don&#39;t use a download URL, upload your package instead!</title>
+      <link>/blog/2010/01/28/dear-pypi-uploaders-dont-use-a-download-url-upload-your-package-instead/</link>
+      <pubDate>Thu, 28 Jan 2010 20:57:23 -0200</pubDate>
+      
+      <guid>/blog/2010/01/28/dear-pypi-uploaders-dont-use-a-download-url-upload-your-package-instead/</guid>
+      <description>&lt;p&gt;I think this is the Python Index biggest mistake, the one which makes it unreliable for serious development environments: exposing package entries with no real package files and just a download URL. To see what I&#39;m talking about, just examine the PyPI records for &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/BeautifulSoup&#34;&gt;BeautifulSoup&lt;/a&gt;
+ or &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/ipython/&#34;&gt;IPython&lt;/a&gt;,
+ packages that are very common in buildouts. As soon as the author and publisher of that package has a hosting problem, the developer that uses that package also has a problem. Buildouts will completely fail and this will cause dead times and frustration for the developers.&lt;/p&gt;
+&lt;p&gt;Yes, there are a couple of PyPi mirrors, but they only mirror files hosted by PyPi. The central PyPi site will probably have better performance and availability then what individual groups and developers can provide and it&#39;s always easier to mirror one single website than many, so there&#39;s no shame or loss of pride in using the PyPi to host your files. Please do so!&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Subversion 1.5 &#43; default instalation Plone 3.1 buildout: no problems here</title>
+      <link>/blog/2008/11/18/subversion-1.5-&#43;-default-instalation-plone-3.1-buildout-no-problems-here/</link>
+      <pubDate>Tue, 18 Nov 2008 15:10:43 -0200</pubDate>
+      
+      <guid>/blog/2008/11/18/subversion-1.5-&#43;-default-instalation-plone-3.1-buildout-no-problems-here/</guid>
+      <description>&lt;p&gt;I&#39;ve hit the setuptools + subversion 1.5 problem again with a freshly install Plone 3.1.7 buildout: I&#39;ve added my egg develop folder in zinstance/src/, I&#39;ve added the egg in the relevant sections in buildout.cfg, but it wouldn&#39;t work because of the incompatibility with the old setuptools version.&lt;/p&gt;
+&lt;p&gt;The solution is to upgrade the installed setuptools to the latest version. For example, for a standalone Plone installed at /home/tibi/Plone, we have this structure:&lt;/p&gt;
+&lt;pre&gt;/home/tibi/Plone
+&amp;nbsp;&amp;nbsp; /Python-2.4
+&amp;nbsp;&amp;nbsp; /buildout-cache
+&amp;nbsp;&amp;nbsp; /zinstance&lt;/pre&gt;
+&lt;p&gt;I&#39;ve changed directory to the Python-2.4 from above and ran:&lt;/p&gt;
+&lt;pre&gt;bin/easy_install -U setuptools&lt;/pre&gt;
+&lt;p&gt;Then I could succesfully run the buildout in the zinstance folder.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

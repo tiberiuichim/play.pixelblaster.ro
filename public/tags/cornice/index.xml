@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cornice on The Plone Expanse</title>
+    <link>/tags/cornice/index.xml</link>
+    <description>Recent content in Cornice on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/cornice/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Generate the route url for a Cornice service or resource</title>
+      <link>/blog/2017/01/25/generate-the-route-url-for-a-cornice-service-or-resource/</link>
+      <pubDate>Wed, 25 Jan 2017 23:09:45 +0100</pubDate>
+      
+      <guid>/blog/2017/01/25/generate-the-route-url-for-a-cornice-service-or-resource/</guid>
+      <description>&lt;p&gt;As far as I can tell, there&amp;rsquo;s no documentation on how to generate the reverse
+url for a &lt;a href=&#34;https://github.com/Cornices/cornice&#34;&gt;Cornice&lt;/a&gt; resource or service.
+Suppose I want to publish a list of children resources and i want to make them
+behave as linked data. For that, I want to be able to generate proper URLs,
+based on the request URL.&lt;/p&gt;
+
+&lt;p&gt;This is some sample code to show how to achieve that, based on a side project
+I&amp;rsquo;m working on:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;@resource(collection_path=&amp;quot;/&amp;quot;,
+          path=&amp;quot;/{id}&amp;quot;, cors_origins=(&#39;*&#39;,), cors_max_age=3600)
+class MLModelResource(object):
+
+    def __init__(self, request):
+        self.request = request
+
+    def _model_url(self, ml):
+        return self.request.route_url(self.__class__.__name__.lower(),
+                                      id=ml.name)
+
+    def serialize_model(self, ml, sess):
+        res = {}
+        res[&#39;name&#39;] = ml.name
+        res[&#39;labels&#39;] = get_model_labels(ml, sess)
+        res[&#39;can_predict&#39;] = ml.can_predict()
+        res[&#39;url&#39;] = self._model_url(ml)
+        return res
+
+    def collection_get(self):
+        sess = self.request.dbsession
+        res = []
+        for ml in sess.query(MLModel):
+            res.append(self.serialize_model(ml, sess))
+        return {&#39;models&#39;: res}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice this line: &lt;code&gt;return self.request.route_url(self.__class__.__name__.lower(), id=ml.name)&lt;/code&gt;
+Cornice registers, for each resource, two routes: one named &lt;code&gt;collection_&amp;lt;classname&amp;gt;.lower()&lt;/code&gt;
+and another one with just the lower class name, &lt;code&gt;&amp;lt;classname&amp;gt;.lower()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For the regular services, Cornice register routes with the proper service name.
+So, for a service such as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;sampleserv = Service(name=&amp;quot;sampleserv&amp;quot;,
+                  description=&amp;quot;Use the sampleserv service&amp;quot;,
+                  path=&amp;quot;/{name}/sampleserv&amp;quot;,
+                  cors_origins=(&#39;*&#39;,),
+                  cors_max_age=3600)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the way to generate the route is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;self.request.route_url(&#39;sampleserv&#39;, name=&#39;something&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

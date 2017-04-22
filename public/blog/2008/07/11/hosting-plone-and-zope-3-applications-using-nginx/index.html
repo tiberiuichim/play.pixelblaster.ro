@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Hosting Plone and Zope 3 applications using nginx &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Hosting Plone and Zope 3 applications using nginx</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/nginx">nginx</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/plone">Plone</a>
+      </p>
+
+      <div class="post-date">
+        <span >Fri, Jul 11, 2008</span>,
+        <span id="wc"> 400 Words </span>
+      </div>
+      <p>I'm doing a setup on a new server, I've decided to replace the default Apache 2.2 with an nginx http server. The setup which is needed for Zope 3 and Plone applications is the following:</p>
+<pre>[buildout]
+parts =
+&nbsp;&nbsp;&nbsp; nginx
+&nbsp;&nbsp;&nbsp; nginxctl
+
+[nginx]
+recipe = gocept.cmmi
+url = http://sysoev.ru/nginx/nginx-0.7.6.tar.gz
+md5sum = ae7ce6f66a2cf5a5970d9a9a0da0cf7d
+
+[nginxctl]
+recipe = gocept.nginx
+hostname = localhost
+port = 80
+configuration =
+&nbsp;&nbsp;&nbsp; worker_processes 1;
+&nbsp;&nbsp;&nbsp; events {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; worker_connections 1024;
+&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp; http {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upstream z3 {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; server 127.0.0.1:8080;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upstream plone {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; server 127.0.0.1:9080;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; server {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; listen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${nginxctl:port};
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; server_name z3.example.org;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; root html;
+            include /etc/nginx/proxy.conf
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; location / {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; proxy_pass http://z3/++lang++ro/++skin++myskin/mysite/++vh++http:z3.example.org:80/++/;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        server {
+            server_name plone.example.org;
+            include /etc/nginx/proxy.conf
+
+            location / {
+                proxy_pass http://plone/VirtualHostBase/http/plone.example.org:80/t1/VirtualHostRoot/;
+            }
+        }
+        server {
+            server_name plone.example.org;
+            rewrite ^/(.*)  /VirtualHostBase/http/plone.example.org:80/t1/VirtualHostRoot/$1 last;
+            location / {
+                proxy_pass http://plone;
+            }
+        }
+&nbsp;&nbsp;&nbsp; }
+</pre>
+<p>Note: this is a buildout.cfg. Using it together with zc.buildout makes the nginx instalation a very simple process: install zc.buildout (easy_install zc.buildout), and then run buildout in the folder that contains the .cfg file.</p>
+<p>The settings in proxy.conf are important. Without a valid proxy_temp_path, for some reason delivery of all content that came from a Plone 2.5 site that used CacheFu setup with no proxy cache was freezing at 16014 bytes. The paths in /var/nginx need to be created and set to be writable by the nginx process (user nobody in my case).</p>
+<pre>client_max_body_size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0;
+client_body_buffer_size&nbsp;&nbsp;&nbsp; 128k;
+client_body_temp_path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /var/nginx/client_body_temp;
+
+proxy_connect_timeout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 90;
+proxy_send_timeout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 90;
+proxy_read_timeout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 90;
+proxy_buffer_size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4k;
+proxy_buffers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 32k;
+proxy_busy_buffers_size&nbsp;&nbsp;&nbsp; 64k;
+proxy_temp_file_write_size 64k;
+proxy_temp_path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /var/nginx/proxy_temp;
+proxy_redirect&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; off;
+proxy_set_header&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Host $host;
+proxy_set_header&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X-Real-IP $remote_addr;
+proxy_set_header&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; X-Forwarded-For $proxy_add_x_forwarded_for;</pre>
+<p>&nbsp;</p>
+<h3>Resources<br /></h3>
+<p><a class="external-link" href="http://plone.lucidsolutions.co.nz/web/reverseproxyandcache/install-nginx">A more complete  nginx sample configuration file (but that only covers how to configure Plone)</a></p>
+<p><a class="external-link" href="http://grok.zope.org/documentation/how-to/grok-virtual-hosting-and-nginx">Grok guide on hosting Zope 3 with nginx</a> (note, at this moment the document is wrong, the setup line is missing a slash at the end).</p>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2008/06/01/using-views-as-information-mixins-in-templates/"> Using views as information mixins in templates</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2008/08/22/bug-in-pypi/"> Bug in PyPi</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

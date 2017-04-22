@@ -1,0 +1,5 @@
+* run hugo new title-something.md
+* run vim content/title-something.md
+* move from content/title-something.md to content/blog/title-something.md
+
+* run bin/hugo --ignoreCached

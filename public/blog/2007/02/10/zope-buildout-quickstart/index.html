@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Zope buildout quickstart &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Zope buildout quickstart</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/python">Python</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/linux">Linux</a>
+      </p>
+
+      <div class="post-date">
+        <span >Sat, Feb 10, 2007</span>,
+        <span id="wc"> 400 Words </span>
+      </div>
+      <p>One of the bigger players in the latest move to automate Plone and Zope development and deployment has been <a href="http://www.zope.org/DevHome/Buildout">buildout</a>, so I figured it's about time to start learning it and see how it can help me. I'm writing this short recipe as I progress through learning buildout to help me remember this stuff later on.<br /></p><h3>Installing buildout</h3><p>The easiest way to install buildout is to get <a href="http://peak.telecommunity.com/DevCenter/EasyInstall">easy_install</a> (a manager for python packages) on your system. In order to get it installed, I had to do: (based on a custom python 2.4.3 installation in /opt/python):<br /></p><pre>$mkdir ~/buildout_play<br />$cd ~/buildout_play<br />$wget http://peak.telecommunity.com/dist/ez_setup.py<br />$sudo /opt/python/bin/python ez_setup.py</pre><p>Next, install the zc.buildout package, using easy_install:</p><pre>/opt/python/bin/easy_install zc.buildout</pre><p>This will install the buildout egg in the python site-packages folder and create a 'buildout' script  in the scripts folder, in my case /opt/python/bin/buildout. <br /></p><p>Next, transform the buildout_play folder in buildout folder, by running:</p><pre>/opt/python/bin/buildout -v</pre><p>This will "bootstrap" that folder and prepare it as a buildout environment, also installing the setuptools and zc.buildout eggs. The buildout script will check every time it's being ran if those eggs are at their latest version, run it with the -N option if you want to skip that.<br /></p><p>As a simple test for buildout, I've modified my buildout.cfg to contain the following lines:</p><pre>[buildout]<br />parts = checkout<br /><br />[checkout]<br />recipe = zc.recipe.zope3checkout<br />url = svn://svn.zope.org/repos/main/Zope3/trunk</pre><p>This tells buildout to include a part named checkout, which is defined to use the "zc.recipe.zope3checkout" recipe, that is configured with the "url" option. Running<br /></p>
+<pre>/opt/python/bin/buildout -v -N</pre><p>will automatically grab the zc.recipe.zope3checkout egg, do a svn checkout in the parts/checkout folder and then compile in place the zope 3 checkout. <br /></p><p>When developing new projects, to make this process easier, it is possible to put a <a href="http://dev.zope.org/Buildout/bootstrap.py">bootstrap.py</a> script in the folder where you're developing, which will automatically install setuptools (easy_install) and zc.buildout, transform that folder in a buildout folder and put a bin/bootstrap script that can be ran to do the build. <br /></p><p>These are the basics to get started, see below for further details.<br /></p><h3>Reference</h3><ul><li><a href="http://cheeseshop.python.org/pypi/zc.buildout">http://cheeseshop.python.org/pypi/zc.buildout</a></li><li><a href="http://svn.plone.org/svn/plone/ploneout/trunk/">http://www.zope.org/DevHome/Buildout/buildout.html</a></li><li><a href="http://svn.plone.org/svn/plone/ploneout/trunk/">http://svn.plone.org/svn/plone/ploneout/trunk/</a><br /></li></ul>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2007/02/06/the-/-resource-view/"> The /@@/ resource view</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2007/02/11/first-glance-at-plone-3/"> First glance at Plone 3</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Grok on The Plone Expanse</title>
+    <link>/tags/grok/index.xml</link>
+    <description>Recent content in Grok on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/grok/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>A miniguide to Dolmen packages</title>
+      <link>/blog/2010/09/19/a-miniguide-to-dolmen-packages/</link>
+      <pubDate>Sun, 19 Sep 2010 22:16:36 -0300</pubDate>
+      
+      <guid>/blog/2010/09/19/a-miniguide-to-dolmen-packages/</guid>
+      <description>&lt;p&gt;I&#39;m finally starting a long-overdue project which I have decided to do with &lt;a class=&#34;external-link&#34; href=&#34;http://www.dolmen-project.org/&#34;&gt;Dolmen&lt;/a&gt;. As usual, I start by studying its source code and the &lt;a class=&#34;external-link&#34; href=&#34;http://gitweb.dolmen-project.org/&#34;&gt;packages&lt;/a&gt; that are available for it. By itself it can will get me about 60% with the requirements for my project, so it&#39;s a pretty good starting base. I plan to also study and use some of the menhir.* packages, which are pretty good as generic CMS content types.&lt;/p&gt;
+&lt;dl class=&#34;docutils&#34;&gt;
+&lt;dt&gt;dolmen&lt;/dt&gt;
+&lt;dd&gt;Dolmen is an application development framework based on Grok and ZTK which also provides a CMS (Content Management System) out of the box. Dolmen is being made with four main objectives in mind: easily pluggable, rock solid and fast content type development, readability and speed.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.authentication&#34;&gt;dolmen.app.authentication&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Users and group management in Dolmen&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.breadcrumbs&#34;&gt;dolmen.app.breadcrumbs&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Provides a breadcrumbs navigation for the Dolmen applications. It registers a viewlet to render the links.&lt;/dd&gt;
+&lt;dt&gt;dolmen.app.clipboard&lt;/dt&gt;
+&lt;dd&gt;Provides a useable &#34;clipboard&#34;, that allows you to cut, copy and paste your objects.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.container&#34;&gt;dolmen.app.container&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Is a collection of tools to work with containers in Dolmen applications.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.content&#34;&gt;dolmen.app.content&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Provides out-of-the-box utilities for Dolmen applications content.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.layout&#34;&gt;dolmen.app.layout&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Provides ready-to-use components to get a fully functional and extensively pluggable User Interface for a Dolmen application&lt;/dd&gt;
+&lt;dt&gt;dolmen.app.metadatas&lt;/dt&gt;
+&lt;dd&gt;Forms and viewlets to edit ZopeDublinCore metadata&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.search&#34;&gt;dolmen.app.search&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Viewlets and utilities for permission-aware searching of objects in a Dolmen site.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.security&#34;&gt;dolmen.app.security&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Roles and permissions for a Dolmen site&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.site&#34;&gt;dolmen.app.site&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;The basic Dolmen objects that serve as roots of Dolmen sites&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.viewselector&#34;&gt;dolmen.app.viewselector&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Allows basic management of alternate views&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.authentication&#34;&gt;dolmen.authentication&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Basic components for authentication&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.beaker&#34;&gt;dolmen.beaker&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Zope sessions implementation using beaker&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.blob&#34;&gt;dolmen.blob&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A layer above zope.file using ZODB blobs as a storage facility. It offers a BlobFile content type and a BlobProperty property for complex schemas.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.builtins&#34;&gt;dolmen.builtins&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A set of interfaces that apply to basic Python types, to better integrate them with ZCA&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.content&#34;&gt;dolmen.content&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Base classes and utilities to create content types&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.field&#34;&gt;dolmen.field&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Additional fields usable in schemas. At this moment there&#39;s just GlobalClass&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.file&#34;&gt;dolmen.file&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Allows you to manage and store files within the ZODB. It takes the core functionalities of zope.app.file, and simplifies them, using Grok for views and adapters registrations.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.forms.base&#34;&gt;dolmen.forms.base&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A package in charge of providing basic functionalities to work with zeam.form Forms.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.forms.crud&#34;&gt;dolmen.forms.crud&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A package which helps developers create their C.R.U.D forms using Grok, zeam.form and dolmen.content. It provides a collection of base classes to add, edit, and access content. It innovates by providing adapters to customize the fields of a form.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.menu&#34;&gt;dolmen.menu&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Aims to provide the most flexible and explicit way to create and manage menus and their entries with Grok.&lt;/dd&gt;
+&lt;dt&gt;dolmen.queue&lt;/dt&gt;
+&lt;dd&gt;A simple layer on top of zc.async to provide queuing of tasks. Not ready?&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.relations&#34;&gt;dolmen.relations&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Is a thin layer above zc.relation, allowing a simple and straightforward implementation of standalone relationships between objects.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.storage&#34;&gt;dolmen.storage&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Defines a clear high-level API to deal with pluggable storage components.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.thumbnailer&#34;&gt;dolmen.thumbnailer&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Is package specialized in Thumbnail generation. Using the dolmen.storage mechanisms, it allows a pluggable and flexible thumbnail storage.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.widget.file&#34;&gt;dolmen.widget.file&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A package that walks hand-in-hand with dolmen.file. It provides a useable and pluggable way to render the dolmen.file.FileField in a zeam.form Form.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.widget.image&#34;&gt;dolmen.widget.image&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A thin layer above dolmen.widget.file providing a widget suitable to fields implementing IImageField. It adds, thanks to dolmen.thumbnailer a preview of the uploaded image in both input and display mode.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.widget.tinymce&#34;&gt;dolmen.widget.tinymce&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A package that provides a useable and pluggable way to render a text field as a WYSIWG editor in a zeam.form Form.&lt;/dd&gt;
+&lt;dt&gt;dolmen.workflow&lt;/dt&gt;
+&lt;dd&gt;Nothing here&lt;/dd&gt;
+&lt;dt&gt;megrok.icon&lt;/dt&gt;
+&lt;dd&gt;Allows registration of icons and associating them with content types&lt;/dd&gt;
+&lt;dt&gt;megrok.resourcemerger&lt;/dt&gt;
+&lt;dd&gt;Allows concatanation and packing of browser resources (css and js)&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/menhir.contenttype.document&#34;&gt;menhir.contenttype.document&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;An example document content type&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/menhir.contenttype.file&#34;&gt;menhir.contenttype.file&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;An example file content type&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/menhir.contenttype.folder&#34;&gt;menhir.contenttype.folder&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;An example folder content type&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/menhir.contenttype.image&#34;&gt;menhir.contenttype.image&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;An example image content type&lt;/dd&gt;
+&lt;dt&gt;menhir.contenttype.photoalbum&lt;/dt&gt;
+&lt;dd&gt;An example photoalbum content type&lt;/dd&gt;
+&lt;dt&gt;menhir.contenttype.rstdocument&lt;/dt&gt;
+&lt;dd&gt;An example rstdocument content type&lt;/dd&gt;
+&lt;dt&gt;menhir.contenttype.user&lt;/dt&gt;
+&lt;dd&gt;An example user content type&lt;/dd&gt;
+&lt;dt&gt;menhir.library.tablesorter&lt;/dt&gt;
+&lt;dd&gt;Registers a jquery based library for HTML tables sorting&lt;/dd&gt;
+&lt;dt&gt;menhir.simple.comments&lt;/dt&gt;
+&lt;dd&gt;Simple commenting system with avatar integration&lt;/dd&gt;
+&lt;dt&gt;menhir.simple.livesearch&lt;/dt&gt;
+&lt;dd&gt;A viewlet that provides a livesearch box&lt;/dd&gt;
+&lt;dt&gt;menhir.simple.navtree&lt;/dt&gt;
+&lt;dd&gt;A viewlet providing a navigation tree&lt;/dd&gt;
+&lt;dt&gt;menhir.simple.tag&lt;/dt&gt;
+&lt;dd&gt;A tagging engine based on the lovely.tag&lt;/dd&gt;
+&lt;dt&gt;menhir.skin.lightblue&lt;/dt&gt;
+&lt;dd&gt;A complete skin for a Dolmen site.&lt;/dd&gt;
+&lt;dt&gt;menhir.skin.snappy&lt;/dt&gt;
+&lt;dd&gt;A skin for Snappy sites&lt;/dd&gt;
+&lt;dt&gt;snappy.site&lt;/dt&gt;
+&lt;dd&gt;The Snappy, a video sharing sample site&lt;/dd&gt;
+&lt;dt&gt;snappy.transform&lt;/dt&gt;
+&lt;dd&gt;Mimetype transform utilities. Not finished?&lt;/dd&gt;
+&lt;dt&gt;snappy.video.flasher&lt;/dt&gt;
+&lt;dd&gt;Utilities to mark files as Flash and allow to view them.&lt;/dd&gt;
+&lt;dt&gt;snappy.video.player&lt;/dt&gt;
+&lt;dd&gt;A video player for flash movies&lt;/dd&gt;
+&lt;dt&gt;snappy.video.transforms&lt;/dt&gt;
+&lt;dd&gt;Convert video files to flash movies and thumbnails&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/zeam.form.base&#34;&gt;zeam.form.base&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A form library designed to be grokish and simple&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/zeam.form.ztk&#34;&gt;zeam.form.ztk&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;zope.schema integration for zeam.form. It provides widgets and default CRUD style actions.&lt;/dd&gt;
+&lt;dt&gt;dolmen-documentation&lt;/dt&gt;
+&lt;dd&gt;A few tutorials for Dolmen&lt;/dd&gt;
+&lt;dt&gt;dolmenproject&lt;/dt&gt;
+&lt;dd&gt;A Paste script extension that allows quick bootstrapping of new Dolmen projects&lt;/dd&gt;&lt;/dl&gt;
+&lt;p&gt;To download all the packages, I&#39;ve ctrl+selected the git repositories names from &lt;a class=&#34;external-link&#34; href=&#34;http://gitweb.dolmen-project.org/&#34;&gt;http://gitweb.dolmen-project.org/&lt;/a&gt;, pasted them into a repositories.txt file and ran the following script:&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;pre&gt;import subprocess
+import os
+
+f = open(&#39;repositories.txt&#39;)
+for line in f.readlines():
+&amp;nbsp;&amp;nbsp;&amp;nbsp; git = line.strip()
+&amp;nbsp;&amp;nbsp;&amp;nbsp; pkg = git
+&amp;nbsp;&amp;nbsp;&amp;nbsp; if pkg.endswith(&#39;.git&#39;):
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; pkg = &#34;.&#34;.join(pkg.split(&#39;.&#39;)[:-1])
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; if os.path.exists(pkg):
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; subprocess.check_call([&#39;git&#39;, &#39;pull&#39;], cwd=pkg)
+&amp;nbsp;&amp;nbsp;&amp;nbsp; else:
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; subprocess.check_call([&#39;git&#39;, &#39;clone&#39;, &#39;git://devel.dolmen-project.org/&#39; + git])&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;dl class=&#34;docutils&#34;&gt;&lt;dt&gt;&lt;br /&gt;&lt;/dt&gt;&lt;/dl&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Test if developer mode is set in Zope 3 and Grok</title>
+      <link>/blog/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok/</link>
+      <pubDate>Fri, 15 Jan 2010 11:29:22 -0200</pubDate>
+      
+      <guid>/blog/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok/</guid>
+      <description>&lt;p&gt;I&#39;ve started an application that uses &lt;a class=&#34;external-link&#34; href=&#34;http://gitweb.dolmen-project.org/&#34;&gt;Dolmen&lt;/a&gt;, a lightweight CMS built on top of &lt;a class=&#34;external-link&#34; href=&#34;http://grok.zope.org/&#34;&gt;Grok&lt;/a&gt;, and I want to be able to &#34;rollup&#34; the &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/megrok.resource/&#34;&gt;megrok.resource&lt;/a&gt; files based on the devmode setting that was set in the zope.conf file. After a bit of digging, I came up with this code that tells me the current devmode setting for the running instance:&lt;/p&gt;
+&lt;pre&gt;from zope.app.applicationcontrol.applicationcontrol import applicationController
+from zope.app.applicationcontrol.interfaces import IRuntimeInfo
+
+def get_debug_mode():
+&amp;nbsp;&amp;nbsp;&amp;nbsp; &#34;&#34;&#34;Returns the devmode setting for a running zope instance&#34;&#34;&#34;
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; rti = IRuntimeInfo(applicationController)
+&amp;nbsp;&amp;nbsp;&amp;nbsp; return rti.getDeveloperMode() == &#34;On&#34;&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

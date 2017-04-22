@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Archgenxml on The Plone Expanse</title>
+    <link>/tags/archgenxml/index.xml</link>
+    <description>Recent content in Archgenxml on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/archgenxml/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Generating products outside of the Products.* namespace with ArchGenXML</title>
+      <link>/blog/2010/02/24/generating-products-outside-of-the-products.-namespace-with-archgenxml/</link>
+      <pubDate>Wed, 24 Feb 2010 17:54:52 -0200</pubDate>
+      
+      <guid>/blog/2010/02/24/generating-products-outside-of-the-products.-namespace-with-archgenxml/</guid>
+      <description>&lt;p&gt;I&#39;m a die hard in regards to ArchGenXML usage. The number of things to know about when creating new content types for Plone is just too high. Package structure, Zope package registration, content types registration, QuickInstaller registration, GenericSetup profiles, skins registration, workflows, etc. I can go in and do changes to the code, and add to it, but generating it from scratch is a gigantic task, especially for my use case, where I need to start a new project with about 7 content types.&lt;/p&gt;
+&lt;p&gt;Now to the problem: ArchGenXML assumes (and hardcodes in its templates) the Products.* prefix for your package. I don&#39;t have any problems with it, but my employer uses a different package structure so for uniformity I need to follow their standards. 15 minutes of poking and changing through agx enabled me to change it so it would generate GS xml files with the proper namespace (based on a new model level TGV named &#34;namespace&#34; that I have created). After assessing the difficulty of the task and being under time pressure, I&#39;ve decided to go the dumb route, which I&#39;m documenting below:&lt;/p&gt;
+&lt;p&gt;My generation script is something like this:&lt;/p&gt;
+&lt;pre&gt;./archgenxml -c archgenxml.cfg myproduct.zuml 
+
+#rename Products.myproduct to ns.myproduct
+find myproduct/* -type f -print | xargs sed -i &#39;s/Products\.myproduct/ns\.myproduct/g&#39;
+
+#in the xml type profiles, replace myproduct by ns.myproduct
+find myproduct/* -type f -print | xargs sed -i &#39;s/&amp;gt;myproduct&amp;lt;/&amp;gt;ns\.myproduct&amp;lt;/g&#39;
+
+#in the profiles.zcml, rename the profile to ns.myproduct
+find myproduct/* -type f -print | xargs sed -i &#39;s/title=\&#34;myproduct\&#34;/title=\&#34;ns\.myproduct\&#34;/g&#39;&lt;/pre&gt;
+&lt;p&gt;Notice the sed lines, which change the source code to point to &#34;ns.myproduct&#34; instead of &#34;Products.myproduct&#34;. Now there&#39;s just two more problems, which are actually AGX bugs:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;the FilesystemDirectoryViews registered for the skin are incorect, so you&#39;ll need to insert this in ns/myproduct/__init__.py&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;from Products.CMFCore import utils
+from Globals import package_home
+from os.path import dirname
+ppath = utils.ProductsPath
+utils.ProductsPath.append(dirname(package_home(product_globals)))
+DirectoryView.registerDirectory(&#39;skins&#39;, product_globals)
+utils.ProductsPath = ppath&lt;/pre&gt;
+&lt;ul&gt;&lt;li&gt;trying to get AGX to output the code inside a two level deep folder doesn&#39;t work (it crashes), so you&#39;ll need to move this script file and the model just above the &#34;myproduct&#34; folder, inside the &#34;ns&#34; namespace.&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;That&#39;s about it. Hopefully I&#39;ll find the time to fix the two bugs and add the namespace improvement in the next week. Still need to do the review for Plone for Education, which I have received for free from the publisher.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

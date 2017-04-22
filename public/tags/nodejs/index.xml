@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nodejs on The Plone Expanse</title>
+    <link>/tags/nodejs/index.xml</link>
+    <description>Recent content in Nodejs on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Installing node with NVM</title>
+      <link>/blog/2017/02/23/installing-node-with-nvm/</link>
+      <pubDate>Thu, 23 Feb 2017 18:58:08 +0100</pubDate>
+      
+      <guid>/blog/2017/02/23/installing-node-with-nvm/</guid>
+      <description>&lt;p&gt;This is more of a recipe for myself, as I always have problems with npm. I&amp;rsquo;m
+usually stuborn and refuse to use a globally installed nodejs, and can&amp;rsquo;t be
+really bothered to properly install a nodejs tarball distribution, with setting
+up PATH and all. They&amp;rsquo;re usually throw-away and not portable between my
+machines.&lt;/p&gt;
+
+&lt;p&gt;So, a simple recipe to install nodejs on my own setup, an ArchLinux
+machine using fish as default shell.&lt;/p&gt;
+
+&lt;p&gt;First, install nvm using instructions from the NVM page: &lt;a href=&#34;https://github.com/creationix/nvm&#34;&gt;https://github.com/creationix/nvm&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This plugs NVM into .bashrc and makes it available for bash, but I use fish. In
+bash I ran &lt;code&gt;nvm install 6.10.0&lt;/code&gt;, which is the latest LTS release.&lt;/p&gt;
+
+&lt;p&gt;Next, in fish I run &lt;code&gt;omf install nvm&lt;/code&gt;. This installs the nvm fish plugin
+(assumes OMF is installed) and now it is possible to run npm commands (in a new
+fish shell). For example, &lt;code&gt;npm install http-server&lt;/code&gt;. Notice this is a local
+install, it will create a &lt;code&gt;node_modules&lt;/code&gt; folder in the current location and
+will install the executable scripts as, for example,
+&lt;code&gt;node_modules/.bin/http-server&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Installing with -g (globally) will make the executable script available from
+&lt;code&gt;.nvm/versions/6.10.0/bin/http-server&lt;/code&gt;. NVM takes care of setting up proper
+$PATH, so &lt;code&gt;http-server&lt;/code&gt; will be available from any location.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Onwards to Gnome through Beryl and back to KDE &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Onwards to Gnome through Beryl and back to KDE</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/rants">rants</a>, <a href="/tags/linux">Linux</a>
+      </p>
+
+      <div class="post-date">
+        <span >Wed, Feb 21, 2007</span>,
+        <span id="wc"> 800 Words </span>
+      </div>
+      <p>I like my Linux to stay "on the edge", I like the excitement of knowing that on the next update you'll get new or improved software, which happens a lot in the Open Source world. So I've updated yesterday my laptop (a Compaq NX 6125) to the yet unreleased Ubuntu Feisty Fawn, an experienced that took almost 24 hours to have a fully working system at the end. I'll give some details of the problems encountered below. <br /></p><p>Having a newly updated system and already with the practice of rebooting the machine, I've decided to try and fix the 3d acceleration, for which I had the fglrx binary driver  being loaded but which didn't give me 3d acceleration. First, I've tried the open source radeon driver (who's actual driver name in the xorg.conf file is still "ati"). It worked, but it still didn't give me 3d acceleration, as my card's 3d acceleration is unsuported (onboard ATI R200M).<br /></p><p>Next on the list was to fix the fglrx. After I've uninstalled/reinstalled the fglrx driver and I've set the Composite option to Disable in the xorg.conf, I had 3d running. Plenty of details online, with guides and all, so this part was easy. While reading the documentation on the net about my card, it sparked my interest that some people had Beryl running on their laptops, with  the same card, so I've set myself on trying to get that running, to see what it's about. To make a long story short, the AIGLX extension from X.org 7.1 is not supported by the fglrx driver, so I've installed the XGL server (which is a replacement for the regular X server), and even if you see that the DRI extension is not supported by XGL and direct rendering is off, you'll still get accelerated rendering and, of course, beryl-xgl running.</p><p>To make XGL the default X server, I've changed my KDM file to something like this (taken from a recipe from the opensuse site):</p><pre>[X-:*-Core]<br />AllowNullPasswd=true<br />AllowShutdown=All<br />NoPassEnable=true<br />NoPassUsers=tibi<br />#ServerArgsLocal=-nolisten tcp<br />#ServerCmd=/usr/bin/X -br<br />ServerCmd=/usr/bin/Xgl :0 -fullscreen -accel xv:pbuffer -accel glx:pbuffer<br />ServerArgsLocal=-nolisten tcp<br />OpenRepeat=5<br />OpenDelay=15<br />OpenTimeout=2000<br />ServerTimeout=60</pre><p>KDE was slow with beryl, and with it XGL used 40% of the memory (at least apparently), while with Gnome XGL used only ~8%. So I've set myself to switch to Gnome, just to have the nice beryl effects, but in the end I've realized that, even though my Gnome desktop is really beautiful (nice Vista based fonts, nice icons similar to MacOSX) and its simplicity in working and workflow is something to appreciate, I still enjoy more in working with a system that is less "flashy" (no beryl effects) and closer to my philosophy as hacker and programer. That and being pissed off that I can't properly standby the laptop from Gnome, only from KDE and I'd still have to use KDM as login manager because GDM couldn't properly work with XGL, at least from what I've configured.</p><p>So now I'm back to my relatively non-flashy (but still nice looking, after some work) KDE.<br /></p><p>And now some words about the Edgy &gt; Feisty upgrade. In itself it went pretty much pain-free, not too many broken packages. There was one which I had to manually uninstall it before the dist-upgrade could continue, I forgot which. After the system was installed and I made sure that there were no more packages left to install, I've rebooted. The first reboots took a long time to complete (and I think the first one didn't even "make it"), so I've had to reboot in single mode and try the system from there. There were some problems with the network (the system complained about too many arguments for an iface in the /etc/networking/interfaces file) and no matter how much I've tried from KDE and Gnome, I couldn't properly configure the network with a static IP (it would get reseted to dynamic) so I had to remember the ifconfig/route lines, something I haven't use for more then 6 years. Somehow things are now fixed, probably after I've erased most of the options from that faulty interfaces file. The Enterprise Volume Management System took a really long time to boot, which it does on all Ubuntu systems I have, so I've changed the /etc/init.d/evms file to exit right at the top, after I couldn't figure out how it gets loaded and why my system needs it. My boot loading times are much faster now without it :-).</p><p>There's not much new, visually, in Gnome, except for a relatively ugly config window instead of the menu options. Why did they change that? I think I liked the menu system better. Of course, in terms of configuration windows preffered, I'm a fan of the old KControl, which I still run it when I need to configure something in KDE.<br /></p>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2007/02/16/fresh-meat-for-programmers/"> Fresh meat for programmers</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2007/02/25/laptop-memory-updated/"> Laptop memory updated</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+{{ partial "head.html" . }}
+<body class="{{ .Site.Params.themeColor }} {{if .Site.Params.layoutReverse}}layout-reverse{{end}}">
+
+  {{ partial "sidebar.html" . }}
+
+  <div class="content container">
+    <h1>Archive of all posts</h1>
+
+    <ul class="posts">
+      {{ range where .Site.Pages "Section" "blog" }}
+      <li>
+        <time>{{ .Date.Format "2006" }}</time>:
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+      </li>
+      {{ end }}
+    </ul>
+
+    <p> 
+    <a href="{{ .RSSLink }}">
+      <i class='fa fa-rss' aria-hidden='true'></i>Follow this site by RSS
+    </a> 
+    </p>
+  </div>
+
+  {{ partial "footer.html" . }}
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Stupid Internet Explorer and stupid IE bugs &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Stupid Internet Explorer and stupid IE bugs</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/rants">rants</a>, <a href="/tags/javascript">Javascript</a>
+      </p>
+
+      <div class="post-date">
+        <span >Mon, Sep 15, 2008</span>,
+        <span id="wc"> 400 Words </span>
+      </div>
+      <p>I'm placing the finishing touches on a web application I've been writing on and off for the last year. At last, I've reached Internet Explorer bugs, which are usually the last to be fixed. Among several other stupid but documented bugs, I've found one which I couldn't find documented in a shallow search on Google: it seems IE has an algorithm for comparing strings that is different then the one that is used internally when sorting an array of strings.</p>
+<p>Take this code, for example, where I have separated the issue:</p>
+<pre>&lt;html&gt;
+&lt;body&gt;
+&lt;script&gt;
+
+var x = [
+  "Zwischenwasse",
+  "Gurtis",
+  "Götzis",
+  "Partenen",
+  "Raggal",
+  "Rietz",
+  "Schnifis",
+  "Vösendorf",
+  "Bludenz",
+  "Galtür"
+];
+
+var y = [
+  [34241, "Zwischenwasse"],
+  [11223, "Gurtis"],
+  [12321, "Götzis"],
+  [12345, "Partenen"],
+  [32454, "Raggal"],
+  [34355, "Rietz"],
+  [43453, "Schnifis"],
+  [42321, "Vösendorf"],
+  [43435, "Bludenz"],
+  [43222, "Galtür"]
+];
+
+x.sort();
+document.write(x);
+
+document.write("&lt;br/&gt;");
+
+var sorted = y.sort(function(a,b){
+	return a[1] &gt; b[1];
+});
+
+for (var i=0;i&lt;sorted.length;i++) {
+	document.write(sorted[i][1]+ ",");
+}
+&lt;/script&gt;
+&lt;/html&gt;
+</pre>
+<p>The value which will be written in Internet Explorer when running this html document is:</p>
+<pre>Bludenz,Galtür,Gurtis,Götzis,Partenen,Raggal,Rietz,Schnifis,Vösendorf,Zwischenwasse
+Bludenz,Galtür,Zwischenwasse,Gurtis,Götzis,Partenen,Raggal,Rietz,Schnifis,Vösendorf, 
+</pre>
+<p>Needless to say, in Firefox both lines will be the same, displayed in the proper order. On a side note, while I'm bashing Internet Explorer, let me just say that Internet Explorer 8 is a broken piece of software, at least on the side that I'm concerned. The developer tools are really buggy and tend to block the browser for even trivial operations (that is, when it doesn't crash it completely).</p>
+<p><strong>Update</strong>: apparently my mind is clouded with too much Python (I admit that Javascript is not a language that I use often). The problem is that the inline function used as sorting discriminator should return numeric values of -1, 0, 1, like this:</p>
+<pre>var sorted = y.sort(function(a,b){
+	if (a[1] &gt; b[1]){
+		return 1;
+	}
+	if (a[1] &lt; b[1]){
+		return -1
+	}
+	return 0;
+});
+</pre>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2008/09/14/workingenv-setuptools-and-svn-1.5-redux/"> Workingenv, setuptools and svn 1.5 redux</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2008/10/08/richtext-control-with-wxpython-saving-loading-and-converting-from-internal-xml-to-html/"> RichText control with wxpython: saving, loading and converting from internal XML to HTML</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

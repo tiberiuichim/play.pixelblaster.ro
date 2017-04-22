@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Improve Plone-based website performance with simple Apache caching &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Improve Plone-based website performance with simple Apache caching</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/linux">Linux</a>
+      </p>
+
+      <div class="post-date">
+        <span >Wed, Aug 30, 2006</span>,
+        <span id="wc"> 200 Words </span>
+      </div>
+      <p>I won't go too much into details, and this is more for my own personal reference, but using this short recipe I was able to increase by up to 100 times the performance of a plone based website. For a lot more details and more advanced techniques for caching, integration with squid and cachefu, visit the Plone documentation HowTo section.</p><p> The website hosts mostly news updates, and is edited mostly by an editorial staff, under a 24 hours cycle. The configuration file is extremely simple and can be droped in for any website that has a similar profile (or any website that has a closed editorial staff)<br /></p><p>Requirements: apache 2 + mod_disk_cache + mod_expires<br /></p>
+
+<pre>    &lt;LocationMatch "^[^/]"&gt;<br />        Deny from all<br />    &lt;/LocationMatch&gt;<br /><br />    &lt;IfModule mod_disk_cache.c&gt;<br />        CacheEnable disk /<br />        CacheRoot /var/cache/http<br />        CacheSize 5<br />        CacheMaxExpire 24<br />        CacheLastModifiedFactor 0.1<br />        CacheDefaultExpire 3<br />            #expires in 3 hours<br />        CacheGcInterval 3<br />            #check each hour the cache and delete the obsolete files<br />    &lt;/IfModule&gt;<br /><br />    &lt;IfModule mod_deflate.c&gt;<br />        SetOutputFilter DEFLATE<br />    &lt;/IfModule&gt;<br /><br />    ExpiresActive On<br />    ExpiresByType image/gif A10800<br />    ExpiresByType image/png A10800<br />    ExpiresByType image/jpeg A10800<br />    ExpiresByType text/css A10800<br />    ExpiresByType text/javascript A10800<br />    ExpiresByType application/x-javascript A10800<br />    ExpiresByType text/html A10800<br />    ExpiresByType text/xml A10800</pre><p><br /></p>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2006/08/29/checking-for-a-role-or-a-permission-in-a-context/"> Checking for a role or a permission in a context</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2006/08/31/small-snippet-to-read-the-title-for-a-dcworkflow-state/"> Small snippet to read the title for a DCWorkflow state</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

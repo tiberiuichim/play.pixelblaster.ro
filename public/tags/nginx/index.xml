@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nginx on The Plone Expanse</title>
+    <link>/tags/nginx/index.xml</link>
+    <description>Recent content in Nginx on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/nginx/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Laughable bug in a new Google Webmaster Tools feature</title>
+      <link>/blog/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature/</link>
+      <pubDate>Thu, 11 Jun 2009 15:53:16 -0300</pubDate>
+      
+      <guid>/blog/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature/</guid>
+      <description>&lt;p&gt;Somebody at Google has screwed up in a laughable manner. Webmaster Tools just got a new feature: the ability to tell Google that you have moved a site to a new domain. I&#39;m in the same situation with one site that I manage: &lt;a class=&#34;external-link&#34; href=&#34;http://www.caleidoscop.org.ro&#34;&gt;www.caleidoscop.org.ro&lt;/a&gt; has been moved recently to &lt;a class=&#34;external-link&#34; href=&#34;http://www.caleidoscop.org&#34;&gt;www.caleidoscop.org&lt;/a&gt;. Although I have done my best (I still need to persuade nginx to generate 301 redirects instead of 302) to ease this transition and absolutely everything pointing to the .org.ro&amp;nbsp; is redirected to the .org address, Google is really slow in picking the change and the Webmaster Tools show links from caleidoscop.org.ro as the main source of links to the new .org domain. Unfortunately, as things stand now, it&#39;s impossible for me to use this feature: Google doesn&#39;t recognize *.org.ro as being a &#34;root level domain&#34;, as can be seen in the next two screenshots. I wonder, org.uk domains have the same problems?&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h3&gt;First, the bug&lt;br /&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img class=&#34;image-inline image-inline&#34; src=&#34;/blog/topic_images/snapshot3.png/image_preview&#34; alt=&#34;Bug in Google Webmaster Tools&#34; /&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;br /&gt;&lt;/h3&gt;
+&lt;h3&gt;And this is how it&#39;s supposed to look&lt;br /&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img class=&#34;image-inline image-inline&#34; src=&#34;/blog/topic_images/snapshot4.png/image_preview&#34; alt=&#34;This is how it&#39;s supposed to look&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hosting Plone and Zope 3 applications using nginx</title>
+      <link>/blog/2008/07/11/hosting-plone-and-zope-3-applications-using-nginx/</link>
+      <pubDate>Fri, 11 Jul 2008 10:31:21 +0000</pubDate>
+      
+      <guid>/blog/2008/07/11/hosting-plone-and-zope-3-applications-using-nginx/</guid>
+      <description>&lt;p&gt;I&#39;m doing a setup on a new server, I&#39;ve decided to replace the default Apache 2.2 with an nginx http server. The setup which is needed for Zope 3 and Plone applications is the following:&lt;/p&gt;
+&lt;pre&gt;[buildout]
+parts =
+&amp;nbsp;&amp;nbsp;&amp;nbsp; nginx
+&amp;nbsp;&amp;nbsp;&amp;nbsp; nginxctl
+
+[nginx]
+recipe = gocept.cmmi
+url = http://sysoev.ru/nginx/nginx-0.7.6.tar.gz
+md5sum = ae7ce6f66a2cf5a5970d9a9a0da0cf7d
+
+[nginxctl]
+recipe = gocept.nginx
+hostname = localhost
+port = 80
+configuration =
+&amp;nbsp;&amp;nbsp;&amp;nbsp; worker_processes 1;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; events {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; worker_connections 1024;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp; http {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; upstream z3 {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server 127.0.0.1:8080;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; upstream plone {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server 127.0.0.1:9080;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; listen&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ${nginxctl:port};
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server_name z3.example.org;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; root html;
+            include /etc/nginx/proxy.conf
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; location / {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; proxy_pass http://z3/++lang++ro/++skin++myskin/mysite/++vh++http:z3.example.org:80/++/;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+        server {
+            server_name plone.example.org;
+            include /etc/nginx/proxy.conf
+
+            location / {
+                proxy_pass http://plone/VirtualHostBase/http/plone.example.org:80/t1/VirtualHostRoot/;
+            }
+        }
+        server {
+            server_name plone.example.org;
+            rewrite ^/(.*)  /VirtualHostBase/http/plone.example.org:80/t1/VirtualHostRoot/$1 last;
+            location / {
+                proxy_pass http://plone;
+            }
+        }
+&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&lt;/pre&gt;
+&lt;p&gt;Note: this is a buildout.cfg. Using it together with zc.buildout makes the nginx instalation a very simple process: install zc.buildout (easy_install zc.buildout), and then run buildout in the folder that contains the .cfg file.&lt;/p&gt;
+&lt;p&gt;The settings in proxy.conf are important. Without a valid proxy_temp_path, for some reason delivery of all content that came from a Plone 2.5 site that used CacheFu setup with no proxy cache was freezing at 16014 bytes. The paths in /var/nginx need to be created and set to be writable by the nginx process (user nobody in my case).&lt;/p&gt;
+&lt;pre&gt;client_max_body_size&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 0;
+client_body_buffer_size&amp;nbsp;&amp;nbsp;&amp;nbsp; 128k;
+client_body_temp_path&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; /var/nginx/client_body_temp;
+
+proxy_connect_timeout&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 90;
+proxy_send_timeout&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 90;
+proxy_read_timeout&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 90;
+proxy_buffer_size&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 4k;
+proxy_buffers&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 4 32k;
+proxy_busy_buffers_size&amp;nbsp;&amp;nbsp;&amp;nbsp; 64k;
+proxy_temp_file_write_size 64k;
+proxy_temp_path&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; /var/nginx/proxy_temp;
+proxy_redirect&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; off;
+proxy_set_header&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Host $host;
+proxy_set_header&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; X-Real-IP $remote_addr;
+proxy_set_header&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; X-Forwarded-For $proxy_add_x_forwarded_for;&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h3&gt;Resources&lt;br /&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;external-link&#34; href=&#34;http://plone.lucidsolutions.co.nz/web/reverseproxyandcache/install-nginx&#34;&gt;A more complete  nginx sample configuration file (but that only covers how to configure Plone)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;external-link&#34; href=&#34;http://grok.zope.org/documentation/how-to/grok-virtual-hosting-and-nginx&#34;&gt;Grok guide on hosting Zope 3 with nginx&lt;/a&gt; (note, at this moment the document is wrong, the setup line is missing a slash at the end).&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

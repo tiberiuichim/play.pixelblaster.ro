@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zope2 on The Plone Expanse</title>
+    <link>/tags/zope2/index.xml</link>
+    <description>Recent content in Zope2 on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/zope2/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Do you really need that metadata column?</title>
+      <link>/blog/2017/01/08/do-you-really-need-that-metadata-column/</link>
+      <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
+      
+      <guid>/blog/2017/01/08/do-you-really-need-that-metadata-column/</guid>
+      <description>&lt;p&gt;It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;As an example: when exploring collective.portlet.collectionfilter I&#39;ve noticed that the definition of the filters need both the index name and the metadata column. Ex:&lt;/p&gt;
+&lt;pre&gt;GROUPBY_CRITERIA = {
+    &#39;Subject&#39;: {
+        &#39;index&#39;: &#39;Subject&#39;,  # For querying
+        &#39;metadata&#39;: &#39;Subject&#39;,  # For constructing the list
+        &#39;display_modifier&#39;: None,  # For modifying list items (e.g. dates)
+        &#39;query_range&#39;: None  # For range searches (e.g. for dates or numbers)
+    },
+...&lt;/pre&gt;
+&lt;div&gt;The metadata is needed because the search result is a whole bag of brains and the portlet groups results by their values, so it needs to know the real values. With minimal changes it is possible to avoid the need for that metadata column.&lt;/div&gt;
+&lt;p&gt;This is the original code in collectionfilter.py:&lt;/p&gt;
+&lt;pre&gt;attr = GROUPBY_CRITERIA[self.data.group_by][&#39;metadata&#39;]
+mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
+
+grouped_results = {}
+for item in results:
+    val = getattr(item, attr, None)
+    if callable(val):
+        val = val()
+    if not getattr(val, &#39;__iter__&#39;, False):
+        val = [val]&lt;/pre&gt;
+&lt;div&gt;And these are the minimal changes:&lt;/div&gt;
+&lt;pre&gt;mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
+
+catalog = getToolByName(self.context, &#39;portal_catalog&#39;)
+unindex = catalog._catalog.indexes[idx]._unindex
+
+grouped_results = {}
+for item in results:
+    rid = item._brain.getRID()
+    # val = getattr(item, attr, None)
+    val = unindex.get(rid)
+    if callable(val):
+        val = val()
+    if not getattr(val, &#39;__iter__&#39;, False):
+        val = [val]&lt;/pre&gt;
+&lt;p&gt;It reads the field values from the _unindex mapping of the indexes (which exist for most of the indexes in the Plone catalog. Exceptions are indexes for Title, Description, getObjPositionInParent and SearchableText). Most of the ZCatalog indexes have two mappings where they store information: the forward &#34;mapping&#34; (field value =&amp;gt; objectid) and the reverse mapping (object id =&amp;gt; field value). In this above snippet we&#39;re reading the reverse mapping to get the original field value. So, no need for a dedicated metadata column.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Abusing Plone Content Rules to allow Site Admin customizations of sent emails</title>
+      <link>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</link>
+      <pubDate>Wed, 31 Aug 2016 08:12:43 -0200</pubDate>
+      
+      <guid>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</guid>
+      <description>&lt;p&gt;This would be a sort of tutorial on how to implement a new plone.app.contentrules Trigger Event, how to write a new plone.stringinterp variable substitutor and how to trigger the event from a browser page (or z3c.form).&lt;/p&gt;
+&lt;p&gt;This allows configuring a new trigger event from the Content Rules Plone control panel configlet and to assign a new Email action, with customizable body template.&lt;/p&gt;
+&lt;p&gt;Let&#39;s say our task is to implement a contact form:&lt;/p&gt;
+&lt;pre&gt;from plone.directives import form
+from plone.api.portal import show_message
+from zope.event import notify
+
+class IContactForm(form.Schema):
+    name = schema.TextLine(title=u&#34;Your Name&#34;, required=True)
+    email = Email(title=u&#34;Contact eMail:&#34;, required=True)
+
+class ContactInformation(Implicit):
+    &#34;&#34;&#34; A container to be passed to plone.app.contentrules for contact info
+    &#34;&#34;&#34;
+
+    def __init__(self, name=None, email=None):
+        self.name = name
+        self.email = email
+
+class ContactForm(form.SchemaForm):
+
+    schema = IContactForm
+    ignoreContext = True
+
+    label = u&#34;Contact Form&#34;
+
+    fields = field.Fields(IContactForm)
+
+    @button.buttonAndHandler(u&#34;Submit&#34;)
+    def handleApply(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        name = data.get(&#39;name&#39;)
+        email = data.get(&#39;email&#39;)
+
+        obj = ContactInformation(name=name, email=email)
+        obj = obj.__of__(self.context)
+        notify(ContactEvent(obj))
+        show_message(message=&#34;Message sent&#34;, request=self.request, type=&#39;info&#39;)&lt;/pre&gt;
+&lt;p&gt;The ContactInformation object is needed to pass information from the form to the content rules machinery. It needs to be acquisition aware, as plone.app.contentrules will try to trigger events up its chain of acquisition. This can also be replaced by setting some annotation on the request.&lt;/p&gt;
+&lt;p&gt;We need a custom event with an event handler that triggers the content rules execution:&lt;/p&gt;
+&lt;pre&gt;from zope.interface import implements
+from zope.component.interfaces import ObjectEvent, IObjectEvent
+from plone.app.contentrules.handlers import execute_rules
+
+class IContactEvent(IObjectEvent):
+    &#34;&#34;&#34;
+    &#34;&#34;&#34;
+
+class ContactEvent(ObjectEvent):
+    implements(IContactEvent)
+
+def trigger_contentrules(event):
+    execute_rules(event)&lt;/pre&gt;
+&lt;p&gt;Now, a bit of zcml to register the event with plone.app.contentrules and setup the event handler:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;interface
+    interface=&#34;.events.IContactEvent&#34;
+    type=&#34;plone.contentrules.rule.interfaces.IRuleEventType&#34;
+    name=&#34;Contact form triggered&#34;
+    /&amp;gt;
+
+&amp;lt;subscriber for=&#34;.events.IContactEvent&#34; handler=&#34;.events.trigger_contentrules&#34; /&amp;gt;&lt;/pre&gt;
+&lt;p&gt;This will make the &#34;Contact form triggered&#34; event available for the Plone Content Rules and, thanks to the notify() call in the form handler, trigger the content rules execution.&lt;/p&gt;
+&lt;p&gt;One last thing that we need is to access the information submitted in the form. The ContactInformation object serves as a container for that information, so we&#39;ll need special variables for the Email action:&lt;/p&gt;
+&lt;pre&gt;class contact_email(BaseSubstitution):
+    description = u&#34;Contact email&#34;
+    category = &#39;ContactForm&#39;
+
+    adapts(Interface)
+
+    def safe_call(self):
+        return self.context.email
+
+
+class contact_name(BaseSubstitution):
+    description = u&#34;Contact name&#34;
+    category = &#39;ContactForm&#39;
+
+    adapts(Interface)
+
+    def safe_call(self):
+        return self.context.name&lt;/pre&gt;
+&lt;div&gt;and the zcml for this:&lt;/div&gt;
+&lt;pre&gt;&amp;lt;adapter
+    for=&#34;*&#34;
+    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
+    factory=&#34;.stringinterp.contact_email&#34;
+    name=&#34;contact_email&#34;
+    /&amp;gt;
+
+&amp;lt;adapter
+    for=&#34;*&#34;
+    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
+    factory=&#34;.stringinterp.contact_name&#34;
+    name=&#34;contact_name&#34;
+    /&amp;gt;&lt;/pre&gt;
+&lt;div&gt;So why use this mechanism instead of something like PloneFormGen? In my case, the site administrator is used to changing email templates for various events (object created, published, etc) from the Content Rules panel, so why not keep everything simple and consistent?&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to fake fix broken persistent objects in ZODB</title>
+      <link>/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/</link>
+      <pubDate>Thu, 18 Aug 2016 16:56:38 -0200</pubDate>
+      
+      <guid>/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/</guid>
+      <description>&lt;p&gt;I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.&lt;/p&gt;
+&lt;p&gt;My solution, because I didn&#39;t care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys.modules:&lt;/p&gt;
+&lt;pre&gt;class NavigableString(unicode):
+    def __new__(cls):
+        return unicode.__new__(cls)
+
+    def __getstate__(self):
+        return self.__dict__
+
+
+class Tag(object):
+    def __getstate__(self):
+        return self.__dict__
+
+
+class BeautifulSoup(object):
+    def __getstate__(self):
+        return self.__dict__
+
+
+class fake_bs3(object):
+    NavigableString = NavigableString
+    Tag = Tag
+    BeautifulSoup = BeautifulSoup
+
+import sys
+sys.modules[&#39;BeautifulSoup&#39;] = fake_bs3&lt;/pre&gt;
+&lt;div&gt;&amp;nbsp;&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Getting the superclasses for a python object</title>
+      <link>/blog/2011/06/28/getting-the-superclasses-for-a-python-object/</link>
+      <pubDate>Tue, 28 Jun 2011 17:08:06 -0300</pubDate>
+      
+      <guid>/blog/2011/06/28/getting-the-superclasses-for-a-python-object/</guid>
+      <description>&lt;p&gt;Zope 2 (and Plone) persistent objects usually have an intricate inheritance tree. Finding what classes an object inherits can be a time consuming task, hunting through the various eggs for the relevant source code. Below is a little snippet that shows how to easily get the list of superclasses:&lt;/p&gt;
+&lt;pre&gt;(Pdb) pp type(ff).mro()
+(&amp;lt;class &#39;plone.app.blob.subtypes.image.ExtensionBlobField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.TranslatableExtensionField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.BaseExtensionField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;plone.app.blob.field.BlobField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ObjectField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.Field&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Layer.DefaultLayerContainer&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;plone.app.blob.mixins.ImageFieldMixin&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ImageField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.FileField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;type &#39;ExtensionClass.Base&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;type &#39;object&#39;&amp;gt;)&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;Credit goes to the &lt;a class=&#34;external-link&#34; href=&#34;http://pybites.blogspot.com/2009/01/mro-magic.html&#34;&gt;original post&lt;/a&gt; where I found this.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Set product configuration globally in zope.conf</title>
+      <link>/blog/2011/02/08/set-product-configuration-globally-in-zope.conf/</link>
+      <pubDate>Tue, 08 Feb 2011 19:46:42 -0200</pubDate>
+      
+      <guid>/blog/2011/02/08/set-product-configuration-globally-in-zope.conf/</guid>
+      <description>&lt;p&gt;I have a Zope product that needs to write in a centralized location, across multiple instances. The classic Python solution would be to write a variable in a config.py module and read that location from the code, but this feels unelegant in an environment that uses zc.buildout for deployment. The solution I have found is, as follows:&lt;/p&gt;
+&lt;p&gt;In buildout.cfg, in the instance part definition, add:&lt;/p&gt;
+&lt;pre&gt;zope-conf-additional =
+&amp;nbsp;&amp;nbsp;&amp;nbsp; &amp;lt;environment&amp;gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; mylocation ${buildout:directory}/var/mylocation
+&amp;nbsp;&amp;nbsp;&amp;nbsp; &amp;lt;/environment&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;Next, inside the product code I have:&lt;/p&gt;
+&lt;pre&gt;from App.config import getConfiguration
+import os
+
+conf = getConfiguration()
+dest = conf.environment[&#39;mylocation&#39;]
+if not os.path.exists(dest):
+&amp;nbsp;&amp;nbsp;&amp;nbsp; os.mkdir(dest)&lt;/pre&gt;
+&lt;p&gt;There were 2 things that I had to research for this task: reading the global zope configuration (that&#39;s done with App.config.getConfiguration()) and the fact that you can&#39;t add arbitrary key/values in zope.conf and have to use the &amp;lt;environment&amp;gt; section.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Success on a one year old problem installing CacheFu</title>
+      <link>/blog/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu/</link>
+      <pubDate>Sat, 28 Feb 2009 17:47:14 -0200</pubDate>
+      
+      <guid>/blog/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu/</guid>
+      <description>&lt;p&gt;I&#39;ve upgraded CacheFu (Products.CacheSetup) to the latest 1.2 for some of the websites that I manage, in a Plone 2.5 cluster. One of them had a problem that I haven&#39;t been able to track previously, due to limited time: on a reinstall of CacheSetup, due to product upgrades, CacheFu couldn&#39;t be installed anymore. The traceback was something like:&lt;/p&gt;
+&lt;pre&gt;this product has already been installed without Quickinstaller!failed:
+Traceback (most recent call last):
+
+  File &#34;/home/zope/z29/Products/CMFQuickInstallerTool/QuickInstallerTool.py&#34;, line 330, in installProduct
+
+  File &#34;/home/zope/p25/parts/zope2/lib/python/Products/ExternalMethod/ExternalMethod.py&#34;, line 225, in __call__
+    try: return f(*args, **kw)
+
+  File &#34;/home/zope/p25/eggs/Products.CacheSetup-1.2-py2.4.egg/Products/CacheSetup/Extensions/Install.py&#34;, line 35, in install
+    policy_utils.addCachePolicies(self, out)
+
+  File &#34;/home/zope/p25/eggs/Products.CacheSetup-1.2-py2.4.egg/Products/CacheSetup/Extensions/policy_utils.py&#34;, line 72, in addCachePolicies
+    p.addCacheRules(rules)
+
+  File &#34;/home/zope/p25/eggs/Products.CacheSetup-1.2-py2.4.egg/Products/CacheSetup/Extensions/policy_2.py&#34;, line 13, in addCacheRules
+    rules.invokeFactory(id=id, type_name=&#39;PolicyHTTPCacheManagerCacheRule&#39;)
+
+  File &#34;/home/zope/z29/Products/CMFCore/PortalFolder.py&#34;, line 408, in invokeFactory
+
+  File &#34;/home/zope/z29/Products/CMFCore/TypesTool.py&#34;, line 934, in constructContent
+
+  File &#34;/home/zope/z29/Products/CMFCore/TypesTool.py&#34;, line 343, in constructInstance
+
+  File &#34;/home/zope/z29/Products/CMFCore/TypesTool.py&#34;, line 574, in _constructInstance
+
+  File &#34;&#34;, line 6, in addPolicyHTTPCacheManagerCacheRule
+
+  File &#34;/home/zope/p25/parts/zope2/lib/python/OFS/ObjectManager.py&#34;, line 301, in _setObject
+    v = self._checkId(id)
+
+  File &#34;/home/zope/z29/Products/CMFCore/Skinnable.py&#34;, line 223, in _checkId
+
+  File &#34;/home/zope/p25/parts/zope2/lib/python/OFS/ObjectManager.py&#34;, line 95, in checkValidId
+    raise BadRequest, (
+
+BadRequest: The id &#34;httpcache&#34; is invalid - it is already in use.
+&lt;/pre&gt;
+&lt;p&gt;One other weird thing are the paths in this traceback: /home/zope/z29 doesn&#39;t exist anymore, the database was moved from a different server. I think it&#39;s related to the persistent product entries in the Control_Panels, which can be cleared. Not a big problem. In the log, there was also an entry related to this traceback:&lt;/p&gt;
+&lt;pre&gt;2009-02-28 17:01:18 CRITICAL txn.-1223480432 A storage error occurred during the second phase of the two-phase commit.  Resources may be in an inconsistent state
+&lt;/pre&gt;
+&lt;p&gt;Now, the solution is really simple, but I needed to debug the policy_2 module to find this:&amp;nbsp;&lt;/p&gt;
+&lt;pre&gt;rules.invokeFactory(id=id, type_name=&#39;PolicyHTTPCacheManagerCacheRule&#39;)&lt;/pre&gt;
+&lt;p&gt;didn&#39;t work because there was a document in the root called &#34;rules&#34;. Nobody expects the spamish Acquisition! And I didn&#39;t either... Lesson? Zope 2 was designed to be too smart for its own good, thus violating the KISS principle. Still love it, though.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Variable keys in dictionaries with Page Templates TALES syntax</title>
+      <link>/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/</link>
+      <pubDate>Wed, 11 Feb 2009 19:45:41 -0200</pubDate>
+      
+      <guid>/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/</guid>
+      <description>&lt;p&gt;I admit, I didn&#39;t knew this until now. In the following construction:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;div tal:content=&#34;somedict/keyname/someattr&#34; /&amp;gt;&lt;/pre&gt;
+&lt;p&gt;&#34;keyname&#34; is taken as a string, it&#39;s the literal name of the key for the somedict mapping. To use a variable instead of the literal value of the key name, I used to do:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;div tal:content=&#34;python somedict[key].someattr&#34; /&amp;gt;&lt;/pre&gt;
+&lt;p&gt;Browsing through the zope.app.catalog code, I saw that there&#39;s actually a way to use the TALES syntax:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;div tal:content=&#34;somedict/?key/someattr&#34; /&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;I&#39;m not sure that this works with TTW code in Zope 2 (I expect that it works with browser views), so I&#39;ll just have to try this next time I have the chance.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Bug in PyPi</title>
+      <link>/blog/2008/08/22/bug-in-pypi/</link>
+      <pubDate>Fri, 22 Aug 2008 16:16:07 -0300</pubDate>
+      
+      <guid>/blog/2008/08/22/bug-in-pypi/</guid>
+      <description>&lt;p&gt;The &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/zope.app.form/3.6.0&#34;&gt;zope.app.form PyPi&lt;/a&gt; page looks awful, it should be fixed. Who&#39;s fault is that? Django, the framework that sits underneath (AFAIK), or the docutils libraries that probably parse the RST pages?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hosting Plone and Zope 3 applications using nginx</title>
+      <link>/blog/2008/07/11/hosting-plone-and-zope-3-applications-using-nginx/</link>
+      <pubDate>Fri, 11 Jul 2008 10:31:21 +0000</pubDate>
+      
+      <guid>/blog/2008/07/11/hosting-plone-and-zope-3-applications-using-nginx/</guid>
+      <description>&lt;p&gt;I&#39;m doing a setup on a new server, I&#39;ve decided to replace the default Apache 2.2 with an nginx http server. The setup which is needed for Zope 3 and Plone applications is the following:&lt;/p&gt;
+&lt;pre&gt;[buildout]
+parts =
+&amp;nbsp;&amp;nbsp;&amp;nbsp; nginx
+&amp;nbsp;&amp;nbsp;&amp;nbsp; nginxctl
+
+[nginx]
+recipe = gocept.cmmi
+url = http://sysoev.ru/nginx/nginx-0.7.6.tar.gz
+md5sum = ae7ce6f66a2cf5a5970d9a9a0da0cf7d
+
+[nginxctl]
+recipe = gocept.nginx
+hostname = localhost
+port = 80
+configuration =
+&amp;nbsp;&amp;nbsp;&amp;nbsp; worker_processes 1;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; events {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; worker_connections 1024;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp; http {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; upstream z3 {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server 127.0.0.1:8080;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; upstream plone {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server 127.0.0.1:9080;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; listen&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ${nginxctl:port};
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server_name z3.example.org;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; root html;
+            include /etc/nginx/proxy.conf
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; location / {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; proxy_pass http://z3/++lang++ro/++skin++myskin/mysite/++vh++http:z3.example.org:80/++/;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+        server {
+            server_name plone.example.org;
+            include /etc/nginx/proxy.conf
+
+            location / {
+                proxy_pass http://plone/VirtualHostBase/http/plone.example.org:80/t1/VirtualHostRoot/;
+            }
+        }
+        server {
+            server_name plone.example.org;
+            rewrite ^/(.*)  /VirtualHostBase/http/plone.example.org:80/t1/VirtualHostRoot/$1 last;
+            location / {
+                proxy_pass http://plone;
+            }
+        }
+&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&lt;/pre&gt;
+&lt;p&gt;Note: this is a buildout.cfg. Using it together with zc.buildout makes the nginx instalation a very simple process: install zc.buildout (easy_install zc.buildout), and then run buildout in the folder that contains the .cfg file.&lt;/p&gt;
+&lt;p&gt;The settings in proxy.conf are important. Without a valid proxy_temp_path, for some reason delivery of all content that came from a Plone 2.5 site that used CacheFu setup with no proxy cache was freezing at 16014 bytes. The paths in /var/nginx need to be created and set to be writable by the nginx process (user nobody in my case).&lt;/p&gt;
+&lt;pre&gt;client_max_body_size&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 0;
+client_body_buffer_size&amp;nbsp;&amp;nbsp;&amp;nbsp; 128k;
+client_body_temp_path&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; /var/nginx/client_body_temp;
+
+proxy_connect_timeout&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 90;
+proxy_send_timeout&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 90;
+proxy_read_timeout&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 90;
+proxy_buffer_size&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 4k;
+proxy_buffers&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 4 32k;
+proxy_busy_buffers_size&amp;nbsp;&amp;nbsp;&amp;nbsp; 64k;
+proxy_temp_file_write_size 64k;
+proxy_temp_path&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; /var/nginx/proxy_temp;
+proxy_redirect&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; off;
+proxy_set_header&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Host $host;
+proxy_set_header&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; X-Real-IP $remote_addr;
+proxy_set_header&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; X-Forwarded-For $proxy_add_x_forwarded_for;&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h3&gt;Resources&lt;br /&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;external-link&#34; href=&#34;http://plone.lucidsolutions.co.nz/web/reverseproxyandcache/install-nginx&#34;&gt;A more complete  nginx sample configuration file (but that only covers how to configure Plone)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;external-link&#34; href=&#34;http://grok.zope.org/documentation/how-to/grok-virtual-hosting-and-nginx&#34;&gt;Grok guide on hosting Zope 3 with nginx&lt;/a&gt; (note, at this moment the document is wrong, the setup line is missing a slash at the end).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Using views as information mixins in templates</title>
+      <link>/blog/2008/06/01/using-views-as-information-mixins-in-templates/</link>
+      <pubDate>Sun, 01 Jun 2008 22:30:29 -0300</pubDate>
+      
+      <guid>/blog/2008/06/01/using-views-as-information-mixins-in-templates/</guid>
+      <description>&lt;p&gt;This may be basic trick for some, a non-obvious usage of views for others, who knows, I&#39;m documenting it here anyway. I&#39;ve been using this technique for quite some time without giving it much thought.&lt;/p&gt;
+&lt;p&gt;There are times when I have an object in a template. I want to display information associated with that object. This information is already coded in a @@detail view on this object. Suppose this example (in mostly pseudocode):&lt;/p&gt;
+&lt;pre&gt;class PersonDetail(BrowserView):
+    &#34;&#34;&#34;Show detail about a person&#34;&#34;&#34;
+    def name(self):
+        return compute_somehow_name()
+
+class CommentDetail(BrowserView):
+    &#34;&#34;&#34;Show details about a comment&#34;&#34;&#34;
+&lt;/pre&gt;
+&lt;p&gt;Now we have the following template for the CommentDetail view:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;div tal:define=&#39;person comment/author; person_info nocall:person/@@detail&#39;&amp;gt;
+    &amp;lt;a tal:attributes=&#34;href person/@@absolute_url&#34; tal:content=&#34;person_info/name&#34;&amp;gt;The author&amp;lt;/a&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;Notice the nocall: keyword placed in from of the person/@@detail call. This ensures that the @@detail view is instantiated, but not called (so it is not rendered). This way we have access to the view class attributes, properly associated to the Person context.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>In case you&#39;re having problems installing ssl-for-setuptools...</title>
+      <link>/blog/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools.../</link>
+      <pubDate>Tue, 15 Apr 2008 19:23:09 -0300</pubDate>
+      
+      <guid>/blog/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools.../</guid>
+      <description>&lt;p&gt;I&#39;ve stumbled on this error when trying to install a easyshop buildout:&lt;br /&gt;&lt;/p&gt;
+&lt;pre&gt;Exception: No SSL support found&lt;br /&gt;An error occured when trying to install ssl-for-setuptools 1.10.Look above this message for any errors thatwere output by easy_install.&lt;br /&gt;While:&lt;br /&gt;  Installing instance.&lt;br /&gt;  Getting distribution for &#39;ssl-for-setuptools&#39;.&lt;br /&gt;Error: Couldn&#39;t install: ssl-for-setuptools 1.10&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;After scratching my head for a while, I&#39;ve found the solution:&lt;/p&gt;
+&lt;pre&gt;# apt-get install libssl-dev&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A tip on debugging Zope 2 with ZEO</title>
+      <link>/blog/2008/04/08/a-tip-on-debugging-zope-2-with-zeo/</link>
+      <pubDate>Tue, 08 Apr 2008 20:20:18 -0300</pubDate>
+      
+      <guid>/blog/2008/04/08/a-tip-on-debugging-zope-2-with-zeo/</guid>
+      <description>&lt;p&gt;I&#39;m having some troubles with CacheFu, and I&#39;ve resorted to deleting some objects from a debug prompt, which is very easy to get at if one runs the Zope under ZEO. Still, I couldn&#39;t delete the objects because I was getting Unauthorized errors. Luckily, there is #plone, from which I got the following tip:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;naro&amp;gt; from AccessControl.SecurityManagement import newSecurityManager
+&amp;lt;naro&amp;gt; user = app.acl_users.getUser(&#39;admin&#39;)
+&amp;lt;naro&amp;gt; newSecurityManager(None, user)
+&lt;/pre&gt;
+&lt;p&gt;Thanks, naro!&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;Update: I realize now that I didn&#39;t write how to connect to ZEO:&lt;/p&gt;
+&lt;pre&gt;#bin/instance debug
+&lt;/pre&gt;
+&lt;p&gt;or&lt;/p&gt;
+&lt;pre&gt;#bin/zopectl debug
+&lt;/pre&gt;
+&lt;p&gt;This will connect the ZEO client and drop you in a python shell&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Open source Zope app in the news!</title>
+      <link>/blog/2007/03/26/open-source-zope-app-in-the-news/</link>
+      <pubDate>Mon, 26 Mar 2007 19:46:13 -0300</pubDate>
+      
+      <guid>/blog/2007/03/26/open-source-zope-app-in-the-news/</guid>
+      <description>&lt;p&gt;Today, on the front page of Slashdot, there was a link for an &lt;a href=&#34;http://www.zenoss.com/&#34;&gt;open source server monitoring &amp;amp; system management application&lt;/a&gt;. Well, what do you know, it runs on Zope 2! The visible source code is &lt;a href=&#34;http://dev.zenoss.org/trac/browser&#34;&gt;here&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Zope buildout quickstart</title>
+      <link>/blog/2007/02/10/zope-buildout-quickstart/</link>
+      <pubDate>Sat, 10 Feb 2007 22:19:56 -0200</pubDate>
+      
+      <guid>/blog/2007/02/10/zope-buildout-quickstart/</guid>
+      <description>&lt;p&gt;One of the bigger players in the latest move to automate Plone and Zope development and deployment has been &lt;a href=&#34;http://www.zope.org/DevHome/Buildout&#34;&gt;buildout&lt;/a&gt;, so I figured it&#39;s about time to start learning it and see how it can help me. I&#39;m writing this short recipe as I progress through learning buildout to help me remember this stuff later on.&lt;br /&gt;&lt;/p&gt;&lt;h3&gt;Installing buildout&lt;/h3&gt;&lt;p&gt;The easiest way to install buildout is to get &lt;a href=&#34;http://peak.telecommunity.com/DevCenter/EasyInstall&#34;&gt;easy_install&lt;/a&gt; (a manager for python packages) on your system. In order to get it installed, I had to do: (based on a custom python 2.4.3 installation in /opt/python):&lt;br /&gt;&lt;/p&gt;&lt;pre&gt;$mkdir ~/buildout_play&lt;br /&gt;$cd ~/buildout_play&lt;br /&gt;$wget http://peak.telecommunity.com/dist/ez_setup.py&lt;br /&gt;$sudo /opt/python/bin/python ez_setup.py&lt;/pre&gt;&lt;p&gt;Next, install the zc.buildout package, using easy_install:&lt;/p&gt;&lt;pre&gt;/opt/python/bin/easy_install zc.buildout&lt;/pre&gt;&lt;p&gt;This will install the buildout egg in the python site-packages folder and create a &#39;buildout&#39; script  in the scripts folder, in my case /opt/python/bin/buildout. &lt;br /&gt;&lt;/p&gt;&lt;p&gt;Next, transform the buildout_play folder in buildout folder, by running:&lt;/p&gt;&lt;pre&gt;/opt/python/bin/buildout -v&lt;/pre&gt;&lt;p&gt;This will &#34;bootstrap&#34; that folder and prepare it as a buildout environment, also installing the setuptools and zc.buildout eggs. The buildout script will check every time it&#39;s being ran if those eggs are at their latest version, run it with the -N option if you want to skip that.&lt;br /&gt;&lt;/p&gt;&lt;p&gt;As a simple test for buildout, I&#39;ve modified my buildout.cfg to contain the following lines:&lt;/p&gt;&lt;pre&gt;[buildout]&lt;br /&gt;parts = checkout&lt;br /&gt;&lt;br /&gt;[checkout]&lt;br /&gt;recipe = zc.recipe.zope3checkout&lt;br /&gt;url = svn://svn.zope.org/repos/main/Zope3/trunk&lt;/pre&gt;&lt;p&gt;This tells buildout to include a part named checkout, which is defined to use the &#34;zc.recipe.zope3checkout&#34; recipe, that is configured with the &#34;url&#34; option. Running&lt;br /&gt;&lt;/p&gt;
+&lt;pre&gt;/opt/python/bin/buildout -v -N&lt;/pre&gt;&lt;p&gt;will automatically grab the zc.recipe.zope3checkout egg, do a svn checkout in the parts/checkout folder and then compile in place the zope 3 checkout. &lt;br /&gt;&lt;/p&gt;&lt;p&gt;When developing new projects, to make this process easier, it is possible to put a &lt;a href=&#34;http://dev.zope.org/Buildout/bootstrap.py&#34;&gt;bootstrap.py&lt;/a&gt; script in the folder where you&#39;re developing, which will automatically install setuptools (easy_install) and zc.buildout, transform that folder in a buildout folder and put a bin/bootstrap script that can be ran to do the build. &lt;br /&gt;&lt;/p&gt;&lt;p&gt;These are the basics to get started, see below for further details.&lt;br /&gt;&lt;/p&gt;&lt;h3&gt;Reference&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&#34;http://cheeseshop.python.org/pypi/zc.buildout&#34;&gt;http://cheeseshop.python.org/pypi/zc.buildout&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://svn.plone.org/svn/plone/ploneout/trunk/&#34;&gt;http://www.zope.org/DevHome/Buildout/buildout.html&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://svn.plone.org/svn/plone/ploneout/trunk/&#34;&gt;http://svn.plone.org/svn/plone/ploneout/trunk/&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Setting a dynamic i18n:domain in a ZPT template</title>
+      <link>/blog/2006/11/23/setting-a-dynamic-i18ndomain-in-a-zpt-template/</link>
+      <pubDate>Thu, 23 Nov 2006 21:14:36 -0200</pubDate>
+      
+      <guid>/blog/2006/11/23/setting-a-dynamic-i18ndomain-in-a-zpt-template/</guid>
+      <description>&lt;p&gt;&amp;lt;h2 tal:define=&#34;statusMessage &lt;a class=&#34;moz-txt-link-freetext&#34; href=&#34;python:request.get%28&#34;&gt;python:request.get(&lt;/a&gt;&#39;statusMessage&#39;);
+&lt;br /&gt;                   domain &lt;a class=&#34;moz-txt-link-freetext&#34; href=&#34;python:request.get%28&#34;&gt;python:request.get(&lt;/a&gt;&#39;domain&#39;)&#34;
+&lt;br /&gt;       tal:attributes=&#34;i18n:domain domain;
+&lt;br /&gt;                       i18n:translate string:&#34;&amp;gt;someText&amp;lt;/h2&amp;gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Creating and managing a Windows service (part 4) &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Creating and managing a Windows service (part 4)</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
+      </p>
+
+      <div class="post-date">
+        <span >Wed, Aug 23, 2006</span>,
+        <span id="wc"> 300 Words </span>
+      </div>
+      <p>The final step is to "compile" everything into Windows executables using py2exe. For this I have the following setup.py file:</p><pre>from distutils.core import setup<br />import py2exe<br />import sys<br /><br /># If run without args, build executables, in quiet mode.<br />if len(sys.argv) == 1:<br />    sys.argv.append("py2exe")<br />    sys.argv.append("-q")<br /><br />class Target:<br />    def __init__(self, **kw):<br />        self.__dict__.update(kw)<br />        # for the versioninfo resources<br />        self.version = "0.1.0"<br />        self.company_name = "Pixelblaster Romania"<br />        self.copyright = "Copyright 2006 Pixelblaster Romania"<br />        self.name = "MyService service"<br /><br />################################################################<br /># THE SERVICE<br />myservice_service = Target(<br />    description = "MyService daemon",<br />    version = "0.1.0",<br />    modules = ["myservice"]<br />    )<br /><br /><br />################################################################<br /># THE CONFIGURATOR<br />manifest_template = '''<br />&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;<br />&lt;assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0"&gt;<br />&lt;assemblyIdentity<br />    version="5.0.0.0"<br />    processorArchitecture="x86"<br />    name="%(prog)s"<br />    type="win32"<br />/&gt;<br />&lt;description&gt;%(prog)s Program&lt;/description&gt;<br />&lt;dependency&gt;<br />    &lt;dependentAssembly&gt;<br />        &lt;assemblyIdentity<br />            type="win32"<br />            name="Microsoft.Windows.Common-Controls"<br />            version="6.0.0.0"<br />            processorArchitecture="X86"<br />            publicKeyToken="6595b64144ccf1df"<br />            language="*"<br />        /&gt;<br />    &lt;/dependentAssembly&gt;<br />&lt;/dependency&gt;<br />&lt;/assembly&gt;<br />'''<br /><br />RT_MANIFEST = 24<br /><br />service_configurator = Target(<br />    description = "The Service configurator",<br />    script = "service_configurator.py",<br />    other_resources = [(RT_MANIFEST, 1, manifest_template % dict(prog="configurator"))],<br />##    icon_resources = [(1, "icon.ico")],<br />    dest_base = "service_configurator")<br /><br />#==============================<br />#CREATE SERVICE<br />create_service = Target(<br />    description = "Creates the service",<br />    script = "create_service.py",<br />    dest_base = "create_service")<br /><br />#==============================<br />#REMOVE SERVICE<br />remove_service = Target(<br />    description = "Removes the service",<br />    script = "remove_service.py",<br />    dest_base = "remove_service")<br /><br />################################################################<br /># THE SERVICE CONTROLER<br />################################################################<br /><br />service_controler = Target(<br />    description = "The configurator",<br />    script = "service_controler.py",<br />    other_resources = [(RT_MANIFEST, 1, manifest_template % dict(prog="configurator"))],<br />##    icon_resources = [(1, "icon.ico")],<br />    dest_base = "service_controler")<br /><br />excludes = ["pywin", "pywin.debugger", "pywin.debugger.dbgcon",<br />            "pywin.dialogs", "pywin.dialogs.list"]<br /><br />setup(<br />    options = {"py2exe": {<br />                          "compressed": 1,<br />                          "optimize": 2,<br />                          "excludes": excludes}},<br />    zipfile = "lib/shared.zip",<br />    service = [service],<br />    windows = [configurator, service_controler],<br />    console = [create_service, remove_service]<br />    )<br /></pre>
+<p></p>
+<p>I think that's it. All that is left is to wrap everything to a nice
+installer using InnoTools and just deploy it to the customer. :-)<br /></p>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2006/08/23/creating-and-managing-a-windows-service-part-3/"> Creating and managing a Windows service (part 3)</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2006/08/27/specify-creation-roles-for-agx-generated-content/"> Specify creation roles for AGX generated content</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>RichText control with wxpython: saving, loading and converting from internal XML to HTML &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>RichText control with wxpython: saving, loading and converting from internal XML to HTML</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/python">python</a>, <a href="/tags/tutorial">tutorial</a>
+      </p>
+
+      <div class="post-date">
+        <span >Wed, Oct 8, 2008</span>,
+        <span id="wc"> 800 Words </span>
+      </div>
+      <p>I tend to be an angry caveman these days (see my previous post) and this doesn't lead to too much clear thinking. I've been dealing with the wx.richtext.RichTextCtrl for the past couple of days and I think I'm now close to finishing the tasks that I set myself to do with it. I'm trying to run a bunch of richtext controls on the same page, that would increase their size and show a toolbar when focused. My first problems came from the fact that all 5 of them flashed a caret which I couldn't hide. Trying to do ctrl.GetCaret().Hide() would result in a crash. After struggling with various possible solutions - none of which worked, I've realized that I should try the latest wxpython distribution, I was even decided to compile it manually. Fortunately, the wxwidgets project offers a repository for Ubuntu and sure enough, after I've upgraded, things started to work (I still needed to hide the caret for all the richtext controls and show it when they were focused, but that's no problem).</p>
+<p>Now, unto the next tasks: saving and loading the content of these fields. I wanted to display the content in an HtmlWindow control, so converting the content to html was one thing I had to discover how to do. First step that I've tried, saving the html and loading it through the RichTextCtrl and its closely related buffers and handlers didn't work, so I've settled for a solution that involves one RichTextHTMLHandler and one RichTextXmlHandler. To help me understand how this thing works, I've created a clean example class where I could play with this thing. I hope it helps someone, as I haven't found too much info on this on the web (the Load/SaveStream methods are not even documented anywhere).</p>
+<p>The toolbar class is taken from my project, created with wxGlade, while the frame class is created by me, manually (actually, this is the first frame that I have created by hand). To demonstrate the loading and saving, a variable is used to keep the content (self.content). Change the text, add some formatting, hit Save and then Load. This will take the text that was saved from the richtext control (in xml format), load it in a buffer and convert it to html which is then displayed in the HtmlWindow. I've only tried this on Linux, hope it works on Windows too. Oh, and you need to supply your own icons if you want to try the code (hint: I've used /usr/share/icons/gnome/32x32/actions as source of my icons.</p>
+<pre>#!/usr/bin/env python
+from StringIO import StringIO
+import wx
+import wx.html
+import wx.richtext
+
+class TextFormatToolBar(wx.ToolBar):
+    def __init__(self, *args, **kwds):
+        self.text_ctrl = kwds.pop('text_ctrl')
+        kwds["style"] = wx.TB_FLAT|wx.TB_3DBUTTONS
+        wx.ToolBar.__init__(self, *args, **kwds)
+        self.AddLabelTool(wx.ID_CUT, "Cut", wx.Bitmap("edit-cut.png", wx.BITMAP_TYPE_ANY), 
+wx.NullBitmap, wx.ITEM_NORMAL, "Cut selection", "")
+        self.AddLabelTool(wx.ID_COPY, "Copy", wx.Bitmap("edit-copy.png", wx.BITMAP_TYPE_ANY), 
+wx.NullBitmap, wx.ITEM_NORMAL, "", "")
+        self.AddLabelTool(wx.ID_PASTE, "Paste", wx.Bitmap("edit-paste.png", wx.BITMAP_TYPE_ANY), 
+wx.NullBitmap, wx.ITEM_NORMAL, "", "")
+        self.AddSeparator()
+        self.AddLabelTool(wx.ID_UNDO, "Undo", wx.Bitmap("edit-undo.png", wx.BITMAP_TYPE_ANY), 
+wx.NullBitmap, wx.ITEM_NORMAL, "", "")
+        self.AddLabelTool(wx.ID_REDO, "Redo", wx.Bitmap("edit-redo.png", wx.BITMAP_TYPE_ANY), 
+wx.NullBitmap, wx.ITEM_NORMAL, "", "")
+        self.AddSeparator()
+        self.AddLabelTool(wx.ID_BOLD, "Bold", wx.Bitmap("format-text-bold.png", wx.BITMAP_TYPE_ANY), 
+wx.NullBitmap, wx.ITEM_NORMAL, "", "")
+        self.AddLabelTool(wx.ID_ITALIC, "Italic", wx.Bitmap("format-text-italic.png", wx.BITMAP_TYPE_ANY), 
+wx.NullBitmap, wx.ITEM_NORMAL, "", "")
+        self.AddLabelTool(wx.ID_UNDERLINE, "Underline", wx.Bitmap("format-text-underline.png", 
+wx.BITMAP_TYPE_ANY), wx.NullBitmap, wx.ITEM_NORMAL, "", "")
+
+        self.Realize()
+
+        self.Bind(wx.EVT_TOOL, self.handle_bold, id=wx.ID_BOLD)
+        self.Bind(wx.EVT_TOOL, self.handle_italic, id=wx.ID_ITALIC)
+        self.Bind(wx.EVT_TOOL, self.handle_underline, id=wx.ID_UNDERLINE)
+        self.Bind(wx.EVT_TOOL, self.handle_paste, id=wx.ID_PASTE)
+        self.Bind(wx.EVT_TOOL, self.handle_copy, id=wx.ID_COPY)
+        self.Bind(wx.EVT_TOOL, self.handle_cut, id=wx.ID_CUT)
+        self.Bind(wx.EVT_TOOL, self.handle_undo, id=wx.ID_UNDO)
+        self.Bind(wx.EVT_TOOL, self.handle_redo, id=wx.ID_REDO)
+
+    def handle_bold(self, event):
+        self.text_ctrl.ApplyBoldToSelection()
+
+    def handle_italic(self, event):
+        self.text_ctrl.ApplyItalicToSelection()
+
+    def handle_underline(self, event):
+        self.text_ctrl.ApplyUnderlineToSelection()
+
+    def handle_paste(self, event):
+        self.text_ctrl.Paste()
+        
+    def handle_copy(self, event):
+        self.text_ctrl.Copy()
+        
+    def handle_cut(self, event):
+        self.text_ctrl.Cut()
+        
+    def handle_undo(self, event):
+        self.text_ctrl.Undo()
+        
+    def handle_redo(self, event):
+        self.text_ctrl.Redo()
+
+
+class TopFrame(wx.Frame):
+    def __init__(self, *args, **kwargs):
+        wx.Frame.__init__(self, *args, **kwargs)
+        self.Freeze()
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        rt = wx.richtext.RichTextCtrl(self, -1)
+        toolbar = TextFormatToolBar(self, text_ctrl=rt)
+        rt.SetMinSize((300,200))
+        htmlwindow = wx.html.HtmlWindow(self)
+        htmlwindow.SetMinSize((300,200))
+        save_button = wx.Button(self, label="Save")
+        load_button = wx.Button(self, label="Load")
+        btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        btn_sizer.Add(load_button, 0, wx.EXPAND|wx.ALL, 6)
+        btn_sizer.Add(save_button, 0, wx.EXPAND|wx.ALL, 6)
+        self.Bind(wx.EVT_BUTTON, self.handle_save, save_button)
+        self.Bind(wx.EVT_BUTTON, self.handle_load, load_button)
+        sizer.Add(toolbar, 0, wx.EXPAND|wx.ALL, 6)
+        sizer.Add(rt, 1, wx.EXPAND|wx.ALL, 6)
+        sizer.Add(htmlwindow, 1, wx.EXPAND|wx.ALL, 6)
+        sizer.Add(btn_sizer)
+        self.SetSizer(sizer)
+        sizer.Fit(self)
+        self.Thaw()
+        self.rt = rt
+        self.htmlwindow = htmlwindow
+        
+    def handle_save(self, event):
+        out = StringIO()
+        handler = wx.richtext.RichTextXMLHandler()
+        buffer = self.rt.GetBuffer()
+        handler.SaveStream(buffer, out)
+        out.seek(0)
+        self.content = out.read()
+        
+    def handle_load(self, event):
+        out = StringIO()
+        handler = wx.richtext.RichTextXMLHandler()
+        buffer = self.rt.GetBuffer()
+        buffer.AddHandler(handler)
+        out.write(self.content)
+        out.seek(0)
+        handler.LoadStream(buffer, out)
+        self.rt.Refresh()
+        
+        cio = StringIO()
+        cio.write(self.content)
+        cio.seek(0)
+        cout = StringIO()
+        
+        xmlhandler = wx.richtext.RichTextXMLHandler()
+        htmlhandler = wx.richtext.RichTextHTMLHandler()
+        newbuff = wx.richtext.RichTextBuffer()
+        newbuff.AddHandler(htmlhandler)
+        
+        xmlhandler.LoadStream(newbuff, cio) #load xml into buffer
+        newbuff.SaveStream(cout, wx.richtext.RICHTEXT_TYPE_HTML)
+        cout.seek(0)
+        self.htmlwindow.SetPage(cout.read())
+
+
+class MyApp(wx.App):
+
+    def OnInit(self):
+        wx.InitAllImageHandlers()
+        frame = TopFrame(None, - 1, "")
+        self.SetTopWindow(frame)
+        
+        frame.Show()
+        return 1
+    
+
+def start():
+    app = MyApp(0)
+    app.MainLoop()
+    
+if __name__ == "__main__":
+    start()
+</pre>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2008/09/15/stupid-internet-explorer-and-stupid-ie-bugs/"> Stupid Internet Explorer and stupid IE bugs</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2008/11/01/a-wxpython-based-tagcloud-renderer/"> A wxPython based tagcloud renderer</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on The Plone Expanse</title>
+    <link>/tags/docker/index.xml</link>
+    <description>Recent content in Docker on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Easier development when dealing with docker-compose stacks</title>
+      <link>/blog/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks/</link>
+      <pubDate>Tue, 13 Dec 2016 09:26:44 -0100</pubDate>
+      
+      <guid>/blog/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks/</guid>
+      <description>&lt;p&gt;For some time I&#39;ve had to deal with two separate, docker-compose based application stacks. One of them combining a Ruby on Rails app with a whole suite of ElasticSearch nodes, sidekiq worker, Postgresql, nginx, the whole shebang. Another is just a plain Zope/Plone stack, but the difficulties remain the same: when I wanted to do production debugging or just plain development using that environment, I needed something that can be started manually, in the whole stack. I don&#39;t want to have to deal with &lt;a class=&#34;external-link&#34; href=&#34;https://pypi.python.org/pypi/rpdb/&#34;&gt;rpdb&lt;/a&gt;&amp;nbsp;or remote byebug just to be able to debug. I want to poke around the whole stacks and see what happens.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;So my solution was, in both cases, to configure another service in the docker-compose stack that just did nothing.&lt;/p&gt;
+&lt;pre&gt;...
+debug:
+ &amp;nbsp;image: plone
+ &amp;nbsp;ports:
+ &amp;nbsp;&amp;nbsp;&amp;nbsp;- &#34;8090:8080&#34;
+ &amp;nbsp;volumes:
+ &amp;nbsp;&amp;nbsp;&amp;nbsp;- ./src:/plone/instance/src
+ &amp;nbsp;entrypoint: sh -c &#34;tail -f /dev/null&#34;
+&lt;/pre&gt;
+&lt;p&gt;Something like the above. Notice the entry point, which just keeps the container up, but does nothing. Now I can run&lt;/p&gt;
+&lt;pre&gt;docker exec -it debug_1 bash&lt;/pre&gt;
+&lt;p&gt;And inside the container, I can edit the eggs to set a pdb.trace() line whereever, then start the instance:&amp;nbsp;&lt;/p&gt;
+&lt;pre&gt;bin/standalone fg&lt;/pre&gt;
+&lt;p&gt;Why go through this trouble instead of just running the plone container with something like&lt;/p&gt;
+&lt;pre&gt;docker run --name debug plone&lt;/pre&gt;
+&lt;p&gt;Usually docker-compose stack are entertwined services that need connecting to one another. My given service debug could be linked to whatever other service: postfix, postgresql, elasticsearch, etc. Why go through the trouble of linking manually, from the command line, when I can just get docker-compose to do it?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to use pgloader to migrate sqlite database to postgresql</title>
+      <link>/blog/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql/</link>
+      <pubDate>Mon, 13 Jun 2016 23:49:14 -0200</pubDate>
+      
+      <guid>/blog/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql/</guid>
+      <description>&lt;p&gt;I needed to migrate a Kotti database, from its default sqlite file store, to Postgresql. Clued in by StackOverflow, I&#39;ve tried using &lt;a class=&#34;external-link&#34; href=&#34;https://github.com/dimitri/pgloader&#34;&gt;pgloader&lt;/a&gt;, but the version coming with Ubuntu is old: 2.x instead of the brand new 3.x. But the jump to 3.x meant a switch in programming languages as well: the new one is written in Lisp. I didn&#39;t want to install and compile the whole Lisp bundle just to run pgloader and I didn&#39;t find a binary distribution either, and after a recent exposure to Docker, I thought I&#39;ll give the dockerized version of pgloader a try.&lt;/p&gt;
+&lt;p&gt;After following the steps to &lt;a class=&#34;external-link&#34; href=&#34;https://docs.docker.com/engine/installation/linux/ubuntulinux/&#34;&gt;install Docker&lt;/a&gt;, took me a bit to figure out the process (note: I&#39;m running all this in a VMWare virtual machine, so I can afford taking a lot of unsecure shortcuts):&lt;/p&gt;
+&lt;p&gt;First, the local Postgresql database needs to be configured to run on an IP, to allow the dockerized pgloader process to connect to it.&lt;/p&gt;
+&lt;pre&gt;sudo vim &amp;nbsp;/etc/postgresql/9.3/main/pg_hba.conf&lt;/pre&gt;
+&lt;p&gt;Change the network settings to allow connections from all:&lt;/p&gt;
+&lt;pre&gt;# IPv4 local connections:
+host &amp;nbsp; &amp;nbsp;all &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; all &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 0.0.0.0/0 &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; md5&lt;/pre&gt;
+&lt;div&gt;Also, we will need to enable listening on TCP connections:&lt;/div&gt;
+&lt;pre&gt;sudo vim &amp;nbsp;/etc/postgresql/9.3/main/postgresql.conf&lt;/pre&gt;
+&lt;div&gt;and add a listen_addresses line&lt;/div&gt;
+&lt;pre&gt;listen_addresses = &#39;*&#39;&lt;span class=&#34;Apple-tab-span&#34;&gt;		&lt;/span&gt;# what IP address(es) to listen on;&lt;/pre&gt;
+&lt;div&gt;Install Dockerized pgloader according to instructions:&lt;/div&gt;
+&lt;pre&gt;&lt;code&gt;docker pull dimitri/pgloader&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I&#39;ve created a file named &#34;convert&#34; with the commands for pgloader, to do the conversion:&lt;/p&gt;
+&lt;pre&gt;load database  
+    from &#39;mydb.db&#39;  
+    into postgresql://user:password@192.168.1.20/mydb
+
+with reset sequences, create no tables, include no drop, create no indexes, disable triggers
+set work_mem to &#39;200MB&#39;, maintenance_work_mem to &#39;512 MB&#39;;&lt;/pre&gt;
+&lt;p&gt;For the IP of the postgresql I&#39;ve used the one attached to eth0.&lt;/p&gt;
+&lt;div&gt;Because I didn&#39;t trust pgloader to convert all the nuances of the database relations, before running the conversion, I&#39;ve started once Kotti, bin/pserve app.ini so that it will create the initial database structure. After that, truncated the nodes table so that it will erase most of the database content:&lt;/div&gt;
+&lt;pre&gt;psql mydb
+truncate table nodes cascade
+truncate table nodes principals&lt;/pre&gt;
+&lt;div&gt;Now, the trick is to put this &#39;convert&#39; file, together with the &#39;mydb.db&#39; sqlite file in the same folder and map that folder as a volume when running the pgloader command:&lt;/div&gt;
+&lt;pre&gt;sudo docker run --rm --name pgloader -v /path/to/data/:/data dimitri/pgloader:latest pgloader /data/convert&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

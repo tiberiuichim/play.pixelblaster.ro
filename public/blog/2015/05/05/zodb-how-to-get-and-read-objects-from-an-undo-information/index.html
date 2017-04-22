@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>ZODB: How to get and read objects from an undo information &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>ZODB: How to get and read objects from an undo information</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/zope">zope</a>, <a href="/tags/debugging">debugging</a>, <a href="/tags/zodb">ZODB</a>, <a href="/tags/cookbook">cookbook</a>
+      </p>
+
+      <div class="post-date">
+        <span >Tue, May 5, 2015</span>,
+        <span id="wc"> 300 Words </span>
+      </div>
+      <p>This is useful for example if you have transactions that cause writes to the database and you don't know what has been written. First, identify the ID of the transaction that you're interested. In the Undo tab of Zope, inspect the checkbox for the transaction and copy the part that looks like an id from its value.</p>
+<p>Then, in a zope debugging shell (started with bin/instance debug), I've done:</p>
+<pre>&gt;&gt;&gt; import base64, cPickle
+&gt;&gt;&gt; webtid = "QTY1MjhoaytpMVU9"
+
+# DB will be the "database", as represented in Zope.
+&gt;&gt;&gt; db = app._p_jar.db()
+
+# Storage will be an instance of FileStorage. I don't think 
+# it's possible to achieve this connected through ZEO.
+&gt;&gt;&gt; storage = db.storage
+
+# This is the "real" transaction id
+&gt;&gt;&gt; tid = base64.decodestring(webtid + "\n")
+
+# Now we'll get a "transaction position", a position 
+# in the filestorage where the transaction begins
+&gt;&gt;&gt; tpos = storage._txn_find(tid, True)
+
+# This will be the transaction header. This is the info that's 
+# shown in the Undo UI.
+&gt;&gt;&gt; th = storage._read_txn_header(tpos)
+&gt;&gt;&gt; print th.status, th.descr, th.user
+
+# Now we get the "data position", the position in the zodb where 
+# the objects of that transaction sit
+&gt;&gt;&gt; pos = tpos + th.headerlen()
+
+# This will be the data header
+&gt;&gt;&gt; dh = storage._read_data_header(pos)
+
+# we're very much interested in the oid
+&gt;&gt;&gt; oid = dh.oid
+&gt;&gt;&gt; pickle_data, tid = storage.load(oid)
+
+# heh, zodb is just a pickle store, you knew that, right?
+&gt;&gt;&gt; print pickle_data
+&gt;&gt;&gt; print cPickle.loads(pickle_data)
+
+# but it's easier to get the object using the zope machinery
+&gt;&gt;&gt; obj = app._p_jar[oid] 
+&gt;&gt;&gt; print obj</pre>
+<p>The zope process needs to be configured with a FileStorage, not a ClientStorage (aka Zeo client).</p>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2015/04/20/the-wrong-way-to-sudo-su-and-the-right-way/"> The wrong way to sudo su, and the right way</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/"> The case of the strange RichText widgets</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

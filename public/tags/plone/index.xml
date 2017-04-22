@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Plone on The Plone Expanse</title>
+    <link>/tags/plone/index.xml</link>
+    <description>Recent content in Plone on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/plone/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Loading packages without z3c.autoinclude in Plone 5.1</title>
+      <link>/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/</link>
+      <pubDate>Sat, 25 Feb 2017 19:29:37 +0100</pubDate>
+      
+      <guid>/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/</guid>
+      <description>&lt;p&gt;The new Plone 5.1 development buildout doesn&amp;rsquo;t include a zcml property in its
+[instance] section. It is no longer needed, with all eggs already providing
+a z3c.autoinclude entrypoint. This, unless you want to load an older package
+which doesn&amp;rsquo;t have such an entry point. That&amp;rsquo;s when the trouble starts. Adding
+a, for example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[instance]
+...
+zcml +=
+    cs.auth.facebook
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;doesn&amp;rsquo;t work. There is really no zcml property in any of the extended cfg file,
+so Zope will try to load this package first, which will result in a &amp;ldquo;permission
+not defined&amp;rdquo; zcml error. My fix is to include the Products.CMFPlone egg,
+something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[instance]
+...
+zcml =
+    Products.CMFPlone
+    cs.auth.facebook
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Test for an interface provided by object in plone action condition</title>
+      <link>/blog/2017/02/23/test-for-an-interface-provided-by-object-in-plone-action-condition/</link>
+      <pubDate>Thu, 23 Feb 2017 16:53:16 +0100</pubDate>
+      
+      <guid>/blog/2017/02/23/test-for-an-interface-provided-by-object-in-plone-action-condition/</guid>
+      <description>&lt;p&gt;Quick tip: how to test if the context provides an interface, with an expression
+set as the condition:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;python:object.restrictedTraverse(&amp;quot;@@plone_interface_info&amp;quot;).provides(&#39;dotted.path.to.IMyFancyInterface&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Plone: assign permission to role</title>
+      <link>/blog/2017/02/22/plone-assign-permission-to-role/</link>
+      <pubDate>Wed, 22 Feb 2017 14:19:02 +0100</pubDate>
+      
+      <guid>/blog/2017/02/22/plone-assign-permission-to-role/</guid>
+      <description>&lt;p&gt;I always forget, and a quick search through the eggs folder didn&amp;rsquo;t yield
+anything easy to find: how to I assign a permission to a role, in a context?&lt;/p&gt;
+
+&lt;p&gt;This is a bit of code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from Products.DCWorkflow.utils import modifyRolesForPermission
+from AccessControl.PermissionMapping import getPermissionMapping
+
+perm = &#39;Delete objects&#39;
+pm = set(getPermissionMapping(perm, context, st=tuple))
+pm.add(&#39;Contributor&#39;)
+pm.add(&#39;Owner&#39;)
+modifyRolesForPermission(wc, perm, tuple(pm))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is based on code found in DCWorkflow. I know, the proper code would be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from AccessControl.Permission import Permission
+p = Permission(name, data, obj)
+p.setRole(role_name, True)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But I don&amp;rsquo;t like that API. What is data? I don&amp;rsquo;t know. I can understand name,
+of course, and obj as the context. But data???&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Do you really need that metadata column?</title>
+      <link>/blog/2017/01/08/do-you-really-need-that-metadata-column/</link>
+      <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
+      
+      <guid>/blog/2017/01/08/do-you-really-need-that-metadata-column/</guid>
+      <description>&lt;p&gt;It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;As an example: when exploring collective.portlet.collectionfilter I&#39;ve noticed that the definition of the filters need both the index name and the metadata column. Ex:&lt;/p&gt;
+&lt;pre&gt;GROUPBY_CRITERIA = {
+    &#39;Subject&#39;: {
+        &#39;index&#39;: &#39;Subject&#39;,  # For querying
+        &#39;metadata&#39;: &#39;Subject&#39;,  # For constructing the list
+        &#39;display_modifier&#39;: None,  # For modifying list items (e.g. dates)
+        &#39;query_range&#39;: None  # For range searches (e.g. for dates or numbers)
+    },
+...&lt;/pre&gt;
+&lt;div&gt;The metadata is needed because the search result is a whole bag of brains and the portlet groups results by their values, so it needs to know the real values. With minimal changes it is possible to avoid the need for that metadata column.&lt;/div&gt;
+&lt;p&gt;This is the original code in collectionfilter.py:&lt;/p&gt;
+&lt;pre&gt;attr = GROUPBY_CRITERIA[self.data.group_by][&#39;metadata&#39;]
+mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
+
+grouped_results = {}
+for item in results:
+    val = getattr(item, attr, None)
+    if callable(val):
+        val = val()
+    if not getattr(val, &#39;__iter__&#39;, False):
+        val = [val]&lt;/pre&gt;
+&lt;div&gt;And these are the minimal changes:&lt;/div&gt;
+&lt;pre&gt;mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
+
+catalog = getToolByName(self.context, &#39;portal_catalog&#39;)
+unindex = catalog._catalog.indexes[idx]._unindex
+
+grouped_results = {}
+for item in results:
+    rid = item._brain.getRID()
+    # val = getattr(item, attr, None)
+    val = unindex.get(rid)
+    if callable(val):
+        val = val()
+    if not getattr(val, &#39;__iter__&#39;, False):
+        val = [val]&lt;/pre&gt;
+&lt;p&gt;It reads the field values from the _unindex mapping of the indexes (which exist for most of the indexes in the Plone catalog. Exceptions are indexes for Title, Description, getObjPositionInParent and SearchableText). Most of the ZCatalog indexes have two mappings where they store information: the forward &#34;mapping&#34; (field value =&amp;gt; objectid) and the reverse mapping (object id =&amp;gt; field value). In this above snippet we&#39;re reading the reverse mapping to get the original field value. So, no need for a dedicated metadata column.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Easier development when dealing with docker-compose stacks</title>
+      <link>/blog/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks/</link>
+      <pubDate>Tue, 13 Dec 2016 09:26:44 -0100</pubDate>
+      
+      <guid>/blog/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks/</guid>
+      <description>&lt;p&gt;For some time I&#39;ve had to deal with two separate, docker-compose based application stacks. One of them combining a Ruby on Rails app with a whole suite of ElasticSearch nodes, sidekiq worker, Postgresql, nginx, the whole shebang. Another is just a plain Zope/Plone stack, but the difficulties remain the same: when I wanted to do production debugging or just plain development using that environment, I needed something that can be started manually, in the whole stack. I don&#39;t want to have to deal with &lt;a class=&#34;external-link&#34; href=&#34;https://pypi.python.org/pypi/rpdb/&#34;&gt;rpdb&lt;/a&gt;&amp;nbsp;or remote byebug just to be able to debug. I want to poke around the whole stacks and see what happens.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;So my solution was, in both cases, to configure another service in the docker-compose stack that just did nothing.&lt;/p&gt;
+&lt;pre&gt;...
+debug:
+ &amp;nbsp;image: plone
+ &amp;nbsp;ports:
+ &amp;nbsp;&amp;nbsp;&amp;nbsp;- &#34;8090:8080&#34;
+ &amp;nbsp;volumes:
+ &amp;nbsp;&amp;nbsp;&amp;nbsp;- ./src:/plone/instance/src
+ &amp;nbsp;entrypoint: sh -c &#34;tail -f /dev/null&#34;
+&lt;/pre&gt;
+&lt;p&gt;Something like the above. Notice the entry point, which just keeps the container up, but does nothing. Now I can run&lt;/p&gt;
+&lt;pre&gt;docker exec -it debug_1 bash&lt;/pre&gt;
+&lt;p&gt;And inside the container, I can edit the eggs to set a pdb.trace() line whereever, then start the instance:&amp;nbsp;&lt;/p&gt;
+&lt;pre&gt;bin/standalone fg&lt;/pre&gt;
+&lt;p&gt;Why go through this trouble instead of just running the plone container with something like&lt;/p&gt;
+&lt;pre&gt;docker run --name debug plone&lt;/pre&gt;
+&lt;p&gt;Usually docker-compose stack are entertwined services that need connecting to one another. My given service debug could be linked to whatever other service: postfix, postgresql, elasticsearch, etc. Why go through the trouble of linking manually, from the command line, when I can just get docker-compose to do it?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Change the authentication cookie name in Plone</title>
+      <link>/blog/2016/12/02/change-the-authentication-cookie-name-in-plone/</link>
+      <pubDate>Fri, 02 Dec 2016 11:22:18 -0100</pubDate>
+      
+      <guid>/blog/2016/12/02/change-the-authentication-cookie-name-in-plone/</guid>
+      <description>&lt;p&gt;Not obvious of first, there are two places to change the cookie name used in login:&lt;/p&gt;
+&lt;p&gt;/acl_users/credentials_cookie_auth/manage_propertiesForm&lt;/p&gt;
+&lt;p&gt;and&lt;/p&gt;
+&lt;p&gt;/acl_users/session/manage_propertiesForm&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to make the linked object editable in droppable collective.cover tiles</title>
+      <link>/blog/2016/10/13/how-to-make-the-linked-object-editable-in-droppable-collective.cover-tiles/</link>
+      <pubDate>Thu, 13 Oct 2016 12:51:46 -0200</pubDate>
+      
+      <guid>/blog/2016/10/13/how-to-make-the-linked-object-editable-in-droppable-collective.cover-tiles/</guid>
+      <description>&lt;p&gt;By default, collective.cover offers one mechanism to &#34;drop&#34; objects to their tiles, by using the &#34;Add content&#34; button at the top. I&#39;ve received feedback that the button will not be very friendly to editors, so my solution, in this case, is really simple.&lt;/p&gt;
+&lt;p&gt;In the tile schema, instead of the default:&lt;/p&gt;
+&lt;pre&gt;    uuid = schema.TextLine(
+        title=_(u&#39;UUID&#39;),
+        required=False,
+        readonly=True,
+    )&lt;/pre&gt;
+&lt;p&gt;redefine uuid to be such as:&lt;/p&gt;
+&lt;pre&gt;from plone.formwidget.contenttree import UUIDSourceBinder
+from z3c.relationfield.schema import RelationChoice
+
+class IMyTile(IPersistentCoverTile):
+    uuid = RelationChoice(
+        title=u&#34;Linked object&#34;,
+        source=UUIDSourceBinder(),
+        required=False,
+    )&lt;/pre&gt;
+&lt;div&gt;This simple change should make the uuid editable with the default contenttree widget.&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Trigger cron style jobs in Plone sites without passwords</title>
+      <link>/blog/2016/09/15/trigger-cron-style-jobs-in-plone-sites-without-passwords/</link>
+      <pubDate>Thu, 15 Sep 2016 11:37:22 -0200</pubDate>
+      
+      <guid>/blog/2016/09/15/trigger-cron-style-jobs-in-plone-sites-without-passwords/</guid>
+      <description>&lt;p&gt;For some time the plone.recipe.zope2instance added support to execute scripts in the context of a full &#34;Zope 2 environment&#34;, by using it such as&amp;nbsp;&lt;/p&gt;
+&lt;pre&gt;bin/instance run /path/to/script&lt;/pre&gt;
+&lt;p&gt;This can be used to launch Python scripts with full support of the Zope machinery, connected to the Zeo server, etc. The script can be generated as a console script from any Plone addon.&amp;nbsp;Here&#39;s a small snippet to be used to get a &#34;fully integrated&#34; Plone site:&lt;/p&gt;
+&lt;pre&gt;HOST = &#39;www.example.com&#39;
+PLONE_PATH = &#39;/Plone&#39;    # physical Path of Plone website
+
+def get_plone_site():
+    import Zope2
+    app = Zope2.app()
+    from Testing.ZopeTestCase import utils
+    utils._Z2HOST = HOST
+
+    path = PLONE_PATH.split(&#39;/&#39;)
+    plone = path[-1]
+
+    app = utils.makerequest(app)
+    app.REQUEST[&#39;PARENTS&#39;] = [app]
+    app.REQUEST.other[&#39;VirtualRootPhysicalPath&#39;] = path
+    from zope.globalrequest import setRequest
+    setRequest(app.REQUEST)
+
+    from AccessControl.SpecialUsers import system as user
+    from AccessControl.SecurityManagement import newSecurityManager
+    newSecurityManager(None, user)
+
+    _site = app[plone]
+    site = _site.__of__(app)
+
+    from zope.site.hooks import setSite
+    setSite(site)
+
+    return site
+
+def main():
+    site = get_plone_site()
+    site[&#39;portal_catalog&#39;].searchResults(...)&lt;/pre&gt;
+&lt;p&gt;Now the &#34;main&#34; function can be registered as console script in the setup.py of the package&lt;/p&gt;
+&lt;pre&gt;setup(
+...
+      entry_points=&#34;&#34;&#34;
+      # -*- Entry points: -*-
+      [console_scripts]
+      myscript = my.package.scripts:main
+      &#34;&#34;&#34;,
+...
+)&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;Note: There&#39;s also clockserver support in Zope, you can configure as:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;clock-server&amp;gt;
+    # starts a clock which calls /foo/bar every 30 seconds
+    method /foo/bar
+    period 30
+    user admin
+    password 123
+    host www.example.com
+&amp;lt;/clock-server&amp;gt;&lt;/pre&gt;
+&lt;p&gt;What I don&#39;t like about this: it involves saving passwords in config files, which is not very maintainable. Also, the run-based method can be called &#34;on demand&#34;, for example by scripts watching a RabbitMQ queue, etc.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Abusing Plone Content Rules to allow Site Admin customizations of sent emails</title>
+      <link>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</link>
+      <pubDate>Wed, 31 Aug 2016 08:12:43 -0200</pubDate>
+      
+      <guid>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</guid>
+      <description>&lt;p&gt;This would be a sort of tutorial on how to implement a new plone.app.contentrules Trigger Event, how to write a new plone.stringinterp variable substitutor and how to trigger the event from a browser page (or z3c.form).&lt;/p&gt;
+&lt;p&gt;This allows configuring a new trigger event from the Content Rules Plone control panel configlet and to assign a new Email action, with customizable body template.&lt;/p&gt;
+&lt;p&gt;Let&#39;s say our task is to implement a contact form:&lt;/p&gt;
+&lt;pre&gt;from plone.directives import form
+from plone.api.portal import show_message
+from zope.event import notify
+
+class IContactForm(form.Schema):
+    name = schema.TextLine(title=u&#34;Your Name&#34;, required=True)
+    email = Email(title=u&#34;Contact eMail:&#34;, required=True)
+
+class ContactInformation(Implicit):
+    &#34;&#34;&#34; A container to be passed to plone.app.contentrules for contact info
+    &#34;&#34;&#34;
+
+    def __init__(self, name=None, email=None):
+        self.name = name
+        self.email = email
+
+class ContactForm(form.SchemaForm):
+
+    schema = IContactForm
+    ignoreContext = True
+
+    label = u&#34;Contact Form&#34;
+
+    fields = field.Fields(IContactForm)
+
+    @button.buttonAndHandler(u&#34;Submit&#34;)
+    def handleApply(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        name = data.get(&#39;name&#39;)
+        email = data.get(&#39;email&#39;)
+
+        obj = ContactInformation(name=name, email=email)
+        obj = obj.__of__(self.context)
+        notify(ContactEvent(obj))
+        show_message(message=&#34;Message sent&#34;, request=self.request, type=&#39;info&#39;)&lt;/pre&gt;
+&lt;p&gt;The ContactInformation object is needed to pass information from the form to the content rules machinery. It needs to be acquisition aware, as plone.app.contentrules will try to trigger events up its chain of acquisition. This can also be replaced by setting some annotation on the request.&lt;/p&gt;
+&lt;p&gt;We need a custom event with an event handler that triggers the content rules execution:&lt;/p&gt;
+&lt;pre&gt;from zope.interface import implements
+from zope.component.interfaces import ObjectEvent, IObjectEvent
+from plone.app.contentrules.handlers import execute_rules
+
+class IContactEvent(IObjectEvent):
+    &#34;&#34;&#34;
+    &#34;&#34;&#34;
+
+class ContactEvent(ObjectEvent):
+    implements(IContactEvent)
+
+def trigger_contentrules(event):
+    execute_rules(event)&lt;/pre&gt;
+&lt;p&gt;Now, a bit of zcml to register the event with plone.app.contentrules and setup the event handler:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;interface
+    interface=&#34;.events.IContactEvent&#34;
+    type=&#34;plone.contentrules.rule.interfaces.IRuleEventType&#34;
+    name=&#34;Contact form triggered&#34;
+    /&amp;gt;
+
+&amp;lt;subscriber for=&#34;.events.IContactEvent&#34; handler=&#34;.events.trigger_contentrules&#34; /&amp;gt;&lt;/pre&gt;
+&lt;p&gt;This will make the &#34;Contact form triggered&#34; event available for the Plone Content Rules and, thanks to the notify() call in the form handler, trigger the content rules execution.&lt;/p&gt;
+&lt;p&gt;One last thing that we need is to access the information submitted in the form. The ContactInformation object serves as a container for that information, so we&#39;ll need special variables for the Email action:&lt;/p&gt;
+&lt;pre&gt;class contact_email(BaseSubstitution):
+    description = u&#34;Contact email&#34;
+    category = &#39;ContactForm&#39;
+
+    adapts(Interface)
+
+    def safe_call(self):
+        return self.context.email
+
+
+class contact_name(BaseSubstitution):
+    description = u&#34;Contact name&#34;
+    category = &#39;ContactForm&#39;
+
+    adapts(Interface)
+
+    def safe_call(self):
+        return self.context.name&lt;/pre&gt;
+&lt;div&gt;and the zcml for this:&lt;/div&gt;
+&lt;pre&gt;&amp;lt;adapter
+    for=&#34;*&#34;
+    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
+    factory=&#34;.stringinterp.contact_email&#34;
+    name=&#34;contact_email&#34;
+    /&amp;gt;
+
+&amp;lt;adapter
+    for=&#34;*&#34;
+    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
+    factory=&#34;.stringinterp.contact_name&#34;
+    name=&#34;contact_name&#34;
+    /&amp;gt;&lt;/pre&gt;
+&lt;div&gt;So why use this mechanism instead of something like PloneFormGen? In my case, the site administrator is used to changing email templates for various events (object created, published, etc) from the Content Rules panel, so why not keep everything simple and consistent?&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to fake fix broken persistent objects in ZODB</title>
+      <link>/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/</link>
+      <pubDate>Thu, 18 Aug 2016 16:56:38 -0200</pubDate>
+      
+      <guid>/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/</guid>
+      <description>&lt;p&gt;I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.&lt;/p&gt;
+&lt;p&gt;My solution, because I didn&#39;t care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys.modules:&lt;/p&gt;
+&lt;pre&gt;class NavigableString(unicode):
+    def __new__(cls):
+        return unicode.__new__(cls)
+
+    def __getstate__(self):
+        return self.__dict__
+
+
+class Tag(object):
+    def __getstate__(self):
+        return self.__dict__
+
+
+class BeautifulSoup(object):
+    def __getstate__(self):
+        return self.__dict__
+
+
+class fake_bs3(object):
+    NavigableString = NavigableString
+    Tag = Tag
+    BeautifulSoup = BeautifulSoup
+
+import sys
+sys.modules[&#39;BeautifulSoup&#39;] = fake_bs3&lt;/pre&gt;
+&lt;div&gt;&amp;nbsp;&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to completely disable Diazo on a specific path</title>
+      <link>/blog/2016/06/30/how-to-completely-disable-diazo-on-a-specific-path/</link>
+      <pubDate>Thu, 30 Jun 2016 14:51:42 -0200</pubDate>
+      
+      <guid>/blog/2016/06/30/how-to-completely-disable-diazo-on-a-specific-path/</guid>
+      <description>&lt;p&gt;I&#39;m working on an (inherited) website that uses Plone and BackboneJS to offer a streamlined search interface over a catalog of items.&lt;/p&gt;
+&lt;p&gt;My task was to apply a new Diazo theme, which worked great for the rest of the website, except for this search page. The items inserted by the Backbone app would be all garbled and wrong. In the end, I managed to isolate the problem to a single page template that would load only that SPA, and the problem still persisted, (on my development machine), while the same code ran ok on the production server.&lt;/p&gt;
+&lt;p&gt;So what was the difference? The development machine had a Diazo theme active. As soon as I&#39;ve disabled the Diazo theme, the problem disappeared. Oh well, time for a &amp;lt;notheme /&amp;gt; I said, but that didn&#39;t work either: no rule was applied in the transform. After debugging through plone.transformchain.zpublisher.applyTransform and plone.app.theming.transform.ThemeTransform, I came to the conclusion that the serializer used just &#34;breaks&#34; the HTML. It doesn&#39;t break it, it fixes it the problems in that HTML template file, but the fixes break the Underscore templates that will transform that file.&lt;/p&gt;
+&lt;p&gt;So, my fix is a hack:&lt;/p&gt;
+&lt;pre&gt;from ZODB.POSException import ConflictError
+from ZPublisher.interfaces import IPubAfterTraversal
+from plone.transformchain.interfaces import DISABLE_TRANSFORM_REQUEST_KEY
+from zope.component import adapter
+import logging
+
+logger = logging.getLogger(&#39;pkg.diazotheme&#39;)
+
+
+@adapter(IPubAfterTraversal)
+def disable_diazo_for_templates(event):
+    &#34;&#34;&#34; Code modeled after plone.app.caching.hooks.intercept
+    &#34;&#34;&#34;
+    try:
+        request = event.request
+        if not (&#34;/spa/template&#34; in request.getURL()):
+            return
+
+        if DISABLE_TRANSFORM_REQUEST_KEY not in request.environ:
+            request.environ[DISABLE_TRANSFORM_REQUEST_KEY] = True
+
+    except ConflictError:
+        raise
+    except:
+        logging.exception(
+            &#34;Swallowed exception in pkg.diazotheme &#34;
+            &#34;IPubAfterTraversal event handler&#34;)&lt;/pre&gt;
+&lt;p&gt;And register this subscriber with:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;subscriber handler=&#34;.events.disable_diazo_for_templates&#34; /&amp;gt;&lt;/pre&gt;
+&lt;p&gt;But this fix is wrong. My template files came as .html.dtml files placed in a portal_skins layer. The simplest fix would be to just make their content type text/plain. Like, simply renaming them to .txt. With that Content-Type they would be ignored completely by Diazo. Another good way would be (probably) to move them in a static browser resource folder.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The case of the strange RichText widgets</title>
+      <link>/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/</link>
+      <pubDate>Mon, 13 Jun 2016 12:28:29 -0200</pubDate>
+      
+      <guid>/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/</guid>
+      <description>&lt;p&gt;On a Plone 4.3 with plone.app.widgets 1.8.0 and plone.app.contenttypes 1.1b5 installed, there&#39;s one weird bit of inconsistency:&lt;/p&gt;
+&lt;p&gt;The TinyMCE widget rendered by the plone.app.contenttype&#39;s IRichText behaviour is different from any other RichText field added in the dexterity model. Even on the same page, for example, if I edit the Document dexterity type and add a rich text field, the resulting widget is different. How do I know? Try inserting an image by selecting it, in the popup dialog, from the site content browser. In the case of the IRichText text field, it will work, but it will not work for the default text field. So why is that? The IRichText schema could be nothing simpler:&lt;/p&gt;
+&lt;pre&gt;from plone.app.textfield import RichText as RichTextField
+
+
+@provider(IFormFieldProvider)
+class IRichText(model.Schema):
+
+    text = RichTextField(
+        title=_(u&#39;Text&#39;),
+        description=u&#34;&#34;,
+        required=False,
+    )&lt;/pre&gt;
+&lt;p&gt;The answer is: it&#39;s a different widget, not the one coming from plone.app.textfield. plone.app.widgets replaces the widget for the IRichText.text field:&lt;/p&gt;
+&lt;p&gt;(see dx_bbb.py):&lt;/p&gt;
+&lt;pre&gt;from plone.app.widgets.dx import RichTextWidget
+
+try:
+    from plone.app.contenttypes.behaviors.collection import ICollection
+    from plone.app.contenttypes.behaviors.richtext import IRichText
+    HAS_PAC = True
+except ImportError:
+    HAS_PAC = False
+...
+if HAS_PAC:
+...
+    @adapter(getSpecification(IRichText[&#39;text&#39;]), IWidgetsLayer)
+    @implementer(IFieldWidget)
+    def RichTextFieldWidget(field, request):
+        return FieldWidget(field, RichTextWidget(request))&lt;/pre&gt;
+&lt;p&gt;And this is the code that actually fixes the relatedItems popup widget that enables embeding images in the text (from plone.app.widgets.utils.get_tinymce_options ):&lt;/p&gt;
+&lt;pre&gt;        args[&#39;pattern_options&#39;] = {
+            &#39;relatedItems&#39;: {
+                &#39;vocabularyUrl&#39;: &#39;{0}/{1}&#39;.format(
+                    config[&#39;portal_url&#39;],
+                    &#39;@@getVocabulary?name=plone.app.vocabularies.Catalog&#39;
+                ),
+                &#39;mode&#39;: &#39;browse&#39;,
+                &#39;basePath&#39;: folder_path,
+                &#39;folderTypes&#39;: utility.containsobjects.split(&#39;\n&#39;)
+            },
+            &#39;upload&#39;: {
+                &#39;initialFolder&#39;: initial,
+                &#39;currentPath&#39;: folder_url_relative,
+                &#39;baseUrl&#39;: config[&#39;document_base_url&#39;],
+                &#39;relativePath&#39;: &#39;@@fileUpload&#39;,
+                &#39;uploadMultiple&#39;: False,
+                &#39;maxFiles&#39;: 1,
+                &#39;showTitle&#39;: False
+            },
+            &#39;tiny&#39;: config,
+            # This is for loading the languages on tinymce
+            &#39;loadingBaseUrl&#39;: &#39;++resource++plone.app.widgets.tinymce&#39;,
+            &#39;prependToUrl&#39;: &#39;resolveuid/&#39;,
+            &#39;linkAttribute&#39;: &#39;UID&#39;,
+            &#39;prependToScalePart&#39;: &#39;/@@images/image/&#39;,
+            &#39;folderTypes&#39;: utility.containsobjects.split(&#39;\n&#39;),
+            &#39;imageTypes&#39;: utility.imageobjects.split(&#39;\n&#39;),
+            &#39;anchorSelector&#39;: utility.anchor_selector,
+            &#39;linkableTypes&#39;: utility.linkable.split(&#39;\n&#39;)
+        }&lt;/pre&gt;
+&lt;div&gt;The relatedItems options is not filled in in the TinyMCE widget rendered directly by plone.app.textfield.&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;So, in my case, the fix is to register an adapter:&lt;/div&gt;
+&lt;pre&gt;    Fix RichText widget: the plone.app.widgets provided one has proper relatedItems configuration
+    &amp;lt;adapter
+        for=&#34;plone.app.textfield.interfaces.IRichText mypackage.IMyLayer&#34;
+        factory=&#34;plone.app.widgets.dx.RichTextFieldWidget&#34;
+        /&amp;gt;&lt;/pre&gt;
+&lt;div&gt;Which only exposes a bug in collective.cover / plone.app.tiles, due to the way&amp;nbsp;get_tinymce_options works. Oh well, moving on...&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Getting the superclasses for a python object</title>
+      <link>/blog/2011/06/28/getting-the-superclasses-for-a-python-object/</link>
+      <pubDate>Tue, 28 Jun 2011 17:08:06 -0300</pubDate>
+      
+      <guid>/blog/2011/06/28/getting-the-superclasses-for-a-python-object/</guid>
+      <description>&lt;p&gt;Zope 2 (and Plone) persistent objects usually have an intricate inheritance tree. Finding what classes an object inherits can be a time consuming task, hunting through the various eggs for the relevant source code. Below is a little snippet that shows how to easily get the list of superclasses:&lt;/p&gt;
+&lt;pre&gt;(Pdb) pp type(ff).mro()
+(&amp;lt;class &#39;plone.app.blob.subtypes.image.ExtensionBlobField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.TranslatableExtensionField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.BaseExtensionField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;plone.app.blob.field.BlobField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ObjectField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.Field&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Layer.DefaultLayerContainer&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;plone.app.blob.mixins.ImageFieldMixin&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ImageField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.FileField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;type &#39;ExtensionClass.Base&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;type &#39;object&#39;&amp;gt;)&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;Credit goes to the &lt;a class=&#34;external-link&#34; href=&#34;http://pybites.blogspot.com/2009/01/mro-magic.html&#34;&gt;original post&lt;/a&gt; where I found this.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Export/import users in and out of Plone</title>
+      <link>/blog/2011/03/09/export/import-users-in-and-out-of-plone/</link>
+      <pubDate>Wed, 09 Mar 2011 18:09:19 -0200</pubDate>
+      
+      <guid>/blog/2011/03/09/export/import-users-in-and-out-of-plone/</guid>
+      <description>&lt;p&gt;A dirty quick method of importing and exporting the users (only usernames and passwords) out of Plone, using 2 external methods. Code below, not much else to say.&lt;/p&gt;
+&lt;pre&gt;import cPickle
+
+def export(self):
+    pas = self.acl_users
+    users = pas.source_users
+    passwords = users._user_passwords
+    result = dict(passwords)
+
+    f = open(&#39;/tmp/out.blob&#39;, &#39;w&#39;)
+    cPickle.dump(result, f)
+    f.close()
+
+    return &#34;done&#34;
+
+def import_users(self):
+    pas = self.acl_users
+    users = pas.source_users
+    f = open(&#39;/tmp/out.blob&#39;)
+    res = cPickle.load(f)
+    f.close()
+
+    for uid, pwd in res.items():
+        users.addUser(uid, uid, pwd)
+
+    return &#34;done&#34;
+&lt;/pre&gt;
+&lt;h2&gt;&lt;br /&gt;&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Running Products.Gloworm on Plone 4</title>
+      <link>/blog/2011/01/04/running-products.gloworm-on-plone-4/</link>
+      <pubDate>Tue, 04 Jan 2011 19:09:02 -0200</pubDate>
+      
+      <guid>/blog/2011/01/04/running-products.gloworm-on-plone-4/</guid>
+      <description>&lt;p&gt;For some reason, the TTW developer tools tend to get neglected in the Plone world. A valuable tools such as Clouseau has fallen out of favour and now Gloworm, the @@manage-viewlets replacement/complement won&#39;t run in Plone 4 (at least at version 1.0, which is the latest right now on PyPI).&lt;/p&gt;
+&lt;p&gt;Fortunately, Gloworm has been updated in svn trunk. To get the latest version you need to add it to sources (in buildout.cfg or develop.cfg):&lt;/p&gt;
+&lt;pre&gt;[buildout]
+eggs +=
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Products.Gloworm
+
+[sources]
+Products.Gloworm = svn https://weblion.psu.edu/svn/weblion/weblion/Products.Gloworm/trunk/
+&lt;/pre&gt;
+&lt;p&gt;Next, run in the shell:&lt;/p&gt;
+&lt;pre&gt;#bin/develop co Products.Gloworm
+#bin/develop rb
+&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Printing frameworks and wxPython &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Printing frameworks and wxPython</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/python">Python</a>, <a href="/tags/windows">Windows</a>, <a href="/tags/cookbook">cookbook</a>
+      </p>
+
+      <div class="post-date">
+        <span >Wed, Sep 6, 2006</span>,
+        <span id="wc"> 500 Words </span>
+      </div>
+      <p>As hard as I have tried to find, there's no good printing framework for wxPython. wxEasyPrinting sucks so much for anything more then simple text (for example, the table cells don't support specifying a height). Generating PDF files with a toolkit such as ReportLab (even with Platypus) is harder then it should be, especially when there's no ready made higher level framework. <a href="http://tgolden.sc.sabren.com/python/win32_how_do_i/print.html" target="_self">This page explores some of the common printing solutions on Windows</a>.<br /></p><p>My own solution to all these is a single-platform hack. Based on my previous experience of creating a "zope based desktop application" using an embeded Internet Explorer, I'm using Internet Explorer through ActiveX as a rendering and print preview engine. Building a new "form" is easy with any HTML GUI builder such as NVU or Dreamweaver and SimpleTAL bridges the gap between the application data and the presentation for printing. The trick is to display only the Print Preview dialog, which can't be done without going through Internet Explorer's back door.<br /></p><p>In my generated HTML files I have the following snippet, which automatically calls the Print Preview dialog from Internet Explorer when the file is loaded.<br /></p><pre>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;<br />&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;<br />&lt;head&gt;<br />&lt;script&gt;<br />function printpr()<br />{<br />var OLECMDID = 7;<br />/* OLECMDID values:<br />* 6 - print<br />* 7 - print preview<br />* 1 - open window<br />* 4 - Save As<br />*/<br />var PROMPT = 1; // 2 DONTPROMPTUSER <br />var WebBrowser = "&lt;OBJECT ID='WebBrowser1' WIDTH=0 HEIGHT=0 CLASSID='CLSID:8856F961-340A-11D0-A96B-00C04FD705A2' /&gt;";<br />document.body.insertAdjacentHTML('beforeEnd', WebBrowser); <br />WebBrowser1.ExecWB(OLECMDID, PROMPT);<br />WebBrowser1.outerHTML = "";<br />}<br />&lt;/script&gt;<br />&lt;/head&gt;<br />&lt;body onload="printpr(); return false;"&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;<br /></pre><p>Next, I have a frame with the IE ActiveX control embeded.<br /></p><pre># -*- coding: ISO-8859-1 -*-<br /># generated by wxGlade 0.4.1 on Sun Apr 30 20:43:52 2006<br /><br />import wx<br />import  wx.lib.iewin    as  iewin<br /><br /># begin wxGlade: dependencies<br /># end wxGlade<br /><br />def ieWidget(parent, id):<br />	ie = iewin.IEHtmlWindow(parent, -1)<br />	return ie<br /><br />class dlgIEFrame(wx.Frame):<br />	def __init__(self, *args, **kwds):<br />		# begin wxGlade: dlgIEFrame.__init__<br />		kwds["style"] = wx.DEFAULT_FRAME_STYLE<br />		wx.Frame.__init__(self, *args, **kwds)<br />		self.window_4 = ieWidget(self, -1)<br /><br />		self.__set_properties()<br />		self.__do_layout()<br />		# end wxGlade<br />		self.ie = self.window_4<br />		self.ie.SetClientSizeWH(300, 400)<br /><br />	def __set_properties(self):<br />		# begin wxGlade: dlgIEFrame.__set_properties<br />		self.SetTitle("frame_1")<br />		self.SetSize((792, 755))<br />		# end wxGlade<br /><br />	def __do_layout(self):<br />		# begin wxGlade: dlgIEFrame.__do_layout<br />		sizer_59 = wx.BoxSizer(wx.VERTICAL)<br />		sizer_59.Add(self.window_4, 1, wx.EXPAND, 0)<br />		self.SetAutoLayout(True)<br />		self.SetSizer(sizer_59)<br />		self.Layout()<br />		self.Centre()<br />		# end wxGlade<br /><br /># end of class dlgIEFrame<br /><br /></pre>To display the printing dialog I'm just dumping the generated HTML file to a temporary file and loading it into the IE control. <br />
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2006/09/05/override-the-default-actions-for-an-archgenxml-based-archetype/"> Override the default actions for an ArchGenXML based Archetype</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2006/09/10/adaptation-explained/"> Adaptation explained</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zope3 on The Plone Expanse</title>
+    <link>/tags/zope3/index.xml</link>
+    <description>Recent content in Zope3 on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/zope3/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Abusing Plone Content Rules to allow Site Admin customizations of sent emails</title>
+      <link>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</link>
+      <pubDate>Wed, 31 Aug 2016 08:12:43 -0200</pubDate>
+      
+      <guid>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</guid>
+      <description>&lt;p&gt;This would be a sort of tutorial on how to implement a new plone.app.contentrules Trigger Event, how to write a new plone.stringinterp variable substitutor and how to trigger the event from a browser page (or z3c.form).&lt;/p&gt;
+&lt;p&gt;This allows configuring a new trigger event from the Content Rules Plone control panel configlet and to assign a new Email action, with customizable body template.&lt;/p&gt;
+&lt;p&gt;Let&#39;s say our task is to implement a contact form:&lt;/p&gt;
+&lt;pre&gt;from plone.directives import form
+from plone.api.portal import show_message
+from zope.event import notify
+
+class IContactForm(form.Schema):
+    name = schema.TextLine(title=u&#34;Your Name&#34;, required=True)
+    email = Email(title=u&#34;Contact eMail:&#34;, required=True)
+
+class ContactInformation(Implicit):
+    &#34;&#34;&#34; A container to be passed to plone.app.contentrules for contact info
+    &#34;&#34;&#34;
+
+    def __init__(self, name=None, email=None):
+        self.name = name
+        self.email = email
+
+class ContactForm(form.SchemaForm):
+
+    schema = IContactForm
+    ignoreContext = True
+
+    label = u&#34;Contact Form&#34;
+
+    fields = field.Fields(IContactForm)
+
+    @button.buttonAndHandler(u&#34;Submit&#34;)
+    def handleApply(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        name = data.get(&#39;name&#39;)
+        email = data.get(&#39;email&#39;)
+
+        obj = ContactInformation(name=name, email=email)
+        obj = obj.__of__(self.context)
+        notify(ContactEvent(obj))
+        show_message(message=&#34;Message sent&#34;, request=self.request, type=&#39;info&#39;)&lt;/pre&gt;
+&lt;p&gt;The ContactInformation object is needed to pass information from the form to the content rules machinery. It needs to be acquisition aware, as plone.app.contentrules will try to trigger events up its chain of acquisition. This can also be replaced by setting some annotation on the request.&lt;/p&gt;
+&lt;p&gt;We need a custom event with an event handler that triggers the content rules execution:&lt;/p&gt;
+&lt;pre&gt;from zope.interface import implements
+from zope.component.interfaces import ObjectEvent, IObjectEvent
+from plone.app.contentrules.handlers import execute_rules
+
+class IContactEvent(IObjectEvent):
+    &#34;&#34;&#34;
+    &#34;&#34;&#34;
+
+class ContactEvent(ObjectEvent):
+    implements(IContactEvent)
+
+def trigger_contentrules(event):
+    execute_rules(event)&lt;/pre&gt;
+&lt;p&gt;Now, a bit of zcml to register the event with plone.app.contentrules and setup the event handler:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;interface
+    interface=&#34;.events.IContactEvent&#34;
+    type=&#34;plone.contentrules.rule.interfaces.IRuleEventType&#34;
+    name=&#34;Contact form triggered&#34;
+    /&amp;gt;
+
+&amp;lt;subscriber for=&#34;.events.IContactEvent&#34; handler=&#34;.events.trigger_contentrules&#34; /&amp;gt;&lt;/pre&gt;
+&lt;p&gt;This will make the &#34;Contact form triggered&#34; event available for the Plone Content Rules and, thanks to the notify() call in the form handler, trigger the content rules execution.&lt;/p&gt;
+&lt;p&gt;One last thing that we need is to access the information submitted in the form. The ContactInformation object serves as a container for that information, so we&#39;ll need special variables for the Email action:&lt;/p&gt;
+&lt;pre&gt;class contact_email(BaseSubstitution):
+    description = u&#34;Contact email&#34;
+    category = &#39;ContactForm&#39;
+
+    adapts(Interface)
+
+    def safe_call(self):
+        return self.context.email
+
+
+class contact_name(BaseSubstitution):
+    description = u&#34;Contact name&#34;
+    category = &#39;ContactForm&#39;
+
+    adapts(Interface)
+
+    def safe_call(self):
+        return self.context.name&lt;/pre&gt;
+&lt;div&gt;and the zcml for this:&lt;/div&gt;
+&lt;pre&gt;&amp;lt;adapter
+    for=&#34;*&#34;
+    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
+    factory=&#34;.stringinterp.contact_email&#34;
+    name=&#34;contact_email&#34;
+    /&amp;gt;
+
+&amp;lt;adapter
+    for=&#34;*&#34;
+    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
+    factory=&#34;.stringinterp.contact_name&#34;
+    name=&#34;contact_name&#34;
+    /&amp;gt;&lt;/pre&gt;
+&lt;div&gt;So why use this mechanism instead of something like PloneFormGen? In my case, the site administrator is used to changing email templates for various events (object created, published, etc) from the Content Rules panel, so why not keep everything simple and consistent?&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Getting the superclasses for a python object</title>
+      <link>/blog/2011/06/28/getting-the-superclasses-for-a-python-object/</link>
+      <pubDate>Tue, 28 Jun 2011 17:08:06 -0300</pubDate>
+      
+      <guid>/blog/2011/06/28/getting-the-superclasses-for-a-python-object/</guid>
+      <description>&lt;p&gt;Zope 2 (and Plone) persistent objects usually have an intricate inheritance tree. Finding what classes an object inherits can be a time consuming task, hunting through the various eggs for the relevant source code. Below is a little snippet that shows how to easily get the list of superclasses:&lt;/p&gt;
+&lt;pre&gt;(Pdb) pp type(ff).mro()
+(&amp;lt;class &#39;plone.app.blob.subtypes.image.ExtensionBlobField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.TranslatableExtensionField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.BaseExtensionField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;plone.app.blob.field.BlobField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ObjectField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.Field&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Layer.DefaultLayerContainer&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;plone.app.blob.mixins.ImageFieldMixin&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ImageField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.FileField&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;type &#39;ExtensionClass.Base&#39;&amp;gt;,
+&amp;nbsp;&amp;lt;type &#39;object&#39;&amp;gt;)&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;Credit goes to the &lt;a class=&#34;external-link&#34; href=&#34;http://pybites.blogspot.com/2009/01/mro-magic.html&#34;&gt;original post&lt;/a&gt; where I found this.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A miniguide to Dolmen packages</title>
+      <link>/blog/2010/09/19/a-miniguide-to-dolmen-packages/</link>
+      <pubDate>Sun, 19 Sep 2010 22:16:36 -0300</pubDate>
+      
+      <guid>/blog/2010/09/19/a-miniguide-to-dolmen-packages/</guid>
+      <description>&lt;p&gt;I&#39;m finally starting a long-overdue project which I have decided to do with &lt;a class=&#34;external-link&#34; href=&#34;http://www.dolmen-project.org/&#34;&gt;Dolmen&lt;/a&gt;. As usual, I start by studying its source code and the &lt;a class=&#34;external-link&#34; href=&#34;http://gitweb.dolmen-project.org/&#34;&gt;packages&lt;/a&gt; that are available for it. By itself it can will get me about 60% with the requirements for my project, so it&#39;s a pretty good starting base. I plan to also study and use some of the menhir.* packages, which are pretty good as generic CMS content types.&lt;/p&gt;
+&lt;dl class=&#34;docutils&#34;&gt;
+&lt;dt&gt;dolmen&lt;/dt&gt;
+&lt;dd&gt;Dolmen is an application development framework based on Grok and ZTK which also provides a CMS (Content Management System) out of the box. Dolmen is being made with four main objectives in mind: easily pluggable, rock solid and fast content type development, readability and speed.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.authentication&#34;&gt;dolmen.app.authentication&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Users and group management in Dolmen&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.breadcrumbs&#34;&gt;dolmen.app.breadcrumbs&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Provides a breadcrumbs navigation for the Dolmen applications. It registers a viewlet to render the links.&lt;/dd&gt;
+&lt;dt&gt;dolmen.app.clipboard&lt;/dt&gt;
+&lt;dd&gt;Provides a useable &#34;clipboard&#34;, that allows you to cut, copy and paste your objects.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.container&#34;&gt;dolmen.app.container&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Is a collection of tools to work with containers in Dolmen applications.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.content&#34;&gt;dolmen.app.content&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Provides out-of-the-box utilities for Dolmen applications content.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.layout&#34;&gt;dolmen.app.layout&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Provides ready-to-use components to get a fully functional and extensively pluggable User Interface for a Dolmen application&lt;/dd&gt;
+&lt;dt&gt;dolmen.app.metadatas&lt;/dt&gt;
+&lt;dd&gt;Forms and viewlets to edit ZopeDublinCore metadata&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.search&#34;&gt;dolmen.app.search&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Viewlets and utilities for permission-aware searching of objects in a Dolmen site.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.security&#34;&gt;dolmen.app.security&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Roles and permissions for a Dolmen site&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.site&#34;&gt;dolmen.app.site&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;The basic Dolmen objects that serve as roots of Dolmen sites&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.app.viewselector&#34;&gt;dolmen.app.viewselector&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Allows basic management of alternate views&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.authentication&#34;&gt;dolmen.authentication&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Basic components for authentication&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.beaker&#34;&gt;dolmen.beaker&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Zope sessions implementation using beaker&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.blob&#34;&gt;dolmen.blob&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A layer above zope.file using ZODB blobs as a storage facility. It offers a BlobFile content type and a BlobProperty property for complex schemas.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.builtins&#34;&gt;dolmen.builtins&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A set of interfaces that apply to basic Python types, to better integrate them with ZCA&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.content&#34;&gt;dolmen.content&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Base classes and utilities to create content types&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.field&#34;&gt;dolmen.field&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Additional fields usable in schemas. At this moment there&#39;s just GlobalClass&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.file&#34;&gt;dolmen.file&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Allows you to manage and store files within the ZODB. It takes the core functionalities of zope.app.file, and simplifies them, using Grok for views and adapters registrations.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.forms.base&#34;&gt;dolmen.forms.base&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A package in charge of providing basic functionalities to work with zeam.form Forms.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.forms.crud&#34;&gt;dolmen.forms.crud&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A package which helps developers create their C.R.U.D forms using Grok, zeam.form and dolmen.content. It provides a collection of base classes to add, edit, and access content. It innovates by providing adapters to customize the fields of a form.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.menu&#34;&gt;dolmen.menu&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Aims to provide the most flexible and explicit way to create and manage menus and their entries with Grok.&lt;/dd&gt;
+&lt;dt&gt;dolmen.queue&lt;/dt&gt;
+&lt;dd&gt;A simple layer on top of zc.async to provide queuing of tasks. Not ready?&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.relations&#34;&gt;dolmen.relations&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Is a thin layer above zc.relation, allowing a simple and straightforward implementation of standalone relationships between objects.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.storage&#34;&gt;dolmen.storage&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Defines a clear high-level API to deal with pluggable storage components.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.thumbnailer&#34;&gt;dolmen.thumbnailer&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;Is package specialized in Thumbnail generation. Using the dolmen.storage mechanisms, it allows a pluggable and flexible thumbnail storage.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.widget.file&#34;&gt;dolmen.widget.file&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A package that walks hand-in-hand with dolmen.file. It provides a useable and pluggable way to render the dolmen.file.FileField in a zeam.form Form.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.widget.image&#34;&gt;dolmen.widget.image&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A thin layer above dolmen.widget.file providing a widget suitable to fields implementing IImageField. It adds, thanks to dolmen.thumbnailer a preview of the uploaded image in both input and display mode.&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/dolmen.widget.tinymce&#34;&gt;dolmen.widget.tinymce&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A package that provides a useable and pluggable way to render a text field as a WYSIWG editor in a zeam.form Form.&lt;/dd&gt;
+&lt;dt&gt;dolmen.workflow&lt;/dt&gt;
+&lt;dd&gt;Nothing here&lt;/dd&gt;
+&lt;dt&gt;megrok.icon&lt;/dt&gt;
+&lt;dd&gt;Allows registration of icons and associating them with content types&lt;/dd&gt;
+&lt;dt&gt;megrok.resourcemerger&lt;/dt&gt;
+&lt;dd&gt;Allows concatanation and packing of browser resources (css and js)&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/menhir.contenttype.document&#34;&gt;menhir.contenttype.document&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;An example document content type&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/menhir.contenttype.file&#34;&gt;menhir.contenttype.file&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;An example file content type&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/menhir.contenttype.folder&#34;&gt;menhir.contenttype.folder&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;An example folder content type&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/menhir.contenttype.image&#34;&gt;menhir.contenttype.image&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;An example image content type&lt;/dd&gt;
+&lt;dt&gt;menhir.contenttype.photoalbum&lt;/dt&gt;
+&lt;dd&gt;An example photoalbum content type&lt;/dd&gt;
+&lt;dt&gt;menhir.contenttype.rstdocument&lt;/dt&gt;
+&lt;dd&gt;An example rstdocument content type&lt;/dd&gt;
+&lt;dt&gt;menhir.contenttype.user&lt;/dt&gt;
+&lt;dd&gt;An example user content type&lt;/dd&gt;
+&lt;dt&gt;menhir.library.tablesorter&lt;/dt&gt;
+&lt;dd&gt;Registers a jquery based library for HTML tables sorting&lt;/dd&gt;
+&lt;dt&gt;menhir.simple.comments&lt;/dt&gt;
+&lt;dd&gt;Simple commenting system with avatar integration&lt;/dd&gt;
+&lt;dt&gt;menhir.simple.livesearch&lt;/dt&gt;
+&lt;dd&gt;A viewlet that provides a livesearch box&lt;/dd&gt;
+&lt;dt&gt;menhir.simple.navtree&lt;/dt&gt;
+&lt;dd&gt;A viewlet providing a navigation tree&lt;/dd&gt;
+&lt;dt&gt;menhir.simple.tag&lt;/dt&gt;
+&lt;dd&gt;A tagging engine based on the lovely.tag&lt;/dd&gt;
+&lt;dt&gt;menhir.skin.lightblue&lt;/dt&gt;
+&lt;dd&gt;A complete skin for a Dolmen site.&lt;/dd&gt;
+&lt;dt&gt;menhir.skin.snappy&lt;/dt&gt;
+&lt;dd&gt;A skin for Snappy sites&lt;/dd&gt;
+&lt;dt&gt;snappy.site&lt;/dt&gt;
+&lt;dd&gt;The Snappy, a video sharing sample site&lt;/dd&gt;
+&lt;dt&gt;snappy.transform&lt;/dt&gt;
+&lt;dd&gt;Mimetype transform utilities. Not finished?&lt;/dd&gt;
+&lt;dt&gt;snappy.video.flasher&lt;/dt&gt;
+&lt;dd&gt;Utilities to mark files as Flash and allow to view them.&lt;/dd&gt;
+&lt;dt&gt;snappy.video.player&lt;/dt&gt;
+&lt;dd&gt;A video player for flash movies&lt;/dd&gt;
+&lt;dt&gt;snappy.video.transforms&lt;/dt&gt;
+&lt;dd&gt;Convert video files to flash movies and thumbnails&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/zeam.form.base&#34;&gt;zeam.form.base&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;A form library designed to be grokish and simple&lt;/dd&gt;
+&lt;dt&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://pypi.python.org/pypi/zeam.form.ztk&#34;&gt;zeam.form.ztk&lt;/a&gt;&lt;/dt&gt;
+&lt;dd&gt;zope.schema integration for zeam.form. It provides widgets and default CRUD style actions.&lt;/dd&gt;
+&lt;dt&gt;dolmen-documentation&lt;/dt&gt;
+&lt;dd&gt;A few tutorials for Dolmen&lt;/dd&gt;
+&lt;dt&gt;dolmenproject&lt;/dt&gt;
+&lt;dd&gt;A Paste script extension that allows quick bootstrapping of new Dolmen projects&lt;/dd&gt;&lt;/dl&gt;
+&lt;p&gt;To download all the packages, I&#39;ve ctrl+selected the git repositories names from &lt;a class=&#34;external-link&#34; href=&#34;http://gitweb.dolmen-project.org/&#34;&gt;http://gitweb.dolmen-project.org/&lt;/a&gt;, pasted them into a repositories.txt file and ran the following script:&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;pre&gt;import subprocess
+import os
+
+f = open(&#39;repositories.txt&#39;)
+for line in f.readlines():
+&amp;nbsp;&amp;nbsp;&amp;nbsp; git = line.strip()
+&amp;nbsp;&amp;nbsp;&amp;nbsp; pkg = git
+&amp;nbsp;&amp;nbsp;&amp;nbsp; if pkg.endswith(&#39;.git&#39;):
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; pkg = &#34;.&#34;.join(pkg.split(&#39;.&#39;)[:-1])
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; if os.path.exists(pkg):
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; subprocess.check_call([&#39;git&#39;, &#39;pull&#39;], cwd=pkg)
+&amp;nbsp;&amp;nbsp;&amp;nbsp; else:
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; subprocess.check_call([&#39;git&#39;, &#39;clone&#39;, &#39;git://devel.dolmen-project.org/&#39; + git])&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;dl class=&#34;docutils&#34;&gt;&lt;dt&gt;&lt;br /&gt;&lt;/dt&gt;&lt;/dl&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Test if developer mode is set in Zope 3 and Grok</title>
+      <link>/blog/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok/</link>
+      <pubDate>Fri, 15 Jan 2010 11:29:22 -0200</pubDate>
+      
+      <guid>/blog/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok/</guid>
+      <description>&lt;p&gt;I&#39;ve started an application that uses &lt;a class=&#34;external-link&#34; href=&#34;http://gitweb.dolmen-project.org/&#34;&gt;Dolmen&lt;/a&gt;, a lightweight CMS built on top of &lt;a class=&#34;external-link&#34; href=&#34;http://grok.zope.org/&#34;&gt;Grok&lt;/a&gt;, and I want to be able to &#34;rollup&#34; the &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/megrok.resource/&#34;&gt;megrok.resource&lt;/a&gt; files based on the devmode setting that was set in the zope.conf file. After a bit of digging, I came up with this code that tells me the current devmode setting for the running instance:&lt;/p&gt;
+&lt;pre&gt;from zope.app.applicationcontrol.applicationcontrol import applicationController
+from zope.app.applicationcontrol.interfaces import IRuntimeInfo
+
+def get_debug_mode():
+&amp;nbsp;&amp;nbsp;&amp;nbsp; &#34;&#34;&#34;Returns the devmode setting for a running zope instance&#34;&#34;&#34;
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; rti = IRuntimeInfo(applicationController)
+&amp;nbsp;&amp;nbsp;&amp;nbsp; return rti.getDeveloperMode() == &#34;On&#34;&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Making peace with the system-wide installed zope.interface</title>
+      <link>/blog/2009/02/16/making-peace-with-the-system-wide-installed-zope.interface/</link>
+      <pubDate>Mon, 16 Feb 2009 11:31:15 -0200</pubDate>
+      
+      <guid>/blog/2009/02/16/making-peace-with-the-system-wide-installed-zope.interface/</guid>
+      <description>&lt;p&gt;While testing software to play music from a computer on my network, I have discovered &lt;a class=&#34;external-link&#34; href=&#34;http://elisa.fluendo.com/&#34;&gt;Elisa&lt;/a&gt;, which is a wonderful piece of software built in Python and &lt;a class=&#34;external-link&#34; href=&#34;http://wiki.zope.org/zope3/Zope3Wiki&#34;&gt;zope.interface&lt;/a&gt;. The package manager helpfully installed a python-zopeinterface package, which turned out to break one of the apps I&#39;ve been working on (one of the packages that is used depends on a more recent version of zope.interface and breaks with a missing object import). Adding an explicit dependency on zope.interface&amp;gt;=3.5 didn&#39;t help either. The egg was installed and a reference to it was inserted in the generated script wrapper for the buildout&#39;s bin folder, but the system zope.interface was found.&lt;/p&gt;
+&lt;p&gt;The solution that I have found was to make sure the zope.interface dependency is listed in the last position in the install_requires section of setup.py. This has the effect of placing the zope.interface egg path first in the generated script, and thus solving the problem.&lt;/p&gt;
+&lt;p&gt;UPDATE: On another project I&#39;m working on, this solution didn&#39;t work. Buildout would complain about a version conflict and would drop the building process. The solution was to setup a separate virtualenv bootstrapped with --no-site-packages and use the python from that virtualenv to bootstrap the buildout environment. I think it&#39;s a bug in zc.buildout, as it should have obeyed the versions section of buildout, plus the explicit dependency in install_requires of my package setup.py&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Variable keys in dictionaries with Page Templates TALES syntax</title>
+      <link>/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/</link>
+      <pubDate>Wed, 11 Feb 2009 19:45:41 -0200</pubDate>
+      
+      <guid>/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/</guid>
+      <description>&lt;p&gt;I admit, I didn&#39;t knew this until now. In the following construction:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;div tal:content=&#34;somedict/keyname/someattr&#34; /&amp;gt;&lt;/pre&gt;
+&lt;p&gt;&#34;keyname&#34; is taken as a string, it&#39;s the literal name of the key for the somedict mapping. To use a variable instead of the literal value of the key name, I used to do:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;div tal:content=&#34;python somedict[key].someattr&#34; /&amp;gt;&lt;/pre&gt;
+&lt;p&gt;Browsing through the zope.app.catalog code, I saw that there&#39;s actually a way to use the TALES syntax:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;div tal:content=&#34;somedict/?key/someattr&#34; /&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;I&#39;m not sure that this works with TTW code in Zope 2 (I expect that it works with browser views), so I&#39;ll just have to try this next time I have the chance.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Reset the generations level for a Zope application</title>
+      <link>/blog/2009/02/05/reset-the-generations-level-for-a-zope-application/</link>
+      <pubDate>Thu, 05 Feb 2009 20:21:12 -0200</pubDate>
+      
+      <guid>/blog/2009/02/05/reset-the-generations-level-for-a-zope-application/</guid>
+      <description>&lt;p&gt;While developing an application and writing some migration code (using zope.app.generations), I had the need to reset the generation number recorded in the database for my application to a version lower than the current generation number (because my generation code didn&#39;t run properly and I didn&#39;t want to create bogus generation files). To solve this issue, in a pdb prompt I had to run:&lt;/p&gt;
+&lt;pre&gt;(Pdb) db = self.request.publication.db
+(Pdb) conn = db.open()
+(Pdb) conn.root()[&#39;zope.app.generations&#39;][&#39;myapp.generations&#39;] = 0
+(Pdb) import transaction
+(Pdb) transaction.commit()
+(Pdb) c
+&lt;/pre&gt;
+&lt;p&gt;Not much to it, and this info can be easily obtained by reading the zope.app.generations source code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>LearningJourney: A Zope 3 tutorial</title>
+      <link>/blog/2009/01/16/learningjourney-a-zope-3-tutorial/</link>
+      <pubDate>Fri, 16 Jan 2009 20:16:42 -0200</pubDate>
+      
+      <guid>/blog/2009/01/16/learningjourney-a-zope-3-tutorial/</guid>
+      <description>&lt;p&gt;Last year, in December, I held a 3 day Zope 3 training for about 10 Zope 2 and Python programmers. For this training I had prepared a 50 pages booklet with some tutorials and reference information (most of it written by me especially for this occasion). The feedback was pretty positive, but only time will tell if I was succesful or not with my training.&lt;/p&gt;
+&lt;p&gt;I have published the training material on Google Code in a project called &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/&#34;&gt;z3ergo&lt;/a&gt;. My intention is to publish there more packages and tutorials, as they come. The beef of the tutorial was a simple but complete application called &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/source/browse/#svn/LearningJourney&#34;&gt;LearningJourney&lt;/a&gt;. My initial intention was to have an application where students could enter a log of the things that they learn, but it could be thought as a simple blog system as well. This is a &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/source/browse/#svn/LearningJourney&#34;&gt;full Zope 3 tutorial application, complete with a site, skin and registration process&lt;/a&gt;. I hope somebody can find it useful. The leaflet is published there in two languages (&lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/source/browse/LearningJourney/LearningJourney-AZope3Introduction-en.pdf&#34;&gt;English&lt;/a&gt; and &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/source/browse/LearningJourney/LearningJourney-AZope3Introduction-ro.pdf&#34;&gt;Romanian&lt;/a&gt;), in pdf format. You can find the source code for the docs in the &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/source/browse/#svn/LearningJourney/docs/source&#34;&gt;LearningJourney docs &lt;/a&gt;folder.&lt;/p&gt;
+&lt;p&gt;The materials cover a lot of the Zope 3 landscape, as this training was for knowledgeable Zope 2/Plone programmers who were evaluating Zope 3 and also had access to other Zope 3 docs, such as &lt;a class=&#34;external-link&#34; href=&#34;http://worldcookery.com&#34;&gt;Philipp&#39;s Zope 3 book&lt;/a&gt;. Keep this in mind when going through the docs and wonder why they&#39;re so slim.&lt;/p&gt;
+&lt;p&gt;The training itself was pretty non-formal. I&#39;ve used the booklet and the sourcecode to guide them through what a Zope 3 application means. There were a lot of questions (practically, the training flow was more question based, with just a few interventions from me to guide it to a different direction), but many things that were covered mostly at surface. We didn&#39;t have any practical exercises, although I wish I was able to have them, it might have helped the students feel a little bit less lost. A more structured approach could have helped as well, who knows. It was both tiring and fun and I got to meet lots of cool people, with which I will hopefull colaborate in the future.&lt;/p&gt;
+&lt;p&gt;If there&#39;s an interest in getting more out of these docs, or you might need me as a Zope 3 trainer, feel free to contact me using this site&#39;s contact form.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Bug in PyPi</title>
+      <link>/blog/2008/08/22/bug-in-pypi/</link>
+      <pubDate>Fri, 22 Aug 2008 16:16:07 -0300</pubDate>
+      
+      <guid>/blog/2008/08/22/bug-in-pypi/</guid>
+      <description>&lt;p&gt;The &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/zope.app.form/3.6.0&#34;&gt;zope.app.form PyPi&lt;/a&gt; page looks awful, it should be fixed. Who&#39;s fault is that? Django, the framework that sits underneath (AFAIK), or the docutils libraries that probably parse the RST pages?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hosting Plone and Zope 3 applications using nginx</title>
+      <link>/blog/2008/07/11/hosting-plone-and-zope-3-applications-using-nginx/</link>
+      <pubDate>Fri, 11 Jul 2008 10:31:21 +0000</pubDate>
+      
+      <guid>/blog/2008/07/11/hosting-plone-and-zope-3-applications-using-nginx/</guid>
+      <description>&lt;p&gt;I&#39;m doing a setup on a new server, I&#39;ve decided to replace the default Apache 2.2 with an nginx http server. The setup which is needed for Zope 3 and Plone applications is the following:&lt;/p&gt;
+&lt;pre&gt;[buildout]
+parts =
+&amp;nbsp;&amp;nbsp;&amp;nbsp; nginx
+&amp;nbsp;&amp;nbsp;&amp;nbsp; nginxctl
+
+[nginx]
+recipe = gocept.cmmi
+url = http://sysoev.ru/nginx/nginx-0.7.6.tar.gz
+md5sum = ae7ce6f66a2cf5a5970d9a9a0da0cf7d
+
+[nginxctl]
+recipe = gocept.nginx
+hostname = localhost
+port = 80
+configuration =
+&amp;nbsp;&amp;nbsp;&amp;nbsp; worker_processes 1;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; events {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; worker_connections 1024;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp; http {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; upstream z3 {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server 127.0.0.1:8080;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; upstream plone {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server 127.0.0.1:9080;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; listen&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ${nginxctl:port};
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server_name z3.example.org;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; root html;
+            include /etc/nginx/proxy.conf
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; location / {
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; proxy_pass http://z3/++lang++ro/++skin++myskin/mysite/++vh++http:z3.example.org:80/++/;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+        server {
+            server_name plone.example.org;
+            include /etc/nginx/proxy.conf
+
+            location / {
+                proxy_pass http://plone/VirtualHostBase/http/plone.example.org:80/t1/VirtualHostRoot/;
+            }
+        }
+        server {
+            server_name plone.example.org;
+            rewrite ^/(.*)  /VirtualHostBase/http/plone.example.org:80/t1/VirtualHostRoot/$1 last;
+            location / {
+                proxy_pass http://plone;
+            }
+        }
+&amp;nbsp;&amp;nbsp;&amp;nbsp; }
+&lt;/pre&gt;
+&lt;p&gt;Note: this is a buildout.cfg. Using it together with zc.buildout makes the nginx instalation a very simple process: install zc.buildout (easy_install zc.buildout), and then run buildout in the folder that contains the .cfg file.&lt;/p&gt;
+&lt;p&gt;The settings in proxy.conf are important. Without a valid proxy_temp_path, for some reason delivery of all content that came from a Plone 2.5 site that used CacheFu setup with no proxy cache was freezing at 16014 bytes. The paths in /var/nginx need to be created and set to be writable by the nginx process (user nobody in my case).&lt;/p&gt;
+&lt;pre&gt;client_max_body_size&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 0;
+client_body_buffer_size&amp;nbsp;&amp;nbsp;&amp;nbsp; 128k;
+client_body_temp_path&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; /var/nginx/client_body_temp;
+
+proxy_connect_timeout&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 90;
+proxy_send_timeout&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 90;
+proxy_read_timeout&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 90;
+proxy_buffer_size&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 4k;
+proxy_buffers&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 4 32k;
+proxy_busy_buffers_size&amp;nbsp;&amp;nbsp;&amp;nbsp; 64k;
+proxy_temp_file_write_size 64k;
+proxy_temp_path&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; /var/nginx/proxy_temp;
+proxy_redirect&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; off;
+proxy_set_header&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Host $host;
+proxy_set_header&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; X-Real-IP $remote_addr;
+proxy_set_header&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; X-Forwarded-For $proxy_add_x_forwarded_for;&lt;/pre&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h3&gt;Resources&lt;br /&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;external-link&#34; href=&#34;http://plone.lucidsolutions.co.nz/web/reverseproxyandcache/install-nginx&#34;&gt;A more complete  nginx sample configuration file (but that only covers how to configure Plone)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;external-link&#34; href=&#34;http://grok.zope.org/documentation/how-to/grok-virtual-hosting-and-nginx&#34;&gt;Grok guide on hosting Zope 3 with nginx&lt;/a&gt; (note, at this moment the document is wrong, the setup line is missing a slash at the end).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Using views as information mixins in templates</title>
+      <link>/blog/2008/06/01/using-views-as-information-mixins-in-templates/</link>
+      <pubDate>Sun, 01 Jun 2008 22:30:29 -0300</pubDate>
+      
+      <guid>/blog/2008/06/01/using-views-as-information-mixins-in-templates/</guid>
+      <description>&lt;p&gt;This may be basic trick for some, a non-obvious usage of views for others, who knows, I&#39;m documenting it here anyway. I&#39;ve been using this technique for quite some time without giving it much thought.&lt;/p&gt;
+&lt;p&gt;There are times when I have an object in a template. I want to display information associated with that object. This information is already coded in a @@detail view on this object. Suppose this example (in mostly pseudocode):&lt;/p&gt;
+&lt;pre&gt;class PersonDetail(BrowserView):
+    &#34;&#34;&#34;Show detail about a person&#34;&#34;&#34;
+    def name(self):
+        return compute_somehow_name()
+
+class CommentDetail(BrowserView):
+    &#34;&#34;&#34;Show details about a comment&#34;&#34;&#34;
+&lt;/pre&gt;
+&lt;p&gt;Now we have the following template for the CommentDetail view:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;div tal:define=&#39;person comment/author; person_info nocall:person/@@detail&#39;&amp;gt;
+    &amp;lt;a tal:attributes=&#34;href person/@@absolute_url&#34; tal:content=&#34;person_info/name&#34;&amp;gt;The author&amp;lt;/a&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;Notice the nocall: keyword placed in from of the person/@@detail call. This ensures that the @@detail view is instantiated, but not called (so it is not rendered). This way we have access to the view class attributes, properly associated to the Person context.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>In case you&#39;re having problems installing ssl-for-setuptools...</title>
+      <link>/blog/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools.../</link>
+      <pubDate>Tue, 15 Apr 2008 19:23:09 -0300</pubDate>
+      
+      <guid>/blog/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools.../</guid>
+      <description>&lt;p&gt;I&#39;ve stumbled on this error when trying to install a easyshop buildout:&lt;br /&gt;&lt;/p&gt;
+&lt;pre&gt;Exception: No SSL support found&lt;br /&gt;An error occured when trying to install ssl-for-setuptools 1.10.Look above this message for any errors thatwere output by easy_install.&lt;br /&gt;While:&lt;br /&gt;  Installing instance.&lt;br /&gt;  Getting distribution for &#39;ssl-for-setuptools&#39;.&lt;br /&gt;Error: Couldn&#39;t install: ssl-for-setuptools 1.10&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;After scratching my head for a while, I&#39;ve found the solution:&lt;/p&gt;
+&lt;pre&gt;# apt-get install libssl-dev&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Why do I use Zope 3?</title>
+      <link>/blog/2008/03/19/why-do-i-use-zope-3/</link>
+      <pubDate>Wed, 19 Mar 2008 19:33:08 -0200</pubDate>
+      
+      <guid>/blog/2008/03/19/why-do-i-use-zope-3/</guid>
+      <description>&lt;p&gt;I&#39;m in the process of beginning a new project and I&#39;m debating on what framework to use. Of course it will be Zope 3, but why do I use it. Well, it&#39;s sure something that has to do with these facts:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;it&#39;s open source, with a strong, mature community around it&lt;/li&gt;&lt;li&gt;while it&#39;s still actively development, it has a stable API&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;ul&gt;&lt;li&gt;it&#39;s written in Python, one of the easiest and most powerful languages&lt;/li&gt;&lt;li&gt;it&#39;s built around a component architecture, which means writing pluggable applications comes naturally&lt;/li&gt;&lt;li&gt;solves the problem of publishing objects through the web&lt;/li&gt;&lt;li&gt;everything is transaction based. You won&#39;t lose data with it, you won&#39;t get garbage data inside your database&lt;/li&gt;&lt;li&gt;it has fast, configurable storages (ZODB, Relstorage)&lt;/li&gt;&lt;li&gt;internationalization and localization is easy&lt;/li&gt;&lt;li&gt;it&#39;s a library as much as it is an application server. When it&#39;s a library, it&#39;s very slim and as a full application server has a lot going on, including XMLRPC, ftp, webdav, sql connectivity, its own http server, etc.&lt;/li&gt;&lt;li&gt;has a cool, extensible templating language (the Zope Page Templates)&lt;br /&gt;&lt;/li&gt;&lt;li&gt;makes it extremely easy to create and store objects through ZODB&lt;/li&gt;&lt;li&gt;has facilities to query for objects using indexed data, through zope.catalog and extensions&lt;/li&gt;&lt;li&gt;writing a new catalog index is not an extremely complex task&lt;/li&gt;&lt;li&gt;it has an event framework; no complex application should run without an event framework&lt;/li&gt;&lt;li&gt;has advanced, flexible form libraries that can generate forms introspected from the models (zope.formlib, z3c.form)&lt;/li&gt;&lt;li&gt;has advanced templating concepts and content placement, such as the pagelets and viewlets&lt;/li&gt;&lt;li&gt;it&#39;s &#34;enterprise ready&#34;: it&#39;s possible to load balance zope clients using ZEO or relstorage&lt;/li&gt;&lt;li&gt;comes with extensible authentication and user sources&lt;br /&gt;&lt;/li&gt;&lt;li&gt;promotes an extensible build system for applications (zc.buildout)&lt;/li&gt;&lt;li&gt;follows python standards, for the most part: library packaged as independent eggs and while it&#39;s not built around WSGI, it has full support for it&lt;/li&gt;&lt;li&gt;it can do document workflows (hurry.workflow)&lt;br /&gt;&lt;/li&gt;&lt;li&gt;it has some very cool packages from the community:&lt;/li&gt;
+&lt;ul&gt;&lt;li&gt;zc.table&lt;/li&gt;&lt;li&gt;z3c.form&lt;/li&gt;&lt;li&gt;Storm and sqlalchemy wrappers&lt;/li&gt;&lt;li&gt;zc.resourcelibrary, z3c.resourceinclude&lt;/li&gt;&lt;li&gt;z3c.pagelet&lt;/li&gt;&lt;li&gt;lovely.remotetask&lt;/li&gt;&lt;li&gt;grok&lt;/li&gt;&lt;li&gt;gocept.registration&lt;/li&gt;&lt;li&gt;z3c.traverser&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;/ul&gt;
+&lt;ul&gt;&lt;li&gt;is very well documented&lt;/li&gt;&lt;li&gt;it fits comfortably in my brain&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Template layout options when developing with Zope 3</title>
+      <link>/blog/2007/12/17/template-layout-options-when-developing-with-zope-3/</link>
+      <pubDate>Mon, 17 Dec 2007 18:16:36 -0200</pubDate>
+      
+      <guid>/blog/2007/12/17/template-layout-options-when-developing-with-zope-3/</guid>
+      <description>&lt;p&gt;When developing a Zope 2 site, the way the templates would be laid out is obvious: create a template for the site layout, use macros and slots to fill in that template and use the CMF skin overriding mechanism when you have to customize a certain template or Python script for another skin. Plone has been using this mechanism very successfully.&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;With Zope 3 the path is not very clear. There are several mechanisms, each with its advantages and disadvantages. Let&#39;s take an example website, let&#39;s say a multinational company website and discuss how will these various solutions apply.&lt;/p&gt;
+&lt;h3&gt;Insert rendered HTML with TAL&lt;/h3&gt;
+&lt;p&gt;This method of including content from another page (let&#39;s say template for now) resembles PHP&#39;s include(); I&#39;d still call this method superior to the PHP method of including another page as, with Zope, you can render that page based on the context on which it is called:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;div tal:replace=&#34;structure context/@@footer&#34; /&amp;gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;Simple, but has drawbacks: on each page of the website you&#39;ll have to &#34;copy&#34; the basic site structure and insert the specifics of the page in clearly delimited areas. For more then a few pages, this makes it very hard to change the basic website structure, as it would require changing all the pages in the site. Plus, you can&#39;t easily define reusable templates because you can&#39;t fill those templates with values except based on the context for which they are rendered.&lt;br /&gt;&lt;/p&gt;
+&lt;h3&gt;METAL: Macros and Slots, just like &#34;classic Plone&#34;&lt;/h3&gt;
+&lt;p&gt;The classic PageTemplates method of separating the site layout from the general page layout has been to use the METAL extension, namely macros and slots. This would be achieved as such:&lt;/p&gt;
+&lt;p&gt;First, we have the site template, let&#39;s call it &lt;i&gt;template.pt&lt;/i&gt;&lt;/p&gt;
+&lt;pre&gt;&amp;lt;html metal:define-macro=&#34;page&#34;&amp;gt;&lt;br /&gt;	&amp;lt;head metal:define-slot=&#34;header&#34;&amp;gt;&lt;br /&gt;		&amp;lt;title&amp;gt;Some title&amp;lt;/title&amp;gt;&lt;br /&gt;	&amp;lt;/head&amp;gt;&lt;br /&gt;	&amp;lt;body metal:define-slot=&#34;body&#34;&amp;gt;&lt;br /&gt;		Body content comes here&lt;br /&gt;	&amp;lt;/body&amp;gt;&lt;br /&gt;&amp;lt;/html&amp;gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;Next, we need to make this macro available. First, we publish this page under the &#34;view_macros&#34; page name and add it to the &#39;page_macros&#39; tuple of the `standard_macros` view. Some notes about this special view: it is a special browser view which implements the zope.interface.common.mapping.IItemMapping (see for example the standard_macros.py from zope.app.basicskin and zope.app.rotterdam). This special view has a list of page names that provide macros and a list of aliases between macros (for example, you might want to have the &#34;page&#34; macro also available under the &#34;dialog&#34; macro name).&lt;/p&gt;
+&lt;p&gt;You then reference this macro from your page, let&#39;s say our main page of the website, the `page.pt` file:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;html metal:use-macro=&#34;context/@@standard_macros/page&#34;&amp;gt;&lt;br /&gt;	&amp;lt;head metal:fill-slot=&#34;header&#34;&amp;gt;&lt;br /&gt;		&amp;lt;title&amp;gt;MyTitle&amp;lt;/title&amp;gt;&lt;br /&gt;	&amp;lt;/head&amp;gt;&lt;br /&gt;	&amp;lt;body metal:fill-slot=&#34;body&#34;&amp;gt;&lt;br /&gt;		Content here...&lt;br /&gt;	&amp;lt;/body&amp;gt;&lt;br /&gt;&amp;lt;/html&amp;gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;You can, of course, add new pages that will hold macros and add them to the macro_pages tuple of the StandardMacros view, reference them from the template and so on.&lt;/p&gt;
+&lt;p&gt;Another method of getting some macros inside your templates is to reference that template from the browser page class. For example:&lt;/p&gt;
+&lt;pre&gt;class MainPage(BrowserPage):&lt;br /&gt;	macros = ViewPageTemplate(&#39;/path/to/macros.pt&#39;)&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;And, inside the template associated with this MainPage class:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;div metal:use-macro=&#34;view/macros/some_macro&#34;&amp;gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;h3&gt;z3c.macro: no more bickering with standard_macros&lt;br /&gt;&lt;/h3&gt;
+&lt;p&gt;One of the problems with the method described in the previous section is that, if you want to add new macro pages you need to override standard_macros in your skin layer or define another view to act as a macro provider. z3c.macro is a package that tries to overcome this by creating an easy way to register and retrieve new macros.&lt;/p&gt;
+&lt;p&gt;To register a new macro, let&#39;s say the `page` macro from template.pt, you&#39;d do something like this:&lt;br /&gt;&lt;/p&gt;
+&lt;pre&gt;&amp;lt;configure xmlns:z3c=&#34;&lt;a href=&#34;http://namespaces.zope.org/z3c&#34;&gt;http://namespaces.zope.org/z3c&lt;/a&gt;&#34;&amp;gt;&lt;br /&gt;    &amp;lt;z3c:macro template=&#34;template.pt&#34; name=&#34;page&#34; /&amp;gt;&lt;br /&gt;&amp;lt;/configure&amp;gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;To use this macro, in our study case, inside page.pt we&#39;d do:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;html metal:use-macro=&#34;macro:page&#34;&amp;gt;&lt;br /&gt;...&lt;br /&gt;&amp;lt;/html&amp;gt;&lt;/pre&gt;
+&lt;h3&gt;Viewlets and content providers&lt;/h3&gt;
+&lt;p&gt;Let&#39;s continue developing our study website. We&#39;ll probably want a navigation menu for the website. If we would continue to use macros, we would develop a macro, insert it into the main template and be done with it. But what happens if we want to customize this navigation menu for just one page? Or maybe several special case pages... We&#39;d have to implement a lot of logic on the macro, to check for the special cases, etc. Ugly and hard. &lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;The solution in Zope 3 are the Content Providers, which, thanks to interfaces, would allow you to override per interface what is being rendered. They are a special type of zope views (as they are dependent on the browser layer) that provide content. For example, in our study website, a navigation menu can be inserted in every page by creating a content provider, something like this:&lt;br /&gt;&lt;/p&gt;
+&lt;pre&gt;from zope.contentprovider.interfaces import IContentProvider&lt;br /&gt;from zope.publisher.interfaces.browser import IDefaultBrowserLayer&lt;br /&gt;from zope.publisher.interfaces.browser import IBrowserView&lt;br /&gt;&lt;br /&gt;class MainSiteNavigation(object):&lt;br /&gt;    implements(IContentProvider)&lt;br /&gt;    adapts(Interface, IDefaultBrowserLayer, IBrowserView)&lt;br /&gt;&lt;br /&gt;    def __init__(self, context, request, view):&lt;br /&gt;        self.context = context&lt;br /&gt;        self.request = request&lt;br /&gt;        self.__parent__ = view&lt;br /&gt;&lt;br /&gt;    def update(self):&lt;br /&gt;        pass&lt;br /&gt;&lt;br /&gt;    render = ViewPageTemplateFile(&#39;navigation.pt&#39;)&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;And register it like:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;adapter factory=&#34;.browser.MainSiteNavigation&#34; name=&#34;main_site_navigation&#34; /&amp;gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;Overriding this provider for, lets say, the press releases content objects, is a simple matter of:&lt;/p&gt;
+&lt;pre&gt;class PressReleasesNavigation(object):&lt;br /&gt;    adapts(IPressRelease, IDefaultBrowserLayer, IBrowserView)&lt;br /&gt;    render = ViewPageTemplateFile(&#39;press_releases_navigation.pt&#39;)&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;And register it the same way:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;adapter factory=&#34;.browser.PressReleasesNavigation&#34; name=&#34;main_site_navigation&#34; /&amp;gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;Viewlets and viewlet managers are a step forward: a viewlet manager is a content provider for which you can register, per context interface type, `viewlets`. The viewlet manager then places all the rendered viewlets in its allocated slot in the template. &lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;The viewlet mechanism is beneficial through the fact that you can &#34;decouple&#34; the content from the template: now you can control what &#34;boxes&#34; appear in each page by just adding/removing registrations for viewlets, no editing of macros, templates or code required.&lt;br /&gt;&lt;/p&gt;
+&lt;h3&gt;Break the template from class with z3c.viewtemplate&lt;/h3&gt;
+&lt;p&gt;Let&#39;s continue with our study case website. Suppose this company has multiple websites, hosted one the same server, one for each country, with some shared content and slightly different layout and templates. In this case, multiple skins applied to the same Zope site are great, but you get into the pains of having to override (or reregister) the classes just to be able to specify a different template.&lt;/p&gt;
+&lt;p&gt;One of the possible solutions is the z3c.viewtemplate packages. It allows you to register the template separately for a view, so that you can override it, per browser layer.&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;Let&#39;s have an example. Suppose we want to be able to change the main page on one of the skin layers, to add another column. Presume we were using a MainSitePage browser page, with a main_page.pt template and now we want to override it. We&#39;ll need to change the MainSitePage class, something like this:&lt;/p&gt;
+&lt;pre&gt;class MainSitePage(object):&lt;br /&gt;    template = RegisteredPageTemplate()&lt;br /&gt;&lt;br /&gt;    def __call__(self):&lt;br /&gt;        return self.template()&lt;br /&gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;or simply inherit from BaseView:&lt;/p&gt;
+&lt;pre&gt;class MainSitePage(BaseView):&lt;br /&gt;    ...&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;And now we can register a templates per browser layer:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;browser:template for=&#34;.browser.MainSitePage&#34; template=&#34;main_page.pt&#34; layer=&#34;.SkinLayerOne&#34; /&amp;gt;&lt;/pre&gt;
+&lt;p&gt;You can override the template for viewlets, too, if you inherit from a superclass such as this:&lt;/p&gt;
+&lt;pre&gt;class BaseViewlet(object):&lt;br /&gt;&lt;br /&gt;    template = RegisteredPageTemplate()&lt;br /&gt;&lt;br /&gt;    def render(self):&lt;br /&gt;        return self.template()&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;In practice you&#39;ll have something like this: &lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;a main site template that will provide the layout and maybe insert viewlet managers, using the standard_macros mechanism&lt;br /&gt;&lt;/li&gt;&lt;li&gt;the page will use the `page` macro and fill in the `content`slot of the main template and only deal with the specifics of the page (there&#39;s nothing special about these names, they&#39;re just the usual convention).&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;You can define a viewlet manager and use viewlets for the `content area`, but you should probably avoid this as it will probably mean that you&#39;ll have to deal with forms inside viewlets and this will be difficult to handle properly.&lt;br /&gt;&lt;/p&gt;
+&lt;h3&gt;Introducing z3c.template, a better version of z3c.viewtemplate&lt;/h3&gt;
+&lt;p&gt;z3c.template is a package similar to z3c.viewtemplate (it allows separate registration of templates from the view code), but it also aims to separate the definition and registration of the layout of a page from the actual `content`.&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;Let&#39;s suppose we&#39;re implementing our site using z3c.template and we have the press releases page. For each page we will have a layout template and a content template, but we can skip the definition of the layout template by inheriting a base class. &lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;The layout template will contain:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;html&amp;gt;&lt;br /&gt;&amp;lt;head&amp;gt;&lt;br /&gt;    &amp;lt;title tal:content=&#34;view/title&#34; /&amp;gt;&lt;br /&gt;&amp;lt;head&amp;gt;&lt;br /&gt;&amp;lt;body&amp;gt;&lt;br /&gt;    &amp;lt;div tal:replace=&#34;view/render&#34; /&amp;gt;&lt;br /&gt;&amp;lt;/body&amp;gt;&lt;br /&gt;&amp;lt;/html&amp;gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;The layout template, which, in the previous step, provided the `page` macro will be registered as:&lt;br /&gt;&lt;/p&gt;
+&lt;pre&gt;&amp;lt;configure xmlns:z3c=&#34;&lt;a href=&#34;http://namespaces.zope.org/z3c&#34;&gt;http://namespaces.zope.org/z3c&lt;/a&gt;&#34;&amp;gt;&lt;br /&gt;    &amp;lt;z3c:layout template=&#34;main_template&#34; for=&#34;.interfaces.ISitePage&#34; /&amp;gt;&lt;br /&gt;&amp;lt;/configure&amp;gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;We need a browser view that knows how to use the layout template and the content template:&lt;/p&gt;
+&lt;pre&gt;class SitePage(BrowserPage):&lt;br /&gt;    zope.interface.implements(ISitePage)&lt;br /&gt;&lt;br /&gt;    template = None&lt;br /&gt;    layout = None&lt;br /&gt;&lt;br /&gt;    title = None&lt;br /&gt;&lt;br /&gt;    def update(self):&lt;br /&gt;        pass&lt;br /&gt;&lt;br /&gt;    def render(self):&lt;br /&gt;        if self.template is None:&lt;br /&gt;            template = zope.component.getMultiAdapter(&lt;br /&gt;                     (self, self.request), IContentTemplate)&lt;br /&gt;            return template(self)&lt;br /&gt;        return self.template()&lt;br /&gt;    &lt;br /&gt;    def __call__(self):&lt;br /&gt;        self.update()&lt;br /&gt;        if self.layout is None:&lt;br /&gt;            layout = zope.component.getMultiAdapter((self, self.request),&lt;br /&gt;                          interfaces.ILayoutTemplate)&lt;br /&gt;            return layout(self)&lt;br /&gt;        return self.layout()&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;Our view class will then inherit the SitePage class:&lt;/p&gt;
+&lt;pre&gt;class PressReleaseViewPage(SitePage):&lt;br /&gt;&lt;br /&gt;    @property&lt;br /&gt;    def title(self):&lt;br /&gt;        return u&#34;Press release: &#34; + self.context.title&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;And then we can simply register a content template for the class:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;configure xmlns:z3c=&#34;&lt;a href=&#34;http://namespaces.zope.org/z3c&#34;&gt;http://namespaces.zope.org/z3c&lt;/a&gt;&#34;&amp;gt;&lt;br /&gt;    &amp;lt;z3c:template template=&#34;press_review_view.pt&#34; for=&#34;IPressReview&#34; /&amp;gt;&lt;br /&gt;&amp;lt;/configure&amp;gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;p&gt;Note: z3c.template has several other features: named templates and the possibility to &#39;publish&#39; macros from templates.&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;All this is very nice, but there are a couple of problems: you&#39;ll need to do some work to support forms, and why bother writing the SitePage class, when there&#39;s a package that does all this, and more? Its name is...&lt;br /&gt;&lt;/p&gt;
+&lt;h3&gt;z3c.pagelet&lt;/h3&gt;
+&lt;p&gt;This package introduces a new type of browser page: pagelet. A pagelet is a page with a layout template: you define the layout with the mechanisms introduced in z3c.template, but the `SitePage` base class is no longer necessary, as it is provided by the z3c.pagelet package. Inside the layout template you include the `pagelet` content provider:&lt;/p&gt;
+&lt;pre&gt;&amp;lt;div tal:replace=&#34;structure provider: pagelet&#34; /&amp;gt;&lt;/pre&gt;
+&lt;p&gt;The list of goodies continues: the package includes replacements for the formlib base classes: EditForm, AddForm and so on. Even more, using z3c.skin.pagelet you get a starter skin that has all the bits in place to bootstrap developing a pagelet based website (including, for example, &#34;pagelet-ified&#34; exception pages).&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;To register a pagelet you do something like (notice the similarity to a browser:page registration):&lt;/p&gt;
+&lt;pre&gt;  &amp;lt;z3c:pagelet&lt;br /&gt;      name=&#34;index.html&#34;&lt;br /&gt;      for=&#34;.interfaces.PressRelease&#34;&lt;br /&gt;      class=&#34;.views.IndexPagelet&#34;&lt;br /&gt;      layer=&#34;.interfaces.ICompanyWebsiteLayer&#34;&lt;br /&gt;      permission=&#34;zope.View&#34;&lt;br /&gt;      /&amp;gt;&lt;br /&gt;&lt;/pre&gt;
+&lt;h3&gt;More pointers and packages&lt;/h3&gt;
+&lt;ul&gt;&lt;li&gt;&lt;b&gt;z3c.macroviewlet&lt;/b&gt; - Allows you to write the a complete template of the website in one file and also define some of the macros of this template as viewlets.&lt;/li&gt;&lt;li&gt;&lt;b&gt;z3c.pt&lt;/b&gt;: a faster version of PageTemplates, but with several restrictions (no macro support, no TAL paths and expressions)&lt;/li&gt;&lt;li&gt;&lt;b&gt;gocept.form&lt;/b&gt;: contains integration of z3c.form with z3c.pagelet&lt;/li&gt;&lt;li&gt;&lt;b&gt;z3c.formui&lt;/b&gt;: Use overridable templates with z3c.form using the z3c.template mechanism&lt;br /&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://planet-soc.com/node/631&#34;&gt;Detailed experience (and troubles) of using z3c.pagelet&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&#34;http://kpug.zwiki.org/WhatIsNewInZope33#simplify-skinning&#34;&gt;Overview of Zope skins and layers&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+Updated to fix some mistakes&lt;br /&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The problem with buildout and PyDev</title>
+      <link>/blog/2007/09/09/the-problem-with-buildout-and-pydev/</link>
+      <pubDate>Sun, 09 Sep 2007 12:40:53 -0300</pubDate>
+      
+      <guid>/blog/2007/09/09/the-problem-with-buildout-and-pydev/</guid>
+      <description>&lt;p&gt;Lately it has been possible to develop and simply deploy a Zope 3 based application by organizing code in a single Python package that uses zope3 packages as dependency,  plus a &lt;a href=&#34;http://svn.zope.org/zc.zope3recipes/&#34;&gt;buildout recipe that creates a running zope 3 instance&lt;/a&gt; based on these eggs. For anyone using Eclipse + PyDev, this approach has the following inconvenience: the `eggs` folder can&#39;t be properly imported as external source folder for the project. Eclipse knows about eggs, but only when they&#39;re in marked in a .pth file, inside the site-packages folder. Creating a .pth file in the eggs folder and reimporting the folder won&#39;t do any good, PyDev continues to ignore the eggs. &lt;br /&gt;&lt;/p&gt;&lt;p&gt;Solution? Let me introduce &lt;a href=&#34;http://svn.plone.org/svn/collective/pb.recipes.pydev/&#34;&gt;pb.recipes.pydev&lt;/a&gt;, which generates a .pydevproject file, based on the dependencies of a bunch of specified eggs (for example, the zope3-dependent application that you&#39;re developing). Closing and reopening the project in Eclipse, after generating that file, will reindex the packages and will enable &lt;i&gt;sweet&lt;/i&gt; auto-completion, auto-import and &#34;go to source&#34;, provided you have the PyDev Extensions. &lt;br /&gt;&lt;/p&gt;&lt;p&gt;The recipe has a couple of problems at the moment: &lt;br /&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;it triggers recomputing the egg dependencies, which is already done once by the buildout process, &lt;br /&gt;&lt;/li&gt;&lt;li&gt;it overwrites the .pydevproject file with a possibly simplified version&lt;/li&gt;&lt;li&gt;Eclipse doesn&#39;t import zipped egg files, so you&#39;ll have to keep the the eggs unpacked.&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

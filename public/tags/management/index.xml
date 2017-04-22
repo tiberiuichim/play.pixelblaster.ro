@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Management on The Plone Expanse</title>
+    <link>/tags/management/index.xml</link>
+    <description>Recent content in Management on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/management/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Get a project imported into subversion and start working imediately on it</title>
+      <link>/blog/2009/11/09/get-a-project-imported-into-subversion-and-start-working-imediately-on-it/</link>
+      <pubDate>Mon, 09 Nov 2009 20:54:51 -0200</pubDate>
+      
+      <guid>/blog/2009/11/09/get-a-project-imported-into-subversion-and-start-working-imediately-on-it/</guid>
+      <description>&lt;p&gt;I managed to figure out how to beat one awkward piece of workflow when starting new project: I always start hacking on a project, then I notice that I haven&#39;t been working on a svn checkout (it&#39;s the chicken or the egg problem). So I need to do a svn import, delete my copy of the project, checkout the svn version and start hacking at my project again. This workaround is agravated, though, when working with buildouts. I can&#39;t svn import the entire folder, because lots of generated folders and files will end up in subversion, which I don&#39;t want. Cleaning my original, running import and regenerate the buildout is a workflow killer.&lt;/p&gt;
+&lt;p&gt;The solution is simple, and goes like this: instead of importing the entire buildout folder, I can run&lt;/p&gt;
+&lt;pre&gt;svn import . http://my/subversion/path/ --depth empty -m &#34;initial import&#34;&lt;/pre&gt;
+&lt;p&gt;or I can just create a folder in my repository with svn mkdir&lt;/p&gt;
+&lt;p&gt;Next, checkout the empty folder from the repository into my buildout&lt;/p&gt;
+&lt;pre&gt;svn co http://my/subversion/path/ .&lt;/pre&gt;
+&lt;p&gt;Now I can cherry-pick whatever I want committed, with svn add. Problem solved!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

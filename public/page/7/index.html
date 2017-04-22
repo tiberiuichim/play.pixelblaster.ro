@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>The Plone Expanse - a Zope/Plone blog by Tiberiu Ichim</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+    <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/02/16/making-peace-with-the-system-wide-installed-zope.interface/">Making peace with the system-wide installed zope.interface</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope">zope</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Feb 16, 2009</time></span>
+
+        <p class="discreet">While testing software to play music from a computer on my network, I have discovered Elisa, which is a wonderful piece of software built in Python and zope.interface. The package manager helpfully installed a python-zopeinterface package, which turned out to break one of the apps I've been working on (one of the packages that is used depends on a more recent version of zope.interface and breaks with a missing object import). [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/02/16/making-peace-with-the-system-wide-installed-zope.interface/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/02/15/using-mechanize-to-process-protected-plone-pages/">Using mechanize to process protected Plone pages</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Feb 15, 2009</time></span>
+
+        <p class="discreet">One of my long-running projects involves a workflow where content is produced in a Plone site, with the data later extracted and processed in various ways (including scripting Scribus to layout this data in a book). Initially the site where the content was produced wasn't protected, so I could run a simple urllib script to download the content and process it using lxml. A recent change in the workflow security settings meant this script didn't work anymore and I had to remember how to login into a Plone site using urllib2. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/02/15/using-mechanize-to-process-protected-plone-pages/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/">Variable keys in dictionaries with Page Templates TALES syntax</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope">zope</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Feb 11, 2009</time></span>
+
+        <p class="discreet">I admit, I didn't knew this until now. In the following construction:
+&lt;div tal:content="somedict/keyname/someattr" /&gt; "keyname" is taken as a string, it's the literal name of the key for the somedict mapping. To use a variable instead of the literal value of the key name, I used to do:
+&lt;div tal:content="python somedict[key].someattr" /&gt; Browsing through the zope.app.catalog code, I saw that there's actually a way to use the TALES syntax: [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/02/05/reset-the-generations-level-for-a-zope-application/">Reset the generations level for a Zope application</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Feb 5, 2009</time></span>
+
+        <p class="discreet">While developing an application and writing some migration code (using zope.app.generations), I had the need to reset the generation number recorded in the database for my application to a version lower than the current generation number (because my generation code didn't run properly and I didn't want to create bogus generation files). To solve this issue, in a pdb prompt I had to run:
+(Pdb) db = self.request.publication.db (Pdb) conn = db. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/02/05/reset-the-generations-level-for-a-zope-application/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/01/16/learningjourney-a-zope-3-tutorial/">LearningJourney: A Zope 3 tutorial</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/tutorial">tutorial</a>
+        </p>
+
+        <span class="post-date"><time>Jan 16, 2009</time></span>
+
+        <p class="discreet">Last year, in December, I held a 3 day Zope 3 training for about 10 Zope 2 and Python programmers. For this training I had prepared a 50 pages booklet with some tutorials and reference information (most of it written by me especially for this occasion). The feedback was pretty positive, but only time will tell if I was succesful or not with my training.
+I have published the training material on Google Code in a project called z3ergo. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/01/16/learningjourney-a-zope-3-tutorial/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/01/06/a-list-of-javascript-files-loaded-by-plone-2.5/">A list of Javascript files loaded by Plone 2.5</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jan 6, 2009</time></span>
+
+        <p class="discreet">A simple deployment of a Plone 2.5 site (I know, antiquated) means that the pages shown for anonymous users are loaded with JS and CSS content that they will not need. They are, usually, the biggest group of visitors, so it is important do make the pages load fast, to have a good impression for first time visitors. The introduction of the Resource Registry in Plone 2.5 makes it easy to set the order and the conditions to load each resource (and, as a result, the merging conditions between resource files), but there's no page to document what each JS file does, for example (AFAIK). [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/01/06/a-list-of-javascript-files-loaded-by-plone-2.5/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/01/06/crossroads-a-very-good-load-balancing-solution/">Crossroads: a very good load balancing solution</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Jan 6, 2009</time></span>
+
+        <p class="discreet">Recently Martin Aspeli published a very nice buildout recipe that implements a complete setup for a production Zope/Plone server. One of the key components in that setup is the load balancer, which is implemented using the load balancer capabilities of nginx. Nginx might be a good load balancer, but it has a problem with the way Zope/Plone works: the first page loads, for a newly restarted Plone instance are very slow (especially if the site or the catalogs are big). [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/01/06/crossroads-a-very-good-load-balancing-solution/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2008/12/03/specific-imports-versus-module-imports-in-python/">Specific imports versus module imports in Python</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/rants">rants</a>
+        </p>
+
+        <span class="post-date"><time>Dec 3, 2008</time></span>
+
+        <p class="discreet">I've always been a fan of explicit, separate imports in Python, vs generic module imports. Maybe it's because I like things to be explicit, or I've been spoiled by the way Eclipse Pydev deals with auto-importing, but I have an aversion towards generic module imports. To keep the code style consistent, I even rewrite to this style any foreign code that ends up in my code.
+Specifically, I'm talking about: [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2008/12/03/specific-imports-versus-module-imports-in-python/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2008/11/23/moving-to-intrepid-and-kde-4.1/">Moving to Intrepid and KDE 4.1</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/rants">rants</a>, <a href="/tags/gui">GUI</a>, <a href="/tags/ubuntu">Ubuntu</a>
+        </p>
+
+        <span class="post-date"><time>Nov 23, 2008</time></span>
+
+        <p class="discreet">I've migrated my laptop (my main workstation, these days) and I've done a complete migration to the KDE 4.1 desktop. Things are not perfect, (on the old KDE 3.5 I'd say things were 99% according to my tastes), but I'm trying to accomodate and find replacements. I didn't like the KDE 4.1 launcher at first and I've even tested Launcelot for a while, but now I'm back to the default menu and I'm starting to like it (on 3. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2008/11/23/moving-to-intrepid-and-kde-4.1/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2008/11/18/subversion-1.5-&#43;-default-instalation-plone-3.1-buildout-no-problems-here/">Subversion 1.5 &#43; default instalation Plone 3.1 buildout: no problems here</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/buildout">buildout</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Nov 18, 2008</time></span>
+
+        <p class="discreet">I've hit the setuptools + subversion 1.5 problem again with a freshly install Plone 3.1.7 buildout: I've added my egg develop folder in zinstance/src/, I've added the egg in the relevant sections in buildout.cfg, but it wouldn't work because of the incompatibility with the old setuptools version.
+The solution is to upgrade the installed setuptools to the latest version. For example, for a standalone Plone installed at /home/tibi/Plone, we have this structure: [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2008/11/18/subversion-1.5-&#43;-default-instalation-plone-3.1-buildout-no-problems-here/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      <nav id="page-nav">
+
+    
+        <a class="extend prev" rel="prev" href="/page/6/">
+            « Previous 
+        </a>
+    
+    <a href="/">Home</a>
+    
+        <a class="extend next" rel="next" href="/page/8/">
+             Next »
+        </a>
+    
+
+</nav>
+
+    </section>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

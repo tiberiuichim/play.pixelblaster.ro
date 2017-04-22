@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>A wxPython based tagcloud renderer &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>A wxPython based tagcloud renderer</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
+      </p>
+
+      <div class="post-date">
+        <span >Sat, Nov 1, 2008</span>,
+        <span id="wc"> 400 Words </span>
+      </div>
+      <p>This is a small example app that will render a tag cloud with various font weights/height, based on their weight in the cloud. Not much to say here, hope it is useful to someone. It has actually been easier to design and create then expected, the only difficulty was in figuring out how to resize the buttons based on the size of their label. The algorithm could be improved to generate the cloud in a single pass, but I'm not gonna bother, it works fast enough right now.</p>
+<pre>import wx
+
+TAGS = [
+ ['animals', 0],
+ ['architecture', 2],
+ ['art', 5],
+ ['august', 1],
+ ['australia', 1],
+ ['autumn', 3],
+ ['baby', 5],
+ ['band', 1],
+ ['barcelona', 3],
+ ['beach', 2],
+ ['berlin', 5],
+ ['bird', 1],
+ ['birthday', 0],
+ ['black', 1],
+ ['blackandwhite', 5],
+ ['blue', 2],
+ ['boston', 3],
+ ['bw', 5],
+ ['california', 1],
+ ['cameraphone', 1],
+ ['camping', 1],
+ ['canada', 4],
+ ['canon', 0],
+ ['car', 5],
+ ['cat', 3],
+ ['chicago', 4],
+ ['china', 5],
+ ['christmas', 0],
+ ['church', 0],
+ ['city', 1],
+ ['clouds', 3],
+ ['color', 5],
+ ['concert', 5],
+ ['cute', 3],
+ ['dance', 0],
+ ['day', 5],
+ ['de', 4],
+ ['dog', 0],
+ ['england', 5],
+ ['europe', 4],
+ ['fall', 1],
+ ['family', 4],
+ ['festival', 1],
+ ['film', 1],
+ ['florida', 2],
+ ['flower', 1]
+]
+
+WIDTH = 500
+
+def getwidth(line):
+    return sum([l.GetSize()[0] for l in line])
+
+def getheight(line):
+    return max([l.GetSize()[1] for l in line])
+
+
+class TopFrame(wx.Frame):
+    
+    def __init__(self, *args, **kwargs):
+        wx.Frame.__init__(self, *args, **kwargs)
+        self.SetSize((500,400))
+
+        lines = []
+        
+        for tag in TAGS:
+            l = wx.Button(self, -1, tag[0], style=wx.NO_BORDER|wx.BU_EXACTFIT)
+            weight = ((tag[1] % 2) and wx.BOLD) or wx.NORMAL
+            l.SetFont(wx.Font(10 + tag[1], wx.DEFAULT, wx.NORMAL, weight, 0, ""))
+            l.SetSize(l.GetBestSize())
+            w, _h = l.GetSize()
+            if lines:
+                line_width = getwidth(lines[-1]) 
+                if (line_width + w) &gt; WIDTH:   #make a new line
+                    lines.append([l])
+                else:
+                    lines[-1].append(l)   
+            else:   #lines is empty
+                lines.append([l])
+        
+        row_pos = 0
+        for line in lines:
+            height = getheight(line)
+            row_w = 0
+            w = getwidth(line)
+            spacer = (WIDTH - w) / len(line)
+            
+            for l in line:
+                dh = row_pos + height - l.GetSize()[1]
+                l.MoveXY(row_w, dh)
+                row_w += l.GetSize()[0] + spacer
+                
+            row_pos += height
+
+
+class MyApp(wx.App):
+
+    def OnInit(self):
+        wx.InitAllImageHandlers()
+        frame = TopFrame(None, - 1, "")
+        self.SetTopWindow(frame)
+        
+        frame.Show()
+        return 1
+    
+
+def start():
+    app = MyApp(0)
+    app.MainLoop()
+    
+if __name__ == "__main__":
+    start()
+</pre>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2008/10/08/richtext-control-with-wxpython-saving-loading-and-converting-from-internal-xml-to-html/"> RichText control with wxpython: saving, loading and converting from internal XML to HTML</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2008/11/18/subversion-1.5-&#43;-default-instalation-plone-3.1-buildout-no-problems-here/"> Subversion 1.5 &#43; default instalation Plone 3.1 buildout: no problems here</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fun on The Plone Expanse</title>
+    <link>/tags/fun/index.xml</link>
+    <description>Recent content in Fun on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/fun/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Brettspielwelt - the free, online boardgame portal</title>
+      <link>/blog/2007/05/03/brettspielwelt---the-free-online-boardgame-portal/</link>
+      <pubDate>Thu, 03 May 2007 09:51:20 -0300</pubDate>
+      
+      <guid>/blog/2007/05/03/brettspielwelt---the-free-online-boardgame-portal/</guid>
+      <description>&lt;p&gt;I live in Europe, I&#39;m a geek, so I must also be a boardgame freak. I love games, and especially German style boardgames, with their intricate rules. Unfortunately, there&#39;s not much time to play, and not a lot of people that I can play with. Following a link on boardgamesgeek.com I&#39;ve stumbled on this website, an &lt;a href=&#34;http://www.brettspielwelt.de&#34;&gt;online portal of boardgames&lt;/a&gt; that you can play, something similar to IGS (the Internet Go Server), but that implements loads of boardgames to be played in multiplayer style. The people are friendly and are willing to teach you to play (even in English). The client defaults to the German language, but this can be easily changed by changing the &#39;Nation = de&#39; line to &#39;Nation = en&#39; in the props file from the client download folder.&lt;/p&gt;&lt;p&gt;Being a Java application, it goes a long way to adding a few more entertainment choices to the ones available for the Linux platform, in terms of games.&lt;/p&gt;&lt;p&gt;UPDATE: There&#39;s a ton more of &lt;a href=&#34;http://www.boardgamegeek.com/wiki/page/On-line_Games&#34;&gt;sites with online boardgames at the boargamegeek wiki&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Some of these sites:&lt;/p&gt;&lt;p&gt;http://www.flexgames.com/ (2 games)&lt;/p&gt;&lt;p&gt;http://www.yucata.de/Default.aspx (several, growing)&lt;br /&gt;&lt;/p&gt;&lt;p&gt;games.asobrain.com (few, but has Settlers and Carcassonne)&lt;/p&gt;&lt;p&gt;http://www.spielbyweb.com/ (forum based)&lt;/p&gt;&lt;p&gt;http://yourturnmyturn.com/ (many, most classic)&lt;/p&gt;&lt;p&gt;http://hilinski.net/games/online/ (Taj Mahal and Tycoon)&lt;br /&gt;&lt;/p&gt;&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Roll for initiative, monkey boy!</title>
+      <link>/blog/2007/03/24/roll-for-initiative-monkey-boy/</link>
+      <pubDate>Sat, 24 Mar 2007 21:07:12 -0200</pubDate>
+      
+      <guid>/blog/2007/03/24/roll-for-initiative-monkey-boy/</guid>
+      <description>&lt;p&gt;I thought I&#39;d put a link here for a source of great entertainment of mine: &lt;a href=&#34;http://www.hoodyhoo.com/kodt.htm&#34;&gt;The Knights of the Dinner Table&lt;/a&gt;. Hope you&#39;ll be as entertained as I am every time I&#39;m watching them or reading the KODT comic strip.&lt;/p&gt;&lt;p&gt;And another link: &lt;a href=&#34;http://dwarfstar.brainiac.com/ds_barbarianprince.html&#34;&gt;Barbarian Prince&lt;/a&gt;, a downloadable solitaire game, a mixture of boardgame/RPG/choose your own adventure. I found a review of this game in the KODT comics magazine, but there are a couple of other games there, for two players or solitaire.&lt;br /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Freeciv rediscovered</title>
+      <link>/blog/2007/03/20/freeciv-rediscovered/</link>
+      <pubDate>Tue, 20 Mar 2007 10:22:51 -0200</pubDate>
+      
+      <guid>/blog/2007/03/20/freeciv-rediscovered/</guid>
+      <description>&lt;p&gt;I&#39;ve recently &#34;rediscovered&#34; Freeciv. I&#39;m a very casual gamer (15 minutes/day), but also an old, addicted, Civilization fan. Lately I&#39;ve been looking for a nice game to play on my Linux desktops and I&#39;ve found that Freeciv is finally getting some good graphics, as this was my biggest turn off I&#39;ve had with it before. I&#39;ve tried first the SDL client on Windows, but it is buggy and tends to freeze its popup windows. The GTK Windows client is a lot better, works quite flawless as far as I can tell. I&#39;ve compiled the Linux version (on Ubuntu Edgy), first I&#39;ve tried the SDL client, but it complained (at configure time) about a missing sdl-image library, which I have (and no -dev version in my apt sources). Using the freeland-big tiles, the game had a huge memory footprint (40% of 1024 Mb RAM). The most apparent improvements are new tile graphics, with bigger size, new graphics for the city titles on the play screen, a new full-screen mode, even for the GTK version and a tree-based research screen. There is another tileset on the freeciv.org site, called Freeland-big. This has, IMHO, some improved tiles. Click on the image below to see the new graphics I&#39;m talking about (this is the default tileset). And another one, this time on &lt;a href=&#34;http://www.flickr.com/photos/60787066@N00/428083858/&#34;&gt;Linux, with Freeland-big tileset&lt;/a&gt;.&lt;br /&gt;&lt;/p&gt;&lt;p&gt;&lt;a title=&#34;Freeciv 2.1 screenshot&#34; href=&#34;topic_images/freeciv.jpg&#34;&gt;&lt;img class=&#34;image-inline&#34; src=&#34;topic_images/freeciv.jpg/image_preview&#34; alt=&#34;Freeciv 2.1 screenshot&#34; /&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;UPDATE: Using the svn/trunk version the huge memory footprint problem of the Linux client is solved, but I can&#39;t use the freeland-big tileset anymore. To compile it on Ubuntu, I first had to apt-get install automake1.8 and libgtk2.0-dev. After that, run autoconf.sh to start the configure script generation and then make install. &lt;br /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Best Plone quote ever</title>
+      <link>/blog/2006/09/22/best-plone-quote-ever/</link>
+      <pubDate>Fri, 22 Sep 2006 18:46:55 -0300</pubDate>
+      
+      <guid>/blog/2006/09/22/best-plone-quote-ever/</guid>
+      <description>&lt;p class=&#34;callout&#34;&gt;[18:43] &amp;lt;julesa&amp;gt; newbie39: To paraphrase Jon Ribbens &#34;PHP is a minor evil perpetrated and created by incompetent amateurs, whereas Plone s a great and insidious evil, perpetrated by skilled but perverted professionals.&#34;&lt;/p&gt;&lt;p&gt;I admit I love being evil! :-)&lt;br /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Games for Linux</title>
+      <link>/blog/2006/08/12/games-for-linux/</link>
+      <pubDate>Sat, 12 Aug 2006 13:28:05 -0300</pubDate>
+      
+      <guid>/blog/2006/08/12/games-for-linux/</guid>
+      <description>&lt;p&gt;Following  link from the PyPi, I&#39;ve stumbled upon this page: &lt;a href=&#34;http://emhsoft.net/index.html&#34; target=&#34;_self&#34;&gt;http://emhsoft.net/index.html&lt;/a&gt;&lt;/p&gt;&lt;p&gt;The abstract shooters on that page are very nice. Also, a few of those games are implemented with pygame ;-) . &lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

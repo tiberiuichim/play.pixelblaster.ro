@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>The Plone Expanse - a Zope/Plone blog by Tiberiu Ichim</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+    <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/04/locked-yourself-out-of-zope/">Locked yourself out of zope?</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Aug 4, 2006</time></span>
+
+        <p class="discreet">A very easy way to add a user to zope from outside zope:
+Turn off zope.Run &lt;instance_home&gt;/bin/zopectl adduser username password
+The user will be added as Owner to the acl_users in the main zope root. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/04/locked-yourself-out-of-zope/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/02/quick-guide-to-zopeskel/">Quick guide to ZopeSkel</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 2, 2006</time></span>
+
+        <p class="discreet">Download and run as root ez_installrun:easy_install http://svn.plone.org/svn/collective/ZopeSkel/trunk#egg=ZopeSkel-devcreate a new Plone Core product using paster create -t plone product_name
+References: http://danielnouri.org/blog/devel/zope/zopeskel-plonecore.htmlhttp://plone.org/documentation/tutorial/using-zope-formlib-with-plone/tutorial-all-pageIn Zope 2.9, the pythonproducts is needed for this or any other regular python package created with setuptools to work. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/02/quick-guide-to-zopeskel/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/07/31/when-a-product-reinstall-fails.../">When a product reinstall fails...</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jul 31, 2006</time></span>
+
+        <p class="discreet">It happened to me several times, and I always forget what the problem is. Sometimes a product reinstall (from QuickInstaller) fails with an odd error: AttributeError: manage_addTool. This only means that the product is broken. Make a visit to the Zope Control Panel \ Products and look in the refresh page for the product on the real reason why it fails. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/07/31/when-a-product-reinstall-fails.../">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/07/30/tutorial-on-integrating-z3-tech-into-plone/">Tutorial on integrating z3 tech into Plone</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jul 30, 2006</time></span>
+
+        <p class="discreet">There's a tutorial in the collective that shows a bit of how to use z3 tech inside Plone [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/07/30/tutorial-on-integrating-z3-tech-into-plone/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/07/27/adding-a-new-view-method-to-a-portal-type/">Adding a new view method to a portal type</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jul 27, 2006</time></span>
+
+        <p class="discreet">While this method is superceeded by GenericSetup, it's usefull enough that I place it here.
+ptypes = portal.portal_types
+psite = getattr(ptypes, 'Plone Site')
+view_methods = psite.view_methods
+vm = list(view_methods) + ['main_frontpage']
+psite.manage_changeProperties(view_methods=vm)  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/07/27/adding-a-new-view-method-to-a-portal-type/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/07/24/using-z3-style-events/">Using z3 style events</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jul 24, 2006</time></span>
+
+        <p class="discreet">Based on my previous entry on at_post_create_script, I was curios on how to achieve something like that using z3 style events. Now, I know that it's not the same and the following events are meant only to replace manage_afterAdd and so on, but I'm pretty sure that there are (or will be) events fired that would replace the at_post_* scripts.
+So, easy as it gets:
+Create a new python package inside the zope Products folder, add the following method inside __init__. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/07/24/using-z3-style-events/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/07/22/my-favorite-development-environment/">My favorite development environment</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/ubuntu">Ubuntu</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Jul 22, 2006</time></span>
+
+        <p class="discreet">I thought I'd add some words about the development environment that I feel most comfortable with.
+First, I use AGX for most of my plone development. It's useful as a quick skeleton generator, but also as a way to structure the content. To generate the UML files I use Poseidon Community Edition. Up until recently it was buggy, and I still consider it to be, but I learned what to do so I won't trigger the bugs (quick tip: don't ever rename tagged values, delete it and recreate it. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/07/22/my-favorite-development-environment/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/07/21/how-to-access-directly-fields-and-widgets-from-an-archetypes-content/">How to access directly fields and widgets from an Archetypes content</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jul 21, 2006</time></span>
+
+        <p class="discreet">There are two ways to access the field values and widgets from inside an AT content item. First, a more complex example on getting fields and widgets properties using self.schema:
+for fname in self.schema.keys():
+field = self.schema.get(fname)
+widget = field.widget
+widgetLabel = widget.Label(self)
+fieldValue = field.get(self))
+To get a field value, one could use  self.schema['customer_copy_to'].get(self)The second way uses self.Schema() and shows the equivalent of the above example
+self.Schema().getField('customer_copy_to').get(self)
+Of course, there's always the default generated AT getters, but sometimes it's not possible to use those (for example, when you want to get the raw value of a field. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/07/21/how-to-access-directly-fields-and-widgets-from-an-archetypes-content/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/07/21/how-to-use-at_post_create_script-to-with-multi-schemata-content-types/">How to use at_post_create_script to with multi-schemata content types</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jul 21, 2006</time></span>
+
+        <p class="discreet">When using at_post_create_script to hook up in the "post creation" events of AT, if the content type has multiple schematas, the script will be called each time the "next" button is pushed.
+To properly use the script, a check can be added to see if the "save" button was pressed:
+security.declarePrivate('at_post_create_script')
+def at_post_create_script(self, **kwargs):
+if self.REQUEST.get('form_submit', None) == 'Save':
+pass #do something here  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/07/21/how-to-use-at_post_create_script-to-with-multi-schemata-content-types/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      <nav id="page-nav">
+
+    
+        <a class="extend prev" rel="prev" href="/page/19/">
+            « Previous 
+        </a>
+    
+    <a href="/">Home</a>
+    
+
+</nav>
+
+    </section>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

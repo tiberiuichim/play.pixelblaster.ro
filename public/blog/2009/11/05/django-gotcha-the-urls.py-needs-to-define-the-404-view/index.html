@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Django gotcha: the urls.py needs to define the 404 view &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Django gotcha: the urls.py needs to define the 404 view</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/cookbook">cookbook</a>, <a href="/tags/django">Django</a>
+      </p>
+
+      <div class="post-date">
+        <span >Thu, Nov 5, 2009</span>,
+        <span id="wc"> 300 Words </span>
+      </div>
+      <p>Probably this is documented somewhere in the Django docs, but, I mean, who has time to read the docs? :-) In the urls.py file for my project I didn't do a</p>
+<pre>from django.conf.urls.defaults import *</pre>
+<p>because that's just bad style. Instead I've just imported what I needed: patterns, include and url. Later on I got this error in my email:</p>
+<pre>Traceback (most recent call last):
+
+  File "/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/handlers/base.py", line 118, in get_response
+    callback, param_dict = resolver.resolve404()
+
+  File "/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/urlresolvers.py", line 263, in resolve404
+    return self._resolve_special('404')
+
+  File "/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/urlresolvers.py", line 255, in _resolve_special
+    callback = getattr(self.urlconf_module, 'handler%s' % view_type)
+
+AttributeError: 'module' object has no attribute 'handler404'
+</pre>
+<p>Just looking at the error I could determine the cause: my urlconf module (urls.py) didn't have a handler404 view defined, so I just gave up and replaced my specific imports with the asterisk import.</p>
+<p>On a side note, what's up with Django logging? By default, the only way to log errors in production environments is by email. Really!? If I would want emails, I'd setup the syslog to email me those entries. I already have the logwatch emailing me stuff that happens on my server. One step above is django-db-log, which I haven't tried yet, but which seems to be logging errors to the db. Word is that real logging, using the logging python module, will be introduced in Django 1.2.</p>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2009/10/07/questioning-the-quality-of-code-in-django-third-party-projects/"> Questioning the quality of code in Django third-party projects</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2009/11/08/using-cherrypy-to-work-around-a-django/flup-bug/"> Using CherryPy to work around a Django/flup bug</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

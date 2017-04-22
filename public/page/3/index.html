@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>The Plone Expanse - a Zope/Plone blog by Tiberiu Ichim</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+    <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/">Abusing Plone Content Rules to allow Site Admin customizations of sent emails</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/zope">zope</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/tutorial">tutorial</a>
+        </p>
+
+        <span class="post-date"><time>Aug 31, 2016</time></span>
+
+        <p class="discreet">This would be a sort of tutorial on how to implement a new plone.app.contentrules Trigger Event, how to write a new plone.stringinterp variable substitutor and how to trigger the event from a browser page (or z3c.form).
+This allows configuring a new trigger event from the Content Rules Plone control panel configlet and to assign a new Email action, with customizable body template.
+Let's say our task is to implement a contact form: [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/">How to fake fix broken persistent objects in ZODB</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/debugging">debugging</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/zodb">ZODB</a>, <a href="/tags/zope">zope</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 18, 2016</time></span>
+
+        <p class="discreet">I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.
+My solution, because I didn't care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2016/06/30/how-to-completely-disable-diazo-on-a-specific-path/">How to completely disable Diazo on a specific path</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/diazo">diazo</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/plone.app.theming">plone.app.theming</a>, <a href="/tags/deliverance">deliverance</a>
+        </p>
+
+        <span class="post-date"><time>Jun 30, 2016</time></span>
+
+        <p class="discreet">I'm working on an (inherited) website that uses Plone and BackboneJS to offer a streamlined search interface over a catalog of items.
+My task was to apply a new Diazo theme, which worked great for the rest of the website, except for this search page. The items inserted by the Backbone app would be all garbled and wrong. In the end, I managed to isolate the problem to a single page template that would load only that SPA, and the problem still persisted, (on my development machine), while the same code ran ok on the production server. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2016/06/30/how-to-completely-disable-diazo-on-a-specific-path/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql/">How to use pgloader to migrate sqlite database to postgresql</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/docker">Docker</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/postgresql">Postgresql</a>, <a href="/tags/sqlite">SQLite</a>, <a href="/tags/kotti">Kotti</a>
+        </p>
+
+        <span class="post-date"><time>Jun 13, 2016</time></span>
+
+        <p class="discreet">I needed to migrate a Kotti database, from its default sqlite file store, to Postgresql. Clued in by StackOverflow, I've tried using pgloader, but the version coming with Ubuntu is old: 2.x instead of the brand new 3.x. But the jump to 3.x meant a switch in programming languages as well: the new one is written in Lisp. I didn't want to install and compile the whole Lisp bundle just to run pgloader and I didn't find a binary distribution either, and after a recent exposure to Docker, I thought I'll give the dockerized version of pgloader a try. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/">The case of the strange RichText widgets</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/plone">Plone</a>, <a href="/tags/bugs">bugs</a>
+        </p>
+
+        <span class="post-date"><time>Jun 13, 2016</time></span>
+
+        <p class="discreet">On a Plone 4.3 with plone.app.widgets 1.8.0 and plone.app.contenttypes 1.1b5 installed, there's one weird bit of inconsistency:
+The TinyMCE widget rendered by the plone.app.contenttype's IRichText behaviour is different from any other RichText field added in the dexterity model. Even on the same page, for example, if I edit the Document dexterity type and add a rich text field, the resulting widget is different. How do I know? Try inserting an image by selecting it, in the popup dialog, from the site content browser. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2015/05/05/zodb-how-to-get-and-read-objects-from-an-undo-information/">ZODB: How to get and read objects from an undo information</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope">zope</a>, <a href="/tags/debugging">debugging</a>, <a href="/tags/zodb">ZODB</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>May 5, 2015</time></span>
+
+        <p class="discreet">This is useful for example if you have transactions that cause writes to the database and you don't know what has been written. First, identify the ID of the transaction that you're interested. In the Undo tab of Zope, inspect the checkbox for the transaction and copy the part that looks like an id from its value.
+Then, in a zope debugging shell (started with bin/instance debug), I've done:
+&gt;&gt;&gt; import base64, cPickle &gt;&gt;&gt; webtid = " [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2015/05/05/zodb-how-to-get-and-read-objects-from-an-undo-information/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2015/04/20/the-wrong-way-to-sudo-su-and-the-right-way/">The wrong way to sudo su, and the right way</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Apr 20, 2015</time></span>
+
+        <p class="discreet">I've never had a formal training on Linux. My knowledge comes from my experience working on it for the last 12 years, but some things I've just learned as simple recipes and never bother looking them up.
+One such thing was changing users with sudo. I've been doing it as:
+sudo su &lt;user&gt; - Notice the dash at the end, which makes provides a "real" environment for &lt;user&gt;, just as if I would have logged in with that user, directly. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2015/04/20/the-wrong-way-to-sudo-su-and-the-right-way/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2015/03/24/essential-firefox-addons/">Essential Firefox addons</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/firefox">Firefox</a>
+        </p>
+
+        <span class="post-date"><time>Mar 24, 2015</time></span>
+
+        <p class="discreet">Without these addons, Firefox may not be my favourite browser. With them, it's a beast that has no match among all other browsers. So, a top 10 of my favourite extensions:
+Vimperator: the essential plugin, makes Firefox behave in a modal manner similar to VIM. Includes many shortcuts similar to vim. Integrates an external editor (like GVim) with any textarea. My favourite things with it: really fast opening/closing of tabs, URL address copying and pasting, follow links, etc. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2015/03/24/essential-firefox-addons/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2012/01/16/a-simple-epub-file-renaming-utility/">A simple epub file renaming utility</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Jan 16, 2012</time></span>
+
+        <p class="discreet">I have a couple of epub files that have random names assigned to them, and I wanted to rename them based on their metadata, in the form Author - Title. Below is what I came up with:
+#!/usr/bin/python from zipfile import ZipFile import lxml.etree import os.path import shutil import sys namespaces = { 'u':"urn:oasis:names:tc:opendocument:xmlns:container", 'xsi':"http://www.w3.org/2001/XMLSchema-instance", 'opf':"http://www.idpf.org/2007/opf", 'dcterms':"http://purl.org/dc/terms/", 'calibre':"http://calibre.kovidgoyal.net/2009/metadata", 'dc':"http://purl.org/dc/elements/1.1/", } def main(): if len(sys.argv) != 2: print "Need a path." sys. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2012/01/16/a-simple-epub-file-renaming-utility/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2011/06/28/getting-the-superclasses-for-a-python-object/">Getting the superclasses for a python object</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jun 28, 2011</time></span>
+
+        <p class="discreet">Zope 2 (and Plone) persistent objects usually have an intricate inheritance tree. Finding what classes an object inherits can be a time consuming task, hunting through the various eggs for the relevant source code. Below is a little snippet that shows how to easily get the list of superclasses:
+(Pdb) pp type(ff).mro() (&lt;class 'plone.app.blob.subtypes.image.ExtensionBlobField'&gt;, &nbsp;&lt;class 'archetypes.schemaextender.field.TranslatableExtensionField'&gt;, &nbsp;&lt;class 'archetypes.schemaextender.field.BaseExtensionField'&gt;, &nbsp;&lt;class 'plone.app.blob.field.BlobField'&gt;, &nbsp;&lt;class 'Products.Archetypes.Field.ObjectField'&gt;, &nbsp;&lt;class 'Products.Archetypes.Field.Field'&gt;, &nbsp;&lt;class 'Products.Archetypes.Layer.DefaultLayerContainer'&gt;, &nbsp;&lt;class 'plone.app.blob.mixins.ImageFieldMixin'&gt;, &nbsp;&lt;class 'Products.Archetypes.Field.ImageField'&gt;, &nbsp;&lt;class 'Products. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2011/06/28/getting-the-superclasses-for-a-python-object/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      <nav id="page-nav">
+
+    
+        <a class="extend prev" rel="prev" href="/page/2/">
+            « Previous 
+        </a>
+    
+    <a href="/">Home</a>
+    
+        <a class="extend next" rel="next" href="/page/4/">
+             Next »
+        </a>
+    
+
+</nav>
+
+    </section>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

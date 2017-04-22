@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vim on The Plone Expanse</title>
+    <link>/tags/vim/index.xml</link>
+    <description>Recent content in Vim on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Editing Short python scripts with vim</title>
+      <link>/blog/2017/01/18/editing-short-python-scripts-with-vim/</link>
+      <pubDate>Wed, 18 Jan 2017 18:30:18 +0100</pubDate>
+      
+      <guid>/blog/2017/01/18/editing-short-python-scripts-with-vim/</guid>
+      <description>
+
+&lt;p&gt;Being that I usually find interesting to know about other people&amp;rsquo;s workflow,
+here&amp;rsquo;s a short description of my working environment that I typically use when
+developing in Python:&lt;/p&gt;
+
+&lt;h2 id=&#34;tmux&#34;&gt;tmux&lt;/h2&gt;
+
+&lt;p&gt;In the beginning I&amp;rsquo;ve used Yakuake tabs to split servers and files in separate
+tabs. As the number grew, I&amp;rsquo;ve started naming the tabs (and even had a short
+stint &lt;a href=&#34;https://github.com/tiberiuichim/customkuake&#34;&gt;extending&lt;/a&gt;
+&lt;a href=&#34;https://github.com/tiberiuichim/atomic-hidpi&#34;&gt;Yakuake&lt;/a&gt; to fit this use case),
+but as the number of projects and environments that I have to juggle kept
+growing, I&amp;rsquo;ve resorted to splitting each separate tab into &amp;ldquo;subtabs&amp;rdquo;, using
+tmux.&lt;/p&gt;
+
+&lt;p&gt;I start &lt;code&gt;tmux -2&lt;/code&gt; in each Yakuake tab (the &lt;code&gt;-2&lt;/code&gt; switch is to enhance the color
+support) and I&amp;rsquo;ve mapped the Alt+\ as the escape combination.
+Why this? Backslash as the leader key comes from vim and I don&amp;rsquo;t like the ctrl
+key, I&amp;rsquo;d have to use my pinky finger and I don&amp;rsquo;t like it. This is how to
+achieve that:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; unbind C-b
+ set -g prefix M-&#39;\&#39;
+ bind M-&#39;\&#39; send-prefix
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next, to make it easier to switch tabs, I&amp;rsquo;ve mapped alt+&lt;number&gt; to switch to
+the coresponding tab number.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; bind-key -n M-1 select-window -t:1
+ bind-key -n M-2 select-window -t:2
+ bind-key -n M-3 select-window -t:3
+ bind-key -n M-4 select-window -t:4
+ bind-key -n M-5 select-window -t:5
+ bind-key -n M-6 select-window -t:6
+ bind-key -n M-7 select-window -t:7
+ bind-key -n M-8 select-window -t:8
+ bind-key -n M-9 select-window -t:9
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But one problem: the 0 key is far away. So I want to start tab numbering at 1:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; set -g base-index 1
+ setw -g pane-base-index 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;neo-vim&#34;&gt;(Neo)Vim&lt;/h2&gt;
+
+&lt;p&gt;Vim is the perfect editor for quick scripts: it is fast to start, very fast to
+edit, easy to configure, etc. There&amp;rsquo;s plenty of material on the web for this,
+but two short tricks that are worth mentioning: ctrl+z is the easiest way to
+escape from vim to the terminal (followed by fg to bring it back to the foreground)
+and I sometimes type this (maybe I should even include it in my vimrc) to
+execute the current file with the python from my virtualenv:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-viml&#34;&gt;:map &amp;lt;f5&amp;gt; !python ./%&amp;lt;cr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Auto-bootstrap (n)vim configuration</title>
+      <link>/blog/2017/01/05/auto-bootstrap-nvim-configuration/</link>
+      <pubDate>Thu, 05 Jan 2017 19:01:08 -0100</pubDate>
+      
+      <guid>/blog/2017/01/05/auto-bootstrap-nvim-configuration/</guid>
+      <description>&lt;p&gt;Ever since I&#39;ve moved to Neovim and redid my whole setup, I&#39;ve had this piece of code at the top of my init.vim:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if empty(glob(&#39;~/.config/nvim/autoload/plug.vim&#39;))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+&lt;/code&gt;&lt;/pre&gt;
+Together with the rest of that dotfile, it automatically bootstraps the whole plugins install process, which makes moving to a new machine a simple operation of just cloning the repo in the proper location, start once Neovim to let it bootstrap, then boom, everything fits in place. For reference, my nvim configuration is here&amp;nbsp;https://github.com/tiberiuichim/dotfiles/blob/master/nvim/init.vim
+</description>
+    </item>
+    
+  </channel>
+</rss>

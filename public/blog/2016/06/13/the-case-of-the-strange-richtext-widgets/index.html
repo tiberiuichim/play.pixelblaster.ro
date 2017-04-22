@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>The case of the strange RichText widgets &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>The case of the strange RichText widgets</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/plone">Plone</a>, <a href="/tags/bugs">bugs</a>
+      </p>
+
+      <div class="post-date">
+        <span >Mon, Jun 13, 2016</span>,
+        <span id="wc"> 400 Words </span>
+      </div>
+      <p>On a Plone 4.3 with plone.app.widgets 1.8.0 and plone.app.contenttypes 1.1b5 installed, there's one weird bit of inconsistency:</p>
+<p>The TinyMCE widget rendered by the plone.app.contenttype's IRichText behaviour is different from any other RichText field added in the dexterity model. Even on the same page, for example, if I edit the Document dexterity type and add a rich text field, the resulting widget is different. How do I know? Try inserting an image by selecting it, in the popup dialog, from the site content browser. In the case of the IRichText text field, it will work, but it will not work for the default text field. So why is that? The IRichText schema could be nothing simpler:</p>
+<pre>from plone.app.textfield import RichText as RichTextField
+
+
+@provider(IFormFieldProvider)
+class IRichText(model.Schema):
+
+    text = RichTextField(
+        title=_(u'Text'),
+        description=u"",
+        required=False,
+    )</pre>
+<p>The answer is: it's a different widget, not the one coming from plone.app.textfield. plone.app.widgets replaces the widget for the IRichText.text field:</p>
+<p>(see dx_bbb.py):</p>
+<pre>from plone.app.widgets.dx import RichTextWidget
+
+try:
+    from plone.app.contenttypes.behaviors.collection import ICollection
+    from plone.app.contenttypes.behaviors.richtext import IRichText
+    HAS_PAC = True
+except ImportError:
+    HAS_PAC = False
+...
+if HAS_PAC:
+...
+    @adapter(getSpecification(IRichText['text']), IWidgetsLayer)
+    @implementer(IFieldWidget)
+    def RichTextFieldWidget(field, request):
+        return FieldWidget(field, RichTextWidget(request))</pre>
+<p>And this is the code that actually fixes the relatedItems popup widget that enables embeding images in the text (from plone.app.widgets.utils.get_tinymce_options ):</p>
+<pre>        args['pattern_options'] = {
+            'relatedItems': {
+                'vocabularyUrl': '{0}/{1}'.format(
+                    config['portal_url'],
+                    '@@getVocabulary?name=plone.app.vocabularies.Catalog'
+                ),
+                'mode': 'browse',
+                'basePath': folder_path,
+                'folderTypes': utility.containsobjects.split('\n')
+            },
+            'upload': {
+                'initialFolder': initial,
+                'currentPath': folder_url_relative,
+                'baseUrl': config['document_base_url'],
+                'relativePath': '@@fileUpload',
+                'uploadMultiple': False,
+                'maxFiles': 1,
+                'showTitle': False
+            },
+            'tiny': config,
+            # This is for loading the languages on tinymce
+            'loadingBaseUrl': '++resource++plone.app.widgets.tinymce',
+            'prependToUrl': 'resolveuid/',
+            'linkAttribute': 'UID',
+            'prependToScalePart': '/@@images/image/',
+            'folderTypes': utility.containsobjects.split('\n'),
+            'imageTypes': utility.imageobjects.split('\n'),
+            'anchorSelector': utility.anchor_selector,
+            'linkableTypes': utility.linkable.split('\n')
+        }</pre>
+<div>The relatedItems options is not filled in in the TinyMCE widget rendered directly by plone.app.textfield.&nbsp;</div>
+<div>&nbsp;</div>
+<div>So, in my case, the fix is to register an adapter:</div>
+<pre>    Fix RichText widget: the plone.app.widgets provided one has proper relatedItems configuration
+    &lt;adapter
+        for="plone.app.textfield.interfaces.IRichText mypackage.IMyLayer"
+        factory="plone.app.widgets.dx.RichTextFieldWidget"
+        /&gt;</pre>
+<div>Which only exposes a bug in collective.cover / plone.app.tiles, due to the way&nbsp;get_tinymce_options works. Oh well, moving on...</div>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2015/05/05/zodb-how-to-get-and-read-objects-from-an-undo-information/"> ZODB: How to get and read objects from an undo information</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql/"> How to use pgloader to migrate sqlite database to postgresql</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

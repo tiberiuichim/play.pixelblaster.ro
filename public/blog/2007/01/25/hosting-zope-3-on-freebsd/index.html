@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Hosting Zope 3 on FreeBSD &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Hosting Zope 3 on FreeBSD</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
+      </p>
+
+      <div class="post-date">
+        <span >Thu, Jan 25, 2007</span>,
+        <span id="wc"> 300 Words </span>
+      </div>
+      <p>Today I had to setup the hosting of a Zope 3 application on a FreeBSD server. I don't have much love for FreeBSD as I'm used to the Debian way of doing things, but after a couple of hours of tweaking the apache configuration files and the application I managed to get it properly running on that server.</p><p>Some pointers to quickly getting things done:</p><p>default apache on FreeBSD doesn't have mod_proxy installed. You need to recompile apache from /usr/ports/www/apache22, specifically enabling mod_proxy</p><p><code>make WITH_PROXY_MODULES=yes<br /></code></p><p>Then make deinstall &amp; make reinstall<br /></p><p>The following needs to be added to your httpd.conf:<br />
+<code>
+LoadModule proxy_module libexec/apache22/mod_proxy.so<br />
+LoadModule proxy_balancer_module libexec/apache22/mod_proxy_balancer.so<br />
+LoadModule proxy_ftp_module libexec/apache22/mod_proxy_ftp.so<br />
+LoadModule proxy_http_module libexec/apache22/mod_proxy_http.so<br />
+LoadModule proxy_connect_module libexec/apache22/mod_proxy_connect.so</code></p><p>(thanks to this page: http://sneezr.net/articles/2007/01/03/apache-2-2-gotchas)</p><p>One issue that surfaced when testing the zope3 setup was that the resources were not found on the server, using the following vhost settings:<br /></p><pre>&lt;VirtualHost *:80&gt;<br />    ServerName pixelblaster.ro<br />    ServerAlias www.pixelblaster.ro<br />    RewriteEngine on<br />    RewriteRule ^(/?.*) http://localhost:8080/test_site/++vh++http:%{SERVER_NAME}:80/++$1 [P,L]<br />    ProxyVia On<br />    ## prevent the webserver from beeing used as proxy<br />   &lt;LocationMatch "^[^/]"&gt;<br />      Deny from all<br />  &lt;/LocationMatch&gt;<br />&lt;/VirtualHost&gt;</pre>The "test_site" was a simple folder with a index_html page, but when accessing @@contents.html, all the resources (images, css) were missing. Tracing the problem through <a href="http://mail.zope.org/pipermail/zope3-dev/2004-October/012456.html">this thread</a> to <a href="http://mail.zope.org/pipermail/zope3-dev/2004-October/012474.html">Jim Fulton's response</a> it seems that the 'test_site' should be made a site, in the Zope 3 sense, and things really start working after that.<br />
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2007/01/12/firebug-getting-close-to-1.0/"> Firebug getting close to 1.0</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2007/01/30/problems-with-migrating-at-content-from-plone-2.0-to-plone-2.5/"> Problems with migrating AT content from Plone 2.0 to Plone 2.5</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

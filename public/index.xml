@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Plone Expanse</title>
+    <link>/index.xml</link>
+    <description>Recent content on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <lastBuildDate>Wed, 05 Apr 2017 09:24:08 +0200</lastBuildDate>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>When did tmux get plugins?</title>
+      <link>/blog/2017/04/05/when-did-tmux-get-plugins/</link>
+      <pubDate>Wed, 05 Apr 2017 09:24:08 +0200</pubDate>
+      
+      <guid>/blog/2017/04/05/when-did-tmux-get-plugins/</guid>
+      <description>&lt;p&gt;Well, this is new to me. Apparently tmux now supports plugins. I don&amp;rsquo;t really
+know if I need any plugin, I enjoy tmux as it is right now (after some
+customizations) but it&amp;rsquo;s good to know that plugins finally exist for tmux.&lt;/p&gt;
+
+&lt;p&gt;So, what do we have:&lt;/p&gt;
+
+&lt;p&gt;First, the Tmux Plugin Manager: &lt;a href=&#34;https://github.com/tmux-plugins/tpm&#34;&gt;https://github.com/tmux-plugins/tpm&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, the tmux Facebook PathPicker plugin (which is a marvelous thing I didn&amp;rsquo;t
+knew existed): &lt;a href=&#34;https://github.com/tmux-plugins/tmux-fpp&#34;&gt;https://github.com/tmux-plugins/tmux-fpp&lt;/a&gt; and
+&lt;a href=&#34;https://github.com/facebook/pathpicker/&#34;&gt;https://github.com/facebook/pathpicker/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;As a side note, watching github stars has become my primary mode to stay
+current with the latest news in programming. I&amp;rsquo;ve created a script that prints
+out only &amp;ldquo;social&amp;rdquo; activity of those people that I follow, so I get to see, each
+morning, what&amp;rsquo;s popular in the world of programming, outsourced to a number of
+374 people, the people I&amp;rsquo;m following right now. I get about 20 links each day
+from a variety of projects and languages, but with a flavour based on my own
+interests. Pretty cool! The script is here:
+&lt;a href=&#34;https://github.com/tiberiuichim/minitools/blob/master/get_git_social_log.py&#34;&gt;https://github.com/tiberiuichim/minitools/blob/master/get_git_social_log.py&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I mention this because the Tmux Plugins were a discovery I made reading the
+this file in a recently starred project: &lt;a href=&#34;https://github.com/cwonrails/dotfiles/blob/master/archlinux/.tmux.conf&#34;&gt;https://github.com/cwonrails/dotfiles/blob/master/archlinux/.tmux.conf&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Analyse and optimize a webpack vuejs bundle</title>
+      <link>/blog/2017/03/02/analyse-and-optimize-a-webpack-vuejs-bundle/</link>
+      <pubDate>Thu, 02 Mar 2017 14:54:52 +0100</pubDate>
+      
+      <guid>/blog/2017/03/02/analyse-and-optimize-a-webpack-vuejs-bundle/</guid>
+      <description>&lt;p&gt;At around 450 kb of javascript code, a Quasar distribution bundle seems a bit
+too big. The following short recipe applies to an app generated from the
+Quasar Framework default template, but it probably applies to any vuejs project
+that uses vue-loader, and even any project using webpack.&lt;/p&gt;
+
+&lt;p&gt;First, we want to analyse what&amp;rsquo;s inside the bundle. A good utility is
+webpack-bundle-analyzer, but how to use it?&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Configure the webpack to write the stats to a json file. In my case, I&amp;rsquo;ve
+changed the build/script.build.js to have something like this:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var fs = require(&#39;fs&#39;)
+
+webpack(webpackConfig, function (err, stats) {
+  if (err) throw err
+
+  // this writes the stats.json file with webpack statistics
+  fs.writeFileSync(&#39;./stats.json&#39;, JSON.stringify(stats.toJson()));
+
+  process.stdout.write(stats.toString({
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, only added two lines: the &lt;code&gt;required(&#39;fs&#39;)&lt;/code&gt; and &lt;code&gt;fs.writeFileSync&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Install the webpack-bundle-analyzer with &lt;code&gt;npm install --save-dev&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Build the bundle: &lt;code&gt;npm run build&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Analyze the bundle:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;code&gt;node_modules/.bin/webpack-bundle-analyzer stats.json dist/ -p 4000&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This opens a new http server on port 4000, where the bundle contents can be
+analysed. In my case, I found that moment.js adds about 70kb of gzipped content
+that can be stripped during the webpack process. But how? With a webpack
+IgnorePlugin.&lt;/p&gt;
+
+&lt;p&gt;In the build/webpack.base.conf, in the plugins listing, I&amp;rsquo;ve added a new
+plugin:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;
+module.exports = {
+  ...
+  plugins: [
+    new webpack.DefinePlugin({
+      &#39;process.env&#39;: config[env.prod ? &#39;build&#39; : &#39;dev&#39;].env,
+      &#39;DEV&#39;: env.dev,
+      &#39;PROD&#39;: env.prod,
+      &#39;__THEME&#39;: &#39;&amp;quot;&#39; + env.platform.theme + &#39;&amp;quot;&#39;
+    }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.LoaderOptionsPlugin({
+      minimize: env.prod,
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice the IgnorePlugin line, inserted between the other two. With this in
+place, I&amp;rsquo;ve reduced the JS vender bundle size to 340 KB, which further reduces
+to 90 KB when gziped, a figure that I can be absolutely OK with.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Loading packages without z3c.autoinclude in Plone 5.1</title>
+      <link>/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/</link>
+      <pubDate>Sat, 25 Feb 2017 19:29:37 +0100</pubDate>
+      
+      <guid>/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/</guid>
+      <description>&lt;p&gt;The new Plone 5.1 development buildout doesn&amp;rsquo;t include a zcml property in its
+[instance] section. It is no longer needed, with all eggs already providing
+a z3c.autoinclude entrypoint. This, unless you want to load an older package
+which doesn&amp;rsquo;t have such an entry point. That&amp;rsquo;s when the trouble starts. Adding
+a, for example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[instance]
+...
+zcml +=
+    cs.auth.facebook
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;doesn&amp;rsquo;t work. There is really no zcml property in any of the extended cfg file,
+so Zope will try to load this package first, which will result in a &amp;ldquo;permission
+not defined&amp;rdquo; zcml error. My fix is to include the Products.CMFPlone egg,
+something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[instance]
+...
+zcml =
+    Products.CMFPlone
+    cs.auth.facebook
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Using pyramid_jwt with pyramid_multiauth</title>
+      <link>/blog/2017/02/25/using-pyramid_jwt-with-pyramid_multiauth/</link>
+      <pubDate>Sat, 25 Feb 2017 03:45:44 +0100</pubDate>
+      
+      <guid>/blog/2017/02/25/using-pyramid_jwt-with-pyramid_multiauth/</guid>
+      <description>&lt;p&gt;&lt;code&gt;pyramid_jwt&lt;/code&gt; has its own convenience method of registering as an
+authentication policy, through &lt;code&gt;config.set_jwt_authentication_policy&lt;/code&gt;. It
+does so because the constructor of its policy takes a lot of arguments, so it&amp;rsquo;s
+best to trust the package to do its own setup.&lt;/p&gt;
+
+&lt;p&gt;But this makes it a bit harder to use with &lt;code&gt;pyramid_multiauth&lt;/code&gt;, as you can&amp;rsquo;t
+easily pass the &lt;code&gt;JWTAuthenticationPolicy&lt;/code&gt; policy to the
+&lt;code&gt;multiauth.policies&lt;/code&gt; setting. Turns out that is not hard at all.
+&lt;code&gt;pyramid_multiauth&lt;/code&gt; has its own magic trick of pulling the rabbit out of the
+hat by reviving policies set with &lt;code&gt;config.set_authentication_policy&lt;/code&gt;, so, to
+register the &lt;code&gt;pyramid_jwt&lt;/code&gt; authentication policy, a simple module is needed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# this is module mystuff.auth
+
+from pyramid_jwt import set_jwt_authentication_policy
+
+def includeme(config):
+    set_jwt_authentication_policy(config)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, in the settings ini file, register the policy as a module:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[my:app]
+multiauth.policies = mystuff.auth
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The trick that multiauth does is to register an action for the commit phase of
+the configuration process that extracts the authentication set in place by the
+module and adds it to a &lt;code&gt;_policies&lt;/code&gt; list that is passed in the constructor
+and stored by &lt;code&gt;MultiAuthenticationPolicy&lt;/code&gt;. A bit dirty, but brilliant.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Installing node with NVM</title>
+      <link>/blog/2017/02/23/installing-node-with-nvm/</link>
+      <pubDate>Thu, 23 Feb 2017 18:58:08 +0100</pubDate>
+      
+      <guid>/blog/2017/02/23/installing-node-with-nvm/</guid>
+      <description>&lt;p&gt;This is more of a recipe for myself, as I always have problems with npm. I&amp;rsquo;m
+usually stuborn and refuse to use a globally installed nodejs, and can&amp;rsquo;t be
+really bothered to properly install a nodejs tarball distribution, with setting
+up PATH and all. They&amp;rsquo;re usually throw-away and not portable between my
+machines.&lt;/p&gt;
+
+&lt;p&gt;So, a simple recipe to install nodejs on my own setup, an ArchLinux
+machine using fish as default shell.&lt;/p&gt;
+
+&lt;p&gt;First, install nvm using instructions from the NVM page: &lt;a href=&#34;https://github.com/creationix/nvm&#34;&gt;https://github.com/creationix/nvm&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This plugs NVM into .bashrc and makes it available for bash, but I use fish. In
+bash I ran &lt;code&gt;nvm install 6.10.0&lt;/code&gt;, which is the latest LTS release.&lt;/p&gt;
+
+&lt;p&gt;Next, in fish I run &lt;code&gt;omf install nvm&lt;/code&gt;. This installs the nvm fish plugin
+(assumes OMF is installed) and now it is possible to run npm commands (in a new
+fish shell). For example, &lt;code&gt;npm install http-server&lt;/code&gt;. Notice this is a local
+install, it will create a &lt;code&gt;node_modules&lt;/code&gt; folder in the current location and
+will install the executable scripts as, for example,
+&lt;code&gt;node_modules/.bin/http-server&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Installing with -g (globally) will make the executable script available from
+&lt;code&gt;.nvm/versions/6.10.0/bin/http-server&lt;/code&gt;. NVM takes care of setting up proper
+$PATH, so &lt;code&gt;http-server&lt;/code&gt; will be available from any location.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Test for an interface provided by object in plone action condition</title>
+      <link>/blog/2017/02/23/test-for-an-interface-provided-by-object-in-plone-action-condition/</link>
+      <pubDate>Thu, 23 Feb 2017 16:53:16 +0100</pubDate>
+      
+      <guid>/blog/2017/02/23/test-for-an-interface-provided-by-object-in-plone-action-condition/</guid>
+      <description>&lt;p&gt;Quick tip: how to test if the context provides an interface, with an expression
+set as the condition:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;python:object.restrictedTraverse(&amp;quot;@@plone_interface_info&amp;quot;).provides(&#39;dotted.path.to.IMyFancyInterface&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Plone: assign permission to role</title>
+      <link>/blog/2017/02/22/plone-assign-permission-to-role/</link>
+      <pubDate>Wed, 22 Feb 2017 14:19:02 +0100</pubDate>
+      
+      <guid>/blog/2017/02/22/plone-assign-permission-to-role/</guid>
+      <description>&lt;p&gt;I always forget, and a quick search through the eggs folder didn&amp;rsquo;t yield
+anything easy to find: how to I assign a permission to a role, in a context?&lt;/p&gt;
+
+&lt;p&gt;This is a bit of code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from Products.DCWorkflow.utils import modifyRolesForPermission
+from AccessControl.PermissionMapping import getPermissionMapping
+
+perm = &#39;Delete objects&#39;
+pm = set(getPermissionMapping(perm, context, st=tuple))
+pm.add(&#39;Contributor&#39;)
+pm.add(&#39;Owner&#39;)
+modifyRolesForPermission(wc, perm, tuple(pm))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is based on code found in DCWorkflow. I know, the proper code would be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from AccessControl.Permission import Permission
+p = Permission(name, data, obj)
+p.setRole(role_name, True)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But I don&amp;rsquo;t like that API. What is data? I don&amp;rsquo;t know. I can understand name,
+of course, and obj as the context. But data???&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Python packaging vs npm</title>
+      <link>/blog/2017/02/22/python-packaging-vs-npm/</link>
+      <pubDate>Wed, 22 Feb 2017 06:33:34 +0100</pubDate>
+      
+      <guid>/blog/2017/02/22/python-packaging-vs-npm/</guid>
+      <description>&lt;p&gt;I admit, Python packages are a bit more difficult to understand, for a newbie.
+I have witnessed this problem a lot, lately, when dealing with new people
+trying to learn the Python development process.&lt;/p&gt;
+
+&lt;p&gt;There is a mountain of information that needs to be climbed, to understand
+Python packages:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the namespace concept&lt;/li&gt;
+&lt;li&gt;the matter of OS security&lt;/li&gt;
+&lt;li&gt;the full cycle of an application, from development to deployment and
+maintainance&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And this are just basics, in addition to the
+distutils/setuptools/virtualenv/pip or zc.buildout information that needs to be
+digested, to properly use python packages.&lt;/p&gt;
+
+&lt;p&gt;But the (unintended) consequence is that the existing published packages on
+PyPI are usually high(er) quality, and some of them are even documented.
+I don&amp;rsquo;t think there&amp;rsquo;s such a brag right in the Python community &amp;ldquo;I have
+published X amount of packages on pypi&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;Evil and stupid and a huge waste of time. How else would I qualify this
+package, hello.js, installed by mistaked when I actually wanted hellojs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var sayHello = function  (argument) {
+	// body...
+	return &amp;quot;sayHello&amp;quot;;
+}
+
+module.exports=sayHello;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Why in the world is this thing allowed to polute the world with its bits? I&amp;rsquo;ve
+read about &amp;ldquo;placeholder packages&amp;rdquo; and &amp;ldquo;reserving names&amp;rdquo; and that&amp;rsquo;s crazy.
+Developers should focus on quality of code, not bragging rights.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Generate the route url for a Cornice service or resource</title>
+      <link>/blog/2017/01/25/generate-the-route-url-for-a-cornice-service-or-resource/</link>
+      <pubDate>Wed, 25 Jan 2017 23:09:45 +0100</pubDate>
+      
+      <guid>/blog/2017/01/25/generate-the-route-url-for-a-cornice-service-or-resource/</guid>
+      <description>&lt;p&gt;As far as I can tell, there&amp;rsquo;s no documentation on how to generate the reverse
+url for a &lt;a href=&#34;https://github.com/Cornices/cornice&#34;&gt;Cornice&lt;/a&gt; resource or service.
+Suppose I want to publish a list of children resources and i want to make them
+behave as linked data. For that, I want to be able to generate proper URLs,
+based on the request URL.&lt;/p&gt;
+
+&lt;p&gt;This is some sample code to show how to achieve that, based on a side project
+I&amp;rsquo;m working on:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;@resource(collection_path=&amp;quot;/&amp;quot;,
+          path=&amp;quot;/{id}&amp;quot;, cors_origins=(&#39;*&#39;,), cors_max_age=3600)
+class MLModelResource(object):
+
+    def __init__(self, request):
+        self.request = request
+
+    def _model_url(self, ml):
+        return self.request.route_url(self.__class__.__name__.lower(),
+                                      id=ml.name)
+
+    def serialize_model(self, ml, sess):
+        res = {}
+        res[&#39;name&#39;] = ml.name
+        res[&#39;labels&#39;] = get_model_labels(ml, sess)
+        res[&#39;can_predict&#39;] = ml.can_predict()
+        res[&#39;url&#39;] = self._model_url(ml)
+        return res
+
+    def collection_get(self):
+        sess = self.request.dbsession
+        res = []
+        for ml in sess.query(MLModel):
+            res.append(self.serialize_model(ml, sess))
+        return {&#39;models&#39;: res}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice this line: &lt;code&gt;return self.request.route_url(self.__class__.__name__.lower(), id=ml.name)&lt;/code&gt;
+Cornice registers, for each resource, two routes: one named &lt;code&gt;collection_&amp;lt;classname&amp;gt;.lower()&lt;/code&gt;
+and another one with just the lower class name, &lt;code&gt;&amp;lt;classname&amp;gt;.lower()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For the regular services, Cornice register routes with the proper service name.
+So, for a service such as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;sampleserv = Service(name=&amp;quot;sampleserv&amp;quot;,
+                  description=&amp;quot;Use the sampleserv service&amp;quot;,
+                  path=&amp;quot;/{name}/sampleserv&amp;quot;,
+                  cors_origins=(&#39;*&#39;,),
+                  cors_max_age=3600)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the way to generate the route is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;self.request.route_url(&#39;sampleserv&#39;, name=&#39;something&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Another way to index category labels in categorization tasks</title>
+      <link>/blog/2017/01/21/another-way-to-index-category-labels-in-categorization-tasks/</link>
+      <pubDate>Sat, 21 Jan 2017 00:19:31 +0100</pubDate>
+      
+      <guid>/blog/2017/01/21/another-way-to-index-category-labels-in-categorization-tasks/</guid>
+      <description>&lt;p&gt;One common task in machine-based categorization tasks is to relabel data with
+a numeric value, an index, where before that data was labeled with a string.&lt;/p&gt;
+
+&lt;p&gt;The basic Python code would be something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;label_index = {}
+labels = []
+for l in string_labels:
+    if l not in label_index:
+        label_index[l] = len(label_index)
+    labels.append(label_index[l])&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;While writing that bit of code from above, I realized that a word tokenizer can
+do the same thing. This would be the equivalent, using
+&lt;code&gt;keras.preprocessing.text.Tokenizer&lt;/code&gt; and numpy.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;t = Tokenizer()
+t.fit_on_texts(_labels)
+seqs = t.texts_to_sequences(_labels)
+# seqs is a list of lists, something like:
+# [[1], [2], [1], [3] ... ]
+labels = np.array(seqs)[:,0] - 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now &lt;code&gt;t.word_index&lt;/code&gt; holds the word to index mapping. &lt;code&gt;np.array(seqs)[:,0]&lt;/code&gt;
+returns a list with the first element (at index 0) of the second dimension of
+the np array. The arithmetic operation of the end applies to each member of
+the array and is needed because the tokenizer starts indexing words at 1.&lt;/p&gt;
+
+&lt;p&gt;Of course, the second way is convoluted, needs to process the list of labels
+twice, uses two addon libraries (but probably already present for the domain
+of this task) and needs some basic knowledge of numpy to be readable by others.
+YMMV. I wonder which method is faster, on a bigger chunk of data.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to shuffle two arrays to the same order</title>
+      <link>/blog/2017/01/20/how-to-shuffle-two-arrays-to-the-same-order/</link>
+      <pubDate>Fri, 20 Jan 2017 17:24:40 +0100</pubDate>
+      
+      <guid>/blog/2017/01/20/how-to-shuffle-two-arrays-to-the-same-order/</guid>
+      <description>&lt;p&gt;This is a small recipe on how to get two arrays with the same shape (same
+length) shuffled with the same &amp;ldquo;random seed&amp;rdquo;. This is useful when the two
+arrays hold related data (for example, one holds values and the other one holds
+labels for those values).&lt;/p&gt;
+
+&lt;p&gt;It takes advantage of the fact that numpy arrays can be indexed with other
+arrays, something that seems really magical when compared to regular python
+arrays.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; import numpy as np
+&amp;gt;&amp;gt;&amp;gt; x = np.arange(10)
+&amp;gt;&amp;gt;&amp;gt; y = np.arange(9, -1, -1)
+&amp;gt;&amp;gt;&amp;gt; x
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+&amp;gt;&amp;gt;&amp;gt; y
+array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
+&amp;gt;&amp;gt;&amp;gt; s = np.arange(x.shape[0])
+&amp;gt;&amp;gt;&amp;gt; np.random.shuffle(s)
+&amp;gt;&amp;gt;&amp;gt; s
+array([9, 3, 5, 2, 6, 0, 8, 1, 4, 7])
+&amp;gt;&amp;gt;&amp;gt; x[s]
+array([9, 3, 5, 2, 6, 0, 8, 1, 4, 7])
+&amp;gt;&amp;gt;&amp;gt; y[s]
+array([0, 6, 4, 7, 3, 9, 1, 8, 5, 2])
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Editing Short python scripts with vim</title>
+      <link>/blog/2017/01/18/editing-short-python-scripts-with-vim/</link>
+      <pubDate>Wed, 18 Jan 2017 18:30:18 +0100</pubDate>
+      
+      <guid>/blog/2017/01/18/editing-short-python-scripts-with-vim/</guid>
+      <description>
+
+&lt;p&gt;Being that I usually find interesting to know about other people&amp;rsquo;s workflow,
+here&amp;rsquo;s a short description of my working environment that I typically use when
+developing in Python:&lt;/p&gt;
+
+&lt;h2 id=&#34;tmux&#34;&gt;tmux&lt;/h2&gt;
+
+&lt;p&gt;In the beginning I&amp;rsquo;ve used Yakuake tabs to split servers and files in separate
+tabs. As the number grew, I&amp;rsquo;ve started naming the tabs (and even had a short
+stint &lt;a href=&#34;https://github.com/tiberiuichim/customkuake&#34;&gt;extending&lt;/a&gt;
+&lt;a href=&#34;https://github.com/tiberiuichim/atomic-hidpi&#34;&gt;Yakuake&lt;/a&gt; to fit this use case),
+but as the number of projects and environments that I have to juggle kept
+growing, I&amp;rsquo;ve resorted to splitting each separate tab into &amp;ldquo;subtabs&amp;rdquo;, using
+tmux.&lt;/p&gt;
+
+&lt;p&gt;I start &lt;code&gt;tmux -2&lt;/code&gt; in each Yakuake tab (the &lt;code&gt;-2&lt;/code&gt; switch is to enhance the color
+support) and I&amp;rsquo;ve mapped the Alt+\ as the escape combination.
+Why this? Backslash as the leader key comes from vim and I don&amp;rsquo;t like the ctrl
+key, I&amp;rsquo;d have to use my pinky finger and I don&amp;rsquo;t like it. This is how to
+achieve that:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; unbind C-b
+ set -g prefix M-&#39;\&#39;
+ bind M-&#39;\&#39; send-prefix
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next, to make it easier to switch tabs, I&amp;rsquo;ve mapped alt+&lt;number&gt; to switch to
+the coresponding tab number.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; bind-key -n M-1 select-window -t:1
+ bind-key -n M-2 select-window -t:2
+ bind-key -n M-3 select-window -t:3
+ bind-key -n M-4 select-window -t:4
+ bind-key -n M-5 select-window -t:5
+ bind-key -n M-6 select-window -t:6
+ bind-key -n M-7 select-window -t:7
+ bind-key -n M-8 select-window -t:8
+ bind-key -n M-9 select-window -t:9
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But one problem: the 0 key is far away. So I want to start tab numbering at 1:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; set -g base-index 1
+ setw -g pane-base-index 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;neo-vim&#34;&gt;(Neo)Vim&lt;/h2&gt;
+
+&lt;p&gt;Vim is the perfect editor for quick scripts: it is fast to start, very fast to
+edit, easy to configure, etc. There&amp;rsquo;s plenty of material on the web for this,
+but two short tricks that are worth mentioning: ctrl+z is the easiest way to
+escape from vim to the terminal (followed by fg to bring it back to the foreground)
+and I sometimes type this (maybe I should even include it in my vimrc) to
+execute the current file with the python from my virtualenv:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-viml&#34;&gt;:map &amp;lt;f5&amp;gt; !python ./%&amp;lt;cr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Do you really need that metadata column?</title>
+      <link>/blog/2017/01/08/do-you-really-need-that-metadata-column/</link>
+      <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
+      
+      <guid>/blog/2017/01/08/do-you-really-need-that-metadata-column/</guid>
+      <description>&lt;p&gt;It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;As an example: when exploring collective.portlet.collectionfilter I&#39;ve noticed that the definition of the filters need both the index name and the metadata column. Ex:&lt;/p&gt;
+&lt;pre&gt;GROUPBY_CRITERIA = {
+    &#39;Subject&#39;: {
+        &#39;index&#39;: &#39;Subject&#39;,  # For querying
+        &#39;metadata&#39;: &#39;Subject&#39;,  # For constructing the list
+        &#39;display_modifier&#39;: None,  # For modifying list items (e.g. dates)
+        &#39;query_range&#39;: None  # For range searches (e.g. for dates or numbers)
+    },
+...&lt;/pre&gt;
+&lt;div&gt;The metadata is needed because the search result is a whole bag of brains and the portlet groups results by their values, so it needs to know the real values. With minimal changes it is possible to avoid the need for that metadata column.&lt;/div&gt;
+&lt;p&gt;This is the original code in collectionfilter.py:&lt;/p&gt;
+&lt;pre&gt;attr = GROUPBY_CRITERIA[self.data.group_by][&#39;metadata&#39;]
+mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
+
+grouped_results = {}
+for item in results:
+    val = getattr(item, attr, None)
+    if callable(val):
+        val = val()
+    if not getattr(val, &#39;__iter__&#39;, False):
+        val = [val]&lt;/pre&gt;
+&lt;div&gt;And these are the minimal changes:&lt;/div&gt;
+&lt;pre&gt;mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
+
+catalog = getToolByName(self.context, &#39;portal_catalog&#39;)
+unindex = catalog._catalog.indexes[idx]._unindex
+
+grouped_results = {}
+for item in results:
+    rid = item._brain.getRID()
+    # val = getattr(item, attr, None)
+    val = unindex.get(rid)
+    if callable(val):
+        val = val()
+    if not getattr(val, &#39;__iter__&#39;, False):
+        val = [val]&lt;/pre&gt;
+&lt;p&gt;It reads the field values from the _unindex mapping of the indexes (which exist for most of the indexes in the Plone catalog. Exceptions are indexes for Title, Description, getObjPositionInParent and SearchableText). Most of the ZCatalog indexes have two mappings where they store information: the forward &#34;mapping&#34; (field value =&amp;gt; objectid) and the reverse mapping (object id =&amp;gt; field value). In this above snippet we&#39;re reading the reverse mapping to get the original field value. So, no need for a dedicated metadata column.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Auto-bootstrap (n)vim configuration</title>
+      <link>/blog/2017/01/05/auto-bootstrap-nvim-configuration/</link>
+      <pubDate>Thu, 05 Jan 2017 19:01:08 -0100</pubDate>
+      
+      <guid>/blog/2017/01/05/auto-bootstrap-nvim-configuration/</guid>
+      <description>&lt;p&gt;Ever since I&#39;ve moved to Neovim and redid my whole setup, I&#39;ve had this piece of code at the top of my init.vim:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if empty(glob(&#39;~/.config/nvim/autoload/plug.vim&#39;))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+&lt;/code&gt;&lt;/pre&gt;
+Together with the rest of that dotfile, it automatically bootstraps the whole plugins install process, which makes moving to a new machine a simple operation of just cloning the repo in the proper location, start once Neovim to let it bootstrap, then boom, everything fits in place. For reference, my nvim configuration is here&amp;nbsp;https://github.com/tiberiuichim/dotfiles/blob/master/nvim/init.vim
+</description>
+    </item>
+    
+    <item>
+      <title>Django templates make me go mad...</title>
+      <link>/blog/2017/01/02/django-templates-make-me-go-mad.../</link>
+      <pubDate>Mon, 02 Jan 2017 09:46:35 -0100</pubDate>
+      
+      <guid>/blog/2017/01/02/django-templates-make-me-go-mad.../</guid>
+      <description>&lt;p&gt;Why is this a positive thing? Excerpt from Django Oscar, an eComerce framework.&lt;/p&gt;
+&lt;pre&gt;&amp;lt;li class=&#34;step2 {% if step == 2 %}active{% else %}{% if step == 3 %}previous{% else %}{% if step &amp;gt; 2 %}visited{% else %}disabled{% endif %}{% endif %}{% endif %} &#34;&amp;gt;&lt;/pre&gt;
+&lt;p&gt;Gah...&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

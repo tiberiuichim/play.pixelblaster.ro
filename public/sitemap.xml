@@ -1,0 +1,1362 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>/blog/2017/04/05/when-did-tmux-get-plugins/</loc>
+    <lastmod>2017-04-05T09:24:08+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/03/02/analyse-and-optimize-a-webpack-vuejs-bundle/</loc>
+    <lastmod>2017-03-02T14:54:52+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/</loc>
+    <lastmod>2017-02-25T19:29:37+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/02/25/using-pyramid_jwt-with-pyramid_multiauth/</loc>
+    <lastmod>2017-02-25T03:45:44+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/02/23/installing-node-with-nvm/</loc>
+    <lastmod>2017-02-23T18:58:08+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/02/23/test-for-an-interface-provided-by-object-in-plone-action-condition/</loc>
+    <lastmod>2017-02-23T16:53:16+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/02/22/plone-assign-permission-to-role/</loc>
+    <lastmod>2017-02-22T14:19:02+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/02/22/python-packaging-vs-npm/</loc>
+    <lastmod>2017-02-22T06:33:34+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/01/25/generate-the-route-url-for-a-cornice-service-or-resource/</loc>
+    <lastmod>2017-01-25T23:09:45+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/01/21/another-way-to-index-category-labels-in-categorization-tasks/</loc>
+    <lastmod>2017-01-21T00:19:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/01/20/how-to-shuffle-two-arrays-to-the-same-order/</loc>
+    <lastmod>2017-01-20T17:24:40+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/01/18/editing-short-python-scripts-with-vim/</loc>
+    <lastmod>2017-01-18T18:30:18+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/01/08/do-you-really-need-that-metadata-column/</loc>
+    <lastmod>2017-01-08T09:21:46-01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/01/05/auto-bootstrap-nvim-configuration/</loc>
+    <lastmod>2017-01-05T19:01:08-01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/01/02/django-templates-make-me-go-mad.../</loc>
+    <lastmod>2017-01-02T09:46:35-01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016/12/24/always-fun-deciphering-ruby-dsls-part-1/</loc>
+    <lastmod>2016-12-24T08:47:35-01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks/</loc>
+    <lastmod>2016-12-13T09:26:44-01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016/12/02/change-the-authentication-cookie-name-in-plone/</loc>
+    <lastmod>2016-12-02T11:22:18-01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016/10/13/how-to-make-the-linked-object-editable-in-droppable-collective.cover-tiles/</loc>
+    <lastmod>2016-10-13T12:51:46-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016/09/15/trigger-cron-style-jobs-in-plone-sites-without-passwords/</loc>
+    <lastmod>2016-09-15T11:37:22-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</loc>
+    <lastmod>2016-08-31T08:12:43-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/</loc>
+    <lastmod>2016-08-18T16:56:38-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016/06/30/how-to-completely-disable-diazo-on-a-specific-path/</loc>
+    <lastmod>2016-06-30T14:51:42-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql/</loc>
+    <lastmod>2016-06-13T23:49:14-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/</loc>
+    <lastmod>2016-06-13T12:28:29-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2015/05/05/zodb-how-to-get-and-read-objects-from-an-undo-information/</loc>
+    <lastmod>2015-05-05T08:07:56+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2015/04/20/the-wrong-way-to-sudo-su-and-the-right-way/</loc>
+    <lastmod>2015-04-20T10:34:11+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2015/03/24/essential-firefox-addons/</loc>
+    <lastmod>2015-03-24T05:36:13+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2012/01/16/a-simple-epub-file-renaming-utility/</loc>
+    <lastmod>2012-01-16T15:32:10-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2011/06/28/getting-the-superclasses-for-a-python-object/</loc>
+    <lastmod>2011-06-28T17:08:06-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2011/05/02/version-conflict-zc.buildouts-version-of-madness/</loc>
+    <lastmod>2011-05-02T10:13:55-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2011/05/01/building-pil-with-jpeg-support-on-ubuntu-11.04/</loc>
+    <lastmod>2011-05-01T12:41:20-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2011/03/09/export/import-users-in-and-out-of-plone/</loc>
+    <lastmod>2011-03-09T18:09:19-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2011/02/08/set-product-configuration-globally-in-zope.conf/</loc>
+    <lastmod>2011-02-08T19:46:42-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2011/01/04/running-products.gloworm-on-plone-4/</loc>
+    <lastmod>2011-01-04T19:09:02-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2011/01/02/a-pattern-for-programatically-creating-plone-content/</loc>
+    <lastmod>2011-01-02T11:11:54-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2010/09/19/a-miniguide-to-dolmen-packages/</loc>
+    <lastmod>2010-09-19T22:16:36-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2010/08/22/migrating-content-folders-from-plone-3-to-plone-4-via-zexp-import/</loc>
+    <lastmod>2010-08-22T14:05:56-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2010/05/12/some-issues-with-zc.recipe.eggs-python-option/</loc>
+    <lastmod>2010-05-12T11:21:44-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2010/02/25/can-you-do-this-on-your-shiny-mac/</loc>
+    <lastmod>2010-02-25T12:04:41-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2010/02/24/generating-products-outside-of-the-products.-namespace-with-archgenxml/</loc>
+    <lastmod>2010-02-24T17:54:52-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/</loc>
+    <lastmod>2010-01-28T21:29:31-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2010/01/28/dear-pypi-uploaders-dont-use-a-download-url-upload-your-package-instead/</loc>
+    <lastmod>2010-01-28T20:57:23-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok/</loc>
+    <lastmod>2010-01-15T11:29:22-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/11/30/a-dont-do-for-internationalizing-django-templates/</loc>
+    <lastmod>2009-11-30T20:36:41-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/11/30/odd-thing-in-django-the-date-filter-takes-php-as-reference-instead-of-python/</loc>
+    <lastmod>2009-11-30T11:57:54-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/11/18/if-django-templates-are-an-improvement-over-xml-templates-then-by-all-means-please-give-me-xml/</loc>
+    <lastmod>2009-11-18T14:27:15-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/11/17/the-case-against-django-templates/</loc>
+    <lastmod>2009-11-17T19:00:49-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/11/12/djangos-makemessages-sucks-for-my-use-cases/</loc>
+    <lastmod>2009-11-12T20:57:19-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/11/09/get-a-project-imported-into-subversion-and-start-working-imediately-on-it/</loc>
+    <lastmod>2009-11-09T20:54:51-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/11/08/using-cherrypy-to-work-around-a-django/flup-bug/</loc>
+    <lastmod>2009-11-08T21:35:58-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/11/05/django-gotcha-the-urls.py-needs-to-define-the-404-view/</loc>
+    <lastmod>2009-11-05T21:06:48-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/10/07/questioning-the-quality-of-code-in-django-third-party-projects/</loc>
+    <lastmod>2009-10-07T19:17:32-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/09/17/customizing-django-lfs-lightning-fast-shop-for-the-non-django-developer/</loc>
+    <lastmod>2009-09-17T22:59:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/08/05/reportlab-is-one-frustrating-piece-of-software.../</loc>
+    <lastmod>2009-08-05T11:39:26-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature/</loc>
+    <lastmod>2009-06-11T15:53:16-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/05/10/my-new-blog-dedicated-to-all-things-vim/</loc>
+    <lastmod>2009-05-10T18:45:45-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/04/16/the-sorry-state-of-internationalization-in-plone/</loc>
+    <lastmod>2009-04-16T17:32:14-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/03/02/a-bug-in-subversion-and-a-workaround/</loc>
+    <lastmod>2009-03-02T10:31:54-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu/</loc>
+    <lastmod>2009-02-28T17:47:14-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/02/16/making-peace-with-the-system-wide-installed-zope.interface/</loc>
+    <lastmod>2009-02-16T11:31:15-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/02/15/using-mechanize-to-process-protected-plone-pages/</loc>
+    <lastmod>2009-02-15T16:04:39-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/</loc>
+    <lastmod>2009-02-11T19:45:41-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/02/05/reset-the-generations-level-for-a-zope-application/</loc>
+    <lastmod>2009-02-05T20:21:12-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/01/16/learningjourney-a-zope-3-tutorial/</loc>
+    <lastmod>2009-01-16T20:16:42-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/01/06/a-list-of-javascript-files-loaded-by-plone-2.5/</loc>
+    <lastmod>2009-01-06T17:33:41-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2009/01/06/crossroads-a-very-good-load-balancing-solution/</loc>
+    <lastmod>2009-01-06T16:53:02-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/12/03/specific-imports-versus-module-imports-in-python/</loc>
+    <lastmod>2008-12-03T12:05:20-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/11/23/moving-to-intrepid-and-kde-4.1/</loc>
+    <lastmod>2008-11-23T21:13:23-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/11/18/subversion-1.5-&#43;-default-instalation-plone-3.1-buildout-no-problems-here/</loc>
+    <lastmod>2008-11-18T15:10:43-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/11/01/a-wxpython-based-tagcloud-renderer/</loc>
+    <lastmod>2008-11-01T19:36:20-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/10/08/richtext-control-with-wxpython-saving-loading-and-converting-from-internal-xml-to-html/</loc>
+    <lastmod>2008-10-08T17:14:46-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/09/15/stupid-internet-explorer-and-stupid-ie-bugs/</loc>
+    <lastmod>2008-09-15T14:38:42-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/09/14/workingenv-setuptools-and-svn-1.5-redux/</loc>
+    <lastmod>2008-09-14T10:45:41-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/08/22/bug-in-pypi/</loc>
+    <lastmod>2008-08-22T16:16:07-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/07/11/hosting-plone-and-zope-3-applications-using-nginx/</loc>
+    <lastmod>2008-07-11T10:31:21+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/06/01/using-views-as-information-mixins-in-templates/</loc>
+    <lastmod>2008-06-01T22:30:29-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools.../</loc>
+    <lastmod>2008-04-15T19:23:09-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/04/08/a-tip-on-debugging-zope-2-with-zeo/</loc>
+    <lastmod>2008-04-08T20:20:18-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/03/28/ubuntu-hardy-heron-some-things-are-bad/</loc>
+    <lastmod>2008-03-28T09:53:44-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/03/19/why-do-i-use-zope-3/</loc>
+    <lastmod>2008-03-19T19:33:08-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/03/18/a-few-atreferencebrowserwidget-tips/</loc>
+    <lastmod>2008-03-18T18:03:19-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/03/17/ghop-plone-skins-overview/</loc>
+    <lastmod>2008-03-17T14:56:06-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/03/13/tutorial-run-archgenxml-2.0-under-virtualenv/</loc>
+    <lastmod>2008-03-13T20:02:46-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/01/31/the-763-projects-in-the-collective-svn/</loc>
+    <lastmod>2008-01-31T14:22:23-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/01/28/monty-python-sketches-and-download-script/</loc>
+    <lastmod>2008-01-28T12:32:16-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2008/01/27/problem-with-jquery-version-1.2.2-and-getjson/</loc>
+    <lastmod>2008-01-27T14:53:25-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/12/17/template-layout-options-when-developing-with-zope-3/</loc>
+    <lastmod>2007-12-17T18:16:36-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/11/14/trying-out-eggs-and-applications-with-workingenv-without-poluting-the-system-python/</loc>
+    <lastmod>2007-11-14T17:21:44-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/09/09/the-problem-with-buildout-and-pydev/</loc>
+    <lastmod>2007-09-09T12:40:53-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/08/15/scripting-adobe-indesign-with-python/</loc>
+    <lastmod>2007-08-15T11:45:32-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/06/05/updates-to-zope--plone-tips-section/</loc>
+    <lastmod>2007-06-05T17:45:49-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/05/28/some-thoughts-about-the-purpose-of-this-blog/</loc>
+    <lastmod>2007-05-28T10:13:49-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/05/25/running-python-based-software-in-the-gpu/</loc>
+    <lastmod>2007-05-25T09:56:45-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/05/24/using-lovely.tag-in-an-edit-form-or-advanced-usage-for-zope.formlibs-editform/</loc>
+    <lastmod>2007-05-24T17:54:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/05/08/software-is-lame/</loc>
+    <lastmod>2007-05-08T08:24:14-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/05/03/brettspielwelt---the-free-online-boardgame-portal/</loc>
+    <lastmod>2007-05-03T09:51:20-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/04/19/passing-data-to-viewlets-from-the-parent-template/</loc>
+    <lastmod>2007-04-19T19:58:14-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/04/13/traversing-from-python-a-zope-3-page-that-uses-the-traverse-subpath/</loc>
+    <lastmod>2007-04-13T11:38:52-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/04/13/starting-the-fans-for-an-hp-compaq-nx6125-with-ubuntu-feisty-after-suspend/</loc>
+    <lastmod>2007-04-13T09:07:41-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/03/26/open-source-zope-app-in-the-news/</loc>
+    <lastmod>2007-03-26T19:46:13-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/03/25/one-issue-using-prototypes-ajax-form-submission-with-zope-3/</loc>
+    <lastmod>2007-03-25T16:08:02-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/03/24/roll-for-initiative-monkey-boy/</loc>
+    <lastmod>2007-03-24T21:07:12-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/03/23/getting-the-registered-zope-3-skin-name-for-an-interface/</loc>
+    <lastmod>2007-03-23T15:00:13-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/03/20/freeciv-rediscovered/</loc>
+    <lastmod>2007-03-20T10:22:51-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/03/10/embeding-the-gecko-engine-in-python-applications/</loc>
+    <lastmod>2007-03-10T18:28:29-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/28/a-zope-3-ajax-viewlet-manager/</loc>
+    <lastmod>2007-02-28T19:24:51-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/27/i-hate-brackets-or-rants-of-a-javascript-novice-programmer/</loc>
+    <lastmod>2007-02-27T17:09:31-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/25/mylar-&#43;-trac-yet-another-reason-to-use-eclipse/</loc>
+    <lastmod>2007-02-25T19:00:53-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/25/laptop-memory-updated/</loc>
+    <lastmod>2007-02-25T18:53:41-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/21/onwards-to-gnome-through-beryl-and-back-to-kde/</loc>
+    <lastmod>2007-02-21T18:35:40-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/16/fresh-meat-for-programmers/</loc>
+    <lastmod>2007-02-16T20:52:16-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/15/using-zope-page-templates-macros-in-other-templates/</loc>
+    <lastmod>2007-02-15T16:31:10-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/12/using-fckeditor-in-ajax-views-on-zope-3/</loc>
+    <lastmod>2007-02-12T21:14:48-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/11/first-glance-at-plone-3/</loc>
+    <lastmod>2007-02-11T12:49:20-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/10/zope-buildout-quickstart/</loc>
+    <lastmod>2007-02-10T22:19:56-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/06/the-/-resource-view/</loc>
+    <lastmod>2007-02-06T16:17:17-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/02/06/better-load-time-for-plone-sites/</loc>
+    <lastmod>2007-02-06T10:32:23-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/01/30/problems-with-migrating-at-content-from-plone-2.0-to-plone-2.5/</loc>
+    <lastmod>2007-01-30T23:39:53-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/01/25/hosting-zope-3-on-freebsd/</loc>
+    <lastmod>2007-01-25T18:54:20-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2007/01/12/firebug-getting-close-to-1.0/</loc>
+    <lastmod>2007-01-12T18:55:01-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/12/21/why-do-the-gimp-developer-hate-us/</loc>
+    <lastmod>2006-12-21T14:21:47-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/12/15/permission-problems-with-adapters/</loc>
+    <lastmod>2006-12-15T18:53:29-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/11/23/setting-a-dynamic-i18ndomain-in-a-zpt-template/</loc>
+    <lastmod>2006-11-23T21:14:36-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/11/07/getting-the-parent-object-in-an-acquisition-context/</loc>
+    <lastmod>2006-11-07T14:55:09-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/11/06/one-liner-to-get-the-common-elements-of-several-lists/</loc>
+    <lastmod>2006-11-06T23:14:38-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/29/pitfall-of-building-python-from-source-on-ubuntu/</loc>
+    <lastmod>2006-10-29T12:32:46-02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/27/catching-and-printing-python-exceptions/</loc>
+    <lastmod>2006-10-27T00:16:13-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/24/how-to-define-a-new-skin-in-zope-3/</loc>
+    <lastmod>2006-10-24T23:34:16-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/22/bulk-modifying-at-content-fields-under-restricted-python-scripts/</loc>
+    <lastmod>2006-10-22T00:40:34-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/21/deliverence---serving-semi-static-content-out-of-a-live-site/</loc>
+    <lastmod>2006-10-21T22:19:51-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/21/custom-traversing-with-five-and-itraversable/</loc>
+    <lastmod>2006-10-21T18:23:34-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/20/easy-access-to-the-zope-namespace-and-modules/</loc>
+    <lastmod>2006-10-20T20:41:12-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/19/testing-file-uploads-fields-with-zope.testbrowser/</loc>
+    <lastmod>2006-10-19T21:43:12-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/15/adding-an-overrides.zcml/</loc>
+    <lastmod>2006-10-15T19:54:07-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/10/advancedquery-and-other-portal_catalog-tricks/</loc>
+    <lastmod>2006-10-10T16:00:32-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/07/little-bits-of-info-about-cmfformcontroller/</loc>
+    <lastmod>2006-10-07T19:47:47-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/07/hacking-at-plone-memberships-core-different-content-types-for-member-folders/</loc>
+    <lastmod>2006-10-07T19:18:13-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/07/creating-zope-content/</loc>
+    <lastmod>2006-10-07T17:24:36-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/07/get-a-translated-object-in-a-particular-language/</loc>
+    <lastmod>2006-10-07T14:13:26-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/06/internationalization-with-plone/</loc>
+    <lastmod>2006-10-06T21:04:15-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/05/dynamic-vocabulary-for-an-archetypes-field/</loc>
+    <lastmod>2006-10-05T02:08:44-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/04/easy-install-of-actions-with-cmfquickinstaller/</loc>
+    <lastmod>2006-10-04T18:53:43-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/04/start-plone-or-zope-in-debug-mode-under-windows/</loc>
+    <lastmod>2006-10-04T17:58:54-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/03/fixing-a-zope-database-with-fsrecover.py/</loc>
+    <lastmod>2006-10-03T01:14:24-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/02/moving-a-zope-instance/</loc>
+    <lastmod>2006-10-02T23:09:05-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/02/override-__bobo_traverse__-to-provide-custom-url--lookup/</loc>
+    <lastmod>2006-10-02T14:06:20-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/02/zope3-zcml-a-content-class-declaration-that-provides-an-interface/</loc>
+    <lastmod>2006-10-02T12:18:02-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/01/zope3-registering-a-help-page/</loc>
+    <lastmod>2006-10-01T18:31:06-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/10/01/dapper-&#43;-1--edgy/</loc>
+    <lastmod>2006-10-01T11:22:46-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/23/kde-applications-vs-gnome-applications/</loc>
+    <lastmod>2006-09-23T18:22:43-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/22/best-plone-quote-ever/</loc>
+    <lastmod>2006-09-22T18:46:55-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/22/online-tools-to-check-dns/</loc>
+    <lastmod>2006-09-22T13:53:40-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/21/datetime-output-for-an-rss2-feed/</loc>
+    <lastmod>2006-09-21T20:04:54-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/20/short-recipe-for-adaptation-with-five/</loc>
+    <lastmod>2006-09-20T20:26:52-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/20/basic-recipe-for-a-five-view/</loc>
+    <lastmod>2006-09-20T12:35:28-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/16/short-checklist-for-postfix-&#43;-mysql-&#43;-dovecot-&#43;-sasl-authentication-on-fedora/</loc>
+    <lastmod>2006-09-16T21:56:19-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/10/adaptation-explained/</loc>
+    <lastmod>2006-09-10T10:52:39-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/06/printing-frameworks-and-wxpython/</loc>
+    <lastmod>2006-09-06T16:48:34-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/05/override-the-default-actions-for-an-archgenxml-based-archetype/</loc>
+    <lastmod>2006-09-05T22:03:04-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/04/customized-archetypes-edit-form-with-only-one-of-the-fields/</loc>
+    <lastmod>2006-09-04T15:16:47-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/02/trying-kde-as-the-main-work-desktop/</loc>
+    <lastmod>2006-09-02T20:38:22-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/09/01/running-microsoft-word-as-a-windows-service/</loc>
+    <lastmod>2006-09-01T13:09:44-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/31/small-snippet-to-read-the-title-for-a-dcworkflow-state/</loc>
+    <lastmod>2006-08-31T01:19:45-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/30/improve-plone-based-website-performance-with-simple-apache-caching/</loc>
+    <lastmod>2006-08-30T00:38:53-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/29/checking-for-a-role-or-a-permission-in-a-context/</loc>
+    <lastmod>2006-08-29T21:51:48-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/27/short-recipe-for-membrane-based-user-content-types/</loc>
+    <lastmod>2006-08-27T19:54:41-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/27/allowing-the-anonymous-to-add-portal-content/</loc>
+    <lastmod>2006-08-27T19:29:42-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/27/creating-an-archetypes-validator/</loc>
+    <lastmod>2006-08-27T17:34:36-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/27/specify-creation-roles-for-agx-generated-content/</loc>
+    <lastmod>2006-08-27T14:37:40-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/23/creating-and-managing-a-windows-service-part-4/</loc>
+    <lastmod>2006-08-23T16:44:06-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/23/creating-and-managing-a-windows-service-part-3/</loc>
+    <lastmod>2006-08-23T16:34:50-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/23/creating-and-managing-a-windows-service-part-2/</loc>
+    <lastmod>2006-08-23T15:33:47-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/23/creating-and-managing-a-windows-service-part-1/</loc>
+    <lastmod>2006-08-23T15:29:14-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/23/capturing-print-statements-output/</loc>
+    <lastmod>2006-08-23T13:57:21-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/23/short-guide-to-dns-with-bind-on-fedora/</loc>
+    <lastmod>2006-08-23T09:40:13-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace/</loc>
+    <lastmod>2006-08-16T20:26:30-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/14/short-intro-to-zeo/</loc>
+    <lastmod>2006-08-14T19:37:45-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/13/small-tip-when-using-wxwidgets/</loc>
+    <lastmod>2006-08-13T18:09:58-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/13/miniguide-to-openldap/</loc>
+    <lastmod>2006-08-13T00:25:52-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/12/tricks-of-the-mind/</loc>
+    <lastmod>2006-08-12T19:48:21-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/12/overriding-the-form-controler-script-for-at-content/</loc>
+    <lastmod>2006-08-12T17:43:29-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/12/cool-use-of-z3-tech-in-a-plone-product/</loc>
+    <lastmod>2006-08-12T17:07:38-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/12/i-dont-like-the-new-python.org-webpage/</loc>
+    <lastmod>2006-08-12T13:50:59-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/12/games-for-linux/</loc>
+    <lastmod>2006-08-12T13:28:05-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/08/accessing-a-zope-object-stripped-of-acquisition/</loc>
+    <lastmod>2006-08-08T18:48:59-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/08/clouseau-a-new-developer-tool-for-plone/</loc>
+    <lastmod>2006-08-08T18:42:38-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/06/getting-a-list-of-catalog-indexes-and-metadata/</loc>
+    <lastmod>2006-08-06T19:37:16-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/04/basic-unittesting-for-plone/</loc>
+    <lastmod>2006-08-04T16:28:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/04/getting-the-real-path-of-a-zope-product/</loc>
+    <lastmod>2006-08-04T15:09:38-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/04/locked-yourself-out-of-zope/</loc>
+    <lastmod>2006-08-04T14:41:09-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/08/02/quick-guide-to-zopeskel/</loc>
+    <lastmod>2006-08-02T18:16:31-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/07/31/when-a-product-reinstall-fails.../</loc>
+    <lastmod>2006-07-31T11:37:55-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/07/30/tutorial-on-integrating-z3-tech-into-plone/</loc>
+    <lastmod>2006-07-30T16:22:11-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/07/27/adding-a-new-view-method-to-a-portal-type/</loc>
+    <lastmod>2006-07-27T18:56:32-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/07/24/using-z3-style-events/</loc>
+    <lastmod>2006-07-24T21:03:12-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/07/22/my-favorite-development-environment/</loc>
+    <lastmod>2006-07-22T19:54:38-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/07/21/how-to-access-directly-fields-and-widgets-from-an-archetypes-content/</loc>
+    <lastmod>2006-07-21T18:42:11-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2006/07/21/how-to-use-at_post_create_script-to-with-multi-schemata-content-types/</loc>
+    <lastmod>2006-07-21T18:30:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ajax/</loc>
+    <lastmod>2007-05-08T08:24:14-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/archgenxml/</loc>
+    <lastmod>2010-02-24T17:54:52-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/archive/</loc>
+  </url>
+  
+  <url>
+    <loc>/blog/</loc>
+    <lastmod>2017-04-05T09:24:08+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/bugs/</loc>
+    <lastmod>2016-06-13T12:28:29-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/buildout/</loc>
+    <lastmod>2010-05-12T11:21:44-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/code-repository/</loc>
+    <lastmod>2007-03-26T19:46:13-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/colaborative/</loc>
+    <lastmod>2010-02-25T12:04:41-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/cookbook/</loc>
+    <lastmod>2017-03-02T14:54:52+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/cornice/</loc>
+    <lastmod>2017-01-25T23:09:45+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/debugging/</loc>
+    <lastmod>2016-08-18T16:56:38-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/deliverance/</loc>
+    <lastmod>2016-06-30T14:51:42-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/development/</loc>
+    <lastmod>2010-01-28T20:57:23-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/diazo/</loc>
+    <lastmod>2016-06-30T14:51:42-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/django/</loc>
+    <lastmod>2017-01-02T09:46:35-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/docker/</loc>
+    <lastmod>2016-12-13T09:26:44-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/docker-compose/</loc>
+    <lastmod>2016-12-13T09:26:44-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/dolmen/</loc>
+    <lastmod>2010-09-19T22:16:36-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/dsl/</loc>
+    <lastmod>2016-12-24T08:47:35-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/firefox/</loc>
+    <lastmod>2015-03-24T05:36:13+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/fun/</loc>
+    <lastmod>2007-05-03T09:51:20-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/grok/</loc>
+    <lastmod>2010-09-19T22:16:36-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/gui/</loc>
+    <lastmod>2008-11-23T21:13:23-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/javascript/</loc>
+    <lastmod>2008-09-15T14:38:42-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/jquery/</loc>
+    <lastmod>2008-01-27T14:53:25-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/keras/</loc>
+    <lastmod>2017-01-21T00:19:31+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/kotti/</loc>
+    <lastmod>2016-06-13T23:49:14-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/linux/</loc>
+    <lastmod>2015-04-20T10:34:11+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/machinelearning/</loc>
+    <lastmod>2017-01-21T00:19:31+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/management/</loc>
+    <lastmod>2009-11-09T20:54:51-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/nginx/</loc>
+    <lastmod>2009-06-11T15:53:16-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/nodejs/</loc>
+    <lastmod>2017-02-23T18:58:08+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/npm/</loc>
+    <lastmod>2017-02-23T18:58:08+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/numpy/</loc>
+    <lastmod>2017-01-21T00:19:31+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/plone/</loc>
+    <lastmod>2017-02-25T19:29:37+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/plone.app/index.theming/</loc>
+    <lastmod>2016-06-30T14:51:42-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/postgresql/</loc>
+    <lastmod>2016-06-13T23:49:14-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/programming/</loc>
+    <lastmod>2017-01-18T18:30:18+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/pyramid/</loc>
+    <lastmod>2017-02-25T03:45:44+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2017-02-22T06:33:34+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/quasar-framework/</loc>
+    <lastmod>2017-03-02T14:54:52+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/rails/</loc>
+    <lastmod>2016-12-24T08:47:35-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/rant/</loc>
+    <lastmod>2017-02-22T06:33:34+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/rants/</loc>
+    <lastmod>2017-01-02T09:46:35-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/ruby/</loc>
+    <lastmod>2016-12-24T08:47:35-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/sqlite/</loc>
+    <lastmod>2016-06-13T23:49:14-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2017-04-05T09:24:08+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/tmux/</loc>
+    <lastmod>2017-04-05T09:24:08+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/tutorial/</loc>
+    <lastmod>2017-01-08T09:21:46-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/ubuntu/</loc>
+    <lastmod>2008-11-23T21:13:23-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/vim/</loc>
+    <lastmod>2017-01-18T18:30:18+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/vuejs/</loc>
+    <lastmod>2017-03-02T14:54:52+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/webpack/</loc>
+    <lastmod>2017-03-02T14:54:52+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/windows/</loc>
+    <lastmod>2007-05-08T08:24:14-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/youtube/</loc>
+    <lastmod>2008-01-28T12:32:16-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/zcatalog/</loc>
+    <lastmod>2017-01-08T09:21:46-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/zodb/</loc>
+    <lastmod>2016-08-18T16:56:38-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/zope/</loc>
+    <lastmod>2017-01-08T09:21:46-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/zope2/</loc>
+    <lastmod>2017-01-08T09:21:46-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/zope3/</loc>
+    <lastmod>2016-08-31T08:12:43-02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>The Plone Expanse - a Zope/Plone blog by Tiberiu Ichim</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+    <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/11/08/using-cherrypy-to-work-around-a-django/flup-bug/">Using CherryPy to work around a Django/flup bug</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/django">Django</a>
+        </p>
+
+        <span class="post-date"><time>Nov 8, 2009</time></span>
+
+        <p class="discreet">A bug creeped in one of my Django 1.1 projects that is in beta-testing right now: the Pinax wiki app looks for a REMOTE_ADDR value in request.META, which was not set in my environment. My environment is a pretty standard (as far as this setup goes) nginx + fcgi (flup on the django side) + django. Further work on this issue revealed, step by step, that:
+REMOTE_ADDR needs to be somehow set by a Django middleware, based on an http header, so I've added django. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/11/08/using-cherrypy-to-work-around-a-django/flup-bug/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/11/05/django-gotcha-the-urls.py-needs-to-define-the-404-view/">Django gotcha: the urls.py needs to define the 404 view</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/django">Django</a>
+        </p>
+
+        <span class="post-date"><time>Nov 5, 2009</time></span>
+
+        <p class="discreet">Probably this is documented somewhere in the Django docs, but, I mean, who has time to read the docs? :-) In the urls.py file for my project I didn't do a
+from django.conf.urls.defaults import * because that's just bad style. Instead I've just imported what I needed: patterns, include and url. Later on I got this error in my email:
+Traceback (most recent call last): File "/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/handlers/base.py", line 118, in get_response callback, param_dict = resolver. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/11/05/django-gotcha-the-urls.py-needs-to-define-the-404-view/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/10/07/questioning-the-quality-of-code-in-django-third-party-projects/">Questioning the quality of code in Django third-party projects</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/rants">rants</a>, <a href="/tags/django">Django</a>
+        </p>
+
+        <span class="post-date"><time>Oct 7, 2009</time></span>
+
+        <p class="discreet">I'm not sure how I feel about this... In some ways, I think it's very positive that a relative newcomer can just jump in and release an opensource project that can be taken and reused by others. Did Django allowed this? That's very positively PHP-like...
+I'm talking about a glimpse at some code that I caught while helping my brother integrate the Diamandas forum to a site he's doing. It stunned me that it has the marks of a developer that is not very experienced with the language or the framework, but it's moving at a speed that is too great to stop and fix or check what he's doing. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/10/07/questioning-the-quality-of-code-in-django-third-party-projects/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/09/17/customizing-django-lfs-lightning-fast-shop-for-the-non-django-developer/">Customizing Django LFS (Lightning Fast Shop) for the non-django developer</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/rants">rants</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/django">Django</a>
+        </p>
+
+        <span class="post-date"><time>Sep 17, 2009</time></span>
+
+        <p class="discreet">I'm not a Django developer, but I have a project that involves deploying a LFS site, and it took me a bit of time and effort to understand how to customize its templates and resources. This all may seem obvious to the any Django developer, but I'm not, so I think this info needs to be out there.
+As a side note, at first I have reviewed Satchmo, as it seemed to have more traction in the Django community (being a Zope/Plone developer, I am more aware of the previous work done by the LFS developer, the EasyShop). [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/09/17/customizing-django-lfs-lightning-fast-shop-for-the-non-django-developer/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/08/05/reportlab-is-one-frustrating-piece-of-software.../">ReportLab is one frustrating piece of software...</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/rants">rants</a>
+        </p>
+
+        <span class="post-date"><time>Aug 5, 2009</time></span>
+
+        <p class="discreet">I'm starting to grow a strong dislike to it, enough to steer me off Python to JVM, with Jython or Scala. Case in point: its authors considered that it's appropriate to overload the Paragraph class from the platypus module, to make it accept a form of "xml". There's no switch to disable this behavior and its xml handling is something straight out of the 90's: no namespaces, no validation. What happens for example, when you're trying to make a paragraph with the text: [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/08/05/reportlab-is-one-frustrating-piece-of-software.../">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature/">Laughable bug in a new Google Webmaster Tools feature</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/debugging">debugging</a>, <a href="/tags/rants">rants</a>, <a href="/tags/nginx">nginx</a>
+        </p>
+
+        <span class="post-date"><time>Jun 11, 2009</time></span>
+
+        <p class="discreet">Somebody at Google has screwed up in a laughable manner. Webmaster Tools just got a new feature: the ability to tell Google that you have moved a site to a new domain. I'm in the same situation with one site that I manage: www.caleidoscop.org.ro has been moved recently to www.caleidoscop.org. Although I have done my best (I still need to persuade nginx to generate 301 redirects instead of 302) to ease this transition and absolutely everything pointing to the . [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/05/10/my-new-blog-dedicated-to-all-things-vim/">My new blog dedicated to all things VIM</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/rants">rants</a>
+        </p>
+
+        <span class="post-date"><time>May 10, 2009</time></span>
+
+        <p class="discreet">I've opened a new blog, at http://vimzone.pixelblaster.ro It runs on the latest Plone 3, with the NottreDamme skin and Scrawl as the blogging product. I'll probably install also the QuillsEnabled extension. There's not a lot of content on it, although it's already almost 2 months old. It's a place for me to scribble things I know about VIM and use or discover. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/05/10/my-new-blog-dedicated-to-all-things-vim/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/04/16/the-sorry-state-of-internationalization-in-plone/">The sorry state of internationalization in Plone</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/rants">rants</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Apr 16, 2009</time></span>
+
+        <p class="discreet">Ever since Plone 2.5 stopped being the hot new thing in the Plone world, the state of content internationalization support in Plone has been declining. Partly due to the difficulty of extending Zope 2 products, LinguaPlone has always been a hack, but at least back then it worked. These days I'm not heavily involved with Plone, but whenever I need to add LinguaPlone to a Plone 3 site, I cringe and weep, especially that those projects never allocate time for me to fix the obvious problems. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/04/16/the-sorry-state-of-internationalization-in-plone/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/03/02/a-bug-in-subversion-and-a-workaround/">A bug in subversion and a workaround</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Mar 2, 2009</time></span>
+
+        <p class="discreet">I'm checking out a large repository and svn keeps getting blocked, for some reason (bad network, maybe). When running update again, it complains that the checkout should be cleaned, but the cleanup operation doesn't succeed, with something like this:
+tibi@xps:~/svn/vs/data$ svn cleanup svn: In directory '.' svn: Error processing command 'modify-wcprop' in '.' svn: 'setup.config' is not under version control  Searching on then net for a solution didn't yield anything, so the one that I have found was to empty the . [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/03/02/a-bug-in-subversion-and-a-workaround/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu/">Success on a one year old problem installing CacheFu</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/rants">rants</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Feb 28, 2009</time></span>
+
+        <p class="discreet">I've upgraded CacheFu (Products.CacheSetup) to the latest 1.2 for some of the websites that I manage, in a Plone 2.5 cluster. One of them had a problem that I haven't been able to track previously, due to limited time: on a reinstall of CacheSetup, due to product upgrades, CacheFu couldn't be installed anymore. The traceback was something like:
+this product has already been installed without Quickinstaller!failed: Traceback (most recent call last): File " [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      <nav id="page-nav">
+
+    
+        <a class="extend prev" rel="prev" href="/page/5/">
+            « Previous 
+        </a>
+    
+    <a href="/">Home</a>
+    
+        <a class="extend next" rel="next" href="/page/7/">
+             Next »
+        </a>
+    
+
+</nav>
+
+    </section>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>The Plone Expanse - a Zope/Plone blog by Tiberiu Ichim</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+    <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/06/internationalization-with-plone/">Internationalization with Plone</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Oct 6, 2006</time></span>
+
+        <p class="discreet">To generate automatically a .pot file necessary for translating msgids inside template files you need to get i18ndude (really easy since it was placed in cheeseshop):
+sudo easy_install i18ndudeSince I'm using ArchGenXML, I already have a generated.pot file created. I've renamed this file to old.pot and ran this (in the i18n folder):
+i18ndude rebuild-pot --pot ./generated.pot --merge old.pot --create MyProduct ./../skins/MyProduct/
+This command builds a pot file by looking at files in the skins folder and merging the extracted msgids with the ones in old. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/06/internationalization-with-plone/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/05/dynamic-vocabulary-for-an-archetypes-field/">Dynamic vocabulary for an Archetypes field</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Oct 5, 2006</time></span>
+
+        <p class="discreet">I keep forgetting how to do dynamic vocabularies for an AT field. As explained in the Vocabulary() method in Field.py, this method will return either the list defined in the vocabulary parameter of the field, or, among others, the list resulting from calling the method defined in the string given as value to the vocabulary parameter.
+The code below will make the explanation easier to understand:
+... LinesField(
+name='domains',
+vocabulary='getVocabularyForDomains' ) [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/05/dynamic-vocabulary-for-an-archetypes-field/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/04/easy-install-of-actions-with-cmfquickinstaller/">Easy install of actions with CMFQuickInstaller</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Oct 4, 2006</time></span>
+
+        <p class="discreet">Although superseded by GenericSetup, this method is still useful and quick to setup. Basically, CMFQI will install actions defined in an xml file called "actions" located in the Extension folder. This behavior is documented in the CMFQI documentation files. An example follows below:
+&lt;portal_actions&gt;
+name=Manage group users
+id=userconfig
+action=string:manage_project_users
+condition=member
+permission=View
+category=folder
+visible=1
+&lt;/portal_actions&gt;  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/04/easy-install-of-actions-with-cmfquickinstaller/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/04/start-plone-or-zope-in-debug-mode-under-windows/">Start Plone (or Zope) in debug mode under Windows</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/windows">Windows</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Oct 4, 2006</time></span>
+
+        <p class="discreet">Lifted from #plone:
+bin/runzope.bat -X "debug-mode=on"  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/04/start-plone-or-zope-in-debug-mode-under-windows/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/03/fixing-a-zope-database-with-fsrecover.py/">Fixing a zope database with fsrecover.py</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Oct 3, 2006</time></span>
+
+        <p class="discreet">Due to hardware corruption I have a broken Data.fs that won't pack. To fix it the fsrecover.py script from the ZODB module can be used. For example, this is how to run the script to repair the broken database (I have zope installed in /opt/Zope2.8):
+cd /opt/Zope2.8/lib/python/
+python ZODB/fsrecover.py -v 1 /mnt/raid/Data.fs /mnt/raid/Data.fs.fixed
+The reason to run the fsrecover script with ZODB in front is that it imports from the ZODB module. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/03/fixing-a-zope-database-with-fsrecover.py/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/02/moving-a-zope-instance/">Moving a Zope instance</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Oct 2, 2006</time></span>
+
+        <p class="discreet">To move a zope instance location 3 files need to be edited in order to update the software home location:
+runzopezopectletc/zope.conf (change the software home location, right at the top of the file)
+  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/02/moving-a-zope-instance/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/02/override-__bobo_traverse__-to-provide-custom-url--lookup/">Override __bobo_traverse__ to provide custom URL  lookup</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Oct 2, 2006</time></span>
+
+        <p class="discreet">This technique is lifted from ATContentTypes/content/image.py
+ def __bobo_traverse__(self, REQUEST, name):
+"""Transparent access to image scales
+"""
+if name.startswith('image'):
+field = self.getField('image')
+image = None
+if name == 'image':
+image = field.getScale(self)
+else:
+scalename = name[len('image_'):]
+if scalename in field.getAvailableSizes(self):
+image = field.getScale(self, scale=scalename)
+if image is not None and not isinstance(image, basestring):
+# image might be None or '' for empty images
+return image
+return ATCTFileContent.__bobo_traverse__(self, REQUEST, name)
+  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/02/override-__bobo_traverse__-to-provide-custom-url--lookup/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/02/zope3-zcml-a-content-class-declaration-that-provides-an-interface/">Zope3 zcml: A content class declaration that provides an interface</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>
+        </p>
+
+        <span class="post-date"><time>Oct 2, 2006</time></span>
+
+        <p class="discreet">&lt;content class=".bookmarker.BookMarker"&gt;
+&lt;implements
+interface="zope.app.annotation.interfaces.IAttributeAnnotatable"
+/&gt;
+&lt;/content&gt;  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/02/zope3-zcml-a-content-class-declaration-that-provides-an-interface/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/01/zope3-registering-a-help-page/">Zope3: Registering a help page</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>
+        </p>
+
+        <span class="post-date"><time>Oct 1, 2006</time></span>
+
+        <p class="discreet"> &lt;configure
+xmlns="http://namespaces.zope.org/zope"
+xmlns:help="http://namespaces.zope.org/help"
+&gt;
+&lt;!-- Register Help Topics --&gt;
+&lt;help:register
+id="zmi"
+title="Zope ZMI"
+doc_path="./help/ui.stx"
+resources="mgmt-main-1.png"
+/&gt;
+&lt;help:register id="welcome"
+parent="onlinehelp"
+title="Welcome"
+doc_path="./help/welcome.stx"
+/&gt;
+&lt;help:register
+id="onlinehelp"
+title="Online Help System"
+doc_path="./help/README.stx"
+/&gt;
+&lt;help:register
+id="styleguide"
+title="Zope Style Guide"
+doc_path="styleguides.txt"
+class="zope.app.onlinehelp.onlinehelptopic.RESTOnlineHelpTopic"
+/&gt;
+&lt;help:register
+id="css"
+parent="styleguide"
+title="CSS Style Guide"
+doc_path="index.html"
+class="zope.app.onlinehelp.onlinehelptopic.ZPTOnlineHelpTopic"
+/&gt;
+&lt;/configure&gt;
+  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/01/zope3-registering-a-help-page/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/01/dapper-&#43;-1--edgy/">Dapper &#43; 1 = Edgy</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Oct 1, 2006</time></span>
+
+        <p class="discreet">I've upgraded my laptop's Compaq nx6125 Dapper to Edgy yesterday. These are some of the issues and highlights that I encountered:
+The update manager that did the upgrade it is impressive, but the update was not entirely automatically, one of the gtk engine packages kept spewing errors. The update manager was able to go over this incident in the initial phase, but terminated with an error when it was about 95% to finishing the update. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/01/dapper-&#43;-1--edgy/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      <nav id="page-nav">
+
+    
+        <a class="extend prev" rel="prev" href="/page/14/">
+            « Previous 
+        </a>
+    
+    <a href="/">Home</a>
+    
+        <a class="extend next" rel="next" href="/page/16/">
+             Next »
+        </a>
+    
+
+</nav>
+
+    </section>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

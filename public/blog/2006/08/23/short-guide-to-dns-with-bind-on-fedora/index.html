@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Short guide to dns with bind on Fedora &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Short guide to dns with bind on Fedora</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/cookbook">cookbook</a>, <a href="/tags/linux">Linux</a>
+      </p>
+
+      <div class="post-date">
+        <span >Wed, Aug 23, 2006</span>,
+        <span id="wc"> 500 Words </span>
+      </div>
+      <p>I'm replacing a tinydns server with bind9, so I may as well put the setup here, as future reference.</p><p>First,</p><pre>yum install bind-chroot<br /></pre><p>to install the chrooted bind server.</p><p>Next, edit the /var/named/chroot/etc/named.conf</p><pre>options {<br />        directory "/var/named";<br />        dump-file "/var/named/data/cache_dump.db";<br />        statistics-file "/var/named/data/named_stats.txt";<br />        recursion no;<br />};<br />//root global<br />//life<br />zone "life.org.ro" {<br />    type master;<br />    file "/etc/db.life.org.ro";<br />    notify yes;<br />};<br />zone "0.0.127.in-addr.arpa" {<br />    type master;<br />    file "/etc/db.localhost";<br />    allow-update { none; };<br />};<br />zone "58.77.82.in-addr.arpa" {<br />    type master;<br />    file "/etc/db.82.77.58.133";<br />};<br />zone "caleidoscop.org.ro" {<br />    type master;<br />    file "/etc/db.caleidoscop.org.ro";<br />    notify yes;<br />};<br /><br />include "/etc/rndc.key";<br /></pre><p>I'm defining four zones: life.org.ro, reverse localhost (127.0.0.1), reverse dns for the IP and an extra host, caleidoscop.org.ro.</p><p>Now, the content of db.life.org.ro</p><p></p><p></p><pre>$TTL 86400<br />life.org.ro. IN  SOA  a.ns.life.org.ro. hostmaster.life.org.ro (<br />   2006082102   ; serial<br />   1h   ; refresh<br />   15m  ; retry<br />   15d  ; expire<br />   1h ) ; negative caching<br />; NAMESERVER<br />life.org.ro. IN NS a.ns.life.org.ro.    ; nameserver<br />;<br />; hosts (canonical names)<br />;<br />life.org.ro.            IN A  82.77.58.133<br />a.ns.life.org.ro.       IN A  82.77.58.133<br />mail.life.org.ro.       IN A  82.77.58.133<br />www.life.org.ro.        IN A  82.77.58.133<br />;<br />; mail exchanger<br />;<br />life.org.ro.    IN MX 10 mail.life.org.ro.<br />; SPF records<br />life.org.ro.         IN TXT "v=spf1 a mx ~all"<br />mail.life.org.ro.    IN TXT "v=spf1 a mx -all"</pre><p>The domain is registered at RNC (Romanian central dns registry) with 82.77.58.133 a.ns.life.org.ro, so I'm setting a.ns.life.org.ro as the authoritative nameserver in line 2, then define the nameserver, the hosts, mail exchanger and the SPF records (thanks to the <a href="http://openspf.org" target="_self">http://openspf.org</a> wizard). The server in itself has only one internet connection, with only one IP address, (no redundancies), so I've just defined one nameserver.<br /></p><p>Next, the reverse IP entry for 82.77.58.133, in db.82.77.58.133</p><pre>$TTL 3h<br />58.77.82.in-addr.arpa. IN  SOA  a.ns.life.org.ro. hostmaster.life.org.ro (<br />   1    ; serial<br />   1h   ; refresh<br />   15m  ; retry<br />   30d  ; expire<br />   1h ) ; negative caching<br /><br />; NAMESERVER<br />58.77.82.in-addr.arpa. IN NS a.ns.life.org.ro.  ; nameserver<br />;<br />; hosts (canonical names)<br />;<br />133.58.77.82.in-addr.arpa.      IN PTR    life.org.ro.<br /></pre><p>Just added a PTR record for life.org.ro</p><p>Now, the file db.caleidoscop.org.ro. I've defined the host, primary name server and SPF record.<br /></p><p></p><pre>$TTL 86400<br />caleidoscop.org.ro. IN  SOA  a.ns.life.org.ro. hostmaster.caleidoscop.org.ro (<br />   1    ; serial<br />   1h   ; refresh<br />   15m  ; retry<br />   30d  ; expire<br />   1h ) ; negative caching<br /><br />;<br />; hosts (canonical names)<br />;<br />caleidoscop.org.ro.       IN A  82.77.58.133<br />www.caleidoscop.org.ro.       IN A  82.77.58.133<br />;<br />; Aliases<br />;<br />;mail.life.org.ro.    IN CNAME server.life.org.ro.<br />;<br />; mail exchanger<br />;<br />caleidoscop.org.ro.    IN MX 10 mail.life.org.ro.<br />; SPF record<br />caleidoscop.org.ro. IN TXT "v=spf1 a mx ~all"</pre><p>Finally, the entry for db.localhost</p><pre>$TTL 3h<br />0.0.127.in-addr.arpa. IN SOA a.ns.life.org.ro. hostmaster.life.org.ro. (<br />                          1        ; Serial<br />                          3h       ; Refresh after 3 hours<br />                          1h       ; Retry after 1 hour<br />                          1w       ; Expire after 1 week<br />                          1h )     ; Negative caching TTL of 1 hour<br /><br />0.0.127.in-addr.arpa.  IN NS  a.ns.life.org.ro.<br />1.0.0.127.in-addr.arpa.  IN PTR localhost.</pre><p>That's about it. I may have made some mistakes, but checking the domains with <a href="http://dnsreport.com" target="_self">dnsreport </a>yields good reports, so I'll leave it like this.<br /></p>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace/"> Creating arbitrary objects in the current module namespace</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2006/08/23/capturing-print-statements-output/"> Capturing print statements output</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

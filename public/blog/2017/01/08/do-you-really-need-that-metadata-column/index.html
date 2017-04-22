@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Do you really need that metadata column? &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.html" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2016 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>Do you really need that metadata column?</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/zope2">zope2</a>, <a href="/tags/zope">zope</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/tutorial">tutorial</a>, <a href="/tags/zcatalog">ZCatalog</a>
+      </p>
+
+      <div class="post-date">
+        <span >Sun, Jan 8, 2017</span>,
+        <span id="wc"> 400 Words </span>
+      </div>
+      <p>It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&nbsp;</p>
+<p>As an example: when exploring collective.portlet.collectionfilter I've noticed that the definition of the filters need both the index name and the metadata column. Ex:</p>
+<pre>GROUPBY_CRITERIA = {
+    'Subject': {
+        'index': 'Subject',  # For querying
+        'metadata': 'Subject',  # For constructing the list
+        'display_modifier': None,  # For modifying list items (e.g. dates)
+        'query_range': None  # For range searches (e.g. for dates or numbers)
+    },
+...</pre>
+<div>The metadata is needed because the search result is a whole bag of brains and the portlet groups results by their values, so it needs to know the real values. With minimal changes it is possible to avoid the need for that metadata column.</div>
+<p>This is the original code in collectionfilter.py:</p>
+<pre>attr = GROUPBY_CRITERIA[self.data.group_by]['metadata']
+mod = GROUPBY_CRITERIA[self.data.group_by]['display_modifier']
+
+grouped_results = {}
+for item in results:
+    val = getattr(item, attr, None)
+    if callable(val):
+        val = val()
+    if not getattr(val, '__iter__', False):
+        val = [val]</pre>
+<div>And these are the minimal changes:</div>
+<pre>mod = GROUPBY_CRITERIA[self.data.group_by]['display_modifier']
+
+catalog = getToolByName(self.context, 'portal_catalog')
+unindex = catalog._catalog.indexes[idx]._unindex
+
+grouped_results = {}
+for item in results:
+    rid = item._brain.getRID()
+    # val = getattr(item, attr, None)
+    val = unindex.get(rid)
+    if callable(val):
+        val = val()
+    if not getattr(val, '__iter__', False):
+        val = [val]</pre>
+<p>It reads the field values from the _unindex mapping of the indexes (which exist for most of the indexes in the Plone catalog. Exceptions are indexes for Title, Description, getObjPositionInParent and SearchableText). Most of the ZCatalog indexes have two mappings where they store information: the forward "mapping" (field value =&gt; objectid) and the reverse mapping (object id =&gt; field value). In this above snippet we're reading the reverse mapping to get the original field value. So, no need for a dedicated metadata column.</p>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2017/01/05/auto-bootstrap-nvim-configuration/"> Auto-bootstrap (n)vim configuration</a>
+        </p>
+        
+        
+        <p class="next-link">
+        Next:
+        <a class="next" href="/blog/2017/01/18/editing-short-python-scripts-with-vim/"> Editing Short python scripts with vim</a>
+        <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
+        </p>
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+</body>
+</html>

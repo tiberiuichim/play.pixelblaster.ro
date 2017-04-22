@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code Repository on The Plone Expanse</title>
+    <link>/tags/code-repository/index.xml</link>
+    <description>Recent content in Code Repository on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <atom:link href="/tags/code-repository/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Open source Zope app in the news!</title>
+      <link>/blog/2007/03/26/open-source-zope-app-in-the-news/</link>
+      <pubDate>Mon, 26 Mar 2007 19:46:13 -0300</pubDate>
+      
+      <guid>/blog/2007/03/26/open-source-zope-app-in-the-news/</guid>
+      <description>&lt;p&gt;Today, on the front page of Slashdot, there was a link for an &lt;a href=&#34;http://www.zenoss.com/&#34;&gt;open source server monitoring &amp;amp; system management application&lt;/a&gt;. Well, what do you know, it runs on Zope 2! The visible source code is &lt;a href=&#34;http://dev.zenoss.org/trac/browser&#34;&gt;here&lt;/a&gt;&lt;br /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Fresh meat for programmers</title>
+      <link>/blog/2007/02/16/fresh-meat-for-programmers/</link>
+      <pubDate>Fri, 16 Feb 2007 20:52:16 -0200</pubDate>
+      
+      <guid>/blog/2007/02/16/fresh-meat-for-programmers/</guid>
+      <description>&lt;p&gt;I&#39;ve just discovered (or rediscovered) some resources that I think are important enough to highlight here.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The Zope Corporation has several eggs that are not published in the svn.zope.org subversion repository, eggs located at &lt;a href=&#34;http://download.zope.org&#34;&gt;download.zope.org&lt;/a&gt;. There are several very interesting packages there, including some to build an intranet. I&#39;ll definately have a look at them.&lt;/li&gt;&lt;li&gt;I&#39;ve rediscovered &lt;a href=&#34;http://openjsan.org/&#34;&gt;OpenJSAN&lt;/a&gt;, a Javascript repository full of goodies.&lt;br /&gt;&lt;/li&gt;&lt;li&gt;And its really nice &lt;a href=&#34;http://planet.openjsan.org/&#34;&gt;Planet Javascript&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
