@@ -17,9 +17,15 @@ Paginate = 10
     Description = "My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else"
     Copyright = "@2016 Tiberiu Ichim"
 
-    layoutReverse = true
+    # layoutReverse = true
     disqusShortName = "play-pixelblaster-ro"
     # themeColor = "theme-base-08"
+
+[[menu.main]]
+    name = "Archive"
+    weight = 3
+    post = "<i class='fa fa-calendar' aria-hidden='true'></i>"
+    url = "/archive"
 
 [[menu.main]]
     name = "Tags"
@@ -28,7 +34,7 @@ Paginate = 10
     url = "/tags"
 
 [[menu.main]]
-    name = "RSS"
+    name = "Subscribe by RSS"
     weight = 10
     post = "<i class='fa fa-rss' aria-hidden='true'></i>"
     url = "/index.xml"
