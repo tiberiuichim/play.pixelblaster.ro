@@ -70,6 +70,33 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/27/specify-creation-roles-for-agx-generated-content/">Specify creation roles for AGX generated content</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 27, 2006</time></span>
+
+        <p class="discreet">An observation: when you want to specify the roles that are required for a user to have in order to create a piece of content, you'll have to also specify a creation permission.
+This means that the following tagged values are required, to something like:
+creation_permission = Create MyContent
+creation_roles = python: ('Anonymous', 'Member')This generates the following code in config.py:
+DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
+setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, ('Manager', 'Owner'))
+ADD_CONTENT_PERMISSIONS = { [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/27/specify-creation-roles-for-agx-generated-content/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/08/23/creating-and-managing-a-windows-service-part-4/">Creating and managing a Windows service (part 4)</a></h2>
 
         <p class="post-tags">
@@ -321,28 +348,6 @@ The reason is that the panel component will enable tab traversal. Also, the pane
 
         <div class="read-more-link">
           <a href="/blog/2006/08/13/small-tip-when-using-wxwidgets/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/13/miniguide-to-openldap/">Miniguide to openldap</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/linux">Linux</a>
-        </p>
-
-        <span class="post-date"><time>Aug 13, 2006</time></span>
-
-        <p class="discreet">LDAP is a lot easier then one might think at first sight. First, reading this short introduction to LDAP will tell us that LDAP is just an object database, that holds trees of objects and schemas of those objects. This is nice and easy for anyone acustomed to ZODB and Archetypes.
-Next, installing. The OpenLDAP server on Debian is called slapd, so apt-get install slapd. After that, run dpkg-reconfigure -plow slapd which will allow reconfiguring the domains. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/13/miniguide-to-openldap/">Read More&rarr;</a>
         </div>
 
       </div>

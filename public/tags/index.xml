@@ -69,7 +69,7 @@
     <item>
       <title>Cookbook</title>
       <link>/tags/cookbook/</link>
-      <pubDate>Thu, 02 Mar 2017 14:54:52 +0100</pubDate>
+      <pubDate>Sun, 23 Apr 2017 16:12:13 +0300</pubDate>
       
       <guid>/tags/cookbook/</guid>
       <description></description>
@@ -204,7 +204,7 @@
     <item>
       <title>Javascript</title>
       <link>/tags/javascript/</link>
-      <pubDate>Mon, 15 Sep 2008 14:38:42 -0300</pubDate>
+      <pubDate>Sun, 23 Apr 2017 16:12:13 +0300</pubDate>
       
       <guid>/tags/javascript/</guid>
       <description></description>
@@ -303,7 +303,7 @@
     <item>
       <title>Plone</title>
       <link>/tags/plone/</link>
-      <pubDate>Sat, 25 Feb 2017 19:29:37 +0100</pubDate>
+      <pubDate>Sun, 23 Apr 2017 16:12:13 +0300</pubDate>
       
       <guid>/tags/plone/</guid>
       <description></description>
@@ -387,6 +387,24 @@
       <pubDate>Mon, 02 Jan 2017 09:46:35 -0100</pubDate>
       
       <guid>/tags/rants/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Requirejs</title>
+      <link>/tags/requirejs/</link>
+      <pubDate>Sun, 23 Apr 2017 16:12:13 +0300</pubDate>
+      
+      <guid>/tags/requirejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Riotjs</title>
+      <link>/tags/riotjs/</link>
+      <pubDate>Sun, 23 Apr 2017 16:12:13 +0300</pubDate>
+      
+      <guid>/tags/riotjs/</guid>
       <description></description>
     </item>
     

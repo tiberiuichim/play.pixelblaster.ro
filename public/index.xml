@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <lastBuildDate>Wed, 05 Apr 2017 09:24:08 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 23 Apr 2017 16:12:13 +0300</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hello world with plone riotjs</title>
+      <link>/blog/2017/04/23/hello-world-with-plone-riotjs/</link>
+      <pubDate>Sun, 23 Apr 2017 16:12:13 +0300</pubDate>
+      
+      <guid>/blog/2017/04/23/hello-world-with-plone-riotjs/</guid>
+      <description>I&amp;rsquo;m working on a somewhat weird experiment. My end goal is to have a user friendly (and mobile friendly) faceted search interface over the items of a collection.
+Seen through the eyes of my recent experience with VueJS, the classic Plone frontend APIs, such as JQuery and Patternslib/Mockup seem outdated and hard to digest. Any dedicated frontend UI library will seem much friendlier.
+My self-imposed requirements were:
+ easy to work with, easily integrated.</description>
+    </item>
     
     <item>
       <title>When did tmux get plugins?</title>
@@ -2255,7 +2267,7 @@ pass #do something here </description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/archive/</guid>
-      <description>Hello world</description>
+      <description></description>
     </item>
     
   </channel>
