@@ -2,7 +2,7 @@
 Description = ""
 Tags = ["Plone","cookbook", "Javascript", "requirejs", "riotjs"]
 date = "2017-04-23T16:12:13+03:00"
-title = "Hello world with plone riotjs"
+title = "Hello world with Plone and Riot (Javascript frontent library)"
 
 +++
 
