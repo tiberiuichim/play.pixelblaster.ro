@@ -100,19 +100,19 @@ based</li>
 
 <p>To all of the above, after a short look at MithrilJS, it seems like the best
 match is Riot.  For the backend I&rsquo;ve installed
-(plone.restapi)[<a href="https://github.com/plone/plone.restapi">https://github.com/plone/plone.restapi</a>] and this will grant
+<a href="https://github.com/plone/plone.restapi">plone.restapi</a> and this will grant
 a JSON based access, from the Plone backend, to the frontend API library.</p>
 
 <p>The first hurdle was figguring out how to load Riot in Plone. The <code>Mismatched
-anonymous define() module:</code> error in the new <code>:q</code> puzzle of our time. Simply
-trying to load the Riot library with a <code>&lt;script&gt;</code> tag is impossible due to
-the, now available, AMD support with requirejs in Plone. After much
-headscratching, reading some Plone related forum threads that made no sense,
-I&rsquo;ve finally figured it out. The main problem is that I foolishly thought that,
-by registering a new resource, in the Resource Registries configlet, with the
+anonymous define() module:</code> error is the new <code>:q</code> puzzle of our time. Simply
+trying to load the Riot library with a <code>&lt;script&gt;</code> tag is impossible, due to
+the now available AMD support in Plone. After much
+headscratching and reading some Plone related forum threads that made no sense,
+I&rsquo;ve finally figured it out. The main problem is that I foolishly thought that
+just registering a new resource in the Resource Registries configlet, with the
 proper URL, would be enough for Plone to understand that it&rsquo;s dealing with
 a requirejs compatible library. Even &ldquo;manually&rdquo; declaring, in the resource
-registration,  that it exports &ldquo;riot&rdquo; as a module didn&rsquo;t help.</p>
+registration, that it exports &ldquo;riot&rdquo; as a module, didn&rsquo;t help.</p>
 
 <p>The solution is to register a simple <code>++resource++my/app.js</code> file in the
 Resource Registries, with the following contents:</p>
@@ -133,18 +133,19 @@ require(['riot', 'tags'], function(riot) {
 });
 </code></pre>
 
-<p>First, we register two libraries: &lsquo;riot&rsquo; and &lsquo;tags&rsquo;. Notice that, while they
-all point to a js file, they&rsquo;re missing the .js extension. At last, there&rsquo;s
-a simple function, integrated with the requirejs machinery, that triggers the
-riotjs tag mounting process. But what is that <code>riot-tags</code>, you&rsquo;ll ask?</p>
+<p>The above code does the following: first, we register two libraries: &lsquo;riot&rsquo; and
+&lsquo;tags&rsquo;. Notice that, while they all point to a js file, they&rsquo;re missing the .js
+extension. And last, there&rsquo;s a simple function, integrated with the requirejs
+machinery, that triggers the riotjs tag mounting process. But what is that
+<code>riot-tags</code>, you&rsquo;ll ask?</p>
 
-<p>Well, one thing I love about Vuejs (beyond its API simplicity) is the single-file
+<p>One thing I love about Vuejs (beyond its API simplicity) is the single-file
 components. The Riot tags (basically the equivalent of components) are single
-.tag files that can be compiled and automatically mounted in the full page DOM.
-Neat.</p>
+files (usually with a .tag extension) that can be compiled and automatically
+mounted in the full page DOM.  Neat.</p>
 
-<p>Now, for that promised &ldquo;hello world&rdquo;: in my statics folder, I&rsquo;ve created a new
-folder called &ldquo;tags&rdquo;. Inside, the simplest component:</p>
+<p>Now for that promised &ldquo;hello world&rdquo;: in my statics folder, I&rsquo;ve created a new
+folder called &ldquo;tags&rdquo;. Inside, the simplest component,</p>
 
 <pre><code class="language-html">&lt;hello&gt;
   &lt;h2&gt;HTML text&lt;/h2&gt;
@@ -155,18 +156,20 @@ folder called &ldquo;tags&rdquo;. Inside, the simplest component:</p>
 &lt;/hello&gt;
 </code></pre>
 
-<p>saved as &ldquo;hello-world.tag&rdquo;.</p>
+<p>saved as <code>hello-world.tag</code>.</p>
 
-<p>Now, compile the whole tags folder as a single js file, using the riot compiler
+<p>Next, compile the whole tags folder as a single js file, using the riot compiler
 (easily installed with <code>npm -g install riot</code>):</p>
 
 <pre><code>$ riot -m -w ./tags/ riot-tags.js
 </code></pre>
 
 <p>Run in the statics folder, this will create the riot-tags.js file, which will
-be further included as detailed above.</p>
+be further included as detailed above. The generated file is AMD compatible
+(the <code>-m</code> flag, and it watches the <code>tags</code> folder for changes.</p>
 
-<p>And finally, in a Plone template, insert a simple <code>&lt;hello&gt;&lt;/hello&gt;</code> tag.</p>
+<p>And finally, in a Plone template, insert a simple <code>&lt;hello&gt;&lt;/hello&gt;</code> tag.
+Hello world, indeed.</p>
 
 
       <div id="nextprev">
