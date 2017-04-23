@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bugs on The Plone Expanse</title>
-    <link>/tags/bugs/index.xml</link>
+    <link>/tags/bugs/</link>
     <description>Recent content in Bugs on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/bugs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Jun 2016 12:28:29 -0200</lastBuildDate>
+    
+	<atom:link href="/tags/bugs/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>The case of the strange RichText widgets</title>
@@ -15,77 +18,8 @@
       <pubDate>Mon, 13 Jun 2016 12:28:29 -0200</pubDate>
       
       <guid>/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/</guid>
-      <description>&lt;p&gt;On a Plone 4.3 with plone.app.widgets 1.8.0 and plone.app.contenttypes 1.1b5 installed, there&#39;s one weird bit of inconsistency:&lt;/p&gt;
-&lt;p&gt;The TinyMCE widget rendered by the plone.app.contenttype&#39;s IRichText behaviour is different from any other RichText field added in the dexterity model. Even on the same page, for example, if I edit the Document dexterity type and add a rich text field, the resulting widget is different. How do I know? Try inserting an image by selecting it, in the popup dialog, from the site content browser. In the case of the IRichText text field, it will work, but it will not work for the default text field. So why is that? The IRichText schema could be nothing simpler:&lt;/p&gt;
-&lt;pre&gt;from plone.app.textfield import RichText as RichTextField
-
-
-@provider(IFormFieldProvider)
-class IRichText(model.Schema):
-
-    text = RichTextField(
-        title=_(u&#39;Text&#39;),
-        description=u&#34;&#34;,
-        required=False,
-    )&lt;/pre&gt;
-&lt;p&gt;The answer is: it&#39;s a different widget, not the one coming from plone.app.textfield. plone.app.widgets replaces the widget for the IRichText.text field:&lt;/p&gt;
-&lt;p&gt;(see dx_bbb.py):&lt;/p&gt;
-&lt;pre&gt;from plone.app.widgets.dx import RichTextWidget
-
-try:
-    from plone.app.contenttypes.behaviors.collection import ICollection
-    from plone.app.contenttypes.behaviors.richtext import IRichText
-    HAS_PAC = True
-except ImportError:
-    HAS_PAC = False
-...
-if HAS_PAC:
-...
-    @adapter(getSpecification(IRichText[&#39;text&#39;]), IWidgetsLayer)
-    @implementer(IFieldWidget)
-    def RichTextFieldWidget(field, request):
-        return FieldWidget(field, RichTextWidget(request))&lt;/pre&gt;
-&lt;p&gt;And this is the code that actually fixes the relatedItems popup widget that enables embeding images in the text (from plone.app.widgets.utils.get_tinymce_options ):&lt;/p&gt;
-&lt;pre&gt;        args[&#39;pattern_options&#39;] = {
-            &#39;relatedItems&#39;: {
-                &#39;vocabularyUrl&#39;: &#39;{0}/{1}&#39;.format(
-                    config[&#39;portal_url&#39;],
-                    &#39;@@getVocabulary?name=plone.app.vocabularies.Catalog&#39;
-                ),
-                &#39;mode&#39;: &#39;browse&#39;,
-                &#39;basePath&#39;: folder_path,
-                &#39;folderTypes&#39;: utility.containsobjects.split(&#39;\n&#39;)
-            },
-            &#39;upload&#39;: {
-                &#39;initialFolder&#39;: initial,
-                &#39;currentPath&#39;: folder_url_relative,
-                &#39;baseUrl&#39;: config[&#39;document_base_url&#39;],
-                &#39;relativePath&#39;: &#39;@@fileUpload&#39;,
-                &#39;uploadMultiple&#39;: False,
-                &#39;maxFiles&#39;: 1,
-                &#39;showTitle&#39;: False
-            },
-            &#39;tiny&#39;: config,
-            # This is for loading the languages on tinymce
-            &#39;loadingBaseUrl&#39;: &#39;++resource++plone.app.widgets.tinymce&#39;,
-            &#39;prependToUrl&#39;: &#39;resolveuid/&#39;,
-            &#39;linkAttribute&#39;: &#39;UID&#39;,
-            &#39;prependToScalePart&#39;: &#39;/@@images/image/&#39;,
-            &#39;folderTypes&#39;: utility.containsobjects.split(&#39;\n&#39;),
-            &#39;imageTypes&#39;: utility.imageobjects.split(&#39;\n&#39;),
-            &#39;anchorSelector&#39;: utility.anchor_selector,
-            &#39;linkableTypes&#39;: utility.linkable.split(&#39;\n&#39;)
-        }&lt;/pre&gt;
-&lt;div&gt;The relatedItems options is not filled in in the TinyMCE widget rendered directly by plone.app.textfield.&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;So, in my case, the fix is to register an adapter:&lt;/div&gt;
-&lt;pre&gt;    Fix RichText widget: the plone.app.widgets provided one has proper relatedItems configuration
-    &amp;lt;adapter
-        for=&#34;plone.app.textfield.interfaces.IRichText mypackage.IMyLayer&#34;
-        factory=&#34;plone.app.widgets.dx.RichTextFieldWidget&#34;
-        /&amp;gt;&lt;/pre&gt;
-&lt;div&gt;Which only exposes a bug in collective.cover / plone.app.tiles, due to the way&amp;nbsp;get_tinymce_options works. Oh well, moving on...&lt;/div&gt;
-</description>
+      <description>On a Plone 4.3 with plone.app.widgets 1.8.0 and plone.app.contenttypes 1.1b5 installed, there&#39;s one weird bit of inconsistency:
+The TinyMCE widget rendered by the plone.app.contenttype&#39;s IRichText behaviour is different from any other RichText field added in the dexterity model. Even on the same page, for example, if I edit the Document dexterity type and add a rich text field, the resulting widget is different. How do I know? Try inserting an image by selecting it, in the popup dialog, from the site content browser.</description>
     </item>
     
   </channel>

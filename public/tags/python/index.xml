@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on The Plone Expanse</title>
-    <link>/tags/python/index.xml</link>
+    <link>/tags/python/</link>
     <description>Recent content in Python on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Feb 2017 06:33:34 +0100</lastBuildDate>
+    
+	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Python packaging vs npm</title>
@@ -15,44 +18,9 @@
       <pubDate>Wed, 22 Feb 2017 06:33:34 +0100</pubDate>
       
       <guid>/blog/2017/02/22/python-packaging-vs-npm/</guid>
-      <description>&lt;p&gt;I admit, Python packages are a bit more difficult to understand, for a newbie.
-I have witnessed this problem a lot, lately, when dealing with new people
-trying to learn the Python development process.&lt;/p&gt;
-
-&lt;p&gt;There is a mountain of information that needs to be climbed, to understand
-Python packages:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;the namespace concept&lt;/li&gt;
-&lt;li&gt;the matter of OS security&lt;/li&gt;
-&lt;li&gt;the full cycle of an application, from development to deployment and
-maintainance&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;And this are just basics, in addition to the
-distutils/setuptools/virtualenv/pip or zc.buildout information that needs to be
-digested, to properly use python packages.&lt;/p&gt;
-
-&lt;p&gt;But the (unintended) consequence is that the existing published packages on
-PyPI are usually high(er) quality, and some of them are even documented.
-I don&amp;rsquo;t think there&amp;rsquo;s such a brag right in the Python community &amp;ldquo;I have
-published X amount of packages on pypi&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;Evil and stupid and a huge waste of time. How else would I qualify this
-package, hello.js, installed by mistaked when I actually wanted hellojs:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var sayHello = function  (argument) {
-	// body...
-	return &amp;quot;sayHello&amp;quot;;
-}
-
-module.exports=sayHello;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Why in the world is this thing allowed to polute the world with its bits? I&amp;rsquo;ve
-read about &amp;ldquo;placeholder packages&amp;rdquo; and &amp;ldquo;reserving names&amp;rdquo; and that&amp;rsquo;s crazy.
-Developers should focus on quality of code, not bragging rights.&lt;/p&gt;
-</description>
+      <description>I admit, Python packages are a bit more difficult to understand, for a newbie. I have witnessed this problem a lot, lately, when dealing with new people trying to learn the Python development process.
+There is a mountain of information that needs to be climbed, to understand Python packages:
+ the namespace concept the matter of OS security the full cycle of an application, from development to deployment and maintainance  And this are just basics, in addition to the distutils/setuptools/virtualenv/pip or zc.</description>
     </item>
     
     <item>
@@ -61,41 +29,9 @@ Developers should focus on quality of code, not bragging rights.&lt;/p&gt;
       <pubDate>Sat, 21 Jan 2017 00:19:31 +0100</pubDate>
       
       <guid>/blog/2017/01/21/another-way-to-index-category-labels-in-categorization-tasks/</guid>
-      <description>&lt;p&gt;One common task in machine-based categorization tasks is to relabel data with
-a numeric value, an index, where before that data was labeled with a string.&lt;/p&gt;
-
-&lt;p&gt;The basic Python code would be something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;label_index = {}
-labels = []
-for l in string_labels:
-    if l not in label_index:
-        label_index[l] = len(label_index)
-    labels.append(label_index[l])&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;While writing that bit of code from above, I realized that a word tokenizer can
-do the same thing. This would be the equivalent, using
-&lt;code&gt;keras.preprocessing.text.Tokenizer&lt;/code&gt; and numpy.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;t = Tokenizer()
-t.fit_on_texts(_labels)
-seqs = t.texts_to_sequences(_labels)
-# seqs is a list of lists, something like:
-# [[1], [2], [1], [3] ... ]
-labels = np.array(seqs)[:,0] - 1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And now &lt;code&gt;t.word_index&lt;/code&gt; holds the word to index mapping. &lt;code&gt;np.array(seqs)[:,0]&lt;/code&gt;
-returns a list with the first element (at index 0) of the second dimension of
-the np array. The arithmetic operation of the end applies to each member of
-the array and is needed because the tokenizer starts indexing words at 1.&lt;/p&gt;
-
-&lt;p&gt;Of course, the second way is convoluted, needs to process the list of labels
-twice, uses two addon libraries (but probably already present for the domain
-of this task) and needs some basic knowledge of numpy to be readable by others.
-YMMV. I wonder which method is faster, on a bigger chunk of data.&lt;/p&gt;
-</description>
+      <description>One common task in machine-based categorization tasks is to relabel data with a numeric value, an index, where before that data was labeled with a string.
+The basic Python code would be something like this:
+label_index = {} labels = [] for l in string_labels: if l not in label_index: label_index[l] = len(label_index) labels.append(label_index[l])&amp;gt;  While writing that bit of code from above, I realized that a word tokenizer can do the same thing.</description>
     </item>
     
     <item>
@@ -104,32 +40,8 @@ YMMV. I wonder which method is faster, on a bigger chunk of data.&lt;/p&gt;
       <pubDate>Fri, 20 Jan 2017 17:24:40 +0100</pubDate>
       
       <guid>/blog/2017/01/20/how-to-shuffle-two-arrays-to-the-same-order/</guid>
-      <description>&lt;p&gt;This is a small recipe on how to get two arrays with the same shape (same
-length) shuffled with the same &amp;ldquo;random seed&amp;rdquo;. This is useful when the two
-arrays hold related data (for example, one holds values and the other one holds
-labels for those values).&lt;/p&gt;
-
-&lt;p&gt;It takes advantage of the fact that numpy arrays can be indexed with other
-arrays, something that seems really magical when compared to regular python
-arrays.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; import numpy as np
-&amp;gt;&amp;gt;&amp;gt; x = np.arange(10)
-&amp;gt;&amp;gt;&amp;gt; y = np.arange(9, -1, -1)
-&amp;gt;&amp;gt;&amp;gt; x
-array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-&amp;gt;&amp;gt;&amp;gt; y
-array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
-&amp;gt;&amp;gt;&amp;gt; s = np.arange(x.shape[0])
-&amp;gt;&amp;gt;&amp;gt; np.random.shuffle(s)
-&amp;gt;&amp;gt;&amp;gt; s
-array([9, 3, 5, 2, 6, 0, 8, 1, 4, 7])
-&amp;gt;&amp;gt;&amp;gt; x[s]
-array([9, 3, 5, 2, 6, 0, 8, 1, 4, 7])
-&amp;gt;&amp;gt;&amp;gt; y[s]
-array([0, 6, 4, 7, 3, 9, 1, 8, 5, 2])
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>This is a small recipe on how to get two arrays with the same shape (same length) shuffled with the same &amp;ldquo;random seed&amp;rdquo;. This is useful when the two arrays hold related data (for example, one holds values and the other one holds labels for those values).
+It takes advantage of the fact that numpy arrays can be indexed with other arrays, something that seems really magical when compared to regular python arrays.</description>
     </item>
     
     <item>
@@ -138,50 +50,8 @@ array([0, 6, 4, 7, 3, 9, 1, 8, 5, 2])
       <pubDate>Mon, 16 Jan 2012 15:32:10 -0200</pubDate>
       
       <guid>/blog/2012/01/16/a-simple-epub-file-renaming-utility/</guid>
-      <description>&lt;p&gt;I have a couple of epub files that have random names assigned to them, and I wanted to rename them based on their metadata, in the form Author - Title. Below is what I came up with:&lt;/p&gt;
-&lt;pre&gt;#!/usr/bin/python
-
-from zipfile import ZipFile
-import lxml.etree
-import os.path
-import shutil
-import sys
-
-namespaces = {
-        &#39;u&#39;:&#34;urn:oasis:names:tc:opendocument:xmlns:container&#34;,
-        &#39;xsi&#39;:&#34;http://www.w3.org/2001/XMLSchema-instance&#34;,
-        &#39;opf&#39;:&#34;http://www.idpf.org/2007/opf&#34;, 
-        &#39;dcterms&#39;:&#34;http://purl.org/dc/terms/&#34;,
-        &#39;calibre&#39;:&#34;http://calibre.kovidgoyal.net/2009/metadata&#34;,
-        &#39;dc&#39;:&#34;http://purl.org/dc/elements/1.1/&#34;,
-        }
-
-def main():
-    if len(sys.argv) != 2:
-        print &#34;Need a path.&#34;
-        sys.exit(1)
-
-    fpath = sys.argv[1]
-    zip = ZipFile(fpath)
-    meta = zip.read(&#34;META-INF/container.xml&#34;)
-    e = lxml.etree.fromstring(meta)
-    rootfile = e.xpath(&#34;/u:container/u:rootfiles/u:rootfile&#34;, 
-            namespaces=namespaces)[0]
-    path = rootfile.get(&#39;full-path&#39;)
-    opf = zip.read(path)
-    e = lxml.etree.fromstring(opf)
-    title = e.xpath(&#34;//dc:title&#34;, namespaces=namespaces)[0].text
-    author = e.xpath(&#34;//dc:creator&#34;, namespaces=namespaces)[0].text
-
-
-    base = os.path.dirname(fpath)
-    new_name = &#34;%s - %s.epub&#34; % (author, title)
-    shutil.move(fpath, os.path.join(base, new_name))
-
-if __name__ == &#34;__main__&#34;:
-    main()
-&lt;/pre&gt;
-</description>
+      <description>I have a couple of epub files that have random names assigned to them, and I wanted to rename them based on their metadata, in the form Author - Title. Below is what I came up with:
+#!/usr/bin/python from zipfile import ZipFile import lxml.etree import os.path import shutil import sys namespaces = { &#39;u&#39;:&#34;urn:oasis:names:tc:opendocument:xmlns:container&#34;, &#39;xsi&#39;:&#34;http://www.w3.org/2001/XMLSchema-instance&#34;, &#39;opf&#39;:&#34;http://www.idpf.org/2007/opf&#34;, &#39;dcterms&#39;:&#34;http://purl.org/dc/terms/&#34;, &#39;calibre&#39;:&#34;http://calibre.kovidgoyal.net/2009/metadata&#34;, &#39;dc&#39;:&#34;http://purl.org/dc/elements/1.1/&#34;, } def main(): if len(sys.argv) != 2: print &#34;Need a path.&#34; sys.</description>
     </item>
     
     <item>
@@ -190,21 +60,8 @@ if __name__ == &#34;__main__&#34;:
       <pubDate>Wed, 12 May 2010 11:21:44 -0300</pubDate>
       
       <guid>/blog/2010/05/12/some-issues-with-zc.recipe.eggs-python-option/</guid>
-      <description>&lt;p&gt;I&#39;ve recently had to integrate a script/package into a Plone 2.5 buildout that runs on top of Python 2.4. Due to that package&#39;s dependence of a sane imaplib (and the one in Python 2.4 is buggy), I had to run the script with python2.6. To make a script run on a different python, you need to do:&lt;/p&gt;
-&lt;pre&gt;[myscript]
-recipe = zc.regipe.egg
-eggs = 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; myegg
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; IMAPClient
-python = python26&lt;/pre&gt;
-&lt;p&gt;The python26 option is actually the name of a buildout part that configures the python executable path&lt;/p&gt;
-&lt;pre&gt;[python26]
-python = /usr/bin/python26
-&lt;/pre&gt;
-&lt;p&gt;Now the problems. I&#39;ve had various buildouts fail with a message &#34;Cannot find egg myegg&#34;. After a bit of effort, we managed to trace the cause to this problem:&lt;/p&gt;
-&lt;p&gt;First, the python path in the [python26] part was incorect. Second, even if it pointed to the proper binary, the -devel packages for that python needed to be installed.&lt;/p&gt;
-&lt;p&gt;Well, now I know. Hopefully I&#39;ll remember it for the next time when I&#39;ll encounter the problem.&lt;/p&gt;
-</description>
+      <description>I&#39;ve recently had to integrate a script/package into a Plone 2.5 buildout that runs on top of Python 2.4. Due to that package&#39;s dependence of a sane imaplib (and the one in Python 2.4 is buggy), I had to run the script with python2.6. To make a script run on a different python, you need to do:
+[myscript] recipe = zc.regipe.egg eggs = &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; myegg &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; IMAPClient python = python26 The python26 option is actually the name of a buildout part that configures the python executable path</description>
     </item>
     
     <item>
@@ -213,10 +70,8 @@ python = /usr/bin/python26
       <pubDate>Thu, 28 Jan 2010 21:29:31 -0200</pubDate>
       
       <guid>/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/</guid>
-      <description>&lt;p&gt;I&#39;ve had a buildout bootstrap process failure, this time a weird one, perhaps I should document the bug and report it.&lt;/p&gt;
-&lt;p&gt;The latest Ubuntu version which I have installed (Lucid Lynx) comes with a package called python-pkg-resources, which packages &lt;a class=&#34;external-link&#34; href=&#34;http://www.python.org/dev/peps/pep-0365/&#34;&gt;pkg_resources&lt;/a&gt;, which used to be available only through the setuptools distribution. Buildout&#39;s bootstrap.py  tries to guess if Setuptools or Distribute are installed by checking the availability of pkg_resources; by guessing wrong it all comes to a crash at the end.&lt;/p&gt;
-&lt;p&gt;I&#39;m not very interested in debugging these types of problems anymore. Distribution/packaging tools should just work. I want to focus on my work, not debug the toolchain. No more corner cases or whatver. So I&#39;m gonna compile separate Pythons in the future, especially when dealing with older Zope/Plones.&lt;/p&gt;
-</description>
+      <description>I&#39;ve had a buildout bootstrap process failure, this time a weird one, perhaps I should document the bug and report it.
+The latest Ubuntu version which I have installed (Lucid Lynx) comes with a package called python-pkg-resources, which packages pkg_resources, which used to be available only through the setuptools distribution. Buildout&#39;s bootstrap.py tries to guess if Setuptools or Distribute are installed by checking the availability of pkg_resources; by guessing wrong it all comes to a crash at the end.</description>
     </item>
     
     <item>
@@ -225,12 +80,7 @@ python = /usr/bin/python26
       <pubDate>Thu, 28 Jan 2010 20:57:23 -0200</pubDate>
       
       <guid>/blog/2010/01/28/dear-pypi-uploaders-dont-use-a-download-url-upload-your-package-instead/</guid>
-      <description>&lt;p&gt;I think this is the Python Index biggest mistake, the one which makes it unreliable for serious development environments: exposing package entries with no real package files and just a download URL. To see what I&#39;m talking about, just examine the PyPI records for &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/BeautifulSoup&#34;&gt;BeautifulSoup&lt;/a&gt;
- or &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/ipython/&#34;&gt;IPython&lt;/a&gt;,
- packages that are very common in buildouts. As soon as the author and publisher of that package has a hosting problem, the developer that uses that package also has a problem. Buildouts will completely fail and this will cause dead times and frustration for the developers.&lt;/p&gt;
-&lt;p&gt;Yes, there are a couple of PyPi mirrors, but they only mirror files hosted by PyPi. The central PyPi site will probably have better performance and availability then what individual groups and developers can provide and it&#39;s always easier to mirror one single website than many, so there&#39;s no shame or loss of pride in using the PyPi to host your files. Please do so!&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
-</description>
+      <description>I think this is the Python Index biggest mistake, the one which makes it unreliable for serious development environments: exposing package entries with no real package files and just a download URL. To see what I&#39;m talking about, just examine the PyPI records for BeautifulSoup or IPython, packages that are very common in buildouts. As soon as the author and publisher of that package has a hosting problem, the developer that uses that package also has a problem.</description>
     </item>
     
     <item>
@@ -239,10 +89,7 @@ python = /usr/bin/python26
       <pubDate>Wed, 05 Aug 2009 11:39:26 -0300</pubDate>
       
       <guid>/blog/2009/08/05/reportlab-is-one-frustrating-piece-of-software.../</guid>
-      <description>&lt;p&gt;I&#39;m starting to grow a strong dislike to it, enough to steer me off Python to JVM, with Jython or Scala. Case in point: its authors considered that it&#39;s appropriate to overload the Paragraph class from the platypus module, to make it accept a form of &#34;xml&#34;. There&#39;s no switch to disable this behavior and its xml handling is something straight out of the 90&#39;s: no namespaces, no validation. What happens for example, when you&#39;re trying to make a paragraph with the text:&lt;/p&gt;
-&lt;pre&gt; &#34;Some html documents contain &amp;lt;img&amp;gt; tags&#34;&lt;/pre&gt;
-&lt;p&gt;That&#39;s right, you&#39;ll encounter an error. The &#34;&amp;lt;img&amp;gt;&#34; fragment is interpreted as an img tag for the Paragraph, which will then complain that it&#39;s missing a src attribute. I wonder how can ReportLab be promoted as an enterprise solution and still display this behavior. The easiest solution, in my opinion, would be to create a new class that accepts properly formated xml, and RL&#39;s special tags need to be isolated in a new namespace. Fortunately, for the time being, I can do a replace for the &#34;&amp;lt;&#34; character with the &amp;amp;lt; entity.&lt;/p&gt;
-</description>
+      <description>I&#39;m starting to grow a strong dislike to it, enough to steer me off Python to JVM, with Jython or Scala. Case in point: its authors considered that it&#39;s appropriate to overload the Paragraph class from the platypus module, to make it accept a form of &#34;xml&#34;. There&#39;s no switch to disable this behavior and its xml handling is something straight out of the 90&#39;s: no namespaces, no validation. What happens for example, when you&#39;re trying to make a paragraph with the text:</description>
     </item>
     
     <item>
@@ -251,49 +98,7 @@ python = /usr/bin/python26
       <pubDate>Sun, 15 Feb 2009 16:04:39 -0200</pubDate>
       
       <guid>/blog/2009/02/15/using-mechanize-to-process-protected-plone-pages/</guid>
-      <description>&lt;p&gt;One of my long-running projects involves a workflow where content is produced in a Plone site, with the data later extracted and processed in various ways (including scripting Scribus to layout this data in a book). Initially the site where the content was produced wasn&#39;t protected, so I could run a simple urllib script to download the content and process it using lxml. A recent change in the workflow security settings meant this script didn&#39;t work anymore and I had to remember how to login into a Plone site using urllib2. Some google searches found me nothing, but I remembered that the zope.testbrowser can be easily used to run a programatical browsing session, complete with cookies support. But trying to install zope.testbrowser standalone in a buildout didn&#39;t lend to too much success, due to some dependency problems (and even after I covered for those dependencies, it still broke somewhere in zope.app.testing).&lt;/p&gt;
-&lt;p&gt;The solution was to use just the &lt;a class=&#34;external-link&#34; href=&#34;http://wwwsearch.sourceforge.net/mechanize/&#34;&gt;mechanize&lt;/a&gt; package, on top of which zope.testbrowser is built. &lt;a class=&#34;external-link&#34; href=&#34;http://wwwsearch.sourceforge.net/mechanize/&#34;&gt;mechanize&lt;/a&gt; has a slightly different API (more modern) and doesn&#39;t do so much handholding as zope.testbrowser, but I only need to process one form. In the end my script looks something like this (the asxmllist page is just an xml page that returns a list of urls to the entities that I want to process):&lt;/p&gt;
-&lt;pre&gt;import lxml.etree
-import os
-import os.path
-import urllib
-import mechanize
-
-loginurl = &#34;http://example.com/login_form&#34;
-listurl = &#34;http://example.com/asxmllist&#34;
-
-def run():
-    curdir = os.getcwd()
-    datadir = os.path.join(curdir, &#39;data&#39;)
-    if not os.path.exists(datadir):
-        os.makedirs(datadir)
-    
-    b = mechanize.Browser()
-    b.open(loginurl)
-    b.select_form(nr=1)
-    b[&#39;__ac_name&#39;] = &#34;username&#34;
-    b[&#39;__ac_password&#39;] = &#34;password&#34;
-    b.submit()
-    b.open(listurl)
-    etree = lxml.etree.parse(b.response())
-    
-    for entry in etree.xpath(&#39;//entry&#39;):
-        url = entry.get(&#39;url&#39;)
-        print &#34;Processing &#34; + url
-        e = lxml.etree.parse(b.open(url + &#39;/asxml&#39;))
-        id = e.find(&#39;id&#39;).text
-        print &#34;Got entry &#34; + id
-        fpath = os.path.join(datadir, id + &#39;.xml&#39;)
-        f = open(fpath, &#39;w&#39;)
-        xml = lxml.etree.tostring(e)
-        f.write(xml)
-        f.close()
-        print &#34;Saved &#34; + fpath
-
-if __name__ == &#34;__main__&#34;:
-    run()
-&lt;/pre&gt;
-</description>
+      <description>One of my long-running projects involves a workflow where content is produced in a Plone site, with the data later extracted and processed in various ways (including scripting Scribus to layout this data in a book). Initially the site where the content was produced wasn&#39;t protected, so I could run a simple urllib script to download the content and process it using lxml. A recent change in the workflow security settings meant this script didn&#39;t work anymore and I had to remember how to login into a Plone site using urllib2.</description>
     </item>
     
     <item>
@@ -302,28 +107,8 @@ if __name__ == &#34;__main__&#34;:
       <pubDate>Wed, 03 Dec 2008 12:05:20 -0200</pubDate>
       
       <guid>/blog/2008/12/03/specific-imports-versus-module-imports-in-python/</guid>
-      <description>&lt;p&gt;I&#39;ve always been a fan of explicit, separate imports in Python, vs generic module imports. Maybe it&#39;s because I like things to be explicit, or I&#39;ve been spoiled by the way Eclipse Pydev deals with auto-importing, but I have an aversion towards generic module imports. To keep the code style consistent, I even rewrite to this style any foreign code that ends up in my code.&lt;/p&gt;
-&lt;p&gt;Specifically, I&#39;m talking about:&lt;/p&gt;
-&lt;pre&gt;from foo import Bar
-Bar()&lt;/pre&gt;
-&lt;p&gt;vs&lt;/p&gt;
-&lt;pre&gt;import foo
-foo.Bar()
-&lt;/pre&gt;
-&lt;p&gt;Needless to say, I like the first style better.&lt;/p&gt;
-&lt;p&gt;There are advantages and disadvantages for each of the above methods:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;general module imports demand less from the editor (the programmer needs to type less &#34;import&#34; lines and the editor doesn&#39;t need to be very much aware of Python - emacs and vim users will probably favor this style)&lt;/li&gt;&lt;li&gt;but it makes it hard sometimes to figure out where a module comes from. Example: you&#39;re deep down reading a module and you encounter a line referencing the component module. Now, where does that component module comes from? Could be both of the following imports:&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;pre&gt;from zope.app import component
-from zope import component&lt;/pre&gt;
-&lt;p&gt;Of course, some people sensed this problem and write code like:&lt;/p&gt;
-&lt;pre&gt;class MyView(object):
-&amp;nbsp;&amp;nbsp;&amp;nbsp; template = zope.app.pagetemplate.ViewPageTemplateFile(&#39;template.pt&#39;)
-&lt;/pre&gt;
-&lt;p&gt;But this code is hard to read, hard to write and is almost at the limit with the self-imposed line length of 80 characters, which means most of the times it needs to be broken in two lines.&lt;/p&gt;
-&lt;p&gt;Today I became aware of what I consider the biggest advantage of using specific import (from foo import Bar). Heavy refactoring, in the absence of a comprehensive test suite, is a lot easier! When starting the program, the imports will fail and you get an immediate pointer to where you need to make a fix. If I would have used a generic module import, the error will have appeared only when trying to use the piece of code that calls foo.Bar().&lt;/p&gt;
-&lt;p&gt;TL;DR: use specific imports! If your editor doesn&#39;t support it, take some time to look at Eclipse Pydev or Netbeans, two free IDEs with Python support. You&#39;ll get:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt; easier refactoring &lt;br /&gt;&lt;/li&gt;&lt;li&gt; better code legibility&lt;/li&gt;&lt;li&gt;I&#39;ll be happier when I need to reuse code snippets :-)&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
-</description>
+      <description>I&#39;ve always been a fan of explicit, separate imports in Python, vs generic module imports. Maybe it&#39;s because I like things to be explicit, or I&#39;ve been spoiled by the way Eclipse Pydev deals with auto-importing, but I have an aversion towards generic module imports. To keep the code style consistent, I even rewrite to this style any foreign code that ends up in my code.
+Specifically, I&#39;m talking about:</description>
     </item>
     
     <item>
@@ -332,124 +117,7 @@ from zope import component&lt;/pre&gt;
       <pubDate>Sat, 01 Nov 2008 19:36:20 -0200</pubDate>
       
       <guid>/blog/2008/11/01/a-wxpython-based-tagcloud-renderer/</guid>
-      <description>&lt;p&gt;This is a small example app that will render a tag cloud with various font weights/height, based on their weight in the cloud. Not much to say here, hope it is useful to someone. It has actually been easier to design and create then expected, the only difficulty was in figuring out how to resize the buttons based on the size of their label. The algorithm could be improved to generate the cloud in a single pass, but I&#39;m not gonna bother, it works fast enough right now.&lt;/p&gt;
-&lt;pre&gt;import wx
-
-TAGS = [
- [&#39;animals&#39;, 0],
- [&#39;architecture&#39;, 2],
- [&#39;art&#39;, 5],
- [&#39;august&#39;, 1],
- [&#39;australia&#39;, 1],
- [&#39;autumn&#39;, 3],
- [&#39;baby&#39;, 5],
- [&#39;band&#39;, 1],
- [&#39;barcelona&#39;, 3],
- [&#39;beach&#39;, 2],
- [&#39;berlin&#39;, 5],
- [&#39;bird&#39;, 1],
- [&#39;birthday&#39;, 0],
- [&#39;black&#39;, 1],
- [&#39;blackandwhite&#39;, 5],
- [&#39;blue&#39;, 2],
- [&#39;boston&#39;, 3],
- [&#39;bw&#39;, 5],
- [&#39;california&#39;, 1],
- [&#39;cameraphone&#39;, 1],
- [&#39;camping&#39;, 1],
- [&#39;canada&#39;, 4],
- [&#39;canon&#39;, 0],
- [&#39;car&#39;, 5],
- [&#39;cat&#39;, 3],
- [&#39;chicago&#39;, 4],
- [&#39;china&#39;, 5],
- [&#39;christmas&#39;, 0],
- [&#39;church&#39;, 0],
- [&#39;city&#39;, 1],
- [&#39;clouds&#39;, 3],
- [&#39;color&#39;, 5],
- [&#39;concert&#39;, 5],
- [&#39;cute&#39;, 3],
- [&#39;dance&#39;, 0],
- [&#39;day&#39;, 5],
- [&#39;de&#39;, 4],
- [&#39;dog&#39;, 0],
- [&#39;england&#39;, 5],
- [&#39;europe&#39;, 4],
- [&#39;fall&#39;, 1],
- [&#39;family&#39;, 4],
- [&#39;festival&#39;, 1],
- [&#39;film&#39;, 1],
- [&#39;florida&#39;, 2],
- [&#39;flower&#39;, 1]
-]
-
-WIDTH = 500
-
-def getwidth(line):
-    return sum([l.GetSize()[0] for l in line])
-
-def getheight(line):
-    return max([l.GetSize()[1] for l in line])
-
-
-class TopFrame(wx.Frame):
-    
-    def __init__(self, *args, **kwargs):
-        wx.Frame.__init__(self, *args, **kwargs)
-        self.SetSize((500,400))
-
-        lines = []
-        
-        for tag in TAGS:
-            l = wx.Button(self, -1, tag[0], style=wx.NO_BORDER|wx.BU_EXACTFIT)
-            weight = ((tag[1] % 2) and wx.BOLD) or wx.NORMAL
-            l.SetFont(wx.Font(10 + tag[1], wx.DEFAULT, wx.NORMAL, weight, 0, &#34;&#34;))
-            l.SetSize(l.GetBestSize())
-            w, _h = l.GetSize()
-            if lines:
-                line_width = getwidth(lines[-1]) 
-                if (line_width + w) &amp;gt; WIDTH:   #make a new line
-                    lines.append([l])
-                else:
-                    lines[-1].append(l)   
-            else:   #lines is empty
-                lines.append([l])
-        
-        row_pos = 0
-        for line in lines:
-            height = getheight(line)
-            row_w = 0
-            w = getwidth(line)
-            spacer = (WIDTH - w) / len(line)
-            
-            for l in line:
-                dh = row_pos + height - l.GetSize()[1]
-                l.MoveXY(row_w, dh)
-                row_w += l.GetSize()[0] + spacer
-                
-            row_pos += height
-
-
-class MyApp(wx.App):
-
-    def OnInit(self):
-        wx.InitAllImageHandlers()
-        frame = TopFrame(None, - 1, &#34;&#34;)
-        self.SetTopWindow(frame)
-        
-        frame.Show()
-        return 1
-    
-
-def start():
-    app = MyApp(0)
-    app.MainLoop()
-    
-if __name__ == &#34;__main__&#34;:
-    start()
-&lt;/pre&gt;
-</description>
+      <description>This is a small example app that will render a tag cloud with various font weights/height, based on their weight in the cloud. Not much to say here, hope it is useful to someone. It has actually been easier to design and create then expected, the only difficulty was in figuring out how to resize the buttons based on the size of their label. The algorithm could be improved to generate the cloud in a single pass, but I&#39;m not gonna bother, it works fast enough right now.</description>
     </item>
     
     <item>
@@ -458,155 +126,7 @@ if __name__ == &#34;__main__&#34;:
       <pubDate>Wed, 08 Oct 2008 17:14:46 -0300</pubDate>
       
       <guid>/blog/2008/10/08/richtext-control-with-wxpython-saving-loading-and-converting-from-internal-xml-to-html/</guid>
-      <description>&lt;p&gt;I tend to be an angry caveman these days (see my previous post) and this doesn&#39;t lead to too much clear thinking. I&#39;ve been dealing with the wx.richtext.RichTextCtrl for the past couple of days and I think I&#39;m now close to finishing the tasks that I set myself to do with it. I&#39;m trying to run a bunch of richtext controls on the same page, that would increase their size and show a toolbar when focused. My first problems came from the fact that all 5 of them flashed a caret which I couldn&#39;t hide. Trying to do ctrl.GetCaret().Hide() would result in a crash. After struggling with various possible solutions - none of which worked, I&#39;ve realized that I should try the latest wxpython distribution, I was even decided to compile it manually. Fortunately, the wxwidgets project offers a repository for Ubuntu and sure enough, after I&#39;ve upgraded, things started to work (I still needed to hide the caret for all the richtext controls and show it when they were focused, but that&#39;s no problem).&lt;/p&gt;
-&lt;p&gt;Now, unto the next tasks: saving and loading the content of these fields. I wanted to display the content in an HtmlWindow control, so converting the content to html was one thing I had to discover how to do. First step that I&#39;ve tried, saving the html and loading it through the RichTextCtrl and its closely related buffers and handlers didn&#39;t work, so I&#39;ve settled for a solution that involves one RichTextHTMLHandler and one RichTextXmlHandler. To help me understand how this thing works, I&#39;ve created a clean example class where I could play with this thing. I hope it helps someone, as I haven&#39;t found too much info on this on the web (the Load/SaveStream methods are not even documented anywhere).&lt;/p&gt;
-&lt;p&gt;The toolbar class is taken from my project, created with wxGlade, while the frame class is created by me, manually (actually, this is the first frame that I have created by hand). To demonstrate the loading and saving, a variable is used to keep the content (self.content). Change the text, add some formatting, hit Save and then Load. This will take the text that was saved from the richtext control (in xml format), load it in a buffer and convert it to html which is then displayed in the HtmlWindow. I&#39;ve only tried this on Linux, hope it works on Windows too. Oh, and you need to supply your own icons if you want to try the code (hint: I&#39;ve used /usr/share/icons/gnome/32x32/actions as source of my icons.&lt;/p&gt;
-&lt;pre&gt;#!/usr/bin/env python
-from StringIO import StringIO
-import wx
-import wx.html
-import wx.richtext
-
-class TextFormatToolBar(wx.ToolBar):
-    def __init__(self, *args, **kwds):
-        self.text_ctrl = kwds.pop(&#39;text_ctrl&#39;)
-        kwds[&#34;style&#34;] = wx.TB_FLAT|wx.TB_3DBUTTONS
-        wx.ToolBar.__init__(self, *args, **kwds)
-        self.AddLabelTool(wx.ID_CUT, &#34;Cut&#34;, wx.Bitmap(&#34;edit-cut.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;Cut selection&#34;, &#34;&#34;)
-        self.AddLabelTool(wx.ID_COPY, &#34;Copy&#34;, wx.Bitmap(&#34;edit-copy.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddLabelTool(wx.ID_PASTE, &#34;Paste&#34;, wx.Bitmap(&#34;edit-paste.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddSeparator()
-        self.AddLabelTool(wx.ID_UNDO, &#34;Undo&#34;, wx.Bitmap(&#34;edit-undo.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddLabelTool(wx.ID_REDO, &#34;Redo&#34;, wx.Bitmap(&#34;edit-redo.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddSeparator()
-        self.AddLabelTool(wx.ID_BOLD, &#34;Bold&#34;, wx.Bitmap(&#34;format-text-bold.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddLabelTool(wx.ID_ITALIC, &#34;Italic&#34;, wx.Bitmap(&#34;format-text-italic.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddLabelTool(wx.ID_UNDERLINE, &#34;Underline&#34;, wx.Bitmap(&#34;format-text-underline.png&#34;, 
-wx.BITMAP_TYPE_ANY), wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-
-        self.Realize()
-
-        self.Bind(wx.EVT_TOOL, self.handle_bold, id=wx.ID_BOLD)
-        self.Bind(wx.EVT_TOOL, self.handle_italic, id=wx.ID_ITALIC)
-        self.Bind(wx.EVT_TOOL, self.handle_underline, id=wx.ID_UNDERLINE)
-        self.Bind(wx.EVT_TOOL, self.handle_paste, id=wx.ID_PASTE)
-        self.Bind(wx.EVT_TOOL, self.handle_copy, id=wx.ID_COPY)
-        self.Bind(wx.EVT_TOOL, self.handle_cut, id=wx.ID_CUT)
-        self.Bind(wx.EVT_TOOL, self.handle_undo, id=wx.ID_UNDO)
-        self.Bind(wx.EVT_TOOL, self.handle_redo, id=wx.ID_REDO)
-
-    def handle_bold(self, event):
-        self.text_ctrl.ApplyBoldToSelection()
-
-    def handle_italic(self, event):
-        self.text_ctrl.ApplyItalicToSelection()
-
-    def handle_underline(self, event):
-        self.text_ctrl.ApplyUnderlineToSelection()
-
-    def handle_paste(self, event):
-        self.text_ctrl.Paste()
-        
-    def handle_copy(self, event):
-        self.text_ctrl.Copy()
-        
-    def handle_cut(self, event):
-        self.text_ctrl.Cut()
-        
-    def handle_undo(self, event):
-        self.text_ctrl.Undo()
-        
-    def handle_redo(self, event):
-        self.text_ctrl.Redo()
-
-
-class TopFrame(wx.Frame):
-    def __init__(self, *args, **kwargs):
-        wx.Frame.__init__(self, *args, **kwargs)
-        self.Freeze()
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        rt = wx.richtext.RichTextCtrl(self, -1)
-        toolbar = TextFormatToolBar(self, text_ctrl=rt)
-        rt.SetMinSize((300,200))
-        htmlwindow = wx.html.HtmlWindow(self)
-        htmlwindow.SetMinSize((300,200))
-        save_button = wx.Button(self, label=&#34;Save&#34;)
-        load_button = wx.Button(self, label=&#34;Load&#34;)
-        btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        btn_sizer.Add(load_button, 0, wx.EXPAND|wx.ALL, 6)
-        btn_sizer.Add(save_button, 0, wx.EXPAND|wx.ALL, 6)
-        self.Bind(wx.EVT_BUTTON, self.handle_save, save_button)
-        self.Bind(wx.EVT_BUTTON, self.handle_load, load_button)
-        sizer.Add(toolbar, 0, wx.EXPAND|wx.ALL, 6)
-        sizer.Add(rt, 1, wx.EXPAND|wx.ALL, 6)
-        sizer.Add(htmlwindow, 1, wx.EXPAND|wx.ALL, 6)
-        sizer.Add(btn_sizer)
-        self.SetSizer(sizer)
-        sizer.Fit(self)
-        self.Thaw()
-        self.rt = rt
-        self.htmlwindow = htmlwindow
-        
-    def handle_save(self, event):
-        out = StringIO()
-        handler = wx.richtext.RichTextXMLHandler()
-        buffer = self.rt.GetBuffer()
-        handler.SaveStream(buffer, out)
-        out.seek(0)
-        self.content = out.read()
-        
-    def handle_load(self, event):
-        out = StringIO()
-        handler = wx.richtext.RichTextXMLHandler()
-        buffer = self.rt.GetBuffer()
-        buffer.AddHandler(handler)
-        out.write(self.content)
-        out.seek(0)
-        handler.LoadStream(buffer, out)
-        self.rt.Refresh()
-        
-        cio = StringIO()
-        cio.write(self.content)
-        cio.seek(0)
-        cout = StringIO()
-        
-        xmlhandler = wx.richtext.RichTextXMLHandler()
-        htmlhandler = wx.richtext.RichTextHTMLHandler()
-        newbuff = wx.richtext.RichTextBuffer()
-        newbuff.AddHandler(htmlhandler)
-        
-        xmlhandler.LoadStream(newbuff, cio) #load xml into buffer
-        newbuff.SaveStream(cout, wx.richtext.RICHTEXT_TYPE_HTML)
-        cout.seek(0)
-        self.htmlwindow.SetPage(cout.read())
-
-
-class MyApp(wx.App):
-
-    def OnInit(self):
-        wx.InitAllImageHandlers()
-        frame = TopFrame(None, - 1, &#34;&#34;)
-        self.SetTopWindow(frame)
-        
-        frame.Show()
-        return 1
-    
-
-def start():
-    app = MyApp(0)
-    app.MainLoop()
-    
-if __name__ == &#34;__main__&#34;:
-    start()
-&lt;/pre&gt;
-</description>
+      <description>I tend to be an angry caveman these days (see my previous post) and this doesn&#39;t lead to too much clear thinking. I&#39;ve been dealing with the wx.richtext.RichTextCtrl for the past couple of days and I think I&#39;m now close to finishing the tasks that I set myself to do with it. I&#39;m trying to run a bunch of richtext controls on the same page, that would increase their size and show a toolbar when focused.</description>
     </item>
     
     <item>
@@ -615,15 +135,7 @@ if __name__ == &#34;__main__&#34;:
       <pubDate>Sun, 14 Sep 2008 10:45:41 -0300</pubDate>
       
       <guid>/blog/2008/09/14/workingenv-setuptools-and-svn-1.5-redux/</guid>
-      <description>&lt;p&gt;I&#39;m back to dealing with the incompatibility between setuptools and svn 1.5 which I have installed. Last time I&#39;ve solved the problem by doing a svn checkout of http://svn.python.org/projects/sandbox/branches/setuptools-0.6/ and running sudo python setup.py install. Now I&#39;m trying to do setup a virtualenv to play with repoze.catalog and I&#39;m hitting the same problem. Of course, virtualenv comes with a hardcoded setuptools package and so it will setup a &#34;broken&#34; setuptools in the virtual environment. The solution is of course the same, adapted to use the virtualenv python script:&lt;/p&gt;
-&lt;pre&gt;virtualenv myenv
-cd myenv
-svn co http://svn.python.org/projects/sandbox/branches/setuptools-0.6/ setuptools
-cd setuptools
-../bin/python setup.py install
-&lt;/pre&gt;
-&lt;p&gt;This will upgrade the easy_install script to use the new setuptools library&lt;/p&gt;
-</description>
+      <description>I&#39;m back to dealing with the incompatibility between setuptools and svn 1.5 which I have installed. Last time I&#39;ve solved the problem by doing a svn checkout of http://svn.python.org/projects/sandbox/branches/setuptools-0.6/ and running sudo python setup.py install. Now I&#39;m trying to do setup a virtualenv to play with repoze.catalog and I&#39;m hitting the same problem. Of course, virtualenv comes with a hardcoded setuptools package and so it will setup a &#34;broken&#34; setuptools in the virtual environment.</description>
     </item>
     
     <item>
@@ -632,8 +144,7 @@ cd setuptools
       <pubDate>Fri, 22 Aug 2008 16:16:07 -0300</pubDate>
       
       <guid>/blog/2008/08/22/bug-in-pypi/</guid>
-      <description>&lt;p&gt;The &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/zope.app.form/3.6.0&#34;&gt;zope.app.form PyPi&lt;/a&gt; page looks awful, it should be fixed. Who&#39;s fault is that? Django, the framework that sits underneath (AFAIK), or the docutils libraries that probably parse the RST pages?&lt;/p&gt;
-</description>
+      <description>The zope.app.form PyPi page looks awful, it should be fixed. Who&#39;s fault is that? Django, the framework that sits underneath (AFAIK), or the docutils libraries that probably parse the RST pages?</description>
     </item>
     
     <item>
@@ -642,11 +153,231 @@ cd setuptools
       <pubDate>Mon, 28 Jan 2008 12:32:16 -0200</pubDate>
       
       <guid>/blog/2008/01/28/monty-python-sketches-and-download-script/</guid>
-      <description>&lt;p&gt;A friend pointed me to a &lt;a href=&#34;http://onemansblog.com/2006/12/01/a-compendium-of-150-monty-python-sketches/&#34;&gt;page with many many links to Monty Python sketches videos&lt;/a&gt;. &lt;br /&gt;&lt;/p&gt;
-&lt;p&gt;Being a Monty Python fan, I&#39;ve countered with this script:&lt;/p&gt;
-&lt;pre&gt;#!/usr/bin/python2.4&lt;br /&gt;downloader = &#34;/home/tibi/Software/youtube-dl.py &#39;%s&#39; -o &#39;%s&#39;&#34;&lt;br /&gt;url = &#34;http://onemansblog.com/2006/12/01/a-compendium-of-150-monty-python-sketches/&#34;&lt;br /&gt;&lt;br /&gt;import lxml.html&lt;br /&gt;import urllib&lt;br /&gt;import os&lt;br /&gt;&lt;br /&gt;content  = urllib.urlopen(url)&lt;br /&gt;etree = lxml.html.parse(content)&lt;br /&gt;links = etree.xpath(&#39;//ol/li/a&#39;)&lt;br /&gt;&lt;br /&gt;for link in links:&lt;br /&gt;    print &#34;Downloading &#34;, link.text&lt;br /&gt;    cmd = downloader %  (link.get(&#39;href&#39;), link.text + &#39;.flv&#39;)&lt;br /&gt;    print os.popen(cmd).read()&lt;/pre&gt;
-&lt;p&gt;It needs the &lt;a href=&#34;http://www.arrakis.es/~rggi3/youtube-dl/&#34;&gt;YouTube downloader script&lt;/a&gt; and lxml 2.0.&lt;br /&gt;&lt;/p&gt;
-</description>
+      <description>A friend pointed me to a page with many many links to Monty Python sketches videos. Being a Monty Python fan, I&#39;ve countered with this script:
+#!/usr/bin/python2.4
+downloader = &#34;/home/tibi/Software/youtube-dl.py &#39;%s&#39; -o &#39;%s&#39;&#34;
+url = &#34;http://onemansblog.com/2006/12/01/a-compendium-of-150-monty-python-sketches/&#34;
+import lxml.html
+import urllib
+import os
+content = urllib.urlopen(url)
+etree = lxml.html.parse(content)
+links = etree.xpath(&#39;//ol/li/a&#39;)
+for link in links:
+print &#34;Downloading &#34;, link.text
+cmd = downloader % (link.get(&#39;href&#39;), link.text + &#39;.flv&#39;)
+print os.popen(cmd).read() It needs the YouTube downloader script and lxml 2.</description>
+    </item>
+    
+    <item>
+      <title>Trying out eggs and applications with workingenv, without poluting the system python</title>
+      <link>/blog/2007/11/14/trying-out-eggs-and-applications-with-workingenv-without-poluting-the-system-python/</link>
+      <pubDate>Wed, 14 Nov 2007 17:21:44 -0200</pubDate>
+      
+      <guid>/blog/2007/11/14/trying-out-eggs-and-applications-with-workingenv-without-poluting-the-system-python/</guid>
+      <description>Ever since I&#39;ve started working with zc.buildout I&#39;ve grown to love the whole &#34;environment as project&#34; setup that it provides: eggs and python packages are installed and contained in the buildout and they don&#39;t polute the system packages. There is another alternative: workingenv, which, while simpler in scope, it is easier to setup and use. For example, recently I&#39;ve wanted to see if lxml 2.0 can be installed in my system.</description>
+    </item>
+    
+    <item>
+      <title>Scripting Adobe Indesign with Python</title>
+      <link>/blog/2007/08/15/scripting-adobe-indesign-with-python/</link>
+      <pubDate>Wed, 15 Aug 2007 11:45:32 -0300</pubDate>
+      
+      <guid>/blog/2007/08/15/scripting-adobe-indesign-with-python/</guid>
+      <description>I&#39;m working on a larger project, with various components and one of the components is producing content with Plone which is then to be imported into Indesign, where each item from Plone gets to fill in a 2 page template. There are about 500 of these items, so this can&#39;t be done manually. InDesign is stupid (or maybe plugin friendly / commercially clever) enough that, even though it can import XML files and even perform XSLT transformations on them and has a &#34;</description>
+    </item>
+    
+    <item>
+      <title>Running Python based software in the GPU?</title>
+      <link>/blog/2007/05/25/running-python-based-software-in-the-gpu/</link>
+      <pubDate>Fri, 25 May 2007 09:56:45 -0300</pubDate>
+      
+      <guid>/blog/2007/05/25/running-python-based-software-in-the-gpu/</guid>
+      <description>I&#39;m not a GFX or 3d programmer, but looking at this blog entry, I understand that these guys are getting ready a way to run Python based software in the GPU. I wonder what kind of speed improvements can be achieved through that, although I fear that it&#39;s only going to work for numeric type of programs.</description>
+    </item>
+    
+    <item>
+      <title>Embeding the Gecko engine in Python applications</title>
+      <link>/blog/2007/03/10/embeding-the-gecko-engine-in-python-applications/</link>
+      <pubDate>Sat, 10 Mar 2007 18:28:29 -0200</pubDate>
+      
+      <guid>/blog/2007/03/10/embeding-the-gecko-engine-in-python-applications/</guid>
+      <description>I&#39;ve got to deploy a new desktop based application, created, of course, with Zope 3. When you&#39;ve got a hammer, everything looks like a nail, indeed. This application uses HTML and CSS as its presentation layer (right, it&#39;s a web page), with a bit of Ajax thrown in. Due do time constraints, I&#39;m not even trying to get it to work properly on Internet Explorer (although it looks about 90% right, but I have some problems with Javascript), so I won&#39;t be embeding the Internet Explorer this time engine in my Python application, I&#39;ll just try to get the Gecko rendering engine, the one used in Firefox.</description>
+    </item>
+    
+    <item>
+      <title>Zope buildout quickstart</title>
+      <link>/blog/2007/02/10/zope-buildout-quickstart/</link>
+      <pubDate>Sat, 10 Feb 2007 22:19:56 -0200</pubDate>
+      
+      <guid>/blog/2007/02/10/zope-buildout-quickstart/</guid>
+      <description>One of the bigger players in the latest move to automate Plone and Zope development and deployment has been buildout, so I figured it&#39;s about time to start learning it and see how it can help me. I&#39;m writing this short recipe as I progress through learning buildout to help me remember this stuff later on.
+Installing buildoutThe easiest way to install buildout is to get easy_install (a manager for python packages) on your system.</description>
+    </item>
+    
+    <item>
+      <title>One liner to get the common elements of several lists</title>
+      <link>/blog/2006/11/06/one-liner-to-get-the-common-elements-of-several-lists/</link>
+      <pubDate>Mon, 06 Nov 2006 23:14:38 -0200</pubDate>
+      
+      <guid>/blog/2006/11/06/one-liner-to-get-the-common-elements-of-several-lists/</guid>
+      <description>While doing an exercise with a mockup catalog and indexes, I ran into the problem of filtering several lists and returning the common elements from the list. The following example demonstrate the usage of reduce(), one of the functional programming constructs that are less common and obvious in their usage.
+&amp;gt;&amp;gt;&amp;gt; a = [1,2,3,4]
+&amp;gt;&amp;gt;&amp;gt; b = [2,3,4,5]
+&amp;gt;&amp;gt;&amp;gt; c = [1,2,4,6]
+&amp;gt;&amp;gt;&amp;gt; d = [0,2,3]
+&amp;gt;&amp;gt;&amp;gt; z = [a,b,c,d]</description>
+    </item>
+    
+    <item>
+      <title>Catching and printing python exceptions</title>
+      <link>/blog/2006/10/27/catching-and-printing-python-exceptions/</link>
+      <pubDate>Fri, 27 Oct 2006 00:16:13 -0300</pubDate>
+      
+      <guid>/blog/2006/10/27/catching-and-printing-python-exceptions/</guid>
+      <description>&amp;gt;&amp;gt;&amp;gt; import traceback, sys
+&amp;gt;&amp;gt;&amp;gt; try:
+... 1/0
+... except:
+... traceback.print_exc(sys.exc_info())
+...
+Traceback (most recent call last):
+File &#34;&amp;lt;stdin&amp;gt;&#34;, line 2, in ?
+ZeroDivisionError: integer division or modulo by zero
+&amp;gt;&amp;gt;&amp;gt; </description>
+    </item>
+    
+    <item>
+      <title>Adaptation explained</title>
+      <link>/blog/2006/09/10/adaptation-explained/</link>
+      <pubDate>Sun, 10 Sep 2006 10:52:39 -0300</pubDate>
+      
+      <guid>/blog/2006/09/10/adaptation-explained/</guid>
+      <description>It seems that there&#39;s a proposal to introduce adaptation in Python 3000, which sparked a discussion and a nice introduction to adaptation on the python-dev list. Another explanation here.</description>
+    </item>
+    
+    <item>
+      <title>Printing frameworks and wxPython</title>
+      <link>/blog/2006/09/06/printing-frameworks-and-wxpython/</link>
+      <pubDate>Wed, 06 Sep 2006 16:48:34 -0300</pubDate>
+      
+      <guid>/blog/2006/09/06/printing-frameworks-and-wxpython/</guid>
+      <description>As hard as I have tried to find, there&#39;s no good printing framework for wxPython. wxEasyPrinting sucks so much for anything more then simple text (for example, the table cells don&#39;t support specifying a height). Generating PDF files with a toolkit such as ReportLab (even with Platypus) is harder then it should be, especially when there&#39;s no ready made higher level framework. This page explores some of the common printing solutions on Windows.</description>
+    </item>
+    
+    <item>
+      <title>Creating and managing a Windows service (part 4)</title>
+      <link>/blog/2006/08/23/creating-and-managing-a-windows-service-part-4/</link>
+      <pubDate>Wed, 23 Aug 2006 16:44:06 -0300</pubDate>
+      
+      <guid>/blog/2006/08/23/creating-and-managing-a-windows-service-part-4/</guid>
+      <description>The final step is to &#34;compile&#34; everything into Windows executables using py2exe. For this I have the following setup.py file:
+from distutils.core import setup
+import py2exe
+import sys
+# If run without args, build executables, in quiet mode.
+if len(sys.argv) == 1:
+sys.argv.append(&#34;py2exe&#34;)
+sys.argv.append(&#34;-q&#34;)
+class Target:
+def __init__(self, **kw):
+self.__dict__.update(kw)
+# for the versioninfo resources
+self.version = &#34;0.1.0&#34;
+self.company_name = &#34;Pixelblaster Romania&#34;
+self.copyright = &#34;Copyright 2006 Pixelblaster Romania&#34;
+self.name = &#34;</description>
+    </item>
+    
+    <item>
+      <title>Creating and managing a Windows service (part 3)</title>
+      <link>/blog/2006/08/23/creating-and-managing-a-windows-service-part-3/</link>
+      <pubDate>Wed, 23 Aug 2006 16:34:50 -0300</pubDate>
+      
+      <guid>/blog/2006/08/23/creating-and-managing-a-windows-service-part-3/</guid>
+      <description>This third part shows the code needed to start/stop and set the startup type for the service. Actually, most of the necessary code sits in a ActiveState python-cookbook recipe, found here.
+So, the code, using the recipe is simple (well, except that it&#39;s presented as a wxwidgets windows):
+#!/usr/bin/env python
+# -*- coding: ISO-8859-1 -*-
+# generated by wxGlade 0.4.1cvs on Mon Aug 21 19:12:22 2006
+import wx
+from dlgControlerMainFrame import dlgControlerMainFrame</description>
+    </item>
+    
+    <item>
+      <title>Creating and managing a Windows service (part 2)</title>
+      <link>/blog/2006/08/23/creating-and-managing-a-windows-service-part-2/</link>
+      <pubDate>Wed, 23 Aug 2006 15:33:47 -0300</pubDate>
+      
+      <guid>/blog/2006/08/23/creating-and-managing-a-windows-service-part-2/</guid>
+      <description>This part of the recipe shows the python code needed to create (install) the Windows service. I didn&#39;t write most of this, I just found it somewhere on the internet. Credit due to the original author.
+import sys
+import win32service, win32serviceutil
+from config import SERVICE_NAME, SERVICE_DISPLAY_NAME, SOFTWAREPATH
+service_path = &#34;%s\myservice.exe&#34; % SOFTWAREPATH
+def debug(msg):
+print msg
+def removeSvc():
+debug(&#39;called removeSvc()&#39;)
+win32serviceutil.RemoveService(SERVICE_NAME)
+debug(&#39;...service was removed&#39;)
+def installSvc():
+debug(&#39;installSvc()&#39;)
+hscm = win32service.OpenSCManager(None,None,win32service.SC_MANAGER_ALL_ACCESS)</description>
+    </item>
+    
+    <item>
+      <title>Creating and managing a Windows service (part 1)</title>
+      <link>/blog/2006/08/23/creating-and-managing-a-windows-service-part-1/</link>
+      <pubDate>Wed, 23 Aug 2006 15:29:14 -0300</pubDate>
+      
+      <guid>/blog/2006/08/23/creating-and-managing-a-windows-service-part-1/</guid>
+      <description>I&#39;m starting a longer piece on creating and managing a python based Windows service, so look for the other parts in this blog for the complete &#34;recipe&#34;
+First, our tools: py2exe has, among its deployment targets, a &#34;windows service&#34; option, so we&#39;ll need that. To manage the service and interact with the Windows event log, the Python win32 extension is needed. Py2exe has a sample service in the samples/advanced folder, on which I&#39;ve based my code.</description>
+    </item>
+    
+    <item>
+      <title>Capturing print statements output</title>
+      <link>/blog/2006/08/23/capturing-print-statements-output/</link>
+      <pubDate>Wed, 23 Aug 2006 13:57:21 -0300</pubDate>
+      
+      <guid>/blog/2006/08/23/capturing-print-statements-output/</guid>
+      <description>Sometimes you have code that has a lot of print statements, which are helping you with debugging. But what happens if you try to port that code to an environment without a console? In the best case, you won&#39;t see the prints anymore, in the worse case, the code will fail because there&#39;s no &#34;valid file descriptor&#34; to which to write.
+The solution to this problem is to replace python&#39;s stdout file, which will enable the code output to be recorded and maybe logged for debugging purposes.</description>
+    </item>
+    
+    <item>
+      <title>Creating arbitrary objects in the current module namespace</title>
+      <link>/blog/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace/</link>
+      <pubDate>Wed, 16 Aug 2006 20:26:30 -0300</pubDate>
+      
+      <guid>/blog/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace/</guid>
+      <description>This short recipe will show how to create arbitrary named objects in the current module namespace. Either globals() or locals() can be used for the task, depending on the namespace where the variables have to be created (global or local). &amp;gt;&amp;gt;&amp;gt; for i in range(10):
+&amp;gt;&amp;gt;&amp;gt; globals()[&#39;test%s&#39; % i] = i
+&amp;gt;&amp;gt;&amp;gt; print test0
+0
+&amp;gt;&amp;gt;&amp;gt; print test1
+1
+ </description>
+    </item>
+    
+    <item>
+      <title>Small tip when using wxWidgets</title>
+      <link>/blog/2006/08/13/small-tip-when-using-wxwidgets/</link>
+      <pubDate>Sun, 13 Aug 2006 18:09:58 -0300</pubDate>
+      
+      <guid>/blog/2006/08/13/small-tip-when-using-wxwidgets/</guid>
+      <description>Always put your controls in a sizer inside a panel. So, the actual tree would be frame &amp;gt; sizer &amp;gt; panel &amp;gt; sizer &amp;gt; ... controls
+The reason is that the panel component will enable tab traversal. Also, the panel can so be used to group the widgets into logical groups, to facilitate traversing them with the tab key. Oh, did I mention wxGlade (from cvs) rules? </description>
+    </item>
+    
+    <item>
+      <title>I don&#39;t like the new python.org webpage</title>
+      <link>/blog/2006/08/12/i-dont-like-the-new-python.org-webpage/</link>
+      <pubDate>Sat, 12 Aug 2006 13:50:59 -0300</pubDate>
+      
+      <guid>/blog/2006/08/12/i-dont-like-the-new-python.org-webpage/</guid>
+      <description>When it first appeared, I said &#34;heh&#34;, but now I don&#39;t like the new python.org webpage. The new page certainly looks a lot more &#39;designed&#39;, but the old one was certainly cute, and had the classic python logo. Where&#39;s that lovely snake? My concern is the overall feel of the page, not its content or internal organization. The present colors are too &#34;4 years ago&#34;, I especially hate that blueish color.</description>
     </item>
     
   </channel>

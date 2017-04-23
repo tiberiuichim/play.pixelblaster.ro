@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Development on The Plone Expanse</title>
-    <link>/tags/development/index.xml</link>
+    <link>/tags/development/</link>
     <description>Recent content in Development on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Jan 2010 20:57:23 -0200</lastBuildDate>
+    
+	<atom:link href="/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Dear PyPi uploaders: don&#39;t use a download URL, upload your package instead!</title>
@@ -15,12 +18,7 @@
       <pubDate>Thu, 28 Jan 2010 20:57:23 -0200</pubDate>
       
       <guid>/blog/2010/01/28/dear-pypi-uploaders-dont-use-a-download-url-upload-your-package-instead/</guid>
-      <description>&lt;p&gt;I think this is the Python Index biggest mistake, the one which makes it unreliable for serious development environments: exposing package entries with no real package files and just a download URL. To see what I&#39;m talking about, just examine the PyPI records for &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/BeautifulSoup&#34;&gt;BeautifulSoup&lt;/a&gt;
- or &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/ipython/&#34;&gt;IPython&lt;/a&gt;,
- packages that are very common in buildouts. As soon as the author and publisher of that package has a hosting problem, the developer that uses that package also has a problem. Buildouts will completely fail and this will cause dead times and frustration for the developers.&lt;/p&gt;
-&lt;p&gt;Yes, there are a couple of PyPi mirrors, but they only mirror files hosted by PyPi. The central PyPi site will probably have better performance and availability then what individual groups and developers can provide and it&#39;s always easier to mirror one single website than many, so there&#39;s no shame or loss of pride in using the PyPi to host your files. Please do so!&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
-</description>
+      <description>I think this is the Python Index biggest mistake, the one which makes it unreliable for serious development environments: exposing package entries with no real package files and just a download URL. To see what I&#39;m talking about, just examine the PyPI records for BeautifulSoup or IPython, packages that are very common in buildouts. As soon as the author and publisher of that package has a hosting problem, the developer that uses that package also has a problem.</description>
     </item>
     
   </channel>

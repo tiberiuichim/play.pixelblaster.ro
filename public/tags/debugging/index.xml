@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Debugging on The Plone Expanse</title>
-    <link>/tags/debugging/index.xml</link>
+    <link>/tags/debugging/</link>
     <description>Recent content in Debugging on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/debugging/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Aug 2016 16:56:38 -0200</lastBuildDate>
+    
+	<atom:link href="/tags/debugging/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>How to fake fix broken persistent objects in ZODB</title>
@@ -15,35 +18,8 @@
       <pubDate>Thu, 18 Aug 2016 16:56:38 -0200</pubDate>
       
       <guid>/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/</guid>
-      <description>&lt;p&gt;I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.&lt;/p&gt;
-&lt;p&gt;My solution, because I didn&#39;t care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys.modules:&lt;/p&gt;
-&lt;pre&gt;class NavigableString(unicode):
-    def __new__(cls):
-        return unicode.__new__(cls)
-
-    def __getstate__(self):
-        return self.__dict__
-
-
-class Tag(object):
-    def __getstate__(self):
-        return self.__dict__
-
-
-class BeautifulSoup(object):
-    def __getstate__(self):
-        return self.__dict__
-
-
-class fake_bs3(object):
-    NavigableString = NavigableString
-    Tag = Tag
-    BeautifulSoup = BeautifulSoup
-
-import sys
-sys.modules[&#39;BeautifulSoup&#39;] = fake_bs3&lt;/pre&gt;
-&lt;div&gt;&amp;nbsp;&lt;/div&gt;
-</description>
+      <description>I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.
+My solution, because I didn&#39;t care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys.</description>
     </item>
     
     <item>
@@ -52,50 +28,9 @@ sys.modules[&#39;BeautifulSoup&#39;] = fake_bs3&lt;/pre&gt;
       <pubDate>Tue, 05 May 2015 08:07:56 +0700</pubDate>
       
       <guid>/blog/2015/05/05/zodb-how-to-get-and-read-objects-from-an-undo-information/</guid>
-      <description>&lt;p&gt;This is useful for example if you have transactions that cause writes to the database and you don&#39;t know what has been written. First, identify the ID of the transaction that you&#39;re interested. In the Undo tab of Zope, inspect the checkbox for the transaction and copy the part that looks like an id from its value.&lt;/p&gt;
-&lt;p&gt;Then, in a zope debugging shell (started with bin/instance debug), I&#39;ve done:&lt;/p&gt;
-&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; import base64, cPickle
-&amp;gt;&amp;gt;&amp;gt; webtid = &#34;QTY1MjhoaytpMVU9&#34;
-
-# DB will be the &#34;database&#34;, as represented in Zope.
-&amp;gt;&amp;gt;&amp;gt; db = app._p_jar.db()
-
-# Storage will be an instance of FileStorage. I don&#39;t think 
-# it&#39;s possible to achieve this connected through ZEO.
-&amp;gt;&amp;gt;&amp;gt; storage = db.storage
-
-# This is the &#34;real&#34; transaction id
-&amp;gt;&amp;gt;&amp;gt; tid = base64.decodestring(webtid + &#34;\n&#34;)
-
-# Now we&#39;ll get a &#34;transaction position&#34;, a position 
-# in the filestorage where the transaction begins
-&amp;gt;&amp;gt;&amp;gt; tpos = storage._txn_find(tid, True)
-
-# This will be the transaction header. This is the info that&#39;s 
-# shown in the Undo UI.
-&amp;gt;&amp;gt;&amp;gt; th = storage._read_txn_header(tpos)
-&amp;gt;&amp;gt;&amp;gt; print th.status, th.descr, th.user
-
-# Now we get the &#34;data position&#34;, the position in the zodb where 
-# the objects of that transaction sit
-&amp;gt;&amp;gt;&amp;gt; pos = tpos + th.headerlen()
-
-# This will be the data header
-&amp;gt;&amp;gt;&amp;gt; dh = storage._read_data_header(pos)
-
-# we&#39;re very much interested in the oid
-&amp;gt;&amp;gt;&amp;gt; oid = dh.oid
-&amp;gt;&amp;gt;&amp;gt; pickle_data, tid = storage.load(oid)
-
-# heh, zodb is just a pickle store, you knew that, right?
-&amp;gt;&amp;gt;&amp;gt; print pickle_data
-&amp;gt;&amp;gt;&amp;gt; print cPickle.loads(pickle_data)
-
-# but it&#39;s easier to get the object using the zope machinery
-&amp;gt;&amp;gt;&amp;gt; obj = app._p_jar[oid] 
-&amp;gt;&amp;gt;&amp;gt; print obj&lt;/pre&gt;
-&lt;p&gt;The zope process needs to be configured with a FileStorage, not a ClientStorage (aka Zeo client).&lt;/p&gt;
-</description>
+      <description>This is useful for example if you have transactions that cause writes to the database and you don&#39;t know what has been written. First, identify the ID of the transaction that you&#39;re interested. In the Undo tab of Zope, inspect the checkbox for the transaction and copy the part that looks like an id from its value.
+Then, in a zope debugging shell (started with bin/instance debug), I&#39;ve done:
+&amp;gt;&amp;gt;&amp;gt; import base64, cPickle &amp;gt;&amp;gt;&amp;gt; webtid = &#34;</description>
     </item>
     
     <item>
@@ -104,14 +39,7 @@ sys.modules[&#39;BeautifulSoup&#39;] = fake_bs3&lt;/pre&gt;
       <pubDate>Thu, 11 Jun 2009 15:53:16 -0300</pubDate>
       
       <guid>/blog/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature/</guid>
-      <description>&lt;p&gt;Somebody at Google has screwed up in a laughable manner. Webmaster Tools just got a new feature: the ability to tell Google that you have moved a site to a new domain. I&#39;m in the same situation with one site that I manage: &lt;a class=&#34;external-link&#34; href=&#34;http://www.caleidoscop.org.ro&#34;&gt;www.caleidoscop.org.ro&lt;/a&gt; has been moved recently to &lt;a class=&#34;external-link&#34; href=&#34;http://www.caleidoscop.org&#34;&gt;www.caleidoscop.org&lt;/a&gt;. Although I have done my best (I still need to persuade nginx to generate 301 redirects instead of 302) to ease this transition and absolutely everything pointing to the .org.ro&amp;nbsp; is redirected to the .org address, Google is really slow in picking the change and the Webmaster Tools show links from caleidoscop.org.ro as the main source of links to the new .org domain. Unfortunately, as things stand now, it&#39;s impossible for me to use this feature: Google doesn&#39;t recognize *.org.ro as being a &#34;root level domain&#34;, as can be seen in the next two screenshots. I wonder, org.uk domains have the same problems?&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
-&lt;h3&gt;First, the bug&lt;br /&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&#34;image-inline image-inline&#34; src=&#34;/blog/topic_images/snapshot3.png/image_preview&#34; alt=&#34;Bug in Google Webmaster Tools&#34; /&gt;&lt;/p&gt;
-&lt;h3&gt;&lt;br /&gt;&lt;/h3&gt;
-&lt;h3&gt;And this is how it&#39;s supposed to look&lt;br /&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;img class=&#34;image-inline image-inline&#34; src=&#34;/blog/topic_images/snapshot4.png/image_preview&#34; alt=&#34;This is how it&#39;s supposed to look&#34; /&gt;&lt;/p&gt;
-</description>
+      <description>Somebody at Google has screwed up in a laughable manner. Webmaster Tools just got a new feature: the ability to tell Google that you have moved a site to a new domain. I&#39;m in the same situation with one site that I manage: www.caleidoscop.org.ro has been moved recently to www.caleidoscop.org. Although I have done my best (I still need to persuade nginx to generate 301 redirects instead of 302) to ease this transition and absolutely everything pointing to the .</description>
     </item>
     
   </channel>

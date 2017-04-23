@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on The Plone Expanse</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <lastBuildDate>Tue, 08 May 2007 08:24:14 -0300</lastBuildDate>
+    
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ajax</title>
+      <link>/tags/ajax/</link>
+      <pubDate>Tue, 08 May 2007 08:24:14 -0300</pubDate>
+      
+      <guid>/tags/ajax/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Archgenxml</title>
+      <link>/tags/archgenxml/</link>
+      <pubDate>Wed, 24 Feb 2010 17:54:52 -0200</pubDate>
+      
+      <guid>/tags/archgenxml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bugs</title>
+      <link>/tags/bugs/</link>
+      <pubDate>Mon, 13 Jun 2016 12:28:29 -0200</pubDate>
+      
+      <guid>/tags/bugs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Buildout</title>
+      <link>/tags/buildout/</link>
+      <pubDate>Wed, 12 May 2010 11:21:44 -0300</pubDate>
+      
+      <guid>/tags/buildout/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Code Repository</title>
+      <link>/tags/code-repository/</link>
+      <pubDate>Mon, 26 Mar 2007 19:46:13 -0300</pubDate>
+      
+      <guid>/tags/code-repository/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Colaborative</title>
+      <link>/tags/colaborative/</link>
+      <pubDate>Thu, 25 Feb 2010 12:04:41 -0200</pubDate>
+      
+      <guid>/tags/colaborative/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cookbook</title>
+      <link>/tags/cookbook/</link>
+      <pubDate>Thu, 02 Mar 2017 14:54:52 +0100</pubDate>
+      
+      <guid>/tags/cookbook/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cornice</title>
+      <link>/tags/cornice/</link>
+      <pubDate>Wed, 25 Jan 2017 23:09:45 +0100</pubDate>
+      
+      <guid>/tags/cornice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Debugging</title>
+      <link>/tags/debugging/</link>
+      <pubDate>Thu, 18 Aug 2016 16:56:38 -0200</pubDate>
+      
+      <guid>/tags/debugging/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Deliverance</title>
+      <link>/tags/deliverance/</link>
+      <pubDate>Thu, 30 Jun 2016 14:51:42 -0200</pubDate>
+      
+      <guid>/tags/deliverance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Development</title>
+      <link>/tags/development/</link>
+      <pubDate>Thu, 28 Jan 2010 20:57:23 -0200</pubDate>
+      
+      <guid>/tags/development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Diazo</title>
+      <link>/tags/diazo/</link>
+      <pubDate>Thu, 30 Jun 2016 14:51:42 -0200</pubDate>
+      
+      <guid>/tags/diazo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Django</title>
+      <link>/tags/django/</link>
+      <pubDate>Mon, 02 Jan 2017 09:46:35 -0100</pubDate>
+      
+      <guid>/tags/django/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>/tags/docker/</link>
+      <pubDate>Tue, 13 Dec 2016 09:26:44 -0100</pubDate>
+      
+      <guid>/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker Compose</title>
+      <link>/tags/docker-compose/</link>
+      <pubDate>Tue, 13 Dec 2016 09:26:44 -0100</pubDate>
+      
+      <guid>/tags/docker-compose/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dolmen</title>
+      <link>/tags/dolmen/</link>
+      <pubDate>Sun, 19 Sep 2010 22:16:36 -0300</pubDate>
+      
+      <guid>/tags/dolmen/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dsl</title>
+      <link>/tags/dsl/</link>
+      <pubDate>Sat, 24 Dec 2016 08:47:35 -0100</pubDate>
+      
+      <guid>/tags/dsl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Firefox</title>
+      <link>/tags/firefox/</link>
+      <pubDate>Tue, 24 Mar 2015 05:36:13 +0700</pubDate>
+      
+      <guid>/tags/firefox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fun</title>
+      <link>/tags/fun/</link>
+      <pubDate>Thu, 03 May 2007 09:51:20 -0300</pubDate>
+      
+      <guid>/tags/fun/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Grok</title>
+      <link>/tags/grok/</link>
+      <pubDate>Sun, 19 Sep 2010 22:16:36 -0300</pubDate>
+      
+      <guid>/tags/grok/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Gui</title>
+      <link>/tags/gui/</link>
+      <pubDate>Sun, 23 Nov 2008 21:13:23 -0200</pubDate>
+      
+      <guid>/tags/gui/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Javascript</title>
+      <link>/tags/javascript/</link>
+      <pubDate>Mon, 15 Sep 2008 14:38:42 -0300</pubDate>
+      
+      <guid>/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jquery</title>
+      <link>/tags/jquery/</link>
+      <pubDate>Sun, 27 Jan 2008 14:53:25 -0200</pubDate>
+      
+      <guid>/tags/jquery/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Keras</title>
+      <link>/tags/keras/</link>
+      <pubDate>Sat, 21 Jan 2017 00:19:31 +0100</pubDate>
+      
+      <guid>/tags/keras/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kotti</title>
+      <link>/tags/kotti/</link>
+      <pubDate>Mon, 13 Jun 2016 23:49:14 -0200</pubDate>
+      
+      <guid>/tags/kotti/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>/tags/linux/</link>
+      <pubDate>Mon, 20 Apr 2015 10:34:11 +0700</pubDate>
+      
+      <guid>/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Machinelearning</title>
+      <link>/tags/machinelearning/</link>
+      <pubDate>Sat, 21 Jan 2017 00:19:31 +0100</pubDate>
+      
+      <guid>/tags/machinelearning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Management</title>
+      <link>/tags/management/</link>
+      <pubDate>Mon, 09 Nov 2009 20:54:51 -0200</pubDate>
+      
+      <guid>/tags/management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nginx</title>
+      <link>/tags/nginx/</link>
+      <pubDate>Thu, 11 Jun 2009 15:53:16 -0300</pubDate>
+      
+      <guid>/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nodejs</title>
+      <link>/tags/nodejs/</link>
+      <pubDate>Thu, 23 Feb 2017 18:58:08 +0100</pubDate>
+      
+      <guid>/tags/nodejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Npm</title>
+      <link>/tags/npm/</link>
+      <pubDate>Thu, 23 Feb 2017 18:58:08 +0100</pubDate>
+      
+      <guid>/tags/npm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Numpy</title>
+      <link>/tags/numpy/</link>
+      <pubDate>Sat, 21 Jan 2017 00:19:31 +0100</pubDate>
+      
+      <guid>/tags/numpy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Plone</title>
+      <link>/tags/plone/</link>
+      <pubDate>Sat, 25 Feb 2017 19:29:37 +0100</pubDate>
+      
+      <guid>/tags/plone/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Plone.App.Theming</title>
+      <link>/tags/plone.app.theming/</link>
+      <pubDate>Thu, 30 Jun 2016 14:51:42 -0200</pubDate>
+      
+      <guid>/tags/plone.app.theming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Postgresql</title>
+      <link>/tags/postgresql/</link>
+      <pubDate>Mon, 13 Jun 2016 23:49:14 -0200</pubDate>
+      
+      <guid>/tags/postgresql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Programming</title>
+      <link>/tags/programming/</link>
+      <pubDate>Wed, 18 Jan 2017 18:30:18 +0100</pubDate>
+      
+      <guid>/tags/programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pyramid</title>
+      <link>/tags/pyramid/</link>
+      <pubDate>Sat, 25 Feb 2017 03:45:44 +0100</pubDate>
+      
+      <guid>/tags/pyramid/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>/tags/python/</link>
+      <pubDate>Wed, 22 Feb 2017 06:33:34 +0100</pubDate>
+      
+      <guid>/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Quasar Framework</title>
+      <link>/tags/quasar-framework/</link>
+      <pubDate>Thu, 02 Mar 2017 14:54:52 +0100</pubDate>
+      
+      <guid>/tags/quasar-framework/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rails</title>
+      <link>/tags/rails/</link>
+      <pubDate>Sat, 24 Dec 2016 08:47:35 -0100</pubDate>
+      
+      <guid>/tags/rails/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rant</title>
+      <link>/tags/rant/</link>
+      <pubDate>Wed, 22 Feb 2017 06:33:34 +0100</pubDate>
+      
+      <guid>/tags/rant/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rants</title>
+      <link>/tags/rants/</link>
+      <pubDate>Mon, 02 Jan 2017 09:46:35 -0100</pubDate>
+      
+      <guid>/tags/rants/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ruby</title>
+      <link>/tags/ruby/</link>
+      <pubDate>Sat, 24 Dec 2016 08:47:35 -0100</pubDate>
+      
+      <guid>/tags/ruby/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sqlite</title>
+      <link>/tags/sqlite/</link>
+      <pubDate>Mon, 13 Jun 2016 23:49:14 -0200</pubDate>
+      
+      <guid>/tags/sqlite/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tmux</title>
+      <link>/tags/tmux/</link>
+      <pubDate>Wed, 05 Apr 2017 09:24:08 +0200</pubDate>
+      
+      <guid>/tags/tmux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tutorial</title>
+      <link>/tags/tutorial/</link>
+      <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
+      
+      <guid>/tags/tutorial/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu</title>
+      <link>/tags/ubuntu/</link>
+      <pubDate>Sun, 23 Nov 2008 21:13:23 -0200</pubDate>
+      
+      <guid>/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vim</title>
+      <link>/tags/vim/</link>
+      <pubDate>Wed, 18 Jan 2017 18:30:18 +0100</pubDate>
+      
+      <guid>/tags/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vuejs</title>
+      <link>/tags/vuejs/</link>
+      <pubDate>Thu, 02 Mar 2017 14:54:52 +0100</pubDate>
+      
+      <guid>/tags/vuejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Webpack</title>
+      <link>/tags/webpack/</link>
+      <pubDate>Thu, 02 Mar 2017 14:54:52 +0100</pubDate>
+      
+      <guid>/tags/webpack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Windows</title>
+      <link>/tags/windows/</link>
+      <pubDate>Tue, 08 May 2007 08:24:14 -0300</pubDate>
+      
+      <guid>/tags/windows/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Youtube</title>
+      <link>/tags/youtube/</link>
+      <pubDate>Mon, 28 Jan 2008 12:32:16 -0200</pubDate>
+      
+      <guid>/tags/youtube/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zcatalog</title>
+      <link>/tags/zcatalog/</link>
+      <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
+      
+      <guid>/tags/zcatalog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zodb</title>
+      <link>/tags/zodb/</link>
+      <pubDate>Thu, 18 Aug 2016 16:56:38 -0200</pubDate>
+      
+      <guid>/tags/zodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zope</title>
+      <link>/tags/zope/</link>
+      <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
+      
+      <guid>/tags/zope/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zope2</title>
+      <link>/tags/zope2/</link>
+      <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
+      
+      <guid>/tags/zope2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zope3</title>
+      <link>/tags/zope3/</link>
+      <pubDate>Wed, 31 Aug 2016 08:12:43 -0200</pubDate>
+      
+      <guid>/tags/zope3/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

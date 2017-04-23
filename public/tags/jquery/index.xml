@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jquery on The Plone Expanse</title>
-    <link>/tags/jquery/index.xml</link>
+    <link>/tags/jquery/</link>
     <description>Recent content in Jquery on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/jquery/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Jan 2008 14:53:25 -0200</lastBuildDate>
+    
+	<atom:link href="/tags/jquery/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Problem with jQuery version 1.2.2 and getJSON</title>
@@ -15,8 +18,7 @@
       <pubDate>Sun, 27 Jan 2008 14:53:25 -0200</pubDate>
       
       <guid>/blog/2008/01/27/problem-with-jquery-version-1.2.2-and-getjson/</guid>
-      <description>&lt;p&gt;It took me a couple of hours to track this (I was just starting a new project using jQuery), but I finally nailed it: jQuery version 1.2.2 has a problem with loading JSON data from absolute urls. Use the trunk version and you&#39;ll be fine.&lt;br /&gt;&lt;/p&gt;
-</description>
+      <description>It took me a couple of hours to track this (I was just starting a new project using jQuery), but I finally nailed it: jQuery version 1.2.2 has a problem with loading JSON data from absolute urls. Use the trunk version and you&#39;ll be fine.</description>
     </item>
     
   </channel>

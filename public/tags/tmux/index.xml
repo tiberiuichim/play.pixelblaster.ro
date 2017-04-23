@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tmux on The Plone Expanse</title>
-    <link>/tags/tmux/index.xml</link>
+    <link>/tags/tmux/</link>
     <description>Recent content in Tmux on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/tmux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 05 Apr 2017 09:24:08 +0200</lastBuildDate>
+    
+	<atom:link href="/tags/tmux/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>When did tmux get plugins?</title>
@@ -15,30 +18,10 @@
       <pubDate>Wed, 05 Apr 2017 09:24:08 +0200</pubDate>
       
       <guid>/blog/2017/04/05/when-did-tmux-get-plugins/</guid>
-      <description>&lt;p&gt;Well, this is new to me. Apparently tmux now supports plugins. I don&amp;rsquo;t really
-know if I need any plugin, I enjoy tmux as it is right now (after some
-customizations) but it&amp;rsquo;s good to know that plugins finally exist for tmux.&lt;/p&gt;
-
-&lt;p&gt;So, what do we have:&lt;/p&gt;
-
-&lt;p&gt;First, the Tmux Plugin Manager: &lt;a href=&#34;https://github.com/tmux-plugins/tpm&#34;&gt;https://github.com/tmux-plugins/tpm&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Next, the tmux Facebook PathPicker plugin (which is a marvelous thing I didn&amp;rsquo;t
-knew existed): &lt;a href=&#34;https://github.com/tmux-plugins/tmux-fpp&#34;&gt;https://github.com/tmux-plugins/tmux-fpp&lt;/a&gt; and
-&lt;a href=&#34;https://github.com/facebook/pathpicker/&#34;&gt;https://github.com/facebook/pathpicker/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;As a side note, watching github stars has become my primary mode to stay
-current with the latest news in programming. I&amp;rsquo;ve created a script that prints
-out only &amp;ldquo;social&amp;rdquo; activity of those people that I follow, so I get to see, each
-morning, what&amp;rsquo;s popular in the world of programming, outsourced to a number of
-374 people, the people I&amp;rsquo;m following right now. I get about 20 links each day
-from a variety of projects and languages, but with a flavour based on my own
-interests. Pretty cool! The script is here:
-&lt;a href=&#34;https://github.com/tiberiuichim/minitools/blob/master/get_git_social_log.py&#34;&gt;https://github.com/tiberiuichim/minitools/blob/master/get_git_social_log.py&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I mention this because the Tmux Plugins were a discovery I made reading the
-this file in a recently starred project: &lt;a href=&#34;https://github.com/cwonrails/dotfiles/blob/master/archlinux/.tmux.conf&#34;&gt;https://github.com/cwonrails/dotfiles/blob/master/archlinux/.tmux.conf&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Well, this is new to me. Apparently tmux now supports plugins. I don&amp;rsquo;t really know if I need any plugin, I enjoy tmux as it is right now (after some customizations) but it&amp;rsquo;s good to know that plugins finally exist for tmux.
+So, what do we have:
+First, the Tmux Plugin Manager: https://github.com/tmux-plugins/tpm
+Next, the tmux Facebook PathPicker plugin (which is a marvelous thing I didn&amp;rsquo;t knew existed): https://github.com/tmux-plugins/tmux-fpp and https://github.</description>
     </item>
     
   </channel>

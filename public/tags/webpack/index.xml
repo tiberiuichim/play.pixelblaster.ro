@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Webpack on The Plone Expanse</title>
-    <link>/tags/webpack/index.xml</link>
+    <link>/tags/webpack/</link>
     <description>Recent content in Webpack on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 02 Mar 2017 14:54:52 +0100</lastBuildDate>
+    
+	<atom:link href="/tags/webpack/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Analyse and optimize a webpack vuejs bundle</title>
@@ -15,71 +18,9 @@
       <pubDate>Thu, 02 Mar 2017 14:54:52 +0100</pubDate>
       
       <guid>/blog/2017/03/02/analyse-and-optimize-a-webpack-vuejs-bundle/</guid>
-      <description>&lt;p&gt;At around 450 kb of javascript code, a Quasar distribution bundle seems a bit
-too big. The following short recipe applies to an app generated from the
-Quasar Framework default template, but it probably applies to any vuejs project
-that uses vue-loader, and even any project using webpack.&lt;/p&gt;
-
-&lt;p&gt;First, we want to analyse what&amp;rsquo;s inside the bundle. A good utility is
-webpack-bundle-analyzer, but how to use it?&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Configure the webpack to write the stats to a json file. In my case, I&amp;rsquo;ve
-changed the build/script.build.js to have something like this:&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var fs = require(&#39;fs&#39;)
-
-webpack(webpackConfig, function (err, stats) {
-  if (err) throw err
-
-  // this writes the stats.json file with webpack statistics
-  fs.writeFileSync(&#39;./stats.json&#39;, JSON.stringify(stats.toJson()));
-
-  process.stdout.write(stats.toString({
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So, only added two lines: the &lt;code&gt;required(&#39;fs&#39;)&lt;/code&gt; and &lt;code&gt;fs.writeFileSync&lt;/code&gt;.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Install the webpack-bundle-analyzer with &lt;code&gt;npm install --save-dev&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Build the bundle: &lt;code&gt;npm run build&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Analyze the bundle:&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;code&gt;node_modules/.bin/webpack-bundle-analyzer stats.json dist/ -p 4000&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This opens a new http server on port 4000, where the bundle contents can be
-analysed. In my case, I found that moment.js adds about 70kb of gzipped content
-that can be stripped during the webpack process. But how? With a webpack
-IgnorePlugin.&lt;/p&gt;
-
-&lt;p&gt;In the build/webpack.base.conf, in the plugins listing, I&amp;rsquo;ve added a new
-plugin:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;
-module.exports = {
-  ...
-  plugins: [
-    new webpack.DefinePlugin({
-      &#39;process.env&#39;: config[env.prod ? &#39;build&#39; : &#39;dev&#39;].env,
-      &#39;DEV&#39;: env.dev,
-      &#39;PROD&#39;: env.prod,
-      &#39;__THEME&#39;: &#39;&amp;quot;&#39; + env.platform.theme + &#39;&amp;quot;&#39;
-    }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.LoaderOptionsPlugin({
-      minimize: env.prod,
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Notice the IgnorePlugin line, inserted between the other two. With this in
-place, I&amp;rsquo;ve reduced the JS vender bundle size to 340 KB, which further reduces
-to 90 KB when gziped, a figure that I can be absolutely OK with.&lt;/p&gt;
-</description>
+      <description>At around 450 kb of javascript code, a Quasar distribution bundle seems a bit too big. The following short recipe applies to an app generated from the Quasar Framework default template, but it probably applies to any vuejs project that uses vue-loader, and even any project using webpack.
+First, we want to analyse what&amp;rsquo;s inside the bundle. A good utility is webpack-bundle-analyzer, but how to use it?
+ Configure the webpack to write the stats to a json file.</description>
     </item>
     
   </channel>

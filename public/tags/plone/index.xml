@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Plone on The Plone Expanse</title>
-    <link>/tags/plone/index.xml</link>
+    <link>/tags/plone/</link>
     <description>Recent content in Plone on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/plone/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Feb 2017 19:29:37 +0100</lastBuildDate>
+    
+	<atom:link href="/tags/plone/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Loading packages without z3c.autoinclude in Plone 5.1</title>
@@ -15,30 +18,8 @@
       <pubDate>Sat, 25 Feb 2017 19:29:37 +0100</pubDate>
       
       <guid>/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/</guid>
-      <description>&lt;p&gt;The new Plone 5.1 development buildout doesn&amp;rsquo;t include a zcml property in its
-[instance] section. It is no longer needed, with all eggs already providing
-a z3c.autoinclude entrypoint. This, unless you want to load an older package
-which doesn&amp;rsquo;t have such an entry point. That&amp;rsquo;s when the trouble starts. Adding
-a, for example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[instance]
-...
-zcml +=
-    cs.auth.facebook
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;doesn&amp;rsquo;t work. There is really no zcml property in any of the extended cfg file,
-so Zope will try to load this package first, which will result in a &amp;ldquo;permission
-not defined&amp;rdquo; zcml error. My fix is to include the Products.CMFPlone egg,
-something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[instance]
-...
-zcml =
-    Products.CMFPlone
-    cs.auth.facebook
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>The new Plone 5.1 development buildout doesn&amp;rsquo;t include a zcml property in its [instance] section. It is no longer needed, with all eggs already providing a z3c.autoinclude entrypoint. This, unless you want to load an older package which doesn&amp;rsquo;t have such an entry point. That&amp;rsquo;s when the trouble starts. Adding a, for example:
+[instance] ... zcml += cs.auth.facebook  doesn&amp;rsquo;t work. There is really no zcml property in any of the extended cfg file, so Zope will try to load this package first, which will result in a &amp;ldquo;permission not defined&amp;rdquo; zcml error.</description>
     </item>
     
     <item>
@@ -47,12 +28,8 @@ zcml =
       <pubDate>Thu, 23 Feb 2017 16:53:16 +0100</pubDate>
       
       <guid>/blog/2017/02/23/test-for-an-interface-provided-by-object-in-plone-action-condition/</guid>
-      <description>&lt;p&gt;Quick tip: how to test if the context provides an interface, with an expression
-set as the condition:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;python:object.restrictedTraverse(&amp;quot;@@plone_interface_info&amp;quot;).provides(&#39;dotted.path.to.IMyFancyInterface&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Quick tip: how to test if the context provides an interface, with an expression set as the condition:
+python:object.restrictedTraverse(&amp;quot;@@plone_interface_info&amp;quot;).provides(&#39;dotted.path.to.IMyFancyInterface&#39;)  </description>
     </item>
     
     <item>
@@ -61,31 +38,9 @@ set as the condition:&lt;/p&gt;
       <pubDate>Wed, 22 Feb 2017 14:19:02 +0100</pubDate>
       
       <guid>/blog/2017/02/22/plone-assign-permission-to-role/</guid>
-      <description>&lt;p&gt;I always forget, and a quick search through the eggs folder didn&amp;rsquo;t yield
-anything easy to find: how to I assign a permission to a role, in a context?&lt;/p&gt;
-
-&lt;p&gt;This is a bit of code:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from Products.DCWorkflow.utils import modifyRolesForPermission
-from AccessControl.PermissionMapping import getPermissionMapping
-
-perm = &#39;Delete objects&#39;
-pm = set(getPermissionMapping(perm, context, st=tuple))
-pm.add(&#39;Contributor&#39;)
-pm.add(&#39;Owner&#39;)
-modifyRolesForPermission(wc, perm, tuple(pm))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is based on code found in DCWorkflow. I know, the proper code would be:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from AccessControl.Permission import Permission
-p = Permission(name, data, obj)
-p.setRole(role_name, True)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But I don&amp;rsquo;t like that API. What is data? I don&amp;rsquo;t know. I can understand name,
-of course, and obj as the context. But data???&lt;/p&gt;
-</description>
+      <description>I always forget, and a quick search through the eggs folder didn&amp;rsquo;t yield anything easy to find: how to I assign a permission to a role, in a context?
+This is a bit of code:
+from Products.DCWorkflow.utils import modifyRolesForPermission from AccessControl.PermissionMapping import getPermissionMapping perm = &#39;Delete objects&#39; pm = set(getPermissionMapping(perm, context, st=tuple)) pm.add(&#39;Contributor&#39;) pm.add(&#39;Owner&#39;) modifyRolesForPermission(wc, perm, tuple(pm))  This is based on code found in DCWorkflow. I know, the proper code would be:</description>
     </item>
     
     <item>
@@ -94,45 +49,8 @@ of course, and obj as the context. But data???&lt;/p&gt;
       <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
       
       <guid>/blog/2017/01/08/do-you-really-need-that-metadata-column/</guid>
-      <description>&lt;p&gt;It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&amp;nbsp;&lt;/p&gt;
-&lt;p&gt;As an example: when exploring collective.portlet.collectionfilter I&#39;ve noticed that the definition of the filters need both the index name and the metadata column. Ex:&lt;/p&gt;
-&lt;pre&gt;GROUPBY_CRITERIA = {
-    &#39;Subject&#39;: {
-        &#39;index&#39;: &#39;Subject&#39;,  # For querying
-        &#39;metadata&#39;: &#39;Subject&#39;,  # For constructing the list
-        &#39;display_modifier&#39;: None,  # For modifying list items (e.g. dates)
-        &#39;query_range&#39;: None  # For range searches (e.g. for dates or numbers)
-    },
-...&lt;/pre&gt;
-&lt;div&gt;The metadata is needed because the search result is a whole bag of brains and the portlet groups results by their values, so it needs to know the real values. With minimal changes it is possible to avoid the need for that metadata column.&lt;/div&gt;
-&lt;p&gt;This is the original code in collectionfilter.py:&lt;/p&gt;
-&lt;pre&gt;attr = GROUPBY_CRITERIA[self.data.group_by][&#39;metadata&#39;]
-mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
-
-grouped_results = {}
-for item in results:
-    val = getattr(item, attr, None)
-    if callable(val):
-        val = val()
-    if not getattr(val, &#39;__iter__&#39;, False):
-        val = [val]&lt;/pre&gt;
-&lt;div&gt;And these are the minimal changes:&lt;/div&gt;
-&lt;pre&gt;mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
-
-catalog = getToolByName(self.context, &#39;portal_catalog&#39;)
-unindex = catalog._catalog.indexes[idx]._unindex
-
-grouped_results = {}
-for item in results:
-    rid = item._brain.getRID()
-    # val = getattr(item, attr, None)
-    val = unindex.get(rid)
-    if callable(val):
-        val = val()
-    if not getattr(val, &#39;__iter__&#39;, False):
-        val = [val]&lt;/pre&gt;
-&lt;p&gt;It reads the field values from the _unindex mapping of the indexes (which exist for most of the indexes in the Plone catalog. Exceptions are indexes for Title, Description, getObjPositionInParent and SearchableText). Most of the ZCatalog indexes have two mappings where they store information: the forward &#34;mapping&#34; (field value =&amp;gt; objectid) and the reverse mapping (object id =&amp;gt; field value). In this above snippet we&#39;re reading the reverse mapping to get the original field value. So, no need for a dedicated metadata column.&lt;/p&gt;
-</description>
+      <description>It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&amp;nbsp;
+As an example: when exploring collective.</description>
     </item>
     
     <item>
@@ -141,25 +59,7 @@ for item in results:
       <pubDate>Tue, 13 Dec 2016 09:26:44 -0100</pubDate>
       
       <guid>/blog/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks/</guid>
-      <description>&lt;p&gt;For some time I&#39;ve had to deal with two separate, docker-compose based application stacks. One of them combining a Ruby on Rails app with a whole suite of ElasticSearch nodes, sidekiq worker, Postgresql, nginx, the whole shebang. Another is just a plain Zope/Plone stack, but the difficulties remain the same: when I wanted to do production debugging or just plain development using that environment, I needed something that can be started manually, in the whole stack. I don&#39;t want to have to deal with &lt;a class=&#34;external-link&#34; href=&#34;https://pypi.python.org/pypi/rpdb/&#34;&gt;rpdb&lt;/a&gt;&amp;nbsp;or remote byebug just to be able to debug. I want to poke around the whole stacks and see what happens.&amp;nbsp;&lt;/p&gt;
-&lt;p&gt;So my solution was, in both cases, to configure another service in the docker-compose stack that just did nothing.&lt;/p&gt;
-&lt;pre&gt;...
-debug:
- &amp;nbsp;image: plone
- &amp;nbsp;ports:
- &amp;nbsp;&amp;nbsp;&amp;nbsp;- &#34;8090:8080&#34;
- &amp;nbsp;volumes:
- &amp;nbsp;&amp;nbsp;&amp;nbsp;- ./src:/plone/instance/src
- &amp;nbsp;entrypoint: sh -c &#34;tail -f /dev/null&#34;
-&lt;/pre&gt;
-&lt;p&gt;Something like the above. Notice the entry point, which just keeps the container up, but does nothing. Now I can run&lt;/p&gt;
-&lt;pre&gt;docker exec -it debug_1 bash&lt;/pre&gt;
-&lt;p&gt;And inside the container, I can edit the eggs to set a pdb.trace() line whereever, then start the instance:&amp;nbsp;&lt;/p&gt;
-&lt;pre&gt;bin/standalone fg&lt;/pre&gt;
-&lt;p&gt;Why go through this trouble instead of just running the plone container with something like&lt;/p&gt;
-&lt;pre&gt;docker run --name debug plone&lt;/pre&gt;
-&lt;p&gt;Usually docker-compose stack are entertwined services that need connecting to one another. My given service debug could be linked to whatever other service: postfix, postgresql, elasticsearch, etc. Why go through the trouble of linking manually, from the command line, when I can just get docker-compose to do it?&lt;/p&gt;
-</description>
+      <description>For some time I&#39;ve had to deal with two separate, docker-compose based application stacks. One of them combining a Ruby on Rails app with a whole suite of ElasticSearch nodes, sidekiq worker, Postgresql, nginx, the whole shebang. Another is just a plain Zope/Plone stack, but the difficulties remain the same: when I wanted to do production debugging or just plain development using that environment, I needed something that can be started manually, in the whole stack.</description>
     </item>
     
     <item>
@@ -168,11 +68,10 @@ debug:
       <pubDate>Fri, 02 Dec 2016 11:22:18 -0100</pubDate>
       
       <guid>/blog/2016/12/02/change-the-authentication-cookie-name-in-plone/</guid>
-      <description>&lt;p&gt;Not obvious of first, there are two places to change the cookie name used in login:&lt;/p&gt;
-&lt;p&gt;/acl_users/credentials_cookie_auth/manage_propertiesForm&lt;/p&gt;
-&lt;p&gt;and&lt;/p&gt;
-&lt;p&gt;/acl_users/session/manage_propertiesForm&lt;/p&gt;
-</description>
+      <description>Not obvious of first, there are two places to change the cookie name used in login:
+/acl_users/credentials_cookie_auth/manage_propertiesForm
+and
+/acl_users/session/manage_propertiesForm</description>
     </item>
     
     <item>
@@ -181,25 +80,10 @@ debug:
       <pubDate>Thu, 13 Oct 2016 12:51:46 -0200</pubDate>
       
       <guid>/blog/2016/10/13/how-to-make-the-linked-object-editable-in-droppable-collective.cover-tiles/</guid>
-      <description>&lt;p&gt;By default, collective.cover offers one mechanism to &#34;drop&#34; objects to their tiles, by using the &#34;Add content&#34; button at the top. I&#39;ve received feedback that the button will not be very friendly to editors, so my solution, in this case, is really simple.&lt;/p&gt;
-&lt;p&gt;In the tile schema, instead of the default:&lt;/p&gt;
-&lt;pre&gt;    uuid = schema.TextLine(
-        title=_(u&#39;UUID&#39;),
-        required=False,
-        readonly=True,
-    )&lt;/pre&gt;
-&lt;p&gt;redefine uuid to be such as:&lt;/p&gt;
-&lt;pre&gt;from plone.formwidget.contenttree import UUIDSourceBinder
-from z3c.relationfield.schema import RelationChoice
-
-class IMyTile(IPersistentCoverTile):
-    uuid = RelationChoice(
-        title=u&#34;Linked object&#34;,
-        source=UUIDSourceBinder(),
-        required=False,
-    )&lt;/pre&gt;
-&lt;div&gt;This simple change should make the uuid editable with the default contenttree widget.&lt;/div&gt;
-</description>
+      <description>By default, collective.cover offers one mechanism to &#34;drop&#34; objects to their tiles, by using the &#34;Add content&#34; button at the top. I&#39;ve received feedback that the button will not be very friendly to editors, so my solution, in this case, is really simple.
+In the tile schema, instead of the default:
+ uuid = schema.TextLine( title=_(u&#39;UUID&#39;), required=False, readonly=True, ) redefine uuid to be such as:
+from plone.formwidget.contenttree import UUIDSourceBinder from z3c.</description>
     </item>
     
     <item>
@@ -208,63 +92,8 @@ class IMyTile(IPersistentCoverTile):
       <pubDate>Thu, 15 Sep 2016 11:37:22 -0200</pubDate>
       
       <guid>/blog/2016/09/15/trigger-cron-style-jobs-in-plone-sites-without-passwords/</guid>
-      <description>&lt;p&gt;For some time the plone.recipe.zope2instance added support to execute scripts in the context of a full &#34;Zope 2 environment&#34;, by using it such as&amp;nbsp;&lt;/p&gt;
-&lt;pre&gt;bin/instance run /path/to/script&lt;/pre&gt;
-&lt;p&gt;This can be used to launch Python scripts with full support of the Zope machinery, connected to the Zeo server, etc. The script can be generated as a console script from any Plone addon.&amp;nbsp;Here&#39;s a small snippet to be used to get a &#34;fully integrated&#34; Plone site:&lt;/p&gt;
-&lt;pre&gt;HOST = &#39;www.example.com&#39;
-PLONE_PATH = &#39;/Plone&#39;    # physical Path of Plone website
-
-def get_plone_site():
-    import Zope2
-    app = Zope2.app()
-    from Testing.ZopeTestCase import utils
-    utils._Z2HOST = HOST
-
-    path = PLONE_PATH.split(&#39;/&#39;)
-    plone = path[-1]
-
-    app = utils.makerequest(app)
-    app.REQUEST[&#39;PARENTS&#39;] = [app]
-    app.REQUEST.other[&#39;VirtualRootPhysicalPath&#39;] = path
-    from zope.globalrequest import setRequest
-    setRequest(app.REQUEST)
-
-    from AccessControl.SpecialUsers import system as user
-    from AccessControl.SecurityManagement import newSecurityManager
-    newSecurityManager(None, user)
-
-    _site = app[plone]
-    site = _site.__of__(app)
-
-    from zope.site.hooks import setSite
-    setSite(site)
-
-    return site
-
-def main():
-    site = get_plone_site()
-    site[&#39;portal_catalog&#39;].searchResults(...)&lt;/pre&gt;
-&lt;p&gt;Now the &#34;main&#34; function can be registered as console script in the setup.py of the package&lt;/p&gt;
-&lt;pre&gt;setup(
-...
-      entry_points=&#34;&#34;&#34;
-      # -*- Entry points: -*-
-      [console_scripts]
-      myscript = my.package.scripts:main
-      &#34;&#34;&#34;,
-...
-)&lt;/pre&gt;
-&lt;p&gt;&amp;nbsp;Note: There&#39;s also clockserver support in Zope, you can configure as:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;clock-server&amp;gt;
-    # starts a clock which calls /foo/bar every 30 seconds
-    method /foo/bar
-    period 30
-    user admin
-    password 123
-    host www.example.com
-&amp;lt;/clock-server&amp;gt;&lt;/pre&gt;
-&lt;p&gt;What I don&#39;t like about this: it involves saving passwords in config files, which is not very maintainable. Also, the run-based method can be called &#34;on demand&#34;, for example by scripts watching a RabbitMQ queue, etc.&lt;/p&gt;
-</description>
+      <description>For some time the plone.recipe.zope2instance added support to execute scripts in the context of a full &#34;Zope 2 environment&#34;, by using it such as&amp;nbsp;
+bin/instance run /path/to/script This can be used to launch Python scripts with full support of the Zope machinery, connected to the Zeo server, etc. The script can be generated as a console script from any Plone addon.&amp;nbsp;Here&#39;s a small snippet to be used to get a &#34;</description>
     </item>
     
     <item>
@@ -273,107 +102,9 @@ def main():
       <pubDate>Wed, 31 Aug 2016 08:12:43 -0200</pubDate>
       
       <guid>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</guid>
-      <description>&lt;p&gt;This would be a sort of tutorial on how to implement a new plone.app.contentrules Trigger Event, how to write a new plone.stringinterp variable substitutor and how to trigger the event from a browser page (or z3c.form).&lt;/p&gt;
-&lt;p&gt;This allows configuring a new trigger event from the Content Rules Plone control panel configlet and to assign a new Email action, with customizable body template.&lt;/p&gt;
-&lt;p&gt;Let&#39;s say our task is to implement a contact form:&lt;/p&gt;
-&lt;pre&gt;from plone.directives import form
-from plone.api.portal import show_message
-from zope.event import notify
-
-class IContactForm(form.Schema):
-    name = schema.TextLine(title=u&#34;Your Name&#34;, required=True)
-    email = Email(title=u&#34;Contact eMail:&#34;, required=True)
-
-class ContactInformation(Implicit):
-    &#34;&#34;&#34; A container to be passed to plone.app.contentrules for contact info
-    &#34;&#34;&#34;
-
-    def __init__(self, name=None, email=None):
-        self.name = name
-        self.email = email
-
-class ContactForm(form.SchemaForm):
-
-    schema = IContactForm
-    ignoreContext = True
-
-    label = u&#34;Contact Form&#34;
-
-    fields = field.Fields(IContactForm)
-
-    @button.buttonAndHandler(u&#34;Submit&#34;)
-    def handleApply(self, action):
-        data, errors = self.extractData()
-        if errors:
-            self.status = self.formErrorsMessage
-            return
-
-        name = data.get(&#39;name&#39;)
-        email = data.get(&#39;email&#39;)
-
-        obj = ContactInformation(name=name, email=email)
-        obj = obj.__of__(self.context)
-        notify(ContactEvent(obj))
-        show_message(message=&#34;Message sent&#34;, request=self.request, type=&#39;info&#39;)&lt;/pre&gt;
-&lt;p&gt;The ContactInformation object is needed to pass information from the form to the content rules machinery. It needs to be acquisition aware, as plone.app.contentrules will try to trigger events up its chain of acquisition. This can also be replaced by setting some annotation on the request.&lt;/p&gt;
-&lt;p&gt;We need a custom event with an event handler that triggers the content rules execution:&lt;/p&gt;
-&lt;pre&gt;from zope.interface import implements
-from zope.component.interfaces import ObjectEvent, IObjectEvent
-from plone.app.contentrules.handlers import execute_rules
-
-class IContactEvent(IObjectEvent):
-    &#34;&#34;&#34;
-    &#34;&#34;&#34;
-
-class ContactEvent(ObjectEvent):
-    implements(IContactEvent)
-
-def trigger_contentrules(event):
-    execute_rules(event)&lt;/pre&gt;
-&lt;p&gt;Now, a bit of zcml to register the event with plone.app.contentrules and setup the event handler:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;interface
-    interface=&#34;.events.IContactEvent&#34;
-    type=&#34;plone.contentrules.rule.interfaces.IRuleEventType&#34;
-    name=&#34;Contact form triggered&#34;
-    /&amp;gt;
-
-&amp;lt;subscriber for=&#34;.events.IContactEvent&#34; handler=&#34;.events.trigger_contentrules&#34; /&amp;gt;&lt;/pre&gt;
-&lt;p&gt;This will make the &#34;Contact form triggered&#34; event available for the Plone Content Rules and, thanks to the notify() call in the form handler, trigger the content rules execution.&lt;/p&gt;
-&lt;p&gt;One last thing that we need is to access the information submitted in the form. The ContactInformation object serves as a container for that information, so we&#39;ll need special variables for the Email action:&lt;/p&gt;
-&lt;pre&gt;class contact_email(BaseSubstitution):
-    description = u&#34;Contact email&#34;
-    category = &#39;ContactForm&#39;
-
-    adapts(Interface)
-
-    def safe_call(self):
-        return self.context.email
-
-
-class contact_name(BaseSubstitution):
-    description = u&#34;Contact name&#34;
-    category = &#39;ContactForm&#39;
-
-    adapts(Interface)
-
-    def safe_call(self):
-        return self.context.name&lt;/pre&gt;
-&lt;div&gt;and the zcml for this:&lt;/div&gt;
-&lt;pre&gt;&amp;lt;adapter
-    for=&#34;*&#34;
-    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
-    factory=&#34;.stringinterp.contact_email&#34;
-    name=&#34;contact_email&#34;
-    /&amp;gt;
-
-&amp;lt;adapter
-    for=&#34;*&#34;
-    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
-    factory=&#34;.stringinterp.contact_name&#34;
-    name=&#34;contact_name&#34;
-    /&amp;gt;&lt;/pre&gt;
-&lt;div&gt;So why use this mechanism instead of something like PloneFormGen? In my case, the site administrator is used to changing email templates for various events (object created, published, etc) from the Content Rules panel, so why not keep everything simple and consistent?&lt;/div&gt;
-</description>
+      <description>This would be a sort of tutorial on how to implement a new plone.app.contentrules Trigger Event, how to write a new plone.stringinterp variable substitutor and how to trigger the event from a browser page (or z3c.form).
+This allows configuring a new trigger event from the Content Rules Plone control panel configlet and to assign a new Email action, with customizable body template.
+Let&#39;s say our task is to implement a contact form:</description>
     </item>
     
     <item>
@@ -382,35 +113,8 @@ class contact_name(BaseSubstitution):
       <pubDate>Thu, 18 Aug 2016 16:56:38 -0200</pubDate>
       
       <guid>/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/</guid>
-      <description>&lt;p&gt;I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.&lt;/p&gt;
-&lt;p&gt;My solution, because I didn&#39;t care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys.modules:&lt;/p&gt;
-&lt;pre&gt;class NavigableString(unicode):
-    def __new__(cls):
-        return unicode.__new__(cls)
-
-    def __getstate__(self):
-        return self.__dict__
-
-
-class Tag(object):
-    def __getstate__(self):
-        return self.__dict__
-
-
-class BeautifulSoup(object):
-    def __getstate__(self):
-        return self.__dict__
-
-
-class fake_bs3(object):
-    NavigableString = NavigableString
-    Tag = Tag
-    BeautifulSoup = BeautifulSoup
-
-import sys
-sys.modules[&#39;BeautifulSoup&#39;] = fake_bs3&lt;/pre&gt;
-&lt;div&gt;&amp;nbsp;&lt;/div&gt;
-</description>
+      <description>I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.
+My solution, because I didn&#39;t care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys.</description>
     </item>
     
     <item>
@@ -419,41 +123,8 @@ sys.modules[&#39;BeautifulSoup&#39;] = fake_bs3&lt;/pre&gt;
       <pubDate>Thu, 30 Jun 2016 14:51:42 -0200</pubDate>
       
       <guid>/blog/2016/06/30/how-to-completely-disable-diazo-on-a-specific-path/</guid>
-      <description>&lt;p&gt;I&#39;m working on an (inherited) website that uses Plone and BackboneJS to offer a streamlined search interface over a catalog of items.&lt;/p&gt;
-&lt;p&gt;My task was to apply a new Diazo theme, which worked great for the rest of the website, except for this search page. The items inserted by the Backbone app would be all garbled and wrong. In the end, I managed to isolate the problem to a single page template that would load only that SPA, and the problem still persisted, (on my development machine), while the same code ran ok on the production server.&lt;/p&gt;
-&lt;p&gt;So what was the difference? The development machine had a Diazo theme active. As soon as I&#39;ve disabled the Diazo theme, the problem disappeared. Oh well, time for a &amp;lt;notheme /&amp;gt; I said, but that didn&#39;t work either: no rule was applied in the transform. After debugging through plone.transformchain.zpublisher.applyTransform and plone.app.theming.transform.ThemeTransform, I came to the conclusion that the serializer used just &#34;breaks&#34; the HTML. It doesn&#39;t break it, it fixes it the problems in that HTML template file, but the fixes break the Underscore templates that will transform that file.&lt;/p&gt;
-&lt;p&gt;So, my fix is a hack:&lt;/p&gt;
-&lt;pre&gt;from ZODB.POSException import ConflictError
-from ZPublisher.interfaces import IPubAfterTraversal
-from plone.transformchain.interfaces import DISABLE_TRANSFORM_REQUEST_KEY
-from zope.component import adapter
-import logging
-
-logger = logging.getLogger(&#39;pkg.diazotheme&#39;)
-
-
-@adapter(IPubAfterTraversal)
-def disable_diazo_for_templates(event):
-    &#34;&#34;&#34; Code modeled after plone.app.caching.hooks.intercept
-    &#34;&#34;&#34;
-    try:
-        request = event.request
-        if not (&#34;/spa/template&#34; in request.getURL()):
-            return
-
-        if DISABLE_TRANSFORM_REQUEST_KEY not in request.environ:
-            request.environ[DISABLE_TRANSFORM_REQUEST_KEY] = True
-
-    except ConflictError:
-        raise
-    except:
-        logging.exception(
-            &#34;Swallowed exception in pkg.diazotheme &#34;
-            &#34;IPubAfterTraversal event handler&#34;)&lt;/pre&gt;
-&lt;p&gt;And register this subscriber with:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;subscriber handler=&#34;.events.disable_diazo_for_templates&#34; /&amp;gt;&lt;/pre&gt;
-&lt;p&gt;But this fix is wrong. My template files came as .html.dtml files placed in a portal_skins layer. The simplest fix would be to just make their content type text/plain. Like, simply renaming them to .txt. With that Content-Type they would be ignored completely by Diazo. Another good way would be (probably) to move them in a static browser resource folder.&lt;/p&gt;
-</description>
+      <description>I&#39;m working on an (inherited) website that uses Plone and BackboneJS to offer a streamlined search interface over a catalog of items.
+My task was to apply a new Diazo theme, which worked great for the rest of the website, except for this search page. The items inserted by the Backbone app would be all garbled and wrong. In the end, I managed to isolate the problem to a single page template that would load only that SPA, and the problem still persisted, (on my development machine), while the same code ran ok on the production server.</description>
     </item>
     
     <item>
@@ -462,77 +133,8 @@ def disable_diazo_for_templates(event):
       <pubDate>Mon, 13 Jun 2016 12:28:29 -0200</pubDate>
       
       <guid>/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/</guid>
-      <description>&lt;p&gt;On a Plone 4.3 with plone.app.widgets 1.8.0 and plone.app.contenttypes 1.1b5 installed, there&#39;s one weird bit of inconsistency:&lt;/p&gt;
-&lt;p&gt;The TinyMCE widget rendered by the plone.app.contenttype&#39;s IRichText behaviour is different from any other RichText field added in the dexterity model. Even on the same page, for example, if I edit the Document dexterity type and add a rich text field, the resulting widget is different. How do I know? Try inserting an image by selecting it, in the popup dialog, from the site content browser. In the case of the IRichText text field, it will work, but it will not work for the default text field. So why is that? The IRichText schema could be nothing simpler:&lt;/p&gt;
-&lt;pre&gt;from plone.app.textfield import RichText as RichTextField
-
-
-@provider(IFormFieldProvider)
-class IRichText(model.Schema):
-
-    text = RichTextField(
-        title=_(u&#39;Text&#39;),
-        description=u&#34;&#34;,
-        required=False,
-    )&lt;/pre&gt;
-&lt;p&gt;The answer is: it&#39;s a different widget, not the one coming from plone.app.textfield. plone.app.widgets replaces the widget for the IRichText.text field:&lt;/p&gt;
-&lt;p&gt;(see dx_bbb.py):&lt;/p&gt;
-&lt;pre&gt;from plone.app.widgets.dx import RichTextWidget
-
-try:
-    from plone.app.contenttypes.behaviors.collection import ICollection
-    from plone.app.contenttypes.behaviors.richtext import IRichText
-    HAS_PAC = True
-except ImportError:
-    HAS_PAC = False
-...
-if HAS_PAC:
-...
-    @adapter(getSpecification(IRichText[&#39;text&#39;]), IWidgetsLayer)
-    @implementer(IFieldWidget)
-    def RichTextFieldWidget(field, request):
-        return FieldWidget(field, RichTextWidget(request))&lt;/pre&gt;
-&lt;p&gt;And this is the code that actually fixes the relatedItems popup widget that enables embeding images in the text (from plone.app.widgets.utils.get_tinymce_options ):&lt;/p&gt;
-&lt;pre&gt;        args[&#39;pattern_options&#39;] = {
-            &#39;relatedItems&#39;: {
-                &#39;vocabularyUrl&#39;: &#39;{0}/{1}&#39;.format(
-                    config[&#39;portal_url&#39;],
-                    &#39;@@getVocabulary?name=plone.app.vocabularies.Catalog&#39;
-                ),
-                &#39;mode&#39;: &#39;browse&#39;,
-                &#39;basePath&#39;: folder_path,
-                &#39;folderTypes&#39;: utility.containsobjects.split(&#39;\n&#39;)
-            },
-            &#39;upload&#39;: {
-                &#39;initialFolder&#39;: initial,
-                &#39;currentPath&#39;: folder_url_relative,
-                &#39;baseUrl&#39;: config[&#39;document_base_url&#39;],
-                &#39;relativePath&#39;: &#39;@@fileUpload&#39;,
-                &#39;uploadMultiple&#39;: False,
-                &#39;maxFiles&#39;: 1,
-                &#39;showTitle&#39;: False
-            },
-            &#39;tiny&#39;: config,
-            # This is for loading the languages on tinymce
-            &#39;loadingBaseUrl&#39;: &#39;++resource++plone.app.widgets.tinymce&#39;,
-            &#39;prependToUrl&#39;: &#39;resolveuid/&#39;,
-            &#39;linkAttribute&#39;: &#39;UID&#39;,
-            &#39;prependToScalePart&#39;: &#39;/@@images/image/&#39;,
-            &#39;folderTypes&#39;: utility.containsobjects.split(&#39;\n&#39;),
-            &#39;imageTypes&#39;: utility.imageobjects.split(&#39;\n&#39;),
-            &#39;anchorSelector&#39;: utility.anchor_selector,
-            &#39;linkableTypes&#39;: utility.linkable.split(&#39;\n&#39;)
-        }&lt;/pre&gt;
-&lt;div&gt;The relatedItems options is not filled in in the TinyMCE widget rendered directly by plone.app.textfield.&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;So, in my case, the fix is to register an adapter:&lt;/div&gt;
-&lt;pre&gt;    Fix RichText widget: the plone.app.widgets provided one has proper relatedItems configuration
-    &amp;lt;adapter
-        for=&#34;plone.app.textfield.interfaces.IRichText mypackage.IMyLayer&#34;
-        factory=&#34;plone.app.widgets.dx.RichTextFieldWidget&#34;
-        /&amp;gt;&lt;/pre&gt;
-&lt;div&gt;Which only exposes a bug in collective.cover / plone.app.tiles, due to the way&amp;nbsp;get_tinymce_options works. Oh well, moving on...&lt;/div&gt;
-</description>
+      <description>On a Plone 4.3 with plone.app.widgets 1.8.0 and plone.app.contenttypes 1.1b5 installed, there&#39;s one weird bit of inconsistency:
+The TinyMCE widget rendered by the plone.app.contenttype&#39;s IRichText behaviour is different from any other RichText field added in the dexterity model. Even on the same page, for example, if I edit the Document dexterity type and add a rich text field, the resulting widget is different. How do I know? Try inserting an image by selecting it, in the popup dialog, from the site content browser.</description>
     </item>
     
     <item>
@@ -541,22 +143,8 @@ if HAS_PAC:
       <pubDate>Tue, 28 Jun 2011 17:08:06 -0300</pubDate>
       
       <guid>/blog/2011/06/28/getting-the-superclasses-for-a-python-object/</guid>
-      <description>&lt;p&gt;Zope 2 (and Plone) persistent objects usually have an intricate inheritance tree. Finding what classes an object inherits can be a time consuming task, hunting through the various eggs for the relevant source code. Below is a little snippet that shows how to easily get the list of superclasses:&lt;/p&gt;
-&lt;pre&gt;(Pdb) pp type(ff).mro()
-(&amp;lt;class &#39;plone.app.blob.subtypes.image.ExtensionBlobField&#39;&amp;gt;,
-&amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.TranslatableExtensionField&#39;&amp;gt;,
-&amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.BaseExtensionField&#39;&amp;gt;,
-&amp;nbsp;&amp;lt;class &#39;plone.app.blob.field.BlobField&#39;&amp;gt;,
-&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ObjectField&#39;&amp;gt;,
-&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.Field&#39;&amp;gt;,
-&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Layer.DefaultLayerContainer&#39;&amp;gt;,
-&amp;nbsp;&amp;lt;class &#39;plone.app.blob.mixins.ImageFieldMixin&#39;&amp;gt;,
-&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ImageField&#39;&amp;gt;,
-&amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.FileField&#39;&amp;gt;,
-&amp;nbsp;&amp;lt;type &#39;ExtensionClass.Base&#39;&amp;gt;,
-&amp;nbsp;&amp;lt;type &#39;object&#39;&amp;gt;)&lt;/pre&gt;
-&lt;p&gt;&amp;nbsp;Credit goes to the &lt;a class=&#34;external-link&#34; href=&#34;http://pybites.blogspot.com/2009/01/mro-magic.html&#34;&gt;original post&lt;/a&gt; where I found this.&lt;/p&gt;
-</description>
+      <description>Zope 2 (and Plone) persistent objects usually have an intricate inheritance tree. Finding what classes an object inherits can be a time consuming task, hunting through the various eggs for the relevant source code. Below is a little snippet that shows how to easily get the list of superclasses:
+(Pdb) pp type(ff).mro() (&amp;lt;class &#39;plone.app.blob.subtypes.image.ExtensionBlobField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.TranslatableExtensionField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.BaseExtensionField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;plone.app.blob.field.BlobField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ObjectField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.Field&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Layer.DefaultLayerContainer&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;plone.app.blob.mixins.ImageFieldMixin&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ImageField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;Products.</description>
     </item>
     
     <item>
@@ -565,35 +153,8 @@ if HAS_PAC:
       <pubDate>Wed, 09 Mar 2011 18:09:19 -0200</pubDate>
       
       <guid>/blog/2011/03/09/export/import-users-in-and-out-of-plone/</guid>
-      <description>&lt;p&gt;A dirty quick method of importing and exporting the users (only usernames and passwords) out of Plone, using 2 external methods. Code below, not much else to say.&lt;/p&gt;
-&lt;pre&gt;import cPickle
-
-def export(self):
-    pas = self.acl_users
-    users = pas.source_users
-    passwords = users._user_passwords
-    result = dict(passwords)
-
-    f = open(&#39;/tmp/out.blob&#39;, &#39;w&#39;)
-    cPickle.dump(result, f)
-    f.close()
-
-    return &#34;done&#34;
-
-def import_users(self):
-    pas = self.acl_users
-    users = pas.source_users
-    f = open(&#39;/tmp/out.blob&#39;)
-    res = cPickle.load(f)
-    f.close()
-
-    for uid, pwd in res.items():
-        users.addUser(uid, uid, pwd)
-
-    return &#34;done&#34;
-&lt;/pre&gt;
-&lt;h2&gt;&lt;br /&gt;&lt;/h2&gt;
-</description>
+      <description>A dirty quick method of importing and exporting the users (only usernames and passwords) out of Plone, using 2 external methods. Code below, not much else to say.
+import cPickle def export(self): pas = self.acl_users users = pas.source_users passwords = users._user_passwords result = dict(passwords) f = open(&#39;/tmp/out.blob&#39;, &#39;w&#39;) cPickle.dump(result, f) f.close() return &#34;done&#34; def import_users(self): pas = self.acl_users users = pas.source_users f = open(&#39;/tmp/out.blob&#39;) res = cPickle.load(f) f.close() for uid, pwd in res.</description>
     </item>
     
     <item>
@@ -602,20 +163,743 @@ def import_users(self):
       <pubDate>Tue, 04 Jan 2011 19:09:02 -0200</pubDate>
       
       <guid>/blog/2011/01/04/running-products.gloworm-on-plone-4/</guid>
-      <description>&lt;p&gt;For some reason, the TTW developer tools tend to get neglected in the Plone world. A valuable tools such as Clouseau has fallen out of favour and now Gloworm, the @@manage-viewlets replacement/complement won&#39;t run in Plone 4 (at least at version 1.0, which is the latest right now on PyPI).&lt;/p&gt;
-&lt;p&gt;Fortunately, Gloworm has been updated in svn trunk. To get the latest version you need to add it to sources (in buildout.cfg or develop.cfg):&lt;/p&gt;
-&lt;pre&gt;[buildout]
-eggs +=
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Products.Gloworm
-
-[sources]
-Products.Gloworm = svn https://weblion.psu.edu/svn/weblion/weblion/Products.Gloworm/trunk/
-&lt;/pre&gt;
-&lt;p&gt;Next, run in the shell:&lt;/p&gt;
-&lt;pre&gt;#bin/develop co Products.Gloworm
-#bin/develop rb
-&lt;/pre&gt;
-</description>
+      <description>For some reason, the TTW developer tools tend to get neglected in the Plone world. A valuable tools such as Clouseau has fallen out of favour and now Gloworm, the @@manage-viewlets replacement/complement won&#39;t run in Plone 4 (at least at version 1.0, which is the latest right now on PyPI).
+Fortunately, Gloworm has been updated in svn trunk. To get the latest version you need to add it to sources (in buildout.</description>
+    </item>
+    
+    <item>
+      <title>A pattern for programatically creating Plone content</title>
+      <link>/blog/2011/01/02/a-pattern-for-programatically-creating-plone-content/</link>
+      <pubDate>Sun, 02 Jan 2011 11:11:54 -0200</pubDate>
+      
+      <guid>/blog/2011/01/02/a-pattern-for-programatically-creating-plone-content/</guid>
+      <description>I&#39;m importing content from a legacy system to a new website that I&#39;m doing with Plone 4 (wow! what an improvement, in speed and technology) and was looking at the existing documentation on how to programatically create new Plone content. The issue I&#39;m having with the existing documentation is that it&#39;s incomplete. It won&#39;t give you automatically created ids, you&#39;ll have to manually call mutators if you don&#39;t know any better, etc.</description>
+    </item>
+    
+    <item>
+      <title>Migrating content (folders) from Plone 3 to Plone 4 via zexp import</title>
+      <link>/blog/2010/08/22/migrating-content-folders-from-plone-3-to-plone-4-via-zexp-import/</link>
+      <pubDate>Sun, 22 Aug 2010 14:05:56 -0300</pubDate>
+      
+      <guid>/blog/2010/08/22/migrating-content-folders-from-plone-3-to-plone-4-via-zexp-import/</guid>
+      <description>I had a need (and a problem) moving some content from a Zope 2.10/ Plone 3.3 instance to a Zope 2.12/Plone 4 instance. The path I have chosen was that of the least resistence, which for me was exporting the folder I was interested as a zexp file from the old instance and importing it in the new Plone instance. According to some members of the #plone IRC channel, this method of getting content from one zope instance to another is not possible, or at least not supported.</description>
+    </item>
+    
+    <item>
+      <title>Generating products outside of the Products.* namespace with ArchGenXML</title>
+      <link>/blog/2010/02/24/generating-products-outside-of-the-products.-namespace-with-archgenxml/</link>
+      <pubDate>Wed, 24 Feb 2010 17:54:52 -0200</pubDate>
+      
+      <guid>/blog/2010/02/24/generating-products-outside-of-the-products.-namespace-with-archgenxml/</guid>
+      <description>I&#39;m a die hard in regards to ArchGenXML usage. The number of things to know about when creating new content types for Plone is just too high. Package structure, Zope package registration, content types registration, QuickInstaller registration, GenericSetup profiles, skins registration, workflows, etc. I can go in and do changes to the code, and add to it, but generating it from scratch is a gigantic task, especially for my use case, where I need to start a new project with about 7 content types.</description>
+    </item>
+    
+    <item>
+      <title>The sorry state of internationalization in Plone</title>
+      <link>/blog/2009/04/16/the-sorry-state-of-internationalization-in-plone/</link>
+      <pubDate>Thu, 16 Apr 2009 17:32:14 -0300</pubDate>
+      
+      <guid>/blog/2009/04/16/the-sorry-state-of-internationalization-in-plone/</guid>
+      <description>Ever since Plone 2.5 stopped being the hot new thing in the Plone world, the state of content internationalization support in Plone has been declining. Partly due to the difficulty of extending Zope 2 products, LinguaPlone has always been a hack, but at least back then it worked. These days I&#39;m not heavily involved with Plone, but whenever I need to add LinguaPlone to a Plone 3 site, I cringe and weep, especially that those projects never allocate time for me to fix the obvious problems.</description>
+    </item>
+    
+    <item>
+      <title>Using mechanize to process protected Plone pages</title>
+      <link>/blog/2009/02/15/using-mechanize-to-process-protected-plone-pages/</link>
+      <pubDate>Sun, 15 Feb 2009 16:04:39 -0200</pubDate>
+      
+      <guid>/blog/2009/02/15/using-mechanize-to-process-protected-plone-pages/</guid>
+      <description>One of my long-running projects involves a workflow where content is produced in a Plone site, with the data later extracted and processed in various ways (including scripting Scribus to layout this data in a book). Initially the site where the content was produced wasn&#39;t protected, so I could run a simple urllib script to download the content and process it using lxml. A recent change in the workflow security settings meant this script didn&#39;t work anymore and I had to remember how to login into a Plone site using urllib2.</description>
+    </item>
+    
+    <item>
+      <title>Variable keys in dictionaries with Page Templates TALES syntax</title>
+      <link>/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/</link>
+      <pubDate>Wed, 11 Feb 2009 19:45:41 -0200</pubDate>
+      
+      <guid>/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/</guid>
+      <description>I admit, I didn&#39;t knew this until now. In the following construction:
+&amp;lt;div tal:content=&#34;somedict/keyname/someattr&#34; /&amp;gt; &#34;keyname&#34; is taken as a string, it&#39;s the literal name of the key for the somedict mapping. To use a variable instead of the literal value of the key name, I used to do:
+&amp;lt;div tal:content=&#34;python somedict[key].someattr&#34; /&amp;gt; Browsing through the zope.app.catalog code, I saw that there&#39;s actually a way to use the TALES syntax:</description>
+    </item>
+    
+    <item>
+      <title>A list of Javascript files loaded by Plone 2.5</title>
+      <link>/blog/2009/01/06/a-list-of-javascript-files-loaded-by-plone-2.5/</link>
+      <pubDate>Tue, 06 Jan 2009 17:33:41 -0200</pubDate>
+      
+      <guid>/blog/2009/01/06/a-list-of-javascript-files-loaded-by-plone-2.5/</guid>
+      <description>A simple deployment of a Plone 2.5 site (I know, antiquated) means that the pages shown for anonymous users are loaded with JS and CSS content that they will not need. They are, usually, the biggest group of visitors, so it is important do make the pages load fast, to have a good impression for first time visitors. The introduction of the Resource Registry in Plone 2.5 makes it easy to set the order and the conditions to load each resource (and, as a result, the merging conditions between resource files), but there&#39;s no page to document what each JS file does, for example (AFAIK).</description>
+    </item>
+    
+    <item>
+      <title>Crossroads: a very good load balancing solution</title>
+      <link>/blog/2009/01/06/crossroads-a-very-good-load-balancing-solution/</link>
+      <pubDate>Tue, 06 Jan 2009 16:53:02 -0200</pubDate>
+      
+      <guid>/blog/2009/01/06/crossroads-a-very-good-load-balancing-solution/</guid>
+      <description>Recently Martin Aspeli published a very nice buildout recipe that implements a complete setup for a production Zope/Plone server. One of the key components in that setup is the load balancer, which is implemented using the load balancer capabilities of nginx. Nginx might be a good load balancer, but it has a problem with the way Zope/Plone works: the first page loads, for a newly restarted Plone instance are very slow (especially if the site or the catalogs are big).</description>
+    </item>
+    
+    <item>
+      <title>Subversion 1.5 &#43; default instalation Plone 3.1 buildout: no problems here</title>
+      <link>/blog/2008/11/18/subversion-1.5---default-instalation-plone-3.1-buildout-no-problems-here/</link>
+      <pubDate>Tue, 18 Nov 2008 15:10:43 -0200</pubDate>
+      
+      <guid>/blog/2008/11/18/subversion-1.5---default-instalation-plone-3.1-buildout-no-problems-here/</guid>
+      <description>I&#39;ve hit the setuptools + subversion 1.5 problem again with a freshly install Plone 3.1.7 buildout: I&#39;ve added my egg develop folder in zinstance/src/, I&#39;ve added the egg in the relevant sections in buildout.cfg, but it wouldn&#39;t work because of the incompatibility with the old setuptools version.
+The solution is to upgrade the installed setuptools to the latest version. For example, for a standalone Plone installed at /home/tibi/Plone, we have this structure:</description>
+    </item>
+    
+    <item>
+      <title>Hosting Plone and Zope 3 applications using nginx</title>
+      <link>/blog/2008/07/11/hosting-plone-and-zope-3-applications-using-nginx/</link>
+      <pubDate>Fri, 11 Jul 2008 10:31:21 +0000</pubDate>
+      
+      <guid>/blog/2008/07/11/hosting-plone-and-zope-3-applications-using-nginx/</guid>
+      <description>I&#39;m doing a setup on a new server, I&#39;ve decided to replace the default Apache 2.2 with an nginx http server. The setup which is needed for Zope 3 and Plone applications is the following:
+[buildout] parts = &amp;nbsp;&amp;nbsp;&amp;nbsp; nginx &amp;nbsp;&amp;nbsp;&amp;nbsp; nginxctl [nginx] recipe = gocept.cmmi url = http://sysoev.ru/nginx/nginx-0.7.6.tar.gz md5sum = ae7ce6f66a2cf5a5970d9a9a0da0cf7d [nginxctl] recipe = gocept.nginx hostname = localhost port = 80 configuration = &amp;nbsp;&amp;nbsp;&amp;nbsp; worker_processes 1; &amp;nbsp;&amp;nbsp;&amp;nbsp; events { &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; worker_connections 1024; &amp;nbsp;&amp;nbsp;&amp;nbsp; } &amp;nbsp;&amp;nbsp;&amp;nbsp; http { &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; upstream z3 { &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server 127.</description>
+    </item>
+    
+    <item>
+      <title>In case you&#39;re having problems installing ssl-for-setuptools...</title>
+      <link>/blog/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools.../</link>
+      <pubDate>Tue, 15 Apr 2008 19:23:09 -0300</pubDate>
+      
+      <guid>/blog/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools.../</guid>
+      <description>I&#39;ve stumbled on this error when trying to install a easyshop buildout:
+Exception: No SSL support found
+An error occured when trying to install ssl-for-setuptools 1.10.Look above this message for any errors thatwere output by easy_install.
+While:
+Installing instance.
+Getting distribution for &#39;ssl-for-setuptools&#39;.
+Error: Couldn&#39;t install: ssl-for-setuptools 1.10
+ After scratching my head for a while, I&#39;ve found the solution:
+# apt-get install libssl-dev </description>
+    </item>
+    
+    <item>
+      <title>A tip on debugging Zope 2 with ZEO</title>
+      <link>/blog/2008/04/08/a-tip-on-debugging-zope-2-with-zeo/</link>
+      <pubDate>Tue, 08 Apr 2008 20:20:18 -0300</pubDate>
+      
+      <guid>/blog/2008/04/08/a-tip-on-debugging-zope-2-with-zeo/</guid>
+      <description>I&#39;m having some troubles with CacheFu, and I&#39;ve resorted to deleting some objects from a debug prompt, which is very easy to get at if one runs the Zope under ZEO. Still, I couldn&#39;t delete the objects because I was getting Unauthorized errors. Luckily, there is #plone, from which I got the following tip:
+&amp;lt;naro&amp;gt; from AccessControl.SecurityManagement import newSecurityManager &amp;lt;naro&amp;gt; user = app.acl_users.getUser(&#39;admin&#39;) &amp;lt;naro&amp;gt; newSecurityManager(None, user)  Thanks, naro!&amp;nbsp;
+Update: I realize now that I didn&#39;t write how to connect to ZEO:</description>
+    </item>
+    
+    <item>
+      <title>A few ATReferenceBrowserWidget tips</title>
+      <link>/blog/2008/03/18/a-few-atreferencebrowserwidget-tips/</link>
+      <pubDate>Tue, 18 Mar 2008 18:03:19 -0200</pubDate>
+      
+      <guid>/blog/2008/03/18/a-few-atreferencebrowserwidget-tips/</guid>
+      <description>On a Plone 2.5 project I&#39;m working I have a content type that has 3 reference association to another content type. ArchGenXML generated the fields with the same name, which means that in the interface there will be just one field, as they overwrite each other. To have them working I need to rename them, but how to do this from the model? Agx, at first glance, doesn&#39;t have support for this.</description>
+    </item>
+    
+    <item>
+      <title>GHOP Plone skins overview</title>
+      <link>/blog/2008/03/17/ghop-plone-skins-overview/</link>
+      <pubDate>Mon, 17 Mar 2008 14:56:06 -0200</pubDate>
+      
+      <guid>/blog/2008/03/17/ghop-plone-skins-overview/</guid>
+      <description>Plone has very few skins available from the community, when compared to just about anything. The skin incompatibilities that appeared between Plone versions 2.0/2.1/3.0 further deepen this problem. As a result of the 2007 Plone - GHOP there are some skins placed in the collective, but they&#39;re not visible anywhere (they&#39;re not published in the PSC, only some of them are available as eggs in PyPI, to get a glimpse of them you need to install them).</description>
+    </item>
+    
+    <item>
+      <title>Tutorial: run ArchGenXML 2.0 under virtualenv</title>
+      <link>/blog/2008/03/13/tutorial-run-archgenxml-2.0-under-virtualenv/</link>
+      <pubDate>Thu, 13 Mar 2008 20:02:46 -0200</pubDate>
+      
+      <guid>/blog/2008/03/13/tutorial-run-archgenxml-2.0-under-virtualenv/</guid>
+      <description>The &#34;modern&#34; (post 1.5) version of ArchGenXML is packaged as egg, available on pypi. While in theory you could run &#34;sudo easy_install archgenxml&#34; and have it running with minimal effort, because it depends on zope.component and zope.configuration, things tend to get muddy and complicated. If you&#39;ll &#34;easy_install zope.component&#34; you&#39;ll get a bunch of zope eggs installed in python&#39;s site-packages and this will probably cause problems. When I&#39;ve started developing with Zope 3 I had some hard time tracking some problems that ultimately turned out to be caused by zope packages installed in the system python &#34;</description>
+    </item>
+    
+    <item>
+      <title>The 763 projects in the Collective SVN</title>
+      <link>/blog/2008/01/31/the-763-projects-in-the-collective-svn/</link>
+      <pubDate>Thu, 31 Jan 2008 14:22:23 -0200</pubDate>
+      
+      <guid>/blog/2008/01/31/the-763-projects-in-the-collective-svn/</guid>
+      <description>Today I was curious about the number of projects found in the collective svn. They always seemed a lot, but I never knew how many. Until today, when I ran a xpath query over the subversion page and I found that there are 763! This number shocked me, I was expecting at most 200. My number of projects there is very small though, I can only claim ownership over 2 of them.</description>
+    </item>
+    
+    <item>
+      <title>First glance at Plone 3</title>
+      <link>/blog/2007/02/11/first-glance-at-plone-3/</link>
+      <pubDate>Sun, 11 Feb 2007 12:49:20 -0200</pubDate>
+      
+      <guid>/blog/2007/02/11/first-glance-at-plone-3/</guid>
+      <description>Thanks to the easy plone 3 buildout (plonout), I&#39;m having my first look at the upcoming Plone 3. Some of the more evident changes:
+Versioning is now possible thanks to CMFEditions, which means a &#34;Save as version&#34; option in the edit screen and a &#34;Versions&#34; page on objects.
+The Kupu integration has been improved, the Kupu configlet offering new functions: the possibility to edit the toolbar, a new, streamlined interface to control the resource types and the possibility to replace the reference browser with a kupu drawer.</description>
+    </item>
+    
+    <item>
+      <title>Better load time for Plone sites</title>
+      <link>/blog/2007/02/06/better-load-time-for-plone-sites/</link>
+      <pubDate>Tue, 06 Feb 2007 10:32:23 -0200</pubDate>
+      
+      <guid>/blog/2007/02/06/better-load-time-for-plone-sites/</guid>
+      <description>You probably know by now that Plone sites are better suited at content creation that content delivery. Still, the Plone solution is too good to pass even when creating simpler sites, where +99% of the trafic will be anonymous one. And when you have a good hammer, everything looks like a nail.
+One of the various problems that Plone has when delivering this brochure type of websites is that the page weight is pretty high.</description>
+    </item>
+    
+    <item>
+      <title>Problems with migrating AT content from Plone 2.0 to Plone 2.5</title>
+      <link>/blog/2007/01/30/problems-with-migrating-at-content-from-plone-2.0-to-plone-2.5/</link>
+      <pubDate>Tue, 30 Jan 2007 23:39:53 -0200</pubDate>
+      
+      <guid>/blog/2007/01/30/problems-with-migrating-at-content-from-plone-2.0-to-plone-2.5/</guid>
+      <description>Latest problem that ate too much of my life already (took me a night to get through) was importing some content from a Plone 2.0 site to a new instance of Plone 2.5. The old content was created using an old version of AT (probably 1.2). To prepare the migration I&#39;ve created a new content type using ArchGenXML that mimicked the old product name, classes and fields and exported the content from the old Zope instance as a .</description>
+    </item>
+    
+    <item>
+      <title>Firebug getting close to 1.0</title>
+      <link>/blog/2007/01/12/firebug-getting-close-to-1.0/</link>
+      <pubDate>Fri, 12 Jan 2007 18:55:01 -0200</pubDate>
+      
+      <guid>/blog/2007/01/12/firebug-getting-close-to-1.0/</guid>
+      <description>Wow! I am impressed. Following a discussion on slashdot I&#39;ve installed the new 1.0 beta version of Firebug, an extension for web developers. Created by the same author as the classic Dom Inspector, Firebug didn&#39;t seem too useful for me until now. The version on the mozilla extensions site is old (0.4), not so featured and to me it seemed to be really buggy. The new version seems to work very good and offers for each area of focus a multitude of information and options that puts it on first place in my toolkit as Plone web developer.</description>
+    </item>
+    
+    <item>
+      <title>Getting the parent object in an acquisition context</title>
+      <link>/blog/2006/11/07/getting-the-parent-object-in-an-acquisition-context/</link>
+      <pubDate>Tue, 07 Nov 2006 14:55:09 -0200</pubDate>
+      
+      <guid>/blog/2006/11/07/getting-the-parent-object-in-an-acquisition-context/</guid>
+      <description>To get the parent of an object, you&#39;d have to use this code:
+myparent = aq_inner.aq_parent.aq_self </description>
+    </item>
+    
+    <item>
+      <title>Bulk modifying AT content fields under restricted python scripts</title>
+      <link>/blog/2006/10/22/bulk-modifying-at-content-fields-under-restricted-python-scripts/</link>
+      <pubDate>Sun, 22 Oct 2006 00:40:34 -0300</pubDate>
+      
+      <guid>/blog/2006/10/22/bulk-modifying-at-content-fields-under-restricted-python-scripts/</guid>
+      <description>I&#39;m working on a project that mostly extends an older, legacy based Plone 2.0 project. This project has a CMFFormController form with about 20 fields and based on that input needs to create new AT content items, which is done in the action script of the controller chain. To achieve this, I have the following code:
+First, I have a field_mapping that maps the fields from the form to the AT field names.</description>
+    </item>
+    
+    <item>
+      <title>Deliverence - serving semi-static content out of a live site</title>
+      <link>/blog/2006/10/21/deliverence---serving-semi-static-content-out-of-a-live-site/</link>
+      <pubDate>Sat, 21 Oct 2006 22:19:51 -0300</pubDate>
+      
+      <guid>/blog/2006/10/21/deliverence---serving-semi-static-content-out-of-a-live-site/</guid>
+      <description>Deliverance is a lightweight, semi-static system for content delivery of CMS resources. It runs in mod_python, generating branded pages and navigation elements, giving high-performance throughput to anonymous visitors.
+Sounds interesting, especially in light of my contact with owners of bigger sites and editorial staff.
+This product can be downloaded from http://codespeak.net/svn/z3/deliverance/</description>
+    </item>
+    
+    <item>
+      <title>Custom traversing with Five and ITraversable</title>
+      <link>/blog/2006/10/21/custom-traversing-with-five-and-itraversable/</link>
+      <pubDate>Sat, 21 Oct 2006 18:23:34 -0300</pubDate>
+      
+      <guid>/blog/2006/10/21/custom-traversing-with-five-and-itraversable/</guid>
+      <description>This blog already contains a technique on how to customize the traversal to return any object, using __bobo_traverse__
+A more simple, modern and elegant way of doing achieving this is detailed in the newly released ImageRepository. Basically, it uses an adapter to change the implementation for ITraversable when the traversal is done on an object implementing a marker interface. I&#39;ve lifted the relevant code and pasted it below, but the original sources should be consulted for reference.</description>
+    </item>
+    
+    <item>
+      <title>Adding an overrides.zcml</title>
+      <link>/blog/2006/10/15/adding-an-overrides.zcml/</link>
+      <pubDate>Sun, 15 Oct 2006 19:54:07 -0300</pubDate>
+      
+      <guid>/blog/2006/10/15/adding-an-overrides.zcml/</guid>
+      <description>According to this discussion on #zope3-dev, one must do the following to get overrides to take effect:
+add an product-overrides.zcml in which to include &amp;lt;include package=&#34;foo&#34; file=&#34;overrides.zcml&#34; /&amp;gt;the *-overrides.zcml slugs needs to be loaded with includeOverrides </description>
+    </item>
+    
+    <item>
+      <title>AdvancedQuery and other portal_catalog tricks</title>
+      <link>/blog/2006/10/10/advancedquery-and-other-portal_catalog-tricks/</link>
+      <pubDate>Tue, 10 Oct 2006 16:00:32 -0300</pubDate>
+      
+      <guid>/blog/2006/10/10/advancedquery-and-other-portal_catalog-tricks/</guid>
+      <description>The normal ZCatalog queries and indexes are extremely limited. For example, I had a need to check for a &#34;Value not in KeywordIndex&#34; expression, which is impossible to do with the normal catalog. AdvancedQuery comes to the rescue, but things aren&#39;t too obvious there either. AQ has a In() expression that can be used in building queries, but it does the reverse thing: check something like &#34;IndexedValue not in ListOfValues&#34;.</description>
+    </item>
+    
+    <item>
+      <title>Little bits of info about CMFFormController</title>
+      <link>/blog/2006/10/07/little-bits-of-info-about-cmfformcontroller/</link>
+      <pubDate>Sat, 07 Oct 2006 19:47:47 -0300</pubDate>
+      
+      <guid>/blog/2006/10/07/little-bits-of-info-about-cmfformcontroller/</guid>
+      <description>One thing the documentation doesn&#39;t clearly state: you can set the status to a value and have that value defined as an action in the metadata file, basically redirecting the flow of the controller sequence to that action. To make things clear, I&#39;ll paste some code. In the login_initial.cpy.metadata file from CMFPlone we have this bit of code:
+[actions]
+action.success=traverse_to:string:login_next
+action.login_change_password=traverse_to:string:login_passwordSo basically we have two actions defined, depending on the type of status returned.</description>
+    </item>
+    
+    <item>
+      <title>Hacking at Plone membership&#39;s core: different content types for member folders</title>
+      <link>/blog/2006/10/07/hacking-at-plone-memberships-core-different-content-types-for-member-folders/</link>
+      <pubDate>Sat, 07 Oct 2006 19:18:13 -0300</pubDate>
+      
+      <guid>/blog/2006/10/07/hacking-at-plone-memberships-core-different-content-types-for-member-folders/</guid>
+      <description>I&#39;m using this technique for a site created with Plone 2.1, but it I think it can work on Plone 2.5 as well. Basically, I need a site with different membership types, and each membership type has a &#34;personal area&#34; (different member folder) where the user can add different object types and generally have a completely different browsing experience. I haven&#39;t implemented anything exotic such as CMFMember (not future proof) or membrane (not compatible, don&#39;t want to mess around yet) so I&#39;m sticking with plain Plone users.</description>
+    </item>
+    
+    <item>
+      <title>Get a translated object in a particular language</title>
+      <link>/blog/2006/10/07/get-a-translated-object-in-a-particular-language/</link>
+      <pubDate>Sat, 07 Oct 2006 14:13:26 -0300</pubDate>
+      
+      <guid>/blog/2006/10/07/get-a-translated-object-in-a-particular-language/</guid>
+      <description>Sometimes there is a need to get a translated piece of content in a particular language. Some examples include messing around with ATVM or stitching together a front page for a multilanguage website from editable content (site editors love pretty interfaces where they can tweak and edit every piece of a website). This piece of code is a bit older, but still does the job well. The boundLanguages/getLanguageBindings thing could be replaced with getPreferredLanguage() and I&#39;m pretty sure LinguaPlone got a prettier API than this, but it&#39;s a starting point in the right direction.</description>
+    </item>
+    
+    <item>
+      <title>Internationalization with Plone</title>
+      <link>/blog/2006/10/06/internationalization-with-plone/</link>
+      <pubDate>Fri, 06 Oct 2006 21:04:15 -0300</pubDate>
+      
+      <guid>/blog/2006/10/06/internationalization-with-plone/</guid>
+      <description>To generate automatically a .pot file necessary for translating msgids inside template files you need to get i18ndude (really easy since it was placed in cheeseshop):
+sudo easy_install i18ndudeSince I&#39;m using ArchGenXML, I already have a generated.pot file created. I&#39;ve renamed this file to old.pot and ran this (in the i18n folder):
+i18ndude rebuild-pot --pot ./generated.pot --merge old.pot --create MyProduct ./../skins/MyProduct/
+This command builds a pot file by looking at files in the skins folder and merging the extracted msgids with the ones in old.</description>
+    </item>
+    
+    <item>
+      <title>Dynamic vocabulary for an Archetypes field</title>
+      <link>/blog/2006/10/05/dynamic-vocabulary-for-an-archetypes-field/</link>
+      <pubDate>Thu, 05 Oct 2006 02:08:44 -0300</pubDate>
+      
+      <guid>/blog/2006/10/05/dynamic-vocabulary-for-an-archetypes-field/</guid>
+      <description>I keep forgetting how to do dynamic vocabularies for an AT field. As explained in the Vocabulary() method in Field.py, this method will return either the list defined in the vocabulary parameter of the field, or, among others, the list resulting from calling the method defined in the string given as value to the vocabulary parameter.
+The code below will make the explanation easier to understand:
+... LinesField(
+name=&#39;domains&#39;,
+vocabulary=&#39;getVocabularyForDomains&#39; )</description>
+    </item>
+    
+    <item>
+      <title>Easy install of actions with CMFQuickInstaller</title>
+      <link>/blog/2006/10/04/easy-install-of-actions-with-cmfquickinstaller/</link>
+      <pubDate>Wed, 04 Oct 2006 18:53:43 -0300</pubDate>
+      
+      <guid>/blog/2006/10/04/easy-install-of-actions-with-cmfquickinstaller/</guid>
+      <description>Although superseded by GenericSetup, this method is still useful and quick to setup. Basically, CMFQI will install actions defined in an xml file called &#34;actions&#34; located in the Extension folder. This behavior is documented in the CMFQI documentation files. An example follows below:
+&amp;lt;portal_actions&amp;gt;
+name=Manage group users
+id=userconfig
+action=string:manage_project_users
+condition=member
+permission=View
+category=folder
+visible=1
+&amp;lt;/portal_actions&amp;gt; </description>
+    </item>
+    
+    <item>
+      <title>Start Plone (or Zope) in debug mode under Windows</title>
+      <link>/blog/2006/10/04/start-plone-or-zope-in-debug-mode-under-windows/</link>
+      <pubDate>Wed, 04 Oct 2006 17:58:54 -0300</pubDate>
+      
+      <guid>/blog/2006/10/04/start-plone-or-zope-in-debug-mode-under-windows/</guid>
+      <description>Lifted from #plone:
+bin/runzope.bat -X &#34;debug-mode=on&#34; </description>
+    </item>
+    
+    <item>
+      <title>Override __bobo_traverse__ to provide custom URL  lookup</title>
+      <link>/blog/2006/10/02/override-__bobo_traverse__-to-provide-custom-url--lookup/</link>
+      <pubDate>Mon, 02 Oct 2006 14:06:20 -0300</pubDate>
+      
+      <guid>/blog/2006/10/02/override-__bobo_traverse__-to-provide-custom-url--lookup/</guid>
+      <description>This technique is lifted from ATContentTypes/content/image.py
+ def __bobo_traverse__(self, REQUEST, name):
+&#34;&#34;&#34;Transparent access to image scales
+&#34;&#34;&#34;
+if name.startswith(&#39;image&#39;):
+field = self.getField(&#39;image&#39;)
+image = None
+if name == &#39;image&#39;:
+image = field.getScale(self)
+else:
+scalename = name[len(&#39;image_&#39;):]
+if scalename in field.getAvailableSizes(self):
+image = field.getScale(self, scale=scalename)
+if image is not None and not isinstance(image, basestring):
+# image might be None or &#39;&#39; for empty images
+return image
+return ATCTFileContent.__bobo_traverse__(self, REQUEST, name)
+ </description>
+    </item>
+    
+    <item>
+      <title>Best Plone quote ever</title>
+      <link>/blog/2006/09/22/best-plone-quote-ever/</link>
+      <pubDate>Fri, 22 Sep 2006 18:46:55 -0300</pubDate>
+      
+      <guid>/blog/2006/09/22/best-plone-quote-ever/</guid>
+      <description>[18:43] &amp;lt;julesa&amp;gt; newbie39: To paraphrase Jon Ribbens &#34;PHP is a minor evil perpetrated and created by incompetent amateurs, whereas Plone s a great and insidious evil, perpetrated by skilled but perverted professionals.&#34;
+I admit I love being evil! :-)</description>
+    </item>
+    
+    <item>
+      <title>Datetime output for an RSS2 feed</title>
+      <link>/blog/2006/09/21/datetime-output-for-an-rss2-feed/</link>
+      <pubDate>Thu, 21 Sep 2006 20:04:54 -0300</pubDate>
+      
+      <guid>/blog/2006/09/21/datetime-output-for-an-rss2-feed/</guid>
+      <description>To display properly, an RSS 2 feed needs to have the date entered in something resembling this format:
+&amp;lt;pubDate&amp;gt;Thu, 21 Sep 2006 15:15:26 GMT&amp;lt;/pubDate&amp;gt;This is needed to get a date to display in this format:
+&amp;lt;pubDate tal:content=&#34;python: DateTime(res.Date).rfc822()&#34;&amp;gt; &amp;lt;/pubDate&amp;gt; </description>
+    </item>
+    
+    <item>
+      <title>Short recipe for adaptation with Five</title>
+      <link>/blog/2006/09/20/short-recipe-for-adaptation-with-five/</link>
+      <pubDate>Wed, 20 Sep 2006 20:26:52 -0300</pubDate>
+      
+      <guid>/blog/2006/09/20/short-recipe-for-adaptation-with-five/</guid>
+      <description>&amp;gt;&amp;gt;&amp;gt; from zope.interface import Interface, Attribute, implementsLet&#39;s say we have an object type &#34;Person&#34;. This person can introduce himself with the name.
+class IPerson(Interface):
+name = Attribute(&#39;Name of the person&#39;)
+def say_name():
+&#34;&#34;&#34;The name of the person&#34;&#34;&#34;
+class Person(object):
+implements(IPerson)
+def __init__(self, name):
+self.name = name
+def say_name():
+return &#39;My name is &#39; + self.name
+Next, we have another object type, let&#39;s say &#34;Worker&#34;, with an interface of IWorker.
+class IWorker(Interface):</description>
+    </item>
+    
+    <item>
+      <title>Basic recipe for a Five view</title>
+      <link>/blog/2006/09/20/basic-recipe-for-a-five-view/</link>
+      <pubDate>Wed, 20 Sep 2006 12:35:28 -0300</pubDate>
+      
+      <guid>/blog/2006/09/20/basic-recipe-for-a-five-view/</guid>
+      <description>This recipe is addressed more to the zope2/plone developer with a bit of knowledge of the zope3 universe, but not much experience in implementing the new practices.
+Simply put, Five views are just like TTW python scripts, except without the limited forced security, and with the possibility to integrate them in unit testing and adapt them to other protocols then just http.
+First, things should be done the newly recommended &#34;</description>
+    </item>
+    
+    <item>
+      <title>Override the default actions for an ArchGenXML based Archetype</title>
+      <link>/blog/2006/09/05/override-the-default-actions-for-an-archgenxml-based-archetype/</link>
+      <pubDate>Tue, 05 Sep 2006 22:03:04 -0300</pubDate>
+      
+      <guid>/blog/2006/09/05/override-the-default-actions-for-an-archgenxml-based-archetype/</guid>
+      <description>To specify the default view for an AT archetype the &#34;view&#34; action needs to be overriden. Adding a default_actions=True tagged value in the model will generate a view action that will use the base_view template. To be able to change the view action, default_actions should be deleted from the model and replaced with a base_actions=my_actions.
+The my_actions statement could look like this:
+my_actions = (
+{&#39;action&#39;: &#39;string:${object_url}/base_edit&#39;,
+&#39;category&#39;: &#39;object&#39;,
+&#39;id&#39;: &#39;edit&#39;,</description>
+    </item>
+    
+    <item>
+      <title>Customized Archetypes edit form with only one of the fields</title>
+      <link>/blog/2006/09/04/customized-archetypes-edit-form-with-only-one-of-the-fields/</link>
+      <pubDate>Mon, 04 Sep 2006 15:16:47 -0300</pubDate>
+      
+      <guid>/blog/2006/09/04/customized-archetypes-edit-form-with-only-one-of-the-fields/</guid>
+      <description>I recently had a need for an &#34;administration screen&#34; for an AT-based content that would give the administrators just one field to edit and following that edit, change the workflow state of that piece of content.
+Usually, to limit the fields visible in the edit form, I would give those fields different write permissions. Obviously, in this case this was not possible, so I had to take another path. Easiest way to achieve my goal was something like this:</description>
+    </item>
+    
+    <item>
+      <title>Small snippet to read the title for a DCWorkflow state</title>
+      <link>/blog/2006/08/31/small-snippet-to-read-the-title-for-a-dcworkflow-state/</link>
+      <pubDate>Thu, 31 Aug 2006 01:19:45 -0300</pubDate>
+      
+      <guid>/blog/2006/08/31/small-snippet-to-read-the-title-for-a-dcworkflow-state/</guid>
+      <description>portal_workflow.getTitleForStateOnType(obj.review_state, obj.portal_type)
+Well, that&#39;s about it. I&#39;ll add other relevant API methods to work with the workflow tool when I&#39;ll have a need for them again.</description>
+    </item>
+    
+    <item>
+      <title>Improve Plone-based website performance with simple Apache caching</title>
+      <link>/blog/2006/08/30/improve-plone-based-website-performance-with-simple-apache-caching/</link>
+      <pubDate>Wed, 30 Aug 2006 00:38:53 -0300</pubDate>
+      
+      <guid>/blog/2006/08/30/improve-plone-based-website-performance-with-simple-apache-caching/</guid>
+      <description>I won&#39;t go too much into details, and this is more for my own personal reference, but using this short recipe I was able to increase by up to 100 times the performance of a plone based website. For a lot more details and more advanced techniques for caching, integration with squid and cachefu, visit the Plone documentation HowTo section.
+ The website hosts mostly news updates, and is edited mostly by an editorial staff, under a 24 hours cycle.</description>
+    </item>
+    
+    <item>
+      <title>Checking for a role or a permission in a context</title>
+      <link>/blog/2006/08/29/checking-for-a-role-or-a-permission-in-a-context/</link>
+      <pubDate>Tue, 29 Aug 2006 21:51:48 -0300</pubDate>
+      
+      <guid>/blog/2006/08/29/checking-for-a-role-or-a-permission-in-a-context/</guid>
+      <description>There are two very useful methods to check for certain security settings offered by the Plone API. First, to check if a user has a certain role, the following snippet can be used:
+roles_user_has = portal_membership.getCandidateLocalRoles(here)To check if a user has a certain permission, this API method can be used:
+portal_membership.checkPermission(&#39;Manage portal&#39;, here) </description>
+    </item>
+    
+    <item>
+      <title>Short recipe for membrane based user content types</title>
+      <link>/blog/2006/08/27/short-recipe-for-membrane-based-user-content-types/</link>
+      <pubDate>Sun, 27 Aug 2006 19:54:41 -0300</pubDate>
+      
+      <guid>/blog/2006/08/27/short-recipe-for-membrane-based-user-content-types/</guid>
+      <description>Create a membrane based content item (it just needs to implement certain interfaces defined in membrane.interfaces)Register the type with membranetoolImportant: Set the active workflow status (the state in which a member can login)
+ </description>
+    </item>
+    
+    <item>
+      <title>Allowing the anonymous to add portal content</title>
+      <link>/blog/2006/08/27/allowing-the-anonymous-to-add-portal-content/</link>
+      <pubDate>Sun, 27 Aug 2006 19:29:42 -0300</pubDate>
+      
+      <guid>/blog/2006/08/27/allowing-the-anonymous-to-add-portal-content/</guid>
+      <description>In order for anonymous users to be able to add a content item inside a folder, the following permissions need to be had:
+In the parent folder:
+ViewAdd portal contentAccess content informationCreate XXX (for example, if the content item has a &#34;creation_permission&#34;, this permission needs to be had.
+On the object:
+ViewModify portal contentAccess content information </description>
+    </item>
+    
+    <item>
+      <title>Creating an Archetypes validator</title>
+      <link>/blog/2006/08/27/creating-an-archetypes-validator/</link>
+      <pubDate>Sun, 27 Aug 2006 17:34:36 -0300</pubDate>
+      
+      <guid>/blog/2006/08/27/creating-an-archetypes-validator/</guid>
+      <description>Archetypes validators are used in the schema definition for a field. Default validators include isEmail, isURL, etc. This is how to create a new validator:
+First, the validator has to be registered with Archetypes, or zope will complain at startup and ignore the validator. So add something like this in the __init__.py of the product:
+from Products.validation import validation
+from validators import SamePasswordValidator
+validation.register(SamePasswordValidator(&#39;isSamePassword&#39;))Next, the source code for the validator (validators.</description>
+    </item>
+    
+    <item>
+      <title>Specify creation roles for AGX generated content</title>
+      <link>/blog/2006/08/27/specify-creation-roles-for-agx-generated-content/</link>
+      <pubDate>Sun, 27 Aug 2006 14:37:40 -0300</pubDate>
+      
+      <guid>/blog/2006/08/27/specify-creation-roles-for-agx-generated-content/</guid>
+      <description>An observation: when you want to specify the roles that are required for a user to have in order to create a piece of content, you&#39;ll have to also specify a creation permission.
+This means that the following tagged values are required, to something like:
+creation_permission = Create MyContent
+creation_roles = python: (&#39;Anonymous&#39;, &#39;Member&#39;)This generates the following code in config.py:
+DEFAULT_ADD_CONTENT_PERMISSION = &#34;Add portal content&#34;
+setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, (&#39;Manager&#39;, &#39;Owner&#39;))
+ADD_CONTENT_PERMISSIONS = {</description>
+    </item>
+    
+    <item>
+      <title>Short intro to ZEO</title>
+      <link>/blog/2006/08/14/short-intro-to-zeo/</link>
+      <pubDate>Mon, 14 Aug 2006 19:37:45 -0300</pubDate>
+      
+      <guid>/blog/2006/08/14/short-intro-to-zeo/</guid>
+      <description>Joel Burton is holding ad-hoc tutorials on IRC :-)
+Anyway, here&#39;s his recipe to running ZEO
+&amp;lt;joelburton&amp;gt; having your site running under zeo also allows you to &#34;zopectl debug&#34; it while it&#39;s still running, which is insanely useful. i _always_ run zope under zeo, even during development, even on my laptop, etc., and i recommend that to others.
+&amp;lt;joelburton&amp;gt; thegoldenaura: zeo just splits zope-the-app-server and zope-the-database into two
+&amp;lt;joelburton&amp;gt; the goldenaura: for small sites, where you expect to have just one zope server for your zeo server, i do it like this:</description>
+    </item>
+    
+    <item>
+      <title>Overriding the form controler script for AT content</title>
+      <link>/blog/2006/08/12/overriding-the-form-controler-script-for-at-content/</link>
+      <pubDate>Sat, 12 Aug 2006 17:43:29 -0300</pubDate>
+      
+      <guid>/blog/2006/08/12/overriding-the-form-controler-script-for-at-content/</guid>
+      <description>Just like the edit form or the view page can be overriden for an AT type, so can the form controler script that would be called by the form. This recipe is lifted from SignupSheet (which I think got an inspiration from POI):
+The form controler script (mytype_post.cpy):
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind state=state
+##bind subpath=traverse_subpath
+##parameters=
+##title=Do something
+##
+#do something here, like for example, changing the workflow status of the object</description>
+    </item>
+    
+    <item>
+      <title>Cool use of Z3 tech in a Plone product</title>
+      <link>/blog/2006/08/12/cool-use-of-z3-tech-in-a-plone-product/</link>
+      <pubDate>Sat, 12 Aug 2006 17:07:38 -0300</pubDate>
+      
+      <guid>/blog/2006/08/12/cool-use-of-z3-tech-in-a-plone-product/</guid>
+      <description>Easycommenting is a product that enables commenting on any content item. Rather dull, but the technology used to create it is very interesting. The skeleton is generated with ArchGenXML, but the content is zope 3 aware and can be adapted to use by any other object.
+My main interest is to regard it as a documentation, as its implementation is clean and covers several areas of functionality that I&#39;m very interested these days (z3 content in plone, adaptors, views, etc).</description>
+    </item>
+    
+    <item>
+      <title>Accessing a zope object stripped of acquisition</title>
+      <link>/blog/2006/08/08/accessing-a-zope-object-stripped-of-acquisition/</link>
+      <pubDate>Tue, 08 Aug 2006 18:48:59 -0300</pubDate>
+      
+      <guid>/blog/2006/08/08/accessing-a-zope-object-stripped-of-acquisition/</guid>
+      <description>To get an object completely stripped of its acquisition layers, the following snippet can be employed
+import Acquisition
+obj_no_aq = Acquisition.aq_base(obj)
+No acquisition means no methods or properties inherited from the container or the container chain.
+Although a bit old, the Zope Developer Guide, with its chapter on Acquisition do a fine job at explaining the intricacies of acquisition in Zope 2.</description>
+    </item>
+    
+    <item>
+      <title>Clouseau: A new developer tool for Plone</title>
+      <link>/blog/2006/08/08/clouseau-a-new-developer-tool-for-plone/</link>
+      <pubDate>Tue, 08 Aug 2006 18:42:38 -0300</pubDate>
+      
+      <guid>/blog/2006/08/08/clouseau-a-new-developer-tool-for-plone/</guid>
+      <description>A new developer tool was placed in the Collective. This Ajax tool offers a python prompt similar to running &#34;zopect debug&#34; or breaking into the zope through a pdb call. It is really cool and useful in debugging and exploring Plone. I&#39;d rank this tool as extremely important to the regular Plone developer, along DocFinder or the pdb debugging module.
+Current location is here:http://svn.plone.org/svn/collective/Clouseau/</description>
+    </item>
+    
+    <item>
+      <title>Getting a list of catalog indexes and metadata</title>
+      <link>/blog/2006/08/06/getting-a-list-of-catalog-indexes-and-metadata/</link>
+      <pubDate>Sun, 06 Aug 2006 19:37:16 -0300</pubDate>
+      
+      <guid>/blog/2006/08/06/getting-a-list-of-catalog-indexes-and-metadata/</guid>
+      <description>I recently had a need to get a list of the indexes from the portal_catalog.
+While the metadata has an API method to get it, using something along:
+pc = getToolByName(self, &#39;portal_catalog&#39;)
+metadatas = pc.enumerateColumns()I couldn&#39;t find the equivalent API method to get the Indexes. After digging through the DTML files used by ZCatalog, I came up with the following method:
+pc = getToolByName(self, &#39;portal_catalog&#39;)
+indexes = pc.Indexes.objectIds() </description>
+    </item>
+    
+    <item>
+      <title>Basic unittesting for Plone</title>
+      <link>/blog/2006/08/04/basic-unittesting-for-plone/</link>
+      <pubDate>Fri, 04 Aug 2006 16:28:23 -0300</pubDate>
+      
+      <guid>/blog/2006/08/04/basic-unittesting-for-plone/</guid>
+      <description>Create a new package called &#34;tests&#34; inside the product. Add modules that begin with test*, like testSetup. Next, run the tests with zope/bin/zopectl test -s Products.MyProduct (zope 2.9)
+from Testing import ZopeTestCase
+ZopeTestCase.installProduct(&#39;DRFSkin&#39;)
+from Products.PloneTestCase.PloneTestCase import PloneTestCase
+from Products.PloneTestCase.PloneTestCase import FunctionalTestCase
+from Products.PloneTestCase.PloneTestCase import setupPloneSite
+setupPloneSite(products=(&#39;DRFSkin&#39;,))
+class TestTool(PloneTestCase):
+def afterSetUp(self):
+pass
+def testProductPath(self):
+x = True
+self.failUnless( x )
+def test_suite():
+from unittest import TestSuite, makeSuite
+suite = TestSuite()
+suite.addTest(makeSuite(TestTool))</description>
+    </item>
+    
+    <item>
+      <title>Getting the real path of a zope product</title>
+      <link>/blog/2006/08/04/getting-the-real-path-of-a-zope-product/</link>
+      <pubDate>Fri, 04 Aug 2006 15:09:38 -0300</pubDate>
+      
+      <guid>/blog/2006/08/04/getting-the-real-path-of-a-zope-product/</guid>
+      <description>To get the path of a zope product, one can use the following snippet:
+from Globals import package_home
+product_path = package_home(product_globals) </description>
+    </item>
+    
+    <item>
+      <title>Quick guide to ZopeSkel</title>
+      <link>/blog/2006/08/02/quick-guide-to-zopeskel/</link>
+      <pubDate>Wed, 02 Aug 2006 18:16:31 -0300</pubDate>
+      
+      <guid>/blog/2006/08/02/quick-guide-to-zopeskel/</guid>
+      <description>Download and run as root ez_installrun:easy_install http://svn.plone.org/svn/collective/ZopeSkel/trunk#egg=ZopeSkel-devcreate a new Plone Core product using paster create -t plone product_name
+References: http://danielnouri.org/blog/devel/zope/zopeskel-plonecore.htmlhttp://plone.org/documentation/tutorial/using-zope-formlib-with-plone/tutorial-all-pageIn Zope 2.9, the pythonproducts is needed for this or any other regular python package created with setuptools to work.</description>
+    </item>
+    
+    <item>
+      <title>When a product reinstall fails...</title>
+      <link>/blog/2006/07/31/when-a-product-reinstall-fails.../</link>
+      <pubDate>Mon, 31 Jul 2006 11:37:55 -0300</pubDate>
+      
+      <guid>/blog/2006/07/31/when-a-product-reinstall-fails.../</guid>
+      <description>It happened to me several times, and I always forget what the problem is. Sometimes a product reinstall (from QuickInstaller) fails with an odd error: AttributeError: manage_addTool. This only means that the product is broken. Make a visit to the Zope Control Panel \ Products and look in the refresh page for the product on the real reason why it fails.</description>
+    </item>
+    
+    <item>
+      <title>Tutorial on integrating z3 tech into Plone</title>
+      <link>/blog/2006/07/30/tutorial-on-integrating-z3-tech-into-plone/</link>
+      <pubDate>Sun, 30 Jul 2006 16:22:11 -0300</pubDate>
+      
+      <guid>/blog/2006/07/30/tutorial-on-integrating-z3-tech-into-plone/</guid>
+      <description>There&#39;s a tutorial in the collective that shows a bit of how to use z3 tech inside Plone</description>
+    </item>
+    
+    <item>
+      <title>Adding a new view method to a portal type</title>
+      <link>/blog/2006/07/27/adding-a-new-view-method-to-a-portal-type/</link>
+      <pubDate>Thu, 27 Jul 2006 18:56:32 -0300</pubDate>
+      
+      <guid>/blog/2006/07/27/adding-a-new-view-method-to-a-portal-type/</guid>
+      <description>While this method is superceeded by GenericSetup, it&#39;s usefull enough that I place it here.
+ptypes = portal.portal_types
+psite = getattr(ptypes, &#39;Plone Site&#39;)
+view_methods = psite.view_methods
+vm = list(view_methods) + [&#39;main_frontpage&#39;]
+psite.manage_changeProperties(view_methods=vm) </description>
+    </item>
+    
+    <item>
+      <title>Using z3 style events</title>
+      <link>/blog/2006/07/24/using-z3-style-events/</link>
+      <pubDate>Mon, 24 Jul 2006 21:03:12 -0300</pubDate>
+      
+      <guid>/blog/2006/07/24/using-z3-style-events/</guid>
+      <description>Based on my previous entry on at_post_create_script, I was curios on how to achieve something like that using z3 style events. Now, I know that it&#39;s not the same and the following events are meant only to replace manage_afterAdd and so on, but I&#39;m pretty sure that there are (or will be) events fired that would replace the at_post_* scripts.
+So, easy as it gets:
+Create a new python package inside the zope Products folder, add the following method inside __init__.</description>
+    </item>
+    
+    <item>
+      <title>My favorite development environment</title>
+      <link>/blog/2006/07/22/my-favorite-development-environment/</link>
+      <pubDate>Sat, 22 Jul 2006 19:54:38 -0300</pubDate>
+      
+      <guid>/blog/2006/07/22/my-favorite-development-environment/</guid>
+      <description>I thought I&#39;d add some words about the development environment that I feel most comfortable with.
+First, I use AGX for most of my plone development. It&#39;s useful as a quick skeleton generator, but also as a way to structure the content. To generate the UML files I use Poseidon Community Edition. Up until recently it was buggy, and I still consider it to be, but I learned what to do so I won&#39;t trigger the bugs (quick tip: don&#39;t ever rename tagged values, delete it and recreate it.</description>
+    </item>
+    
+    <item>
+      <title>How to access directly fields and widgets from an Archetypes content</title>
+      <link>/blog/2006/07/21/how-to-access-directly-fields-and-widgets-from-an-archetypes-content/</link>
+      <pubDate>Fri, 21 Jul 2006 18:42:11 -0300</pubDate>
+      
+      <guid>/blog/2006/07/21/how-to-access-directly-fields-and-widgets-from-an-archetypes-content/</guid>
+      <description>There are two ways to access the field values and widgets from inside an AT content item. First, a more complex example on getting fields and widgets properties using self.schema:
+for fname in self.schema.keys():
+field = self.schema.get(fname)
+widget = field.widget
+widgetLabel = widget.Label(self)
+fieldValue = field.get(self))
+To get a field value, one could use  self.schema[&#39;customer_copy_to&#39;].get(self)The second way uses self.Schema() and shows the equivalent of the above example
+self.Schema().getField(&#39;customer_copy_to&#39;).get(self)
+Of course, there&#39;s always the default generated AT getters, but sometimes it&#39;s not possible to use those (for example, when you want to get the raw value of a field.</description>
+    </item>
+    
+    <item>
+      <title>How to use at_post_create_script to with multi-schemata content types</title>
+      <link>/blog/2006/07/21/how-to-use-at_post_create_script-to-with-multi-schemata-content-types/</link>
+      <pubDate>Fri, 21 Jul 2006 18:30:17 -0300</pubDate>
+      
+      <guid>/blog/2006/07/21/how-to-use-at_post_create_script-to-with-multi-schemata-content-types/</guid>
+      <description>When using at_post_create_script to hook up in the &#34;post creation&#34; events of AT, if the content type has multiple schematas, the script will be called each time the &#34;next&#34; button is pushed.
+To properly use the script, a check can be added to see if the &#34;save&#34; button was pressed:
+security.declarePrivate(&#39;at_post_create_script&#39;)
+def at_post_create_script(self, **kwargs):
+if self.REQUEST.get(&#39;form_submit&#39;, None) == &#39;Save&#39;:
+pass #do something here </description>
     </item>
     
   </channel>

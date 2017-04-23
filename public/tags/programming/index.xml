@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Programming on The Plone Expanse</title>
-    <link>/tags/programming/index.xml</link>
+    <link>/tags/programming/</link>
     <description>Recent content in Programming on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Jan 2017 18:30:18 +0100</lastBuildDate>
+    
+	<atom:link href="/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Editing Short python scripts with vim</title>
@@ -15,65 +18,8 @@
       <pubDate>Wed, 18 Jan 2017 18:30:18 +0100</pubDate>
       
       <guid>/blog/2017/01/18/editing-short-python-scripts-with-vim/</guid>
-      <description>
-
-&lt;p&gt;Being that I usually find interesting to know about other people&amp;rsquo;s workflow,
-here&amp;rsquo;s a short description of my working environment that I typically use when
-developing in Python:&lt;/p&gt;
-
-&lt;h2 id=&#34;tmux&#34;&gt;tmux&lt;/h2&gt;
-
-&lt;p&gt;In the beginning I&amp;rsquo;ve used Yakuake tabs to split servers and files in separate
-tabs. As the number grew, I&amp;rsquo;ve started naming the tabs (and even had a short
-stint &lt;a href=&#34;https://github.com/tiberiuichim/customkuake&#34;&gt;extending&lt;/a&gt;
-&lt;a href=&#34;https://github.com/tiberiuichim/atomic-hidpi&#34;&gt;Yakuake&lt;/a&gt; to fit this use case),
-but as the number of projects and environments that I have to juggle kept
-growing, I&amp;rsquo;ve resorted to splitting each separate tab into &amp;ldquo;subtabs&amp;rdquo;, using
-tmux.&lt;/p&gt;
-
-&lt;p&gt;I start &lt;code&gt;tmux -2&lt;/code&gt; in each Yakuake tab (the &lt;code&gt;-2&lt;/code&gt; switch is to enhance the color
-support) and I&amp;rsquo;ve mapped the Alt+\ as the escape combination.
-Why this? Backslash as the leader key comes from vim and I don&amp;rsquo;t like the ctrl
-key, I&amp;rsquo;d have to use my pinky finger and I don&amp;rsquo;t like it. This is how to
-achieve that:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; unbind C-b
- set -g prefix M-&#39;\&#39;
- bind M-&#39;\&#39; send-prefix
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next, to make it easier to switch tabs, I&amp;rsquo;ve mapped alt+&lt;number&gt; to switch to
-the coresponding tab number.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; bind-key -n M-1 select-window -t:1
- bind-key -n M-2 select-window -t:2
- bind-key -n M-3 select-window -t:3
- bind-key -n M-4 select-window -t:4
- bind-key -n M-5 select-window -t:5
- bind-key -n M-6 select-window -t:6
- bind-key -n M-7 select-window -t:7
- bind-key -n M-8 select-window -t:8
- bind-key -n M-9 select-window -t:9
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But one problem: the 0 key is far away. So I want to start tab numbering at 1:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; set -g base-index 1
- setw -g pane-base-index 1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;neo-vim&#34;&gt;(Neo)Vim&lt;/h2&gt;
-
-&lt;p&gt;Vim is the perfect editor for quick scripts: it is fast to start, very fast to
-edit, easy to configure, etc. There&amp;rsquo;s plenty of material on the web for this,
-but two short tricks that are worth mentioning: ctrl+z is the easiest way to
-escape from vim to the terminal (followed by fg to bring it back to the foreground)
-and I sometimes type this (maybe I should even include it in my vimrc) to
-execute the current file with the python from my virtualenv:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-viml&#34;&gt;:map &amp;lt;f5&amp;gt; !python ./%&amp;lt;cr&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Being that I usually find interesting to know about other people&amp;rsquo;s workflow, here&amp;rsquo;s a short description of my working environment that I typically use when developing in Python:
+tmux In the beginning I&amp;rsquo;ve used Yakuake tabs to split servers and files in separate tabs. As the number grew, I&amp;rsquo;ve started naming the tabs (and even had a short stint extending Yakuake to fit this use case), but as the number of projects and environments that I have to juggle kept growing, I&amp;rsquo;ve resorted to splitting each separate tab into &amp;ldquo;subtabs&amp;rdquo;, using tmux.</description>
     </item>
     
     <item>
@@ -82,14 +28,7 @@ execute the current file with the python from my virtualenv:&lt;/p&gt;
       <pubDate>Mon, 09 Nov 2009 20:54:51 -0200</pubDate>
       
       <guid>/blog/2009/11/09/get-a-project-imported-into-subversion-and-start-working-imediately-on-it/</guid>
-      <description>&lt;p&gt;I managed to figure out how to beat one awkward piece of workflow when starting new project: I always start hacking on a project, then I notice that I haven&#39;t been working on a svn checkout (it&#39;s the chicken or the egg problem). So I need to do a svn import, delete my copy of the project, checkout the svn version and start hacking at my project again. This workaround is agravated, though, when working with buildouts. I can&#39;t svn import the entire folder, because lots of generated folders and files will end up in subversion, which I don&#39;t want. Cleaning my original, running import and regenerate the buildout is a workflow killer.&lt;/p&gt;
-&lt;p&gt;The solution is simple, and goes like this: instead of importing the entire buildout folder, I can run&lt;/p&gt;
-&lt;pre&gt;svn import . http://my/subversion/path/ --depth empty -m &#34;initial import&#34;&lt;/pre&gt;
-&lt;p&gt;or I can just create a folder in my repository with svn mkdir&lt;/p&gt;
-&lt;p&gt;Next, checkout the empty folder from the repository into my buildout&lt;/p&gt;
-&lt;pre&gt;svn co http://my/subversion/path/ .&lt;/pre&gt;
-&lt;p&gt;Now I can cherry-pick whatever I want committed, with svn add. Problem solved!&lt;/p&gt;
-</description>
+      <description>I managed to figure out how to beat one awkward piece of workflow when starting new project: I always start hacking on a project, then I notice that I haven&#39;t been working on a svn checkout (it&#39;s the chicken or the egg problem). So I need to do a svn import, delete my copy of the project, checkout the svn version and start hacking at my project again. This workaround is agravated, though, when working with buildouts.</description>
     </item>
     
   </channel>

@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Deliverance on The Plone Expanse</title>
-    <link>/tags/deliverance/index.xml</link>
+    <link>/tags/deliverance/</link>
     <description>Recent content in Deliverance on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/deliverance/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 30 Jun 2016 14:51:42 -0200</lastBuildDate>
+    
+	<atom:link href="/tags/deliverance/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>How to completely disable Diazo on a specific path</title>
@@ -15,41 +18,8 @@
       <pubDate>Thu, 30 Jun 2016 14:51:42 -0200</pubDate>
       
       <guid>/blog/2016/06/30/how-to-completely-disable-diazo-on-a-specific-path/</guid>
-      <description>&lt;p&gt;I&#39;m working on an (inherited) website that uses Plone and BackboneJS to offer a streamlined search interface over a catalog of items.&lt;/p&gt;
-&lt;p&gt;My task was to apply a new Diazo theme, which worked great for the rest of the website, except for this search page. The items inserted by the Backbone app would be all garbled and wrong. In the end, I managed to isolate the problem to a single page template that would load only that SPA, and the problem still persisted, (on my development machine), while the same code ran ok on the production server.&lt;/p&gt;
-&lt;p&gt;So what was the difference? The development machine had a Diazo theme active. As soon as I&#39;ve disabled the Diazo theme, the problem disappeared. Oh well, time for a &amp;lt;notheme /&amp;gt; I said, but that didn&#39;t work either: no rule was applied in the transform. After debugging through plone.transformchain.zpublisher.applyTransform and plone.app.theming.transform.ThemeTransform, I came to the conclusion that the serializer used just &#34;breaks&#34; the HTML. It doesn&#39;t break it, it fixes it the problems in that HTML template file, but the fixes break the Underscore templates that will transform that file.&lt;/p&gt;
-&lt;p&gt;So, my fix is a hack:&lt;/p&gt;
-&lt;pre&gt;from ZODB.POSException import ConflictError
-from ZPublisher.interfaces import IPubAfterTraversal
-from plone.transformchain.interfaces import DISABLE_TRANSFORM_REQUEST_KEY
-from zope.component import adapter
-import logging
-
-logger = logging.getLogger(&#39;pkg.diazotheme&#39;)
-
-
-@adapter(IPubAfterTraversal)
-def disable_diazo_for_templates(event):
-    &#34;&#34;&#34; Code modeled after plone.app.caching.hooks.intercept
-    &#34;&#34;&#34;
-    try:
-        request = event.request
-        if not (&#34;/spa/template&#34; in request.getURL()):
-            return
-
-        if DISABLE_TRANSFORM_REQUEST_KEY not in request.environ:
-            request.environ[DISABLE_TRANSFORM_REQUEST_KEY] = True
-
-    except ConflictError:
-        raise
-    except:
-        logging.exception(
-            &#34;Swallowed exception in pkg.diazotheme &#34;
-            &#34;IPubAfterTraversal event handler&#34;)&lt;/pre&gt;
-&lt;p&gt;And register this subscriber with:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;subscriber handler=&#34;.events.disable_diazo_for_templates&#34; /&amp;gt;&lt;/pre&gt;
-&lt;p&gt;But this fix is wrong. My template files came as .html.dtml files placed in a portal_skins layer. The simplest fix would be to just make their content type text/plain. Like, simply renaming them to .txt. With that Content-Type they would be ignored completely by Diazo. Another good way would be (probably) to move them in a static browser resource folder.&lt;/p&gt;
-</description>
+      <description>I&#39;m working on an (inherited) website that uses Plone and BackboneJS to offer a streamlined search interface over a catalog of items.
+My task was to apply a new Diazo theme, which worked great for the rest of the website, except for this search page. The items inserted by the Backbone app would be all garbled and wrong. In the end, I managed to isolate the problem to a single page template that would load only that SPA, and the problem still persisted, (on my development machine), while the same code ran ok on the production server.</description>
     </item>
     
   </channel>

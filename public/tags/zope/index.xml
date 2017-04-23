@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zope on The Plone Expanse</title>
-    <link>/tags/zope/index.xml</link>
+    <link>/tags/zope/</link>
     <description>Recent content in Zope on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/zope/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Jan 2017 09:21:46 -0100</lastBuildDate>
+    
+	<atom:link href="/tags/zope/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Do you really need that metadata column?</title>
@@ -15,45 +18,8 @@
       <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
       
       <guid>/blog/2017/01/08/do-you-really-need-that-metadata-column/</guid>
-      <description>&lt;p&gt;It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&amp;nbsp;&lt;/p&gt;
-&lt;p&gt;As an example: when exploring collective.portlet.collectionfilter I&#39;ve noticed that the definition of the filters need both the index name and the metadata column. Ex:&lt;/p&gt;
-&lt;pre&gt;GROUPBY_CRITERIA = {
-    &#39;Subject&#39;: {
-        &#39;index&#39;: &#39;Subject&#39;,  # For querying
-        &#39;metadata&#39;: &#39;Subject&#39;,  # For constructing the list
-        &#39;display_modifier&#39;: None,  # For modifying list items (e.g. dates)
-        &#39;query_range&#39;: None  # For range searches (e.g. for dates or numbers)
-    },
-...&lt;/pre&gt;
-&lt;div&gt;The metadata is needed because the search result is a whole bag of brains and the portlet groups results by their values, so it needs to know the real values. With minimal changes it is possible to avoid the need for that metadata column.&lt;/div&gt;
-&lt;p&gt;This is the original code in collectionfilter.py:&lt;/p&gt;
-&lt;pre&gt;attr = GROUPBY_CRITERIA[self.data.group_by][&#39;metadata&#39;]
-mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
-
-grouped_results = {}
-for item in results:
-    val = getattr(item, attr, None)
-    if callable(val):
-        val = val()
-    if not getattr(val, &#39;__iter__&#39;, False):
-        val = [val]&lt;/pre&gt;
-&lt;div&gt;And these are the minimal changes:&lt;/div&gt;
-&lt;pre&gt;mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
-
-catalog = getToolByName(self.context, &#39;portal_catalog&#39;)
-unindex = catalog._catalog.indexes[idx]._unindex
-
-grouped_results = {}
-for item in results:
-    rid = item._brain.getRID()
-    # val = getattr(item, attr, None)
-    val = unindex.get(rid)
-    if callable(val):
-        val = val()
-    if not getattr(val, &#39;__iter__&#39;, False):
-        val = [val]&lt;/pre&gt;
-&lt;p&gt;It reads the field values from the _unindex mapping of the indexes (which exist for most of the indexes in the Plone catalog. Exceptions are indexes for Title, Description, getObjPositionInParent and SearchableText). Most of the ZCatalog indexes have two mappings where they store information: the forward &#34;mapping&#34; (field value =&amp;gt; objectid) and the reverse mapping (object id =&amp;gt; field value). In this above snippet we&#39;re reading the reverse mapping to get the original field value. So, no need for a dedicated metadata column.&lt;/p&gt;
-</description>
+      <description>It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&amp;nbsp;
+As an example: when exploring collective.</description>
     </item>
     
     <item>
@@ -62,107 +28,9 @@ for item in results:
       <pubDate>Wed, 31 Aug 2016 08:12:43 -0200</pubDate>
       
       <guid>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</guid>
-      <description>&lt;p&gt;This would be a sort of tutorial on how to implement a new plone.app.contentrules Trigger Event, how to write a new plone.stringinterp variable substitutor and how to trigger the event from a browser page (or z3c.form).&lt;/p&gt;
-&lt;p&gt;This allows configuring a new trigger event from the Content Rules Plone control panel configlet and to assign a new Email action, with customizable body template.&lt;/p&gt;
-&lt;p&gt;Let&#39;s say our task is to implement a contact form:&lt;/p&gt;
-&lt;pre&gt;from plone.directives import form
-from plone.api.portal import show_message
-from zope.event import notify
-
-class IContactForm(form.Schema):
-    name = schema.TextLine(title=u&#34;Your Name&#34;, required=True)
-    email = Email(title=u&#34;Contact eMail:&#34;, required=True)
-
-class ContactInformation(Implicit):
-    &#34;&#34;&#34; A container to be passed to plone.app.contentrules for contact info
-    &#34;&#34;&#34;
-
-    def __init__(self, name=None, email=None):
-        self.name = name
-        self.email = email
-
-class ContactForm(form.SchemaForm):
-
-    schema = IContactForm
-    ignoreContext = True
-
-    label = u&#34;Contact Form&#34;
-
-    fields = field.Fields(IContactForm)
-
-    @button.buttonAndHandler(u&#34;Submit&#34;)
-    def handleApply(self, action):
-        data, errors = self.extractData()
-        if errors:
-            self.status = self.formErrorsMessage
-            return
-
-        name = data.get(&#39;name&#39;)
-        email = data.get(&#39;email&#39;)
-
-        obj = ContactInformation(name=name, email=email)
-        obj = obj.__of__(self.context)
-        notify(ContactEvent(obj))
-        show_message(message=&#34;Message sent&#34;, request=self.request, type=&#39;info&#39;)&lt;/pre&gt;
-&lt;p&gt;The ContactInformation object is needed to pass information from the form to the content rules machinery. It needs to be acquisition aware, as plone.app.contentrules will try to trigger events up its chain of acquisition. This can also be replaced by setting some annotation on the request.&lt;/p&gt;
-&lt;p&gt;We need a custom event with an event handler that triggers the content rules execution:&lt;/p&gt;
-&lt;pre&gt;from zope.interface import implements
-from zope.component.interfaces import ObjectEvent, IObjectEvent
-from plone.app.contentrules.handlers import execute_rules
-
-class IContactEvent(IObjectEvent):
-    &#34;&#34;&#34;
-    &#34;&#34;&#34;
-
-class ContactEvent(ObjectEvent):
-    implements(IContactEvent)
-
-def trigger_contentrules(event):
-    execute_rules(event)&lt;/pre&gt;
-&lt;p&gt;Now, a bit of zcml to register the event with plone.app.contentrules and setup the event handler:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;interface
-    interface=&#34;.events.IContactEvent&#34;
-    type=&#34;plone.contentrules.rule.interfaces.IRuleEventType&#34;
-    name=&#34;Contact form triggered&#34;
-    /&amp;gt;
-
-&amp;lt;subscriber for=&#34;.events.IContactEvent&#34; handler=&#34;.events.trigger_contentrules&#34; /&amp;gt;&lt;/pre&gt;
-&lt;p&gt;This will make the &#34;Contact form triggered&#34; event available for the Plone Content Rules and, thanks to the notify() call in the form handler, trigger the content rules execution.&lt;/p&gt;
-&lt;p&gt;One last thing that we need is to access the information submitted in the form. The ContactInformation object serves as a container for that information, so we&#39;ll need special variables for the Email action:&lt;/p&gt;
-&lt;pre&gt;class contact_email(BaseSubstitution):
-    description = u&#34;Contact email&#34;
-    category = &#39;ContactForm&#39;
-
-    adapts(Interface)
-
-    def safe_call(self):
-        return self.context.email
-
-
-class contact_name(BaseSubstitution):
-    description = u&#34;Contact name&#34;
-    category = &#39;ContactForm&#39;
-
-    adapts(Interface)
-
-    def safe_call(self):
-        return self.context.name&lt;/pre&gt;
-&lt;div&gt;and the zcml for this:&lt;/div&gt;
-&lt;pre&gt;&amp;lt;adapter
-    for=&#34;*&#34;
-    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
-    factory=&#34;.stringinterp.contact_email&#34;
-    name=&#34;contact_email&#34;
-    /&amp;gt;
-
-&amp;lt;adapter
-    for=&#34;*&#34;
-    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
-    factory=&#34;.stringinterp.contact_name&#34;
-    name=&#34;contact_name&#34;
-    /&amp;gt;&lt;/pre&gt;
-&lt;div&gt;So why use this mechanism instead of something like PloneFormGen? In my case, the site administrator is used to changing email templates for various events (object created, published, etc) from the Content Rules panel, so why not keep everything simple and consistent?&lt;/div&gt;
-</description>
+      <description>This would be a sort of tutorial on how to implement a new plone.app.contentrules Trigger Event, how to write a new plone.stringinterp variable substitutor and how to trigger the event from a browser page (or z3c.form).
+This allows configuring a new trigger event from the Content Rules Plone control panel configlet and to assign a new Email action, with customizable body template.
+Let&#39;s say our task is to implement a contact form:</description>
     </item>
     
     <item>
@@ -171,35 +39,8 @@ class contact_name(BaseSubstitution):
       <pubDate>Thu, 18 Aug 2016 16:56:38 -0200</pubDate>
       
       <guid>/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/</guid>
-      <description>&lt;p&gt;I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.&lt;/p&gt;
-&lt;p&gt;My solution, because I didn&#39;t care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys.modules:&lt;/p&gt;
-&lt;pre&gt;class NavigableString(unicode):
-    def __new__(cls):
-        return unicode.__new__(cls)
-
-    def __getstate__(self):
-        return self.__dict__
-
-
-class Tag(object):
-    def __getstate__(self):
-        return self.__dict__
-
-
-class BeautifulSoup(object):
-    def __getstate__(self):
-        return self.__dict__
-
-
-class fake_bs3(object):
-    NavigableString = NavigableString
-    Tag = Tag
-    BeautifulSoup = BeautifulSoup
-
-import sys
-sys.modules[&#39;BeautifulSoup&#39;] = fake_bs3&lt;/pre&gt;
-&lt;div&gt;&amp;nbsp;&lt;/div&gt;
-</description>
+      <description>I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.
+My solution, because I didn&#39;t care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys.</description>
     </item>
     
     <item>
@@ -208,50 +49,9 @@ sys.modules[&#39;BeautifulSoup&#39;] = fake_bs3&lt;/pre&gt;
       <pubDate>Tue, 05 May 2015 08:07:56 +0700</pubDate>
       
       <guid>/blog/2015/05/05/zodb-how-to-get-and-read-objects-from-an-undo-information/</guid>
-      <description>&lt;p&gt;This is useful for example if you have transactions that cause writes to the database and you don&#39;t know what has been written. First, identify the ID of the transaction that you&#39;re interested. In the Undo tab of Zope, inspect the checkbox for the transaction and copy the part that looks like an id from its value.&lt;/p&gt;
-&lt;p&gt;Then, in a zope debugging shell (started with bin/instance debug), I&#39;ve done:&lt;/p&gt;
-&lt;pre&gt;&amp;gt;&amp;gt;&amp;gt; import base64, cPickle
-&amp;gt;&amp;gt;&amp;gt; webtid = &#34;QTY1MjhoaytpMVU9&#34;
-
-# DB will be the &#34;database&#34;, as represented in Zope.
-&amp;gt;&amp;gt;&amp;gt; db = app._p_jar.db()
-
-# Storage will be an instance of FileStorage. I don&#39;t think 
-# it&#39;s possible to achieve this connected through ZEO.
-&amp;gt;&amp;gt;&amp;gt; storage = db.storage
-
-# This is the &#34;real&#34; transaction id
-&amp;gt;&amp;gt;&amp;gt; tid = base64.decodestring(webtid + &#34;\n&#34;)
-
-# Now we&#39;ll get a &#34;transaction position&#34;, a position 
-# in the filestorage where the transaction begins
-&amp;gt;&amp;gt;&amp;gt; tpos = storage._txn_find(tid, True)
-
-# This will be the transaction header. This is the info that&#39;s 
-# shown in the Undo UI.
-&amp;gt;&amp;gt;&amp;gt; th = storage._read_txn_header(tpos)
-&amp;gt;&amp;gt;&amp;gt; print th.status, th.descr, th.user
-
-# Now we get the &#34;data position&#34;, the position in the zodb where 
-# the objects of that transaction sit
-&amp;gt;&amp;gt;&amp;gt; pos = tpos + th.headerlen()
-
-# This will be the data header
-&amp;gt;&amp;gt;&amp;gt; dh = storage._read_data_header(pos)
-
-# we&#39;re very much interested in the oid
-&amp;gt;&amp;gt;&amp;gt; oid = dh.oid
-&amp;gt;&amp;gt;&amp;gt; pickle_data, tid = storage.load(oid)
-
-# heh, zodb is just a pickle store, you knew that, right?
-&amp;gt;&amp;gt;&amp;gt; print pickle_data
-&amp;gt;&amp;gt;&amp;gt; print cPickle.loads(pickle_data)
-
-# but it&#39;s easier to get the object using the zope machinery
-&amp;gt;&amp;gt;&amp;gt; obj = app._p_jar[oid] 
-&amp;gt;&amp;gt;&amp;gt; print obj&lt;/pre&gt;
-&lt;p&gt;The zope process needs to be configured with a FileStorage, not a ClientStorage (aka Zeo client).&lt;/p&gt;
-</description>
+      <description>This is useful for example if you have transactions that cause writes to the database and you don&#39;t know what has been written. First, identify the ID of the transaction that you&#39;re interested. In the Undo tab of Zope, inspect the checkbox for the transaction and copy the part that looks like an id from its value.
+Then, in a zope debugging shell (started with bin/instance debug), I&#39;ve done:
+&amp;gt;&amp;gt;&amp;gt; import base64, cPickle &amp;gt;&amp;gt;&amp;gt; webtid = &#34;</description>
     </item>
     
     <item>
@@ -260,10 +60,7 @@ sys.modules[&#39;BeautifulSoup&#39;] = fake_bs3&lt;/pre&gt;
       <pubDate>Mon, 16 Feb 2009 11:31:15 -0200</pubDate>
       
       <guid>/blog/2009/02/16/making-peace-with-the-system-wide-installed-zope.interface/</guid>
-      <description>&lt;p&gt;While testing software to play music from a computer on my network, I have discovered &lt;a class=&#34;external-link&#34; href=&#34;http://elisa.fluendo.com/&#34;&gt;Elisa&lt;/a&gt;, which is a wonderful piece of software built in Python and &lt;a class=&#34;external-link&#34; href=&#34;http://wiki.zope.org/zope3/Zope3Wiki&#34;&gt;zope.interface&lt;/a&gt;. The package manager helpfully installed a python-zopeinterface package, which turned out to break one of the apps I&#39;ve been working on (one of the packages that is used depends on a more recent version of zope.interface and breaks with a missing object import). Adding an explicit dependency on zope.interface&amp;gt;=3.5 didn&#39;t help either. The egg was installed and a reference to it was inserted in the generated script wrapper for the buildout&#39;s bin folder, but the system zope.interface was found.&lt;/p&gt;
-&lt;p&gt;The solution that I have found was to make sure the zope.interface dependency is listed in the last position in the install_requires section of setup.py. This has the effect of placing the zope.interface egg path first in the generated script, and thus solving the problem.&lt;/p&gt;
-&lt;p&gt;UPDATE: On another project I&#39;m working on, this solution didn&#39;t work. Buildout would complain about a version conflict and would drop the building process. The solution was to setup a separate virtualenv bootstrapped with --no-site-packages and use the python from that virtualenv to bootstrap the buildout environment. I think it&#39;s a bug in zc.buildout, as it should have obeyed the versions section of buildout, plus the explicit dependency in install_requires of my package setup.py&lt;/p&gt;
-</description>
+      <description>While testing software to play music from a computer on my network, I have discovered Elisa, which is a wonderful piece of software built in Python and zope.interface. The package manager helpfully installed a python-zopeinterface package, which turned out to break one of the apps I&#39;ve been working on (one of the packages that is used depends on a more recent version of zope.interface and breaks with a missing object import).</description>
     </item>
     
     <item>
@@ -272,15 +69,9 @@ sys.modules[&#39;BeautifulSoup&#39;] = fake_bs3&lt;/pre&gt;
       <pubDate>Wed, 11 Feb 2009 19:45:41 -0200</pubDate>
       
       <guid>/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/</guid>
-      <description>&lt;p&gt;I admit, I didn&#39;t knew this until now. In the following construction:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;div tal:content=&#34;somedict/keyname/someattr&#34; /&amp;gt;&lt;/pre&gt;
-&lt;p&gt;&#34;keyname&#34; is taken as a string, it&#39;s the literal name of the key for the somedict mapping. To use a variable instead of the literal value of the key name, I used to do:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;div tal:content=&#34;python somedict[key].someattr&#34; /&amp;gt;&lt;/pre&gt;
-&lt;p&gt;Browsing through the zope.app.catalog code, I saw that there&#39;s actually a way to use the TALES syntax:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;div tal:content=&#34;somedict/?key/someattr&#34; /&amp;gt;
-&lt;/pre&gt;
-&lt;p&gt;I&#39;m not sure that this works with TTW code in Zope 2 (I expect that it works with browser views), so I&#39;ll just have to try this next time I have the chance.&lt;/p&gt;
-</description>
+      <description>I admit, I didn&#39;t knew this until now. In the following construction:
+&amp;lt;div tal:content=&#34;somedict/keyname/someattr&#34; /&amp;gt; &#34;keyname&#34; is taken as a string, it&#39;s the literal name of the key for the somedict mapping. To use a variable instead of the literal value of the key name, I used to do:
+&amp;lt;div tal:content=&#34;python somedict[key].someattr&#34; /&amp;gt; Browsing through the zope.app.catalog code, I saw that there&#39;s actually a way to use the TALES syntax:</description>
     </item>
     
   </channel>

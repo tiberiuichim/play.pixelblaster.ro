@@ -2,13 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>The Plone Expanse</title>
-    <link>/index.xml</link>
+    <link>/</link>
     <description>Recent content on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
     <lastBuildDate>Wed, 05 Apr 2017 09:24:08 +0200</lastBuildDate>
-    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>When did tmux get plugins?</title>
@@ -16,30 +18,10 @@
       <pubDate>Wed, 05 Apr 2017 09:24:08 +0200</pubDate>
       
       <guid>/blog/2017/04/05/when-did-tmux-get-plugins/</guid>
-      <description>&lt;p&gt;Well, this is new to me. Apparently tmux now supports plugins. I don&amp;rsquo;t really
-know if I need any plugin, I enjoy tmux as it is right now (after some
-customizations) but it&amp;rsquo;s good to know that plugins finally exist for tmux.&lt;/p&gt;
-
-&lt;p&gt;So, what do we have:&lt;/p&gt;
-
-&lt;p&gt;First, the Tmux Plugin Manager: &lt;a href=&#34;https://github.com/tmux-plugins/tpm&#34;&gt;https://github.com/tmux-plugins/tpm&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Next, the tmux Facebook PathPicker plugin (which is a marvelous thing I didn&amp;rsquo;t
-knew existed): &lt;a href=&#34;https://github.com/tmux-plugins/tmux-fpp&#34;&gt;https://github.com/tmux-plugins/tmux-fpp&lt;/a&gt; and
-&lt;a href=&#34;https://github.com/facebook/pathpicker/&#34;&gt;https://github.com/facebook/pathpicker/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;As a side note, watching github stars has become my primary mode to stay
-current with the latest news in programming. I&amp;rsquo;ve created a script that prints
-out only &amp;ldquo;social&amp;rdquo; activity of those people that I follow, so I get to see, each
-morning, what&amp;rsquo;s popular in the world of programming, outsourced to a number of
-374 people, the people I&amp;rsquo;m following right now. I get about 20 links each day
-from a variety of projects and languages, but with a flavour based on my own
-interests. Pretty cool! The script is here:
-&lt;a href=&#34;https://github.com/tiberiuichim/minitools/blob/master/get_git_social_log.py&#34;&gt;https://github.com/tiberiuichim/minitools/blob/master/get_git_social_log.py&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I mention this because the Tmux Plugins were a discovery I made reading the
-this file in a recently starred project: &lt;a href=&#34;https://github.com/cwonrails/dotfiles/blob/master/archlinux/.tmux.conf&#34;&gt;https://github.com/cwonrails/dotfiles/blob/master/archlinux/.tmux.conf&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Well, this is new to me. Apparently tmux now supports plugins. I don&amp;rsquo;t really know if I need any plugin, I enjoy tmux as it is right now (after some customizations) but it&amp;rsquo;s good to know that plugins finally exist for tmux.
+So, what do we have:
+First, the Tmux Plugin Manager: https://github.com/tmux-plugins/tpm
+Next, the tmux Facebook PathPicker plugin (which is a marvelous thing I didn&amp;rsquo;t knew existed): https://github.com/tmux-plugins/tmux-fpp and https://github.</description>
     </item>
     
     <item>
@@ -48,71 +30,9 @@ this file in a recently starred project: &lt;a href=&#34;https://github.com/cwon
       <pubDate>Thu, 02 Mar 2017 14:54:52 +0100</pubDate>
       
       <guid>/blog/2017/03/02/analyse-and-optimize-a-webpack-vuejs-bundle/</guid>
-      <description>&lt;p&gt;At around 450 kb of javascript code, a Quasar distribution bundle seems a bit
-too big. The following short recipe applies to an app generated from the
-Quasar Framework default template, but it probably applies to any vuejs project
-that uses vue-loader, and even any project using webpack.&lt;/p&gt;
-
-&lt;p&gt;First, we want to analyse what&amp;rsquo;s inside the bundle. A good utility is
-webpack-bundle-analyzer, but how to use it?&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Configure the webpack to write the stats to a json file. In my case, I&amp;rsquo;ve
-changed the build/script.build.js to have something like this:&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var fs = require(&#39;fs&#39;)
-
-webpack(webpackConfig, function (err, stats) {
-  if (err) throw err
-
-  // this writes the stats.json file with webpack statistics
-  fs.writeFileSync(&#39;./stats.json&#39;, JSON.stringify(stats.toJson()));
-
-  process.stdout.write(stats.toString({
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So, only added two lines: the &lt;code&gt;required(&#39;fs&#39;)&lt;/code&gt; and &lt;code&gt;fs.writeFileSync&lt;/code&gt;.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Install the webpack-bundle-analyzer with &lt;code&gt;npm install --save-dev&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Build the bundle: &lt;code&gt;npm run build&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Analyze the bundle:&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;code&gt;node_modules/.bin/webpack-bundle-analyzer stats.json dist/ -p 4000&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This opens a new http server on port 4000, where the bundle contents can be
-analysed. In my case, I found that moment.js adds about 70kb of gzipped content
-that can be stripped during the webpack process. But how? With a webpack
-IgnorePlugin.&lt;/p&gt;
-
-&lt;p&gt;In the build/webpack.base.conf, in the plugins listing, I&amp;rsquo;ve added a new
-plugin:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;
-module.exports = {
-  ...
-  plugins: [
-    new webpack.DefinePlugin({
-      &#39;process.env&#39;: config[env.prod ? &#39;build&#39; : &#39;dev&#39;].env,
-      &#39;DEV&#39;: env.dev,
-      &#39;PROD&#39;: env.prod,
-      &#39;__THEME&#39;: &#39;&amp;quot;&#39; + env.platform.theme + &#39;&amp;quot;&#39;
-    }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.LoaderOptionsPlugin({
-      minimize: env.prod,
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Notice the IgnorePlugin line, inserted between the other two. With this in
-place, I&amp;rsquo;ve reduced the JS vender bundle size to 340 KB, which further reduces
-to 90 KB when gziped, a figure that I can be absolutely OK with.&lt;/p&gt;
-</description>
+      <description>At around 450 kb of javascript code, a Quasar distribution bundle seems a bit too big. The following short recipe applies to an app generated from the Quasar Framework default template, but it probably applies to any vuejs project that uses vue-loader, and even any project using webpack.
+First, we want to analyse what&amp;rsquo;s inside the bundle. A good utility is webpack-bundle-analyzer, but how to use it?
+ Configure the webpack to write the stats to a json file.</description>
     </item>
     
     <item>
@@ -121,30 +41,8 @@ to 90 KB when gziped, a figure that I can be absolutely OK with.&lt;/p&gt;
       <pubDate>Sat, 25 Feb 2017 19:29:37 +0100</pubDate>
       
       <guid>/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/</guid>
-      <description>&lt;p&gt;The new Plone 5.1 development buildout doesn&amp;rsquo;t include a zcml property in its
-[instance] section. It is no longer needed, with all eggs already providing
-a z3c.autoinclude entrypoint. This, unless you want to load an older package
-which doesn&amp;rsquo;t have such an entry point. That&amp;rsquo;s when the trouble starts. Adding
-a, for example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[instance]
-...
-zcml +=
-    cs.auth.facebook
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;doesn&amp;rsquo;t work. There is really no zcml property in any of the extended cfg file,
-so Zope will try to load this package first, which will result in a &amp;ldquo;permission
-not defined&amp;rdquo; zcml error. My fix is to include the Products.CMFPlone egg,
-something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[instance]
-...
-zcml =
-    Products.CMFPlone
-    cs.auth.facebook
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>The new Plone 5.1 development buildout doesn&amp;rsquo;t include a zcml property in its [instance] section. It is no longer needed, with all eggs already providing a z3c.autoinclude entrypoint. This, unless you want to load an older package which doesn&amp;rsquo;t have such an entry point. That&amp;rsquo;s when the trouble starts. Adding a, for example:
+[instance] ... zcml += cs.auth.facebook  doesn&amp;rsquo;t work. There is really no zcml property in any of the extended cfg file, so Zope will try to load this package first, which will result in a &amp;ldquo;permission not defined&amp;rdquo; zcml error.</description>
     </item>
     
     <item>
@@ -153,38 +51,8 @@ zcml =
       <pubDate>Sat, 25 Feb 2017 03:45:44 +0100</pubDate>
       
       <guid>/blog/2017/02/25/using-pyramid_jwt-with-pyramid_multiauth/</guid>
-      <description>&lt;p&gt;&lt;code&gt;pyramid_jwt&lt;/code&gt; has its own convenience method of registering as an
-authentication policy, through &lt;code&gt;config.set_jwt_authentication_policy&lt;/code&gt;. It
-does so because the constructor of its policy takes a lot of arguments, so it&amp;rsquo;s
-best to trust the package to do its own setup.&lt;/p&gt;
-
-&lt;p&gt;But this makes it a bit harder to use with &lt;code&gt;pyramid_multiauth&lt;/code&gt;, as you can&amp;rsquo;t
-easily pass the &lt;code&gt;JWTAuthenticationPolicy&lt;/code&gt; policy to the
-&lt;code&gt;multiauth.policies&lt;/code&gt; setting. Turns out that is not hard at all.
-&lt;code&gt;pyramid_multiauth&lt;/code&gt; has its own magic trick of pulling the rabbit out of the
-hat by reviving policies set with &lt;code&gt;config.set_authentication_policy&lt;/code&gt;, so, to
-register the &lt;code&gt;pyramid_jwt&lt;/code&gt; authentication policy, a simple module is needed:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# this is module mystuff.auth
-
-from pyramid_jwt import set_jwt_authentication_policy
-
-def includeme(config):
-    set_jwt_authentication_policy(config)
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now, in the settings ini file, register the policy as a module:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[my:app]
-multiauth.policies = mystuff.auth
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The trick that multiauth does is to register an action for the commit phase of
-the configuration process that extracts the authentication set in place by the
-module and adds it to a &lt;code&gt;_policies&lt;/code&gt; list that is passed in the constructor
-and stored by &lt;code&gt;MultiAuthenticationPolicy&lt;/code&gt;. A bit dirty, but brilliant.&lt;/p&gt;
-</description>
+      <description>pyramid_jwt has its own convenience method of registering as an authentication policy, through config.set_jwt_authentication_policy. It does so because the constructor of its policy takes a lot of arguments, so it&amp;rsquo;s best to trust the package to do its own setup.
+But this makes it a bit harder to use with pyramid_multiauth, as you can&amp;rsquo;t easily pass the JWTAuthenticationPolicy policy to the multiauth.policies setting. Turns out that is not hard at all.</description>
     </item>
     
     <item>
@@ -193,34 +61,8 @@ and stored by &lt;code&gt;MultiAuthenticationPolicy&lt;/code&gt;. A bit dirty, b
       <pubDate>Thu, 23 Feb 2017 18:58:08 +0100</pubDate>
       
       <guid>/blog/2017/02/23/installing-node-with-nvm/</guid>
-      <description>&lt;p&gt;This is more of a recipe for myself, as I always have problems with npm. I&amp;rsquo;m
-usually stuborn and refuse to use a globally installed nodejs, and can&amp;rsquo;t be
-really bothered to properly install a nodejs tarball distribution, with setting
-up PATH and all. They&amp;rsquo;re usually throw-away and not portable between my
-machines.&lt;/p&gt;
-
-&lt;p&gt;So, a simple recipe to install nodejs on my own setup, an ArchLinux
-machine using fish as default shell.&lt;/p&gt;
-
-&lt;p&gt;First, install nvm using instructions from the NVM page: &lt;a href=&#34;https://github.com/creationix/nvm&#34;&gt;https://github.com/creationix/nvm&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This plugs NVM into .bashrc and makes it available for bash, but I use fish. In
-bash I ran &lt;code&gt;nvm install 6.10.0&lt;/code&gt;, which is the latest LTS release.&lt;/p&gt;
-
-&lt;p&gt;Next, in fish I run &lt;code&gt;omf install nvm&lt;/code&gt;. This installs the nvm fish plugin
-(assumes OMF is installed) and now it is possible to run npm commands (in a new
-fish shell). For example, &lt;code&gt;npm install http-server&lt;/code&gt;. Notice this is a local
-install, it will create a &lt;code&gt;node_modules&lt;/code&gt; folder in the current location and
-will install the executable scripts as, for example,
-&lt;code&gt;node_modules/.bin/http-server&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Installing with -g (globally) will make the executable script available from
-&lt;code&gt;.nvm/versions/6.10.0/bin/http-server&lt;/code&gt;. NVM takes care of setting up proper
-$PATH, so &lt;code&gt;http-server&lt;/code&gt; will be available from any location.&lt;/p&gt;
-</description>
+      <description>This is more of a recipe for myself, as I always have problems with npm. I&amp;rsquo;m usually stuborn and refuse to use a globally installed nodejs, and can&amp;rsquo;t be really bothered to properly install a nodejs tarball distribution, with setting up PATH and all. They&amp;rsquo;re usually throw-away and not portable between my machines.
+So, a simple recipe to install nodejs on my own setup, an ArchLinux machine using fish as default shell.</description>
     </item>
     
     <item>
@@ -229,12 +71,8 @@ $PATH, so &lt;code&gt;http-server&lt;/code&gt; will be available from any locati
       <pubDate>Thu, 23 Feb 2017 16:53:16 +0100</pubDate>
       
       <guid>/blog/2017/02/23/test-for-an-interface-provided-by-object-in-plone-action-condition/</guid>
-      <description>&lt;p&gt;Quick tip: how to test if the context provides an interface, with an expression
-set as the condition:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;python:object.restrictedTraverse(&amp;quot;@@plone_interface_info&amp;quot;).provides(&#39;dotted.path.to.IMyFancyInterface&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Quick tip: how to test if the context provides an interface, with an expression set as the condition:
+python:object.restrictedTraverse(&amp;quot;@@plone_interface_info&amp;quot;).provides(&#39;dotted.path.to.IMyFancyInterface&#39;)  </description>
     </item>
     
     <item>
@@ -243,31 +81,9 @@ set as the condition:&lt;/p&gt;
       <pubDate>Wed, 22 Feb 2017 14:19:02 +0100</pubDate>
       
       <guid>/blog/2017/02/22/plone-assign-permission-to-role/</guid>
-      <description>&lt;p&gt;I always forget, and a quick search through the eggs folder didn&amp;rsquo;t yield
-anything easy to find: how to I assign a permission to a role, in a context?&lt;/p&gt;
-
-&lt;p&gt;This is a bit of code:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from Products.DCWorkflow.utils import modifyRolesForPermission
-from AccessControl.PermissionMapping import getPermissionMapping
-
-perm = &#39;Delete objects&#39;
-pm = set(getPermissionMapping(perm, context, st=tuple))
-pm.add(&#39;Contributor&#39;)
-pm.add(&#39;Owner&#39;)
-modifyRolesForPermission(wc, perm, tuple(pm))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is based on code found in DCWorkflow. I know, the proper code would be:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from AccessControl.Permission import Permission
-p = Permission(name, data, obj)
-p.setRole(role_name, True)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But I don&amp;rsquo;t like that API. What is data? I don&amp;rsquo;t know. I can understand name,
-of course, and obj as the context. But data???&lt;/p&gt;
-</description>
+      <description>I always forget, and a quick search through the eggs folder didn&amp;rsquo;t yield anything easy to find: how to I assign a permission to a role, in a context?
+This is a bit of code:
+from Products.DCWorkflow.utils import modifyRolesForPermission from AccessControl.PermissionMapping import getPermissionMapping perm = &#39;Delete objects&#39; pm = set(getPermissionMapping(perm, context, st=tuple)) pm.add(&#39;Contributor&#39;) pm.add(&#39;Owner&#39;) modifyRolesForPermission(wc, perm, tuple(pm))  This is based on code found in DCWorkflow. I know, the proper code would be:</description>
     </item>
     
     <item>
@@ -276,44 +92,9 @@ of course, and obj as the context. But data???&lt;/p&gt;
       <pubDate>Wed, 22 Feb 2017 06:33:34 +0100</pubDate>
       
       <guid>/blog/2017/02/22/python-packaging-vs-npm/</guid>
-      <description>&lt;p&gt;I admit, Python packages are a bit more difficult to understand, for a newbie.
-I have witnessed this problem a lot, lately, when dealing with new people
-trying to learn the Python development process.&lt;/p&gt;
-
-&lt;p&gt;There is a mountain of information that needs to be climbed, to understand
-Python packages:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;the namespace concept&lt;/li&gt;
-&lt;li&gt;the matter of OS security&lt;/li&gt;
-&lt;li&gt;the full cycle of an application, from development to deployment and
-maintainance&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;And this are just basics, in addition to the
-distutils/setuptools/virtualenv/pip or zc.buildout information that needs to be
-digested, to properly use python packages.&lt;/p&gt;
-
-&lt;p&gt;But the (unintended) consequence is that the existing published packages on
-PyPI are usually high(er) quality, and some of them are even documented.
-I don&amp;rsquo;t think there&amp;rsquo;s such a brag right in the Python community &amp;ldquo;I have
-published X amount of packages on pypi&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;Evil and stupid and a huge waste of time. How else would I qualify this
-package, hello.js, installed by mistaked when I actually wanted hellojs:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var sayHello = function  (argument) {
-	// body...
-	return &amp;quot;sayHello&amp;quot;;
-}
-
-module.exports=sayHello;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Why in the world is this thing allowed to polute the world with its bits? I&amp;rsquo;ve
-read about &amp;ldquo;placeholder packages&amp;rdquo; and &amp;ldquo;reserving names&amp;rdquo; and that&amp;rsquo;s crazy.
-Developers should focus on quality of code, not bragging rights.&lt;/p&gt;
-</description>
+      <description>I admit, Python packages are a bit more difficult to understand, for a newbie. I have witnessed this problem a lot, lately, when dealing with new people trying to learn the Python development process.
+There is a mountain of information that needs to be climbed, to understand Python packages:
+ the namespace concept the matter of OS security the full cycle of an application, from development to deployment and maintainance  And this are just basics, in addition to the distutils/setuptools/virtualenv/pip or zc.</description>
     </item>
     
     <item>
@@ -322,62 +103,8 @@ Developers should focus on quality of code, not bragging rights.&lt;/p&gt;
       <pubDate>Wed, 25 Jan 2017 23:09:45 +0100</pubDate>
       
       <guid>/blog/2017/01/25/generate-the-route-url-for-a-cornice-service-or-resource/</guid>
-      <description>&lt;p&gt;As far as I can tell, there&amp;rsquo;s no documentation on how to generate the reverse
-url for a &lt;a href=&#34;https://github.com/Cornices/cornice&#34;&gt;Cornice&lt;/a&gt; resource or service.
-Suppose I want to publish a list of children resources and i want to make them
-behave as linked data. For that, I want to be able to generate proper URLs,
-based on the request URL.&lt;/p&gt;
-
-&lt;p&gt;This is some sample code to show how to achieve that, based on a side project
-I&amp;rsquo;m working on:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;@resource(collection_path=&amp;quot;/&amp;quot;,
-          path=&amp;quot;/{id}&amp;quot;, cors_origins=(&#39;*&#39;,), cors_max_age=3600)
-class MLModelResource(object):
-
-    def __init__(self, request):
-        self.request = request
-
-    def _model_url(self, ml):
-        return self.request.route_url(self.__class__.__name__.lower(),
-                                      id=ml.name)
-
-    def serialize_model(self, ml, sess):
-        res = {}
-        res[&#39;name&#39;] = ml.name
-        res[&#39;labels&#39;] = get_model_labels(ml, sess)
-        res[&#39;can_predict&#39;] = ml.can_predict()
-        res[&#39;url&#39;] = self._model_url(ml)
-        return res
-
-    def collection_get(self):
-        sess = self.request.dbsession
-        res = []
-        for ml in sess.query(MLModel):
-            res.append(self.serialize_model(ml, sess))
-        return {&#39;models&#39;: res}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Notice this line: &lt;code&gt;return self.request.route_url(self.__class__.__name__.lower(), id=ml.name)&lt;/code&gt;
-Cornice registers, for each resource, two routes: one named &lt;code&gt;collection_&amp;lt;classname&amp;gt;.lower()&lt;/code&gt;
-and another one with just the lower class name, &lt;code&gt;&amp;lt;classname&amp;gt;.lower()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;For the regular services, Cornice register routes with the proper service name.
-So, for a service such as:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;sampleserv = Service(name=&amp;quot;sampleserv&amp;quot;,
-                  description=&amp;quot;Use the sampleserv service&amp;quot;,
-                  path=&amp;quot;/{name}/sampleserv&amp;quot;,
-                  cors_origins=(&#39;*&#39;,),
-                  cors_max_age=3600)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;the way to generate the route is:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;self.request.route_url(&#39;sampleserv&#39;, name=&#39;something&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>As far as I can tell, there&amp;rsquo;s no documentation on how to generate the reverse url for a Cornice resource or service. Suppose I want to publish a list of children resources and i want to make them behave as linked data. For that, I want to be able to generate proper URLs, based on the request URL.
+This is some sample code to show how to achieve that, based on a side project I&amp;rsquo;m working on:</description>
     </item>
     
     <item>
@@ -386,41 +113,9 @@ So, for a service such as:&lt;/p&gt;
       <pubDate>Sat, 21 Jan 2017 00:19:31 +0100</pubDate>
       
       <guid>/blog/2017/01/21/another-way-to-index-category-labels-in-categorization-tasks/</guid>
-      <description>&lt;p&gt;One common task in machine-based categorization tasks is to relabel data with
-a numeric value, an index, where before that data was labeled with a string.&lt;/p&gt;
-
-&lt;p&gt;The basic Python code would be something like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;label_index = {}
-labels = []
-for l in string_labels:
-    if l not in label_index:
-        label_index[l] = len(label_index)
-    labels.append(label_index[l])&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;While writing that bit of code from above, I realized that a word tokenizer can
-do the same thing. This would be the equivalent, using
-&lt;code&gt;keras.preprocessing.text.Tokenizer&lt;/code&gt; and numpy.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;t = Tokenizer()
-t.fit_on_texts(_labels)
-seqs = t.texts_to_sequences(_labels)
-# seqs is a list of lists, something like:
-# [[1], [2], [1], [3] ... ]
-labels = np.array(seqs)[:,0] - 1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And now &lt;code&gt;t.word_index&lt;/code&gt; holds the word to index mapping. &lt;code&gt;np.array(seqs)[:,0]&lt;/code&gt;
-returns a list with the first element (at index 0) of the second dimension of
-the np array. The arithmetic operation of the end applies to each member of
-the array and is needed because the tokenizer starts indexing words at 1.&lt;/p&gt;
-
-&lt;p&gt;Of course, the second way is convoluted, needs to process the list of labels
-twice, uses two addon libraries (but probably already present for the domain
-of this task) and needs some basic knowledge of numpy to be readable by others.
-YMMV. I wonder which method is faster, on a bigger chunk of data.&lt;/p&gt;
-</description>
+      <description>One common task in machine-based categorization tasks is to relabel data with a numeric value, an index, where before that data was labeled with a string.
+The basic Python code would be something like this:
+label_index = {} labels = [] for l in string_labels: if l not in label_index: label_index[l] = len(label_index) labels.append(label_index[l])&amp;gt;  While writing that bit of code from above, I realized that a word tokenizer can do the same thing.</description>
     </item>
     
     <item>
@@ -429,32 +124,8 @@ YMMV. I wonder which method is faster, on a bigger chunk of data.&lt;/p&gt;
       <pubDate>Fri, 20 Jan 2017 17:24:40 +0100</pubDate>
       
       <guid>/blog/2017/01/20/how-to-shuffle-two-arrays-to-the-same-order/</guid>
-      <description>&lt;p&gt;This is a small recipe on how to get two arrays with the same shape (same
-length) shuffled with the same &amp;ldquo;random seed&amp;rdquo;. This is useful when the two
-arrays hold related data (for example, one holds values and the other one holds
-labels for those values).&lt;/p&gt;
-
-&lt;p&gt;It takes advantage of the fact that numpy arrays can be indexed with other
-arrays, something that seems really magical when compared to regular python
-arrays.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; import numpy as np
-&amp;gt;&amp;gt;&amp;gt; x = np.arange(10)
-&amp;gt;&amp;gt;&amp;gt; y = np.arange(9, -1, -1)
-&amp;gt;&amp;gt;&amp;gt; x
-array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-&amp;gt;&amp;gt;&amp;gt; y
-array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
-&amp;gt;&amp;gt;&amp;gt; s = np.arange(x.shape[0])
-&amp;gt;&amp;gt;&amp;gt; np.random.shuffle(s)
-&amp;gt;&amp;gt;&amp;gt; s
-array([9, 3, 5, 2, 6, 0, 8, 1, 4, 7])
-&amp;gt;&amp;gt;&amp;gt; x[s]
-array([9, 3, 5, 2, 6, 0, 8, 1, 4, 7])
-&amp;gt;&amp;gt;&amp;gt; y[s]
-array([0, 6, 4, 7, 3, 9, 1, 8, 5, 2])
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>This is a small recipe on how to get two arrays with the same shape (same length) shuffled with the same &amp;ldquo;random seed&amp;rdquo;. This is useful when the two arrays hold related data (for example, one holds values and the other one holds labels for those values).
+It takes advantage of the fact that numpy arrays can be indexed with other arrays, something that seems really magical when compared to regular python arrays.</description>
     </item>
     
     <item>
@@ -463,65 +134,8 @@ array([0, 6, 4, 7, 3, 9, 1, 8, 5, 2])
       <pubDate>Wed, 18 Jan 2017 18:30:18 +0100</pubDate>
       
       <guid>/blog/2017/01/18/editing-short-python-scripts-with-vim/</guid>
-      <description>
-
-&lt;p&gt;Being that I usually find interesting to know about other people&amp;rsquo;s workflow,
-here&amp;rsquo;s a short description of my working environment that I typically use when
-developing in Python:&lt;/p&gt;
-
-&lt;h2 id=&#34;tmux&#34;&gt;tmux&lt;/h2&gt;
-
-&lt;p&gt;In the beginning I&amp;rsquo;ve used Yakuake tabs to split servers and files in separate
-tabs. As the number grew, I&amp;rsquo;ve started naming the tabs (and even had a short
-stint &lt;a href=&#34;https://github.com/tiberiuichim/customkuake&#34;&gt;extending&lt;/a&gt;
-&lt;a href=&#34;https://github.com/tiberiuichim/atomic-hidpi&#34;&gt;Yakuake&lt;/a&gt; to fit this use case),
-but as the number of projects and environments that I have to juggle kept
-growing, I&amp;rsquo;ve resorted to splitting each separate tab into &amp;ldquo;subtabs&amp;rdquo;, using
-tmux.&lt;/p&gt;
-
-&lt;p&gt;I start &lt;code&gt;tmux -2&lt;/code&gt; in each Yakuake tab (the &lt;code&gt;-2&lt;/code&gt; switch is to enhance the color
-support) and I&amp;rsquo;ve mapped the Alt+\ as the escape combination.
-Why this? Backslash as the leader key comes from vim and I don&amp;rsquo;t like the ctrl
-key, I&amp;rsquo;d have to use my pinky finger and I don&amp;rsquo;t like it. This is how to
-achieve that:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; unbind C-b
- set -g prefix M-&#39;\&#39;
- bind M-&#39;\&#39; send-prefix
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next, to make it easier to switch tabs, I&amp;rsquo;ve mapped alt+&lt;number&gt; to switch to
-the coresponding tab number.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; bind-key -n M-1 select-window -t:1
- bind-key -n M-2 select-window -t:2
- bind-key -n M-3 select-window -t:3
- bind-key -n M-4 select-window -t:4
- bind-key -n M-5 select-window -t:5
- bind-key -n M-6 select-window -t:6
- bind-key -n M-7 select-window -t:7
- bind-key -n M-8 select-window -t:8
- bind-key -n M-9 select-window -t:9
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But one problem: the 0 key is far away. So I want to start tab numbering at 1:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt; set -g base-index 1
- setw -g pane-base-index 1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;neo-vim&#34;&gt;(Neo)Vim&lt;/h2&gt;
-
-&lt;p&gt;Vim is the perfect editor for quick scripts: it is fast to start, very fast to
-edit, easy to configure, etc. There&amp;rsquo;s plenty of material on the web for this,
-but two short tricks that are worth mentioning: ctrl+z is the easiest way to
-escape from vim to the terminal (followed by fg to bring it back to the foreground)
-and I sometimes type this (maybe I should even include it in my vimrc) to
-execute the current file with the python from my virtualenv:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-viml&#34;&gt;:map &amp;lt;f5&amp;gt; !python ./%&amp;lt;cr&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Being that I usually find interesting to know about other people&amp;rsquo;s workflow, here&amp;rsquo;s a short description of my working environment that I typically use when developing in Python:
+tmux In the beginning I&amp;rsquo;ve used Yakuake tabs to split servers and files in separate tabs. As the number grew, I&amp;rsquo;ve started naming the tabs (and even had a short stint extending Yakuake to fit this use case), but as the number of projects and environments that I have to juggle kept growing, I&amp;rsquo;ve resorted to splitting each separate tab into &amp;ldquo;subtabs&amp;rdquo;, using tmux.</description>
     </item>
     
     <item>
@@ -530,45 +144,8 @@ execute the current file with the python from my virtualenv:&lt;/p&gt;
       <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
       
       <guid>/blog/2017/01/08/do-you-really-need-that-metadata-column/</guid>
-      <description>&lt;p&gt;It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&amp;nbsp;&lt;/p&gt;
-&lt;p&gt;As an example: when exploring collective.portlet.collectionfilter I&#39;ve noticed that the definition of the filters need both the index name and the metadata column. Ex:&lt;/p&gt;
-&lt;pre&gt;GROUPBY_CRITERIA = {
-    &#39;Subject&#39;: {
-        &#39;index&#39;: &#39;Subject&#39;,  # For querying
-        &#39;metadata&#39;: &#39;Subject&#39;,  # For constructing the list
-        &#39;display_modifier&#39;: None,  # For modifying list items (e.g. dates)
-        &#39;query_range&#39;: None  # For range searches (e.g. for dates or numbers)
-    },
-...&lt;/pre&gt;
-&lt;div&gt;The metadata is needed because the search result is a whole bag of brains and the portlet groups results by their values, so it needs to know the real values. With minimal changes it is possible to avoid the need for that metadata column.&lt;/div&gt;
-&lt;p&gt;This is the original code in collectionfilter.py:&lt;/p&gt;
-&lt;pre&gt;attr = GROUPBY_CRITERIA[self.data.group_by][&#39;metadata&#39;]
-mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
-
-grouped_results = {}
-for item in results:
-    val = getattr(item, attr, None)
-    if callable(val):
-        val = val()
-    if not getattr(val, &#39;__iter__&#39;, False):
-        val = [val]&lt;/pre&gt;
-&lt;div&gt;And these are the minimal changes:&lt;/div&gt;
-&lt;pre&gt;mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
-
-catalog = getToolByName(self.context, &#39;portal_catalog&#39;)
-unindex = catalog._catalog.indexes[idx]._unindex
-
-grouped_results = {}
-for item in results:
-    rid = item._brain.getRID()
-    # val = getattr(item, attr, None)
-    val = unindex.get(rid)
-    if callable(val):
-        val = val()
-    if not getattr(val, &#39;__iter__&#39;, False):
-        val = [val]&lt;/pre&gt;
-&lt;p&gt;It reads the field values from the _unindex mapping of the indexes (which exist for most of the indexes in the Plone catalog. Exceptions are indexes for Title, Description, getObjPositionInParent and SearchableText). Most of the ZCatalog indexes have two mappings where they store information: the forward &#34;mapping&#34; (field value =&amp;gt; objectid) and the reverse mapping (object id =&amp;gt; field value). In this above snippet we&#39;re reading the reverse mapping to get the original field value. So, no need for a dedicated metadata column.&lt;/p&gt;
-</description>
+      <description>It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&amp;nbsp;
+As an example: when exploring collective.</description>
     </item>
     
     <item>
@@ -577,15 +154,8 @@ for item in results:
       <pubDate>Thu, 05 Jan 2017 19:01:08 -0100</pubDate>
       
       <guid>/blog/2017/01/05/auto-bootstrap-nvim-configuration/</guid>
-      <description>&lt;p&gt;Ever since I&#39;ve moved to Neovim and redid my whole setup, I&#39;ve had this piece of code at the top of my init.vim:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;if empty(glob(&#39;~/.config/nvim/autoload/plug.vim&#39;))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
-&lt;/code&gt;&lt;/pre&gt;
-Together with the rest of that dotfile, it automatically bootstraps the whole plugins install process, which makes moving to a new machine a simple operation of just cloning the repo in the proper location, start once Neovim to let it bootstrap, then boom, everything fits in place. For reference, my nvim configuration is here&amp;nbsp;https://github.com/tiberiuichim/dotfiles/blob/master/nvim/init.vim
-</description>
+      <description>Ever since I&#39;ve moved to Neovim and redid my whole setup, I&#39;ve had this piece of code at the top of my init.vim:
+if empty(glob(&#39;~/.config/nvim/autoload/plug.vim&#39;)) silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim autocmd VimEnter * PlugInstall | source $MYVIMRC endif  Together with the rest of that dotfile, it automatically bootstraps the whole plugins install process, which makes moving to a new machine a simple operation of just cloning the repo in the proper location, start once Neovim to let it bootstrap, then boom, everything fits in place.</description>
     </item>
     
     <item>
@@ -594,10 +164,2098 @@ Together with the rest of that dotfile, it automatically bootstraps the whole pl
       <pubDate>Mon, 02 Jan 2017 09:46:35 -0100</pubDate>
       
       <guid>/blog/2017/01/02/django-templates-make-me-go-mad.../</guid>
-      <description>&lt;p&gt;Why is this a positive thing? Excerpt from Django Oscar, an eComerce framework.&lt;/p&gt;
-&lt;pre&gt;&amp;lt;li class=&#34;step2 {% if step == 2 %}active{% else %}{% if step == 3 %}previous{% else %}{% if step &amp;gt; 2 %}visited{% else %}disabled{% endif %}{% endif %}{% endif %} &#34;&amp;gt;&lt;/pre&gt;
-&lt;p&gt;Gah...&lt;/p&gt;
-</description>
+      <description>Why is this a positive thing? Excerpt from Django Oscar, an eComerce framework.
+&amp;lt;li class=&#34;step2 {% if step == 2 %}active{% else %}{% if step == 3 %}previous{% else %}{% if step &amp;gt; 2 %}visited{% else %}disabled{% endif %}{% endif %}{% endif %} &#34;&amp;gt; Gah...</description>
+    </item>
+    
+    <item>
+      <title>Always fun, deciphering Ruby DSLs (part 1)</title>
+      <link>/blog/2016/12/24/always-fun-deciphering-ruby-dsls-part-1/</link>
+      <pubDate>Sat, 24 Dec 2016 08:47:35 -0100</pubDate>
+      
+      <guid>/blog/2016/12/24/always-fun-deciphering-ruby-dsls-part-1/</guid>
+      <description>I never back down from a new system or programming language and thankfully my daily work has exposed me to some Ruby and Rails code. So I&#39;ve been learning some, just enough to be able to tweak code, fix bugs and make minor additions. I&#39;m not a fan of the Ruby on Rails design, but I enjoy it as a challenge.
+One thing that I found difficult was writing code that uses some of the many DSLs created by the community.</description>
+    </item>
+    
+    <item>
+      <title>Easier development when dealing with docker-compose stacks</title>
+      <link>/blog/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks/</link>
+      <pubDate>Tue, 13 Dec 2016 09:26:44 -0100</pubDate>
+      
+      <guid>/blog/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks/</guid>
+      <description>For some time I&#39;ve had to deal with two separate, docker-compose based application stacks. One of them combining a Ruby on Rails app with a whole suite of ElasticSearch nodes, sidekiq worker, Postgresql, nginx, the whole shebang. Another is just a plain Zope/Plone stack, but the difficulties remain the same: when I wanted to do production debugging or just plain development using that environment, I needed something that can be started manually, in the whole stack.</description>
+    </item>
+    
+    <item>
+      <title>Change the authentication cookie name in Plone</title>
+      <link>/blog/2016/12/02/change-the-authentication-cookie-name-in-plone/</link>
+      <pubDate>Fri, 02 Dec 2016 11:22:18 -0100</pubDate>
+      
+      <guid>/blog/2016/12/02/change-the-authentication-cookie-name-in-plone/</guid>
+      <description>Not obvious of first, there are two places to change the cookie name used in login:
+/acl_users/credentials_cookie_auth/manage_propertiesForm
+and
+/acl_users/session/manage_propertiesForm</description>
+    </item>
+    
+    <item>
+      <title>How to make the linked object editable in droppable collective.cover tiles</title>
+      <link>/blog/2016/10/13/how-to-make-the-linked-object-editable-in-droppable-collective.cover-tiles/</link>
+      <pubDate>Thu, 13 Oct 2016 12:51:46 -0200</pubDate>
+      
+      <guid>/blog/2016/10/13/how-to-make-the-linked-object-editable-in-droppable-collective.cover-tiles/</guid>
+      <description>By default, collective.cover offers one mechanism to &#34;drop&#34; objects to their tiles, by using the &#34;Add content&#34; button at the top. I&#39;ve received feedback that the button will not be very friendly to editors, so my solution, in this case, is really simple.
+In the tile schema, instead of the default:
+ uuid = schema.TextLine( title=_(u&#39;UUID&#39;), required=False, readonly=True, ) redefine uuid to be such as:
+from plone.formwidget.contenttree import UUIDSourceBinder from z3c.</description>
+    </item>
+    
+    <item>
+      <title>Trigger cron style jobs in Plone sites without passwords</title>
+      <link>/blog/2016/09/15/trigger-cron-style-jobs-in-plone-sites-without-passwords/</link>
+      <pubDate>Thu, 15 Sep 2016 11:37:22 -0200</pubDate>
+      
+      <guid>/blog/2016/09/15/trigger-cron-style-jobs-in-plone-sites-without-passwords/</guid>
+      <description>For some time the plone.recipe.zope2instance added support to execute scripts in the context of a full &#34;Zope 2 environment&#34;, by using it such as&amp;nbsp;
+bin/instance run /path/to/script This can be used to launch Python scripts with full support of the Zope machinery, connected to the Zeo server, etc. The script can be generated as a console script from any Plone addon.&amp;nbsp;Here&#39;s a small snippet to be used to get a &#34;</description>
+    </item>
+    
+    <item>
+      <title>Abusing Plone Content Rules to allow Site Admin customizations of sent emails</title>
+      <link>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</link>
+      <pubDate>Wed, 31 Aug 2016 08:12:43 -0200</pubDate>
+      
+      <guid>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</guid>
+      <description>This would be a sort of tutorial on how to implement a new plone.app.contentrules Trigger Event, how to write a new plone.stringinterp variable substitutor and how to trigger the event from a browser page (or z3c.form).
+This allows configuring a new trigger event from the Content Rules Plone control panel configlet and to assign a new Email action, with customizable body template.
+Let&#39;s say our task is to implement a contact form:</description>
+    </item>
+    
+    <item>
+      <title>How to fake fix broken persistent objects in ZODB</title>
+      <link>/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/</link>
+      <pubDate>Thu, 18 Aug 2016 16:56:38 -0200</pubDate>
+      
+      <guid>/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/</guid>
+      <description>I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.
+My solution, because I didn&#39;t care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys.</description>
+    </item>
+    
+    <item>
+      <title>How to completely disable Diazo on a specific path</title>
+      <link>/blog/2016/06/30/how-to-completely-disable-diazo-on-a-specific-path/</link>
+      <pubDate>Thu, 30 Jun 2016 14:51:42 -0200</pubDate>
+      
+      <guid>/blog/2016/06/30/how-to-completely-disable-diazo-on-a-specific-path/</guid>
+      <description>I&#39;m working on an (inherited) website that uses Plone and BackboneJS to offer a streamlined search interface over a catalog of items.
+My task was to apply a new Diazo theme, which worked great for the rest of the website, except for this search page. The items inserted by the Backbone app would be all garbled and wrong. In the end, I managed to isolate the problem to a single page template that would load only that SPA, and the problem still persisted, (on my development machine), while the same code ran ok on the production server.</description>
+    </item>
+    
+    <item>
+      <title>How to use pgloader to migrate sqlite database to postgresql</title>
+      <link>/blog/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql/</link>
+      <pubDate>Mon, 13 Jun 2016 23:49:14 -0200</pubDate>
+      
+      <guid>/blog/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql/</guid>
+      <description>I needed to migrate a Kotti database, from its default sqlite file store, to Postgresql. Clued in by StackOverflow, I&#39;ve tried using pgloader, but the version coming with Ubuntu is old: 2.x instead of the brand new 3.x. But the jump to 3.x meant a switch in programming languages as well: the new one is written in Lisp. I didn&#39;t want to install and compile the whole Lisp bundle just to run pgloader and I didn&#39;t find a binary distribution either, and after a recent exposure to Docker, I thought I&#39;ll give the dockerized version of pgloader a try.</description>
+    </item>
+    
+    <item>
+      <title>The case of the strange RichText widgets</title>
+      <link>/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/</link>
+      <pubDate>Mon, 13 Jun 2016 12:28:29 -0200</pubDate>
+      
+      <guid>/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/</guid>
+      <description>On a Plone 4.3 with plone.app.widgets 1.8.0 and plone.app.contenttypes 1.1b5 installed, there&#39;s one weird bit of inconsistency:
+The TinyMCE widget rendered by the plone.app.contenttype&#39;s IRichText behaviour is different from any other RichText field added in the dexterity model. Even on the same page, for example, if I edit the Document dexterity type and add a rich text field, the resulting widget is different. How do I know? Try inserting an image by selecting it, in the popup dialog, from the site content browser.</description>
+    </item>
+    
+    <item>
+      <title>ZODB: How to get and read objects from an undo information</title>
+      <link>/blog/2015/05/05/zodb-how-to-get-and-read-objects-from-an-undo-information/</link>
+      <pubDate>Tue, 05 May 2015 08:07:56 +0700</pubDate>
+      
+      <guid>/blog/2015/05/05/zodb-how-to-get-and-read-objects-from-an-undo-information/</guid>
+      <description>This is useful for example if you have transactions that cause writes to the database and you don&#39;t know what has been written. First, identify the ID of the transaction that you&#39;re interested. In the Undo tab of Zope, inspect the checkbox for the transaction and copy the part that looks like an id from its value.
+Then, in a zope debugging shell (started with bin/instance debug), I&#39;ve done:
+&amp;gt;&amp;gt;&amp;gt; import base64, cPickle &amp;gt;&amp;gt;&amp;gt; webtid = &#34;</description>
+    </item>
+    
+    <item>
+      <title>The wrong way to sudo su, and the right way</title>
+      <link>/blog/2015/04/20/the-wrong-way-to-sudo-su-and-the-right-way/</link>
+      <pubDate>Mon, 20 Apr 2015 10:34:11 +0700</pubDate>
+      
+      <guid>/blog/2015/04/20/the-wrong-way-to-sudo-su-and-the-right-way/</guid>
+      <description>I&#39;ve never had a formal training on Linux. My knowledge comes from my experience working on it for the last 12 years, but some things I&#39;ve just learned as simple recipes and never bother looking them up.
+One such thing was changing users with sudo. I&#39;ve been doing it as:
+sudo su &amp;lt;user&amp;gt; - Notice the dash at the end, which makes provides a &#34;real&#34; environment for &amp;lt;user&amp;gt;, just as if I would have logged in with that user, directly.</description>
+    </item>
+    
+    <item>
+      <title>Essential Firefox addons</title>
+      <link>/blog/2015/03/24/essential-firefox-addons/</link>
+      <pubDate>Tue, 24 Mar 2015 05:36:13 +0700</pubDate>
+      
+      <guid>/blog/2015/03/24/essential-firefox-addons/</guid>
+      <description>Without these addons, Firefox may not be my favourite browser. With them, it&#39;s a beast that has no match among all other browsers. So, a top 10 of my favourite extensions:
+Vimperator: the essential plugin, makes Firefox behave in a modal manner similar to VIM. Includes many shortcuts similar to vim. Integrates an external editor (like GVim) with any textarea. My favourite things with it: really fast opening/closing of tabs, URL address copying and pasting, follow links, etc.</description>
+    </item>
+    
+    <item>
+      <title>A simple epub file renaming utility</title>
+      <link>/blog/2012/01/16/a-simple-epub-file-renaming-utility/</link>
+      <pubDate>Mon, 16 Jan 2012 15:32:10 -0200</pubDate>
+      
+      <guid>/blog/2012/01/16/a-simple-epub-file-renaming-utility/</guid>
+      <description>I have a couple of epub files that have random names assigned to them, and I wanted to rename them based on their metadata, in the form Author - Title. Below is what I came up with:
+#!/usr/bin/python from zipfile import ZipFile import lxml.etree import os.path import shutil import sys namespaces = { &#39;u&#39;:&#34;urn:oasis:names:tc:opendocument:xmlns:container&#34;, &#39;xsi&#39;:&#34;http://www.w3.org/2001/XMLSchema-instance&#34;, &#39;opf&#39;:&#34;http://www.idpf.org/2007/opf&#34;, &#39;dcterms&#39;:&#34;http://purl.org/dc/terms/&#34;, &#39;calibre&#39;:&#34;http://calibre.kovidgoyal.net/2009/metadata&#34;, &#39;dc&#39;:&#34;http://purl.org/dc/elements/1.1/&#34;, } def main(): if len(sys.argv) != 2: print &#34;Need a path.&#34; sys.</description>
+    </item>
+    
+    <item>
+      <title>Getting the superclasses for a python object</title>
+      <link>/blog/2011/06/28/getting-the-superclasses-for-a-python-object/</link>
+      <pubDate>Tue, 28 Jun 2011 17:08:06 -0300</pubDate>
+      
+      <guid>/blog/2011/06/28/getting-the-superclasses-for-a-python-object/</guid>
+      <description>Zope 2 (and Plone) persistent objects usually have an intricate inheritance tree. Finding what classes an object inherits can be a time consuming task, hunting through the various eggs for the relevant source code. Below is a little snippet that shows how to easily get the list of superclasses:
+(Pdb) pp type(ff).mro() (&amp;lt;class &#39;plone.app.blob.subtypes.image.ExtensionBlobField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.TranslatableExtensionField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;archetypes.schemaextender.field.BaseExtensionField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;plone.app.blob.field.BlobField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ObjectField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.Field&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Layer.DefaultLayerContainer&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;plone.app.blob.mixins.ImageFieldMixin&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;Products.Archetypes.Field.ImageField&#39;&amp;gt;, &amp;nbsp;&amp;lt;class &#39;Products.</description>
+    </item>
+    
+    <item>
+      <title>Version conflict: zc.buildout&#39;s version of madness</title>
+      <link>/blog/2011/05/02/version-conflict-zc.buildouts-version-of-madness/</link>
+      <pubDate>Mon, 02 May 2011 10:13:55 -0300</pubDate>
+      
+      <guid>/blog/2011/05/02/version-conflict-zc.buildouts-version-of-madness/</guid>
+      <description>I&#39;m not even trying to understand what happens, because it&#39;s aggravating to see buildouts fail like this:
+While: &amp;nbsp; Installing. &amp;nbsp; Getting section zope2. &amp;nbsp; Initializing section zope2. &amp;nbsp; Installing recipe plone.recipe.zope2install. Error: There is a version conflict. We already have: setuptools 0.6c9 or, worse, this:
+While: &amp;nbsp; Installing. &amp;nbsp; Getting section zope2. &amp;nbsp; Initializing section zope2. &amp;nbsp; Installing recipe plone.recipe.zope2install. Error: There is a version conflict. We already have: zc.</description>
+    </item>
+    
+    <item>
+      <title>Building PIL with JPEG support on Ubuntu 11.04</title>
+      <link>/blog/2011/05/01/building-pil-with-jpeg-support-on-ubuntu-11.04/</link>
+      <pubDate>Sun, 01 May 2011 12:41:20 -0300</pubDate>
+      
+      <guid>/blog/2011/05/01/building-pil-with-jpeg-support-on-ubuntu-11.04/</guid>
+      <description>I had problems building PIL with jpeg support on the latest Ubuntu. There are now two libjpeg libraries: one called libjpeg62 and one libjpeg8. Every guide on the net explaining how to compile PIL with jpeg support points to installing libjpeg62-dev. Needless to say, libjpeg8-dev is actually needed to properly build PIL. My reason for initially avoiding libjpeg8 is that it causes libsdlimage-dev to be uninstalled, so it looks like I&#39;ll have to juggle packages whenever I want to compile something that requires SDL.</description>
+    </item>
+    
+    <item>
+      <title>Export/import users in and out of Plone</title>
+      <link>/blog/2011/03/09/export/import-users-in-and-out-of-plone/</link>
+      <pubDate>Wed, 09 Mar 2011 18:09:19 -0200</pubDate>
+      
+      <guid>/blog/2011/03/09/export/import-users-in-and-out-of-plone/</guid>
+      <description>A dirty quick method of importing and exporting the users (only usernames and passwords) out of Plone, using 2 external methods. Code below, not much else to say.
+import cPickle def export(self): pas = self.acl_users users = pas.source_users passwords = users._user_passwords result = dict(passwords) f = open(&#39;/tmp/out.blob&#39;, &#39;w&#39;) cPickle.dump(result, f) f.close() return &#34;done&#34; def import_users(self): pas = self.acl_users users = pas.source_users f = open(&#39;/tmp/out.blob&#39;) res = cPickle.load(f) f.close() for uid, pwd in res.</description>
+    </item>
+    
+    <item>
+      <title>Set product configuration globally in zope.conf</title>
+      <link>/blog/2011/02/08/set-product-configuration-globally-in-zope.conf/</link>
+      <pubDate>Tue, 08 Feb 2011 19:46:42 -0200</pubDate>
+      
+      <guid>/blog/2011/02/08/set-product-configuration-globally-in-zope.conf/</guid>
+      <description>I have a Zope product that needs to write in a centralized location, across multiple instances. The classic Python solution would be to write a variable in a config.py module and read that location from the code, but this feels unelegant in an environment that uses zc.buildout for deployment. The solution I have found is, as follows:
+In buildout.cfg, in the instance part definition, add:
+zope-conf-additional = &amp;nbsp;&amp;nbsp;&amp;nbsp; &amp;lt;environment&amp;gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; mylocation ${buildout:directory}/var/mylocation &amp;nbsp;&amp;nbsp;&amp;nbsp; &amp;lt;/environment&amp;gt;  Next, inside the product code I have:</description>
+    </item>
+    
+    <item>
+      <title>Running Products.Gloworm on Plone 4</title>
+      <link>/blog/2011/01/04/running-products.gloworm-on-plone-4/</link>
+      <pubDate>Tue, 04 Jan 2011 19:09:02 -0200</pubDate>
+      
+      <guid>/blog/2011/01/04/running-products.gloworm-on-plone-4/</guid>
+      <description>For some reason, the TTW developer tools tend to get neglected in the Plone world. A valuable tools such as Clouseau has fallen out of favour and now Gloworm, the @@manage-viewlets replacement/complement won&#39;t run in Plone 4 (at least at version 1.0, which is the latest right now on PyPI).
+Fortunately, Gloworm has been updated in svn trunk. To get the latest version you need to add it to sources (in buildout.</description>
+    </item>
+    
+    <item>
+      <title>A pattern for programatically creating Plone content</title>
+      <link>/blog/2011/01/02/a-pattern-for-programatically-creating-plone-content/</link>
+      <pubDate>Sun, 02 Jan 2011 11:11:54 -0200</pubDate>
+      
+      <guid>/blog/2011/01/02/a-pattern-for-programatically-creating-plone-content/</guid>
+      <description>I&#39;m importing content from a legacy system to a new website that I&#39;m doing with Plone 4 (wow! what an improvement, in speed and technology) and was looking at the existing documentation on how to programatically create new Plone content. The issue I&#39;m having with the existing documentation is that it&#39;s incomplete. It won&#39;t give you automatically created ids, you&#39;ll have to manually call mutators if you don&#39;t know any better, etc.</description>
+    </item>
+    
+    <item>
+      <title>A miniguide to Dolmen packages</title>
+      <link>/blog/2010/09/19/a-miniguide-to-dolmen-packages/</link>
+      <pubDate>Sun, 19 Sep 2010 22:16:36 -0300</pubDate>
+      
+      <guid>/blog/2010/09/19/a-miniguide-to-dolmen-packages/</guid>
+      <description>I&#39;m finally starting a long-overdue project which I have decided to do with Dolmen. As usual, I start by studying its source code and the packages that are available for it. By itself it can will get me about 60% with the requirements for my project, so it&#39;s a pretty good starting base. I plan to also study and use some of the menhir.* packages, which are pretty good as generic CMS content types.</description>
+    </item>
+    
+    <item>
+      <title>Migrating content (folders) from Plone 3 to Plone 4 via zexp import</title>
+      <link>/blog/2010/08/22/migrating-content-folders-from-plone-3-to-plone-4-via-zexp-import/</link>
+      <pubDate>Sun, 22 Aug 2010 14:05:56 -0300</pubDate>
+      
+      <guid>/blog/2010/08/22/migrating-content-folders-from-plone-3-to-plone-4-via-zexp-import/</guid>
+      <description>I had a need (and a problem) moving some content from a Zope 2.10/ Plone 3.3 instance to a Zope 2.12/Plone 4 instance. The path I have chosen was that of the least resistence, which for me was exporting the folder I was interested as a zexp file from the old instance and importing it in the new Plone instance. According to some members of the #plone IRC channel, this method of getting content from one zope instance to another is not possible, or at least not supported.</description>
+    </item>
+    
+    <item>
+      <title>Some issues with zc.recipe.egg&#39;s python option</title>
+      <link>/blog/2010/05/12/some-issues-with-zc.recipe.eggs-python-option/</link>
+      <pubDate>Wed, 12 May 2010 11:21:44 -0300</pubDate>
+      
+      <guid>/blog/2010/05/12/some-issues-with-zc.recipe.eggs-python-option/</guid>
+      <description>I&#39;ve recently had to integrate a script/package into a Plone 2.5 buildout that runs on top of Python 2.4. Due to that package&#39;s dependence of a sane imaplib (and the one in Python 2.4 is buggy), I had to run the script with python2.6. To make a script run on a different python, you need to do:
+[myscript] recipe = zc.regipe.egg eggs = &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; myegg &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; IMAPClient python = python26 The python26 option is actually the name of a buildout part that configures the python executable path</description>
+    </item>
+    
+    <item>
+      <title>Can you do this on your shiny Mac?</title>
+      <link>/blog/2010/02/25/can-you-do-this-on-your-shiny-mac/</link>
+      <pubDate>Thu, 25 Feb 2010 12:04:41 -0200</pubDate>
+      
+      <guid>/blog/2010/02/25/can-you-do-this-on-your-shiny-mac/</guid>
+      <description>Probably you can, but you have never done it because you have a shiny interface for everything. I&#39;m talking about this discovery of mine:
+svn diff | kompare - What it does is to take the output from svn diff and pipe it into Kompare, a merge/diff utility from the KDE Project. I can do this from the command line, straight from the directory that I&#39;m in, and bang! I get a nice graphical overview, complete with the tree structure that I can navigate to see what I&#39;m about to commit.</description>
+    </item>
+    
+    <item>
+      <title>Generating products outside of the Products.* namespace with ArchGenXML</title>
+      <link>/blog/2010/02/24/generating-products-outside-of-the-products.-namespace-with-archgenxml/</link>
+      <pubDate>Wed, 24 Feb 2010 17:54:52 -0200</pubDate>
+      
+      <guid>/blog/2010/02/24/generating-products-outside-of-the-products.-namespace-with-archgenxml/</guid>
+      <description>I&#39;m a die hard in regards to ArchGenXML usage. The number of things to know about when creating new content types for Plone is just too high. Package structure, Zope package registration, content types registration, QuickInstaller registration, GenericSetup profiles, skins registration, workflows, etc. I can go in and do changes to the code, and add to it, but generating it from scratch is a gigantic task, especially for my use case, where I need to start a new project with about 7 content types.</description>
+    </item>
+    
+    <item>
+      <title>Another cause for buildout failures: system distributed Python</title>
+      <link>/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/</link>
+      <pubDate>Thu, 28 Jan 2010 21:29:31 -0200</pubDate>
+      
+      <guid>/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/</guid>
+      <description>I&#39;ve had a buildout bootstrap process failure, this time a weird one, perhaps I should document the bug and report it.
+The latest Ubuntu version which I have installed (Lucid Lynx) comes with a package called python-pkg-resources, which packages pkg_resources, which used to be available only through the setuptools distribution. Buildout&#39;s bootstrap.py tries to guess if Setuptools or Distribute are installed by checking the availability of pkg_resources; by guessing wrong it all comes to a crash at the end.</description>
+    </item>
+    
+    <item>
+      <title>Dear PyPi uploaders: don&#39;t use a download URL, upload your package instead!</title>
+      <link>/blog/2010/01/28/dear-pypi-uploaders-dont-use-a-download-url-upload-your-package-instead/</link>
+      <pubDate>Thu, 28 Jan 2010 20:57:23 -0200</pubDate>
+      
+      <guid>/blog/2010/01/28/dear-pypi-uploaders-dont-use-a-download-url-upload-your-package-instead/</guid>
+      <description>I think this is the Python Index biggest mistake, the one which makes it unreliable for serious development environments: exposing package entries with no real package files and just a download URL. To see what I&#39;m talking about, just examine the PyPI records for BeautifulSoup or IPython, packages that are very common in buildouts. As soon as the author and publisher of that package has a hosting problem, the developer that uses that package also has a problem.</description>
+    </item>
+    
+    <item>
+      <title>Test if developer mode is set in Zope 3 and Grok</title>
+      <link>/blog/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok/</link>
+      <pubDate>Fri, 15 Jan 2010 11:29:22 -0200</pubDate>
+      
+      <guid>/blog/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok/</guid>
+      <description>I&#39;ve started an application that uses Dolmen, a lightweight CMS built on top of Grok, and I want to be able to &#34;rollup&#34; the megrok.resource files based on the devmode setting that was set in the zope.conf file. After a bit of digging, I came up with this code that tells me the current devmode setting for the running instance:
+from zope.app.applicationcontrol.applicationcontrol import applicationController from zope.app.applicationcontrol.interfaces import IRuntimeInfo def get_debug_mode(): &amp;nbsp;&amp;nbsp;&amp;nbsp; &#34;</description>
+    </item>
+    
+    <item>
+      <title>A don&#39;t do for internationalizing Django templates</title>
+      <link>/blog/2009/11/30/a-dont-do-for-internationalizing-django-templates/</link>
+      <pubDate>Mon, 30 Nov 2009 20:36:41 -0200</pubDate>
+      
+      <guid>/blog/2009/11/30/a-dont-do-for-internationalizing-django-templates/</guid>
+      <description>I&#39;m internationalizing a Pinax website and I&#39;ve encountered this piece of code in a template:
+&amp;lt;input type=&#34;submit&#34; value=&#34;{% trans &#34;invite&#34; %}&#34;/&amp;gt; {% blocktrans %}{{ other_user }} to be a friend.{% endblocktrans %}  The message ids for this code would be two separate blocks: &#34;invite&#34; and &#34; %{other_user}s to be a friend&#34;. Both offer very little in terms of context and make the translators job difficult. Correct, in my point of view, would be the more convoluted form of:</description>
+    </item>
+    
+    <item>
+      <title>Odd thing in Django: the date filter takes PHP as reference instead of Python</title>
+      <link>/blog/2009/11/30/odd-thing-in-django-the-date-filter-takes-php-as-reference-instead-of-python/</link>
+      <pubDate>Mon, 30 Nov 2009 11:57:54 -0200</pubDate>
+      
+      <guid>/blog/2009/11/30/odd-thing-in-django-the-date-filter-takes-php-as-reference-instead-of-python/</guid>
+      <description>I wonder what possible explanation there is for the behaviour of the date template filter.
+Uses the same format as PHP&#39;s date() function (http://php.net/date) with some custom extensions.  I understand where Django comes from, but I think this sort of things should be more aligned with the rest of the Python world.</description>
+    </item>
+    
+    <item>
+      <title>If Django templates are an improvement over XML templates, then, by all means, please give me XML</title>
+      <link>/blog/2009/11/18/if-django-templates-are-an-improvement-over-xml-templates-then-by-all-means-please-give-me-xml/</link>
+      <pubDate>Wed, 18 Nov 2009 14:27:15 -0200</pubDate>
+      
+      <guid>/blog/2009/11/18/if-django-templates-are-an-improvement-over-xml-templates-then-by-all-means-please-give-me-xml/</guid>
+      <description>I fail to see how
+{% block %} ... {% endblock %}  is in any way better or &#34;less scary&#34; then, let&#39;s say
+&amp;lt;dj:block&amp;gt; ... &amp;lt;/dj:block&amp;gt;  Yet another rant, this time triggered by the error I got when writing this piece of code:
+{% blocktrans with offer.offerer.username as offerer_username and offer.offered_time|date as offerer_date %} ... {% endblocktrans %}  I just wanted to split the tag on multiple lines, but it seems that&#39;s not possible.</description>
+    </item>
+    
+    <item>
+      <title>The case against Django templates</title>
+      <link>/blog/2009/11/17/the-case-against-django-templates/</link>
+      <pubDate>Tue, 17 Nov 2009 19:00:49 -0200</pubDate>
+      
+      <guid>/blog/2009/11/17/the-case-against-django-templates/</guid>
+      <description>I have many grudges against the django templating language and its templates (in short, I hate them), so I&#39;m gathering evidence to support what my &#34;spider sense&#34; tells me. Today the template tag system goes under fire.
+Given the following template fragment:
+{% load i18n %} {% load avatar_tags %} {% load voting_tags %} {% load pagination_tags %} {% load extra_voting_tags %} {% load in_filter %} {% load extra_tagging_tags %} {% load sorting_tags %} Which one is responsible for the following &#34;</description>
+    </item>
+    
+    <item>
+      <title>Django&#39;s makemessages sucks for my use cases</title>
+      <link>/blog/2009/11/12/djangos-makemessages-sucks-for-my-use-cases/</link>
+      <pubDate>Thu, 12 Nov 2009 20:57:19 -0200</pubDate>
+      
+      <guid>/blog/2009/11/12/djangos-makemessages-sucks-for-my-use-cases/</guid>
+      <description>Yet another angry rant, caused, of course, by using Django in anger. Nothing wrong with using something in anger, that&#39;s the real way I learn something. Zope 3 even has an online book on how to use it in anger.
+That said, Django&#39;s makemessages administrative command sucks by being way too inflexible to anything but the ideal Django development environment. My environment looks like this: I have a project based on Pinax, which I&#39;m developing and deploying using zc.</description>
+    </item>
+    
+    <item>
+      <title>Get a project imported into subversion and start working imediately on it</title>
+      <link>/blog/2009/11/09/get-a-project-imported-into-subversion-and-start-working-imediately-on-it/</link>
+      <pubDate>Mon, 09 Nov 2009 20:54:51 -0200</pubDate>
+      
+      <guid>/blog/2009/11/09/get-a-project-imported-into-subversion-and-start-working-imediately-on-it/</guid>
+      <description>I managed to figure out how to beat one awkward piece of workflow when starting new project: I always start hacking on a project, then I notice that I haven&#39;t been working on a svn checkout (it&#39;s the chicken or the egg problem). So I need to do a svn import, delete my copy of the project, checkout the svn version and start hacking at my project again. This workaround is agravated, though, when working with buildouts.</description>
+    </item>
+    
+    <item>
+      <title>Using CherryPy to work around a Django/flup bug</title>
+      <link>/blog/2009/11/08/using-cherrypy-to-work-around-a-django/flup-bug/</link>
+      <pubDate>Sun, 08 Nov 2009 21:35:58 -0200</pubDate>
+      
+      <guid>/blog/2009/11/08/using-cherrypy-to-work-around-a-django/flup-bug/</guid>
+      <description>A bug creeped in one of my Django 1.1 projects that is in beta-testing right now: the Pinax wiki app looks for a REMOTE_ADDR value in request.META, which was not set in my environment. My environment is a pretty standard (as far as this setup goes) nginx + fcgi (flup on the django side) + django. Further work on this issue revealed, step by step, that:
+REMOTE_ADDR needs to be somehow set by a Django middleware, based on an http header, so I&#39;ve added django.</description>
+    </item>
+    
+    <item>
+      <title>Django gotcha: the urls.py needs to define the 404 view</title>
+      <link>/blog/2009/11/05/django-gotcha-the-urls.py-needs-to-define-the-404-view/</link>
+      <pubDate>Thu, 05 Nov 2009 21:06:48 -0200</pubDate>
+      
+      <guid>/blog/2009/11/05/django-gotcha-the-urls.py-needs-to-define-the-404-view/</guid>
+      <description>Probably this is documented somewhere in the Django docs, but, I mean, who has time to read the docs? :-) In the urls.py file for my project I didn&#39;t do a
+from django.conf.urls.defaults import * because that&#39;s just bad style. Instead I&#39;ve just imported what I needed: patterns, include and url. Later on I got this error in my email:
+Traceback (most recent call last): File &#34;/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/handlers/base.py&#34;, line 118, in get_response callback, param_dict = resolver.</description>
+    </item>
+    
+    <item>
+      <title>Questioning the quality of code in Django third-party projects</title>
+      <link>/blog/2009/10/07/questioning-the-quality-of-code-in-django-third-party-projects/</link>
+      <pubDate>Wed, 07 Oct 2009 19:17:32 -0300</pubDate>
+      
+      <guid>/blog/2009/10/07/questioning-the-quality-of-code-in-django-third-party-projects/</guid>
+      <description>I&#39;m not sure how I feel about this... In some ways, I think it&#39;s very positive that a relative newcomer can just jump in and release an opensource project that can be taken and reused by others. Did Django allowed this? That&#39;s very positively PHP-like...
+I&#39;m talking about a glimpse at some code that I caught while helping my brother integrate the Diamandas forum to a site he&#39;s doing. It stunned me that it has the marks of a developer that is not very experienced with the language or the framework, but it&#39;s moving at a speed that is too great to stop and fix or check what he&#39;s doing.</description>
+    </item>
+    
+    <item>
+      <title>Customizing Django LFS (Lightning Fast Shop) for the non-django developer</title>
+      <link>/blog/2009/09/17/customizing-django-lfs-lightning-fast-shop-for-the-non-django-developer/</link>
+      <pubDate>Thu, 17 Sep 2009 22:59:23 -0300</pubDate>
+      
+      <guid>/blog/2009/09/17/customizing-django-lfs-lightning-fast-shop-for-the-non-django-developer/</guid>
+      <description>I&#39;m not a Django developer, but I have a project that involves deploying a LFS site, and it took me a bit of time and effort to understand how to customize its templates and resources. This all may seem obvious to the any Django developer, but I&#39;m not, so I think this info needs to be out there.
+As a side note, at first I have reviewed Satchmo, as it seemed to have more traction in the Django community (being a Zope/Plone developer, I am more aware of the previous work done by the LFS developer, the EasyShop).</description>
+    </item>
+    
+    <item>
+      <title>ReportLab is one frustrating piece of software...</title>
+      <link>/blog/2009/08/05/reportlab-is-one-frustrating-piece-of-software.../</link>
+      <pubDate>Wed, 05 Aug 2009 11:39:26 -0300</pubDate>
+      
+      <guid>/blog/2009/08/05/reportlab-is-one-frustrating-piece-of-software.../</guid>
+      <description>I&#39;m starting to grow a strong dislike to it, enough to steer me off Python to JVM, with Jython or Scala. Case in point: its authors considered that it&#39;s appropriate to overload the Paragraph class from the platypus module, to make it accept a form of &#34;xml&#34;. There&#39;s no switch to disable this behavior and its xml handling is something straight out of the 90&#39;s: no namespaces, no validation. What happens for example, when you&#39;re trying to make a paragraph with the text:</description>
+    </item>
+    
+    <item>
+      <title>Laughable bug in a new Google Webmaster Tools feature</title>
+      <link>/blog/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature/</link>
+      <pubDate>Thu, 11 Jun 2009 15:53:16 -0300</pubDate>
+      
+      <guid>/blog/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature/</guid>
+      <description>Somebody at Google has screwed up in a laughable manner. Webmaster Tools just got a new feature: the ability to tell Google that you have moved a site to a new domain. I&#39;m in the same situation with one site that I manage: www.caleidoscop.org.ro has been moved recently to www.caleidoscop.org. Although I have done my best (I still need to persuade nginx to generate 301 redirects instead of 302) to ease this transition and absolutely everything pointing to the .</description>
+    </item>
+    
+    <item>
+      <title>My new blog dedicated to all things VIM</title>
+      <link>/blog/2009/05/10/my-new-blog-dedicated-to-all-things-vim/</link>
+      <pubDate>Sun, 10 May 2009 18:45:45 -0300</pubDate>
+      
+      <guid>/blog/2009/05/10/my-new-blog-dedicated-to-all-things-vim/</guid>
+      <description>I&#39;ve opened a new blog, at http://vimzone.pixelblaster.ro It runs on the latest Plone 3, with the NottreDamme skin and Scrawl as the blogging product. I&#39;ll probably install also the QuillsEnabled extension. There&#39;s not a lot of content on it, although it&#39;s already almost 2 months old. It&#39;s a place for me to scribble things I know about VIM and use or discover.</description>
+    </item>
+    
+    <item>
+      <title>The sorry state of internationalization in Plone</title>
+      <link>/blog/2009/04/16/the-sorry-state-of-internationalization-in-plone/</link>
+      <pubDate>Thu, 16 Apr 2009 17:32:14 -0300</pubDate>
+      
+      <guid>/blog/2009/04/16/the-sorry-state-of-internationalization-in-plone/</guid>
+      <description>Ever since Plone 2.5 stopped being the hot new thing in the Plone world, the state of content internationalization support in Plone has been declining. Partly due to the difficulty of extending Zope 2 products, LinguaPlone has always been a hack, but at least back then it worked. These days I&#39;m not heavily involved with Plone, but whenever I need to add LinguaPlone to a Plone 3 site, I cringe and weep, especially that those projects never allocate time for me to fix the obvious problems.</description>
+    </item>
+    
+    <item>
+      <title>A bug in subversion and a workaround</title>
+      <link>/blog/2009/03/02/a-bug-in-subversion-and-a-workaround/</link>
+      <pubDate>Mon, 02 Mar 2009 10:31:54 -0200</pubDate>
+      
+      <guid>/blog/2009/03/02/a-bug-in-subversion-and-a-workaround/</guid>
+      <description>I&#39;m checking out a large repository and svn keeps getting blocked, for some reason (bad network, maybe). When running update again, it complains that the checkout should be cleaned, but the cleanup operation doesn&#39;t succeed, with something like this:
+tibi@xps:~/svn/vs/data$ svn cleanup svn: In directory &#39;.&#39; svn: Error processing command &#39;modify-wcprop&#39; in &#39;.&#39; svn: &#39;setup.config&#39; is not under version control  Searching on then net for a solution didn&#39;t yield anything, so the one that I have found was to empty the .</description>
+    </item>
+    
+    <item>
+      <title>Success on a one year old problem installing CacheFu</title>
+      <link>/blog/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu/</link>
+      <pubDate>Sat, 28 Feb 2009 17:47:14 -0200</pubDate>
+      
+      <guid>/blog/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu/</guid>
+      <description>I&#39;ve upgraded CacheFu (Products.CacheSetup) to the latest 1.2 for some of the websites that I manage, in a Plone 2.5 cluster. One of them had a problem that I haven&#39;t been able to track previously, due to limited time: on a reinstall of CacheSetup, due to product upgrades, CacheFu couldn&#39;t be installed anymore. The traceback was something like:
+this product has already been installed without Quickinstaller!failed: Traceback (most recent call last): File &#34;</description>
+    </item>
+    
+    <item>
+      <title>Making peace with the system-wide installed zope.interface</title>
+      <link>/blog/2009/02/16/making-peace-with-the-system-wide-installed-zope.interface/</link>
+      <pubDate>Mon, 16 Feb 2009 11:31:15 -0200</pubDate>
+      
+      <guid>/blog/2009/02/16/making-peace-with-the-system-wide-installed-zope.interface/</guid>
+      <description>While testing software to play music from a computer on my network, I have discovered Elisa, which is a wonderful piece of software built in Python and zope.interface. The package manager helpfully installed a python-zopeinterface package, which turned out to break one of the apps I&#39;ve been working on (one of the packages that is used depends on a more recent version of zope.interface and breaks with a missing object import).</description>
+    </item>
+    
+    <item>
+      <title>Using mechanize to process protected Plone pages</title>
+      <link>/blog/2009/02/15/using-mechanize-to-process-protected-plone-pages/</link>
+      <pubDate>Sun, 15 Feb 2009 16:04:39 -0200</pubDate>
+      
+      <guid>/blog/2009/02/15/using-mechanize-to-process-protected-plone-pages/</guid>
+      <description>One of my long-running projects involves a workflow where content is produced in a Plone site, with the data later extracted and processed in various ways (including scripting Scribus to layout this data in a book). Initially the site where the content was produced wasn&#39;t protected, so I could run a simple urllib script to download the content and process it using lxml. A recent change in the workflow security settings meant this script didn&#39;t work anymore and I had to remember how to login into a Plone site using urllib2.</description>
+    </item>
+    
+    <item>
+      <title>Variable keys in dictionaries with Page Templates TALES syntax</title>
+      <link>/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/</link>
+      <pubDate>Wed, 11 Feb 2009 19:45:41 -0200</pubDate>
+      
+      <guid>/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/</guid>
+      <description>I admit, I didn&#39;t knew this until now. In the following construction:
+&amp;lt;div tal:content=&#34;somedict/keyname/someattr&#34; /&amp;gt; &#34;keyname&#34; is taken as a string, it&#39;s the literal name of the key for the somedict mapping. To use a variable instead of the literal value of the key name, I used to do:
+&amp;lt;div tal:content=&#34;python somedict[key].someattr&#34; /&amp;gt; Browsing through the zope.app.catalog code, I saw that there&#39;s actually a way to use the TALES syntax:</description>
+    </item>
+    
+    <item>
+      <title>Reset the generations level for a Zope application</title>
+      <link>/blog/2009/02/05/reset-the-generations-level-for-a-zope-application/</link>
+      <pubDate>Thu, 05 Feb 2009 20:21:12 -0200</pubDate>
+      
+      <guid>/blog/2009/02/05/reset-the-generations-level-for-a-zope-application/</guid>
+      <description>While developing an application and writing some migration code (using zope.app.generations), I had the need to reset the generation number recorded in the database for my application to a version lower than the current generation number (because my generation code didn&#39;t run properly and I didn&#39;t want to create bogus generation files). To solve this issue, in a pdb prompt I had to run:
+(Pdb) db = self.request.publication.db (Pdb) conn = db.</description>
+    </item>
+    
+    <item>
+      <title>LearningJourney: A Zope 3 tutorial</title>
+      <link>/blog/2009/01/16/learningjourney-a-zope-3-tutorial/</link>
+      <pubDate>Fri, 16 Jan 2009 20:16:42 -0200</pubDate>
+      
+      <guid>/blog/2009/01/16/learningjourney-a-zope-3-tutorial/</guid>
+      <description>Last year, in December, I held a 3 day Zope 3 training for about 10 Zope 2 and Python programmers. For this training I had prepared a 50 pages booklet with some tutorials and reference information (most of it written by me especially for this occasion). The feedback was pretty positive, but only time will tell if I was succesful or not with my training.
+I have published the training material on Google Code in a project called z3ergo.</description>
+    </item>
+    
+    <item>
+      <title>A list of Javascript files loaded by Plone 2.5</title>
+      <link>/blog/2009/01/06/a-list-of-javascript-files-loaded-by-plone-2.5/</link>
+      <pubDate>Tue, 06 Jan 2009 17:33:41 -0200</pubDate>
+      
+      <guid>/blog/2009/01/06/a-list-of-javascript-files-loaded-by-plone-2.5/</guid>
+      <description>A simple deployment of a Plone 2.5 site (I know, antiquated) means that the pages shown for anonymous users are loaded with JS and CSS content that they will not need. They are, usually, the biggest group of visitors, so it is important do make the pages load fast, to have a good impression for first time visitors. The introduction of the Resource Registry in Plone 2.5 makes it easy to set the order and the conditions to load each resource (and, as a result, the merging conditions between resource files), but there&#39;s no page to document what each JS file does, for example (AFAIK).</description>
+    </item>
+    
+    <item>
+      <title>Crossroads: a very good load balancing solution</title>
+      <link>/blog/2009/01/06/crossroads-a-very-good-load-balancing-solution/</link>
+      <pubDate>Tue, 06 Jan 2009 16:53:02 -0200</pubDate>
+      
+      <guid>/blog/2009/01/06/crossroads-a-very-good-load-balancing-solution/</guid>
+      <description>Recently Martin Aspeli published a very nice buildout recipe that implements a complete setup for a production Zope/Plone server. One of the key components in that setup is the load balancer, which is implemented using the load balancer capabilities of nginx. Nginx might be a good load balancer, but it has a problem with the way Zope/Plone works: the first page loads, for a newly restarted Plone instance are very slow (especially if the site or the catalogs are big).</description>
+    </item>
+    
+    <item>
+      <title>Specific imports versus module imports in Python</title>
+      <link>/blog/2008/12/03/specific-imports-versus-module-imports-in-python/</link>
+      <pubDate>Wed, 03 Dec 2008 12:05:20 -0200</pubDate>
+      
+      <guid>/blog/2008/12/03/specific-imports-versus-module-imports-in-python/</guid>
+      <description>I&#39;ve always been a fan of explicit, separate imports in Python, vs generic module imports. Maybe it&#39;s because I like things to be explicit, or I&#39;ve been spoiled by the way Eclipse Pydev deals with auto-importing, but I have an aversion towards generic module imports. To keep the code style consistent, I even rewrite to this style any foreign code that ends up in my code.
+Specifically, I&#39;m talking about:</description>
+    </item>
+    
+    <item>
+      <title>Moving to Intrepid and KDE 4.1</title>
+      <link>/blog/2008/11/23/moving-to-intrepid-and-kde-4.1/</link>
+      <pubDate>Sun, 23 Nov 2008 21:13:23 -0200</pubDate>
+      
+      <guid>/blog/2008/11/23/moving-to-intrepid-and-kde-4.1/</guid>
+      <description>I&#39;ve migrated my laptop (my main workstation, these days) and I&#39;ve done a complete migration to the KDE 4.1 desktop. Things are not perfect, (on the old KDE 3.5 I&#39;d say things were 99% according to my tastes), but I&#39;m trying to accomodate and find replacements. I didn&#39;t like the KDE 4.1 launcher at first and I&#39;ve even tested Launcelot for a while, but now I&#39;m back to the default menu and I&#39;m starting to like it (on 3.</description>
+    </item>
+    
+    <item>
+      <title>Subversion 1.5 &#43; default instalation Plone 3.1 buildout: no problems here</title>
+      <link>/blog/2008/11/18/subversion-1.5---default-instalation-plone-3.1-buildout-no-problems-here/</link>
+      <pubDate>Tue, 18 Nov 2008 15:10:43 -0200</pubDate>
+      
+      <guid>/blog/2008/11/18/subversion-1.5---default-instalation-plone-3.1-buildout-no-problems-here/</guid>
+      <description>I&#39;ve hit the setuptools + subversion 1.5 problem again with a freshly install Plone 3.1.7 buildout: I&#39;ve added my egg develop folder in zinstance/src/, I&#39;ve added the egg in the relevant sections in buildout.cfg, but it wouldn&#39;t work because of the incompatibility with the old setuptools version.
+The solution is to upgrade the installed setuptools to the latest version. For example, for a standalone Plone installed at /home/tibi/Plone, we have this structure:</description>
+    </item>
+    
+    <item>
+      <title>A wxPython based tagcloud renderer</title>
+      <link>/blog/2008/11/01/a-wxpython-based-tagcloud-renderer/</link>
+      <pubDate>Sat, 01 Nov 2008 19:36:20 -0200</pubDate>
+      
+      <guid>/blog/2008/11/01/a-wxpython-based-tagcloud-renderer/</guid>
+      <description>This is a small example app that will render a tag cloud with various font weights/height, based on their weight in the cloud. Not much to say here, hope it is useful to someone. It has actually been easier to design and create then expected, the only difficulty was in figuring out how to resize the buttons based on the size of their label. The algorithm could be improved to generate the cloud in a single pass, but I&#39;m not gonna bother, it works fast enough right now.</description>
+    </item>
+    
+    <item>
+      <title>RichText control with wxpython: saving, loading and converting from internal XML to HTML</title>
+      <link>/blog/2008/10/08/richtext-control-with-wxpython-saving-loading-and-converting-from-internal-xml-to-html/</link>
+      <pubDate>Wed, 08 Oct 2008 17:14:46 -0300</pubDate>
+      
+      <guid>/blog/2008/10/08/richtext-control-with-wxpython-saving-loading-and-converting-from-internal-xml-to-html/</guid>
+      <description>I tend to be an angry caveman these days (see my previous post) and this doesn&#39;t lead to too much clear thinking. I&#39;ve been dealing with the wx.richtext.RichTextCtrl for the past couple of days and I think I&#39;m now close to finishing the tasks that I set myself to do with it. I&#39;m trying to run a bunch of richtext controls on the same page, that would increase their size and show a toolbar when focused.</description>
+    </item>
+    
+    <item>
+      <title>Stupid Internet Explorer and stupid IE bugs</title>
+      <link>/blog/2008/09/15/stupid-internet-explorer-and-stupid-ie-bugs/</link>
+      <pubDate>Mon, 15 Sep 2008 14:38:42 -0300</pubDate>
+      
+      <guid>/blog/2008/09/15/stupid-internet-explorer-and-stupid-ie-bugs/</guid>
+      <description>I&#39;m placing the finishing touches on a web application I&#39;ve been writing on and off for the last year. At last, I&#39;ve reached Internet Explorer bugs, which are usually the last to be fixed. Among several other stupid but documented bugs, I&#39;ve found one which I couldn&#39;t find documented in a shallow search on Google: it seems IE has an algorithm for comparing strings that is different then the one that is used internally when sorting an array of strings.</description>
+    </item>
+    
+    <item>
+      <title>Workingenv, setuptools and svn 1.5 redux</title>
+      <link>/blog/2008/09/14/workingenv-setuptools-and-svn-1.5-redux/</link>
+      <pubDate>Sun, 14 Sep 2008 10:45:41 -0300</pubDate>
+      
+      <guid>/blog/2008/09/14/workingenv-setuptools-and-svn-1.5-redux/</guid>
+      <description>I&#39;m back to dealing with the incompatibility between setuptools and svn 1.5 which I have installed. Last time I&#39;ve solved the problem by doing a svn checkout of http://svn.python.org/projects/sandbox/branches/setuptools-0.6/ and running sudo python setup.py install. Now I&#39;m trying to do setup a virtualenv to play with repoze.catalog and I&#39;m hitting the same problem. Of course, virtualenv comes with a hardcoded setuptools package and so it will setup a &#34;broken&#34; setuptools in the virtual environment.</description>
+    </item>
+    
+    <item>
+      <title>Bug in PyPi</title>
+      <link>/blog/2008/08/22/bug-in-pypi/</link>
+      <pubDate>Fri, 22 Aug 2008 16:16:07 -0300</pubDate>
+      
+      <guid>/blog/2008/08/22/bug-in-pypi/</guid>
+      <description>The zope.app.form PyPi page looks awful, it should be fixed. Who&#39;s fault is that? Django, the framework that sits underneath (AFAIK), or the docutils libraries that probably parse the RST pages?</description>
+    </item>
+    
+    <item>
+      <title>Hosting Plone and Zope 3 applications using nginx</title>
+      <link>/blog/2008/07/11/hosting-plone-and-zope-3-applications-using-nginx/</link>
+      <pubDate>Fri, 11 Jul 2008 10:31:21 +0000</pubDate>
+      
+      <guid>/blog/2008/07/11/hosting-plone-and-zope-3-applications-using-nginx/</guid>
+      <description>I&#39;m doing a setup on a new server, I&#39;ve decided to replace the default Apache 2.2 with an nginx http server. The setup which is needed for Zope 3 and Plone applications is the following:
+[buildout] parts = &amp;nbsp;&amp;nbsp;&amp;nbsp; nginx &amp;nbsp;&amp;nbsp;&amp;nbsp; nginxctl [nginx] recipe = gocept.cmmi url = http://sysoev.ru/nginx/nginx-0.7.6.tar.gz md5sum = ae7ce6f66a2cf5a5970d9a9a0da0cf7d [nginxctl] recipe = gocept.nginx hostname = localhost port = 80 configuration = &amp;nbsp;&amp;nbsp;&amp;nbsp; worker_processes 1; &amp;nbsp;&amp;nbsp;&amp;nbsp; events { &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; worker_connections 1024; &amp;nbsp;&amp;nbsp;&amp;nbsp; } &amp;nbsp;&amp;nbsp;&amp;nbsp; http { &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; upstream z3 { &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; server 127.</description>
+    </item>
+    
+    <item>
+      <title>Using views as information mixins in templates</title>
+      <link>/blog/2008/06/01/using-views-as-information-mixins-in-templates/</link>
+      <pubDate>Sun, 01 Jun 2008 22:30:29 -0300</pubDate>
+      
+      <guid>/blog/2008/06/01/using-views-as-information-mixins-in-templates/</guid>
+      <description>This may be basic trick for some, a non-obvious usage of views for others, who knows, I&#39;m documenting it here anyway. I&#39;ve been using this technique for quite some time without giving it much thought.
+There are times when I have an object in a template. I want to display information associated with that object. This information is already coded in a @@detail view on this object. Suppose this example (in mostly pseudocode):</description>
+    </item>
+    
+    <item>
+      <title>In case you&#39;re having problems installing ssl-for-setuptools...</title>
+      <link>/blog/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools.../</link>
+      <pubDate>Tue, 15 Apr 2008 19:23:09 -0300</pubDate>
+      
+      <guid>/blog/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools.../</guid>
+      <description>I&#39;ve stumbled on this error when trying to install a easyshop buildout:
+Exception: No SSL support found
+An error occured when trying to install ssl-for-setuptools 1.10.Look above this message for any errors thatwere output by easy_install.
+While:
+Installing instance.
+Getting distribution for &#39;ssl-for-setuptools&#39;.
+Error: Couldn&#39;t install: ssl-for-setuptools 1.10
+ After scratching my head for a while, I&#39;ve found the solution:
+# apt-get install libssl-dev </description>
+    </item>
+    
+    <item>
+      <title>A tip on debugging Zope 2 with ZEO</title>
+      <link>/blog/2008/04/08/a-tip-on-debugging-zope-2-with-zeo/</link>
+      <pubDate>Tue, 08 Apr 2008 20:20:18 -0300</pubDate>
+      
+      <guid>/blog/2008/04/08/a-tip-on-debugging-zope-2-with-zeo/</guid>
+      <description>I&#39;m having some troubles with CacheFu, and I&#39;ve resorted to deleting some objects from a debug prompt, which is very easy to get at if one runs the Zope under ZEO. Still, I couldn&#39;t delete the objects because I was getting Unauthorized errors. Luckily, there is #plone, from which I got the following tip:
+&amp;lt;naro&amp;gt; from AccessControl.SecurityManagement import newSecurityManager &amp;lt;naro&amp;gt; user = app.acl_users.getUser(&#39;admin&#39;) &amp;lt;naro&amp;gt; newSecurityManager(None, user)  Thanks, naro!&amp;nbsp;
+Update: I realize now that I didn&#39;t write how to connect to ZEO:</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu Hardy Heron: some things are bad</title>
+      <link>/blog/2008/03/28/ubuntu-hardy-heron-some-things-are-bad/</link>
+      <pubDate>Fri, 28 Mar 2008 09:53:44 -0200</pubDate>
+      
+      <guid>/blog/2008/03/28/ubuntu-hardy-heron-some-things-are-bad/</guid>
+      <description>Note to self: always create a root account on Ubuntu. I&#39;ve updated my laptop to Kubuntu Hardy Heron, and while some things worked fine, there are a couple of stupid bugs that chained to make my life hard.
+First of all, why did the Network Configuration applet in Settings Manager in KDE saw fit to delete the hostname of my localhost, tibi-laptop, from /etc/hosts? Now I can&#39;t run anything with sudo, as it imediately aborts with an error &#34;</description>
+    </item>
+    
+    <item>
+      <title>Why do I use Zope 3?</title>
+      <link>/blog/2008/03/19/why-do-i-use-zope-3/</link>
+      <pubDate>Wed, 19 Mar 2008 19:33:08 -0200</pubDate>
+      
+      <guid>/blog/2008/03/19/why-do-i-use-zope-3/</guid>
+      <description>I&#39;m in the process of beginning a new project and I&#39;m debating on what framework to use. Of course it will be Zope 3, but why do I use it. Well, it&#39;s sure something that has to do with these facts:
+it&#39;s open source, with a strong, mature community around itwhile it&#39;s still actively development, it has a stable API
+ it&#39;s written in Python, one of the easiest and most powerful languagesit&#39;s built around a component architecture, which means writing pluggable applications comes naturallysolves the problem of publishing objects through the webeverything is transaction based.</description>
+    </item>
+    
+    <item>
+      <title>A few ATReferenceBrowserWidget tips</title>
+      <link>/blog/2008/03/18/a-few-atreferencebrowserwidget-tips/</link>
+      <pubDate>Tue, 18 Mar 2008 18:03:19 -0200</pubDate>
+      
+      <guid>/blog/2008/03/18/a-few-atreferencebrowserwidget-tips/</guid>
+      <description>On a Plone 2.5 project I&#39;m working I have a content type that has 3 reference association to another content type. ArchGenXML generated the fields with the same name, which means that in the interface there will be just one field, as they overwrite each other. To have them working I need to rename them, but how to do this from the model? Agx, at first glance, doesn&#39;t have support for this.</description>
+    </item>
+    
+    <item>
+      <title>GHOP Plone skins overview</title>
+      <link>/blog/2008/03/17/ghop-plone-skins-overview/</link>
+      <pubDate>Mon, 17 Mar 2008 14:56:06 -0200</pubDate>
+      
+      <guid>/blog/2008/03/17/ghop-plone-skins-overview/</guid>
+      <description>Plone has very few skins available from the community, when compared to just about anything. The skin incompatibilities that appeared between Plone versions 2.0/2.1/3.0 further deepen this problem. As a result of the 2007 Plone - GHOP there are some skins placed in the collective, but they&#39;re not visible anywhere (they&#39;re not published in the PSC, only some of them are available as eggs in PyPI, to get a glimpse of them you need to install them).</description>
+    </item>
+    
+    <item>
+      <title>Tutorial: run ArchGenXML 2.0 under virtualenv</title>
+      <link>/blog/2008/03/13/tutorial-run-archgenxml-2.0-under-virtualenv/</link>
+      <pubDate>Thu, 13 Mar 2008 20:02:46 -0200</pubDate>
+      
+      <guid>/blog/2008/03/13/tutorial-run-archgenxml-2.0-under-virtualenv/</guid>
+      <description>The &#34;modern&#34; (post 1.5) version of ArchGenXML is packaged as egg, available on pypi. While in theory you could run &#34;sudo easy_install archgenxml&#34; and have it running with minimal effort, because it depends on zope.component and zope.configuration, things tend to get muddy and complicated. If you&#39;ll &#34;easy_install zope.component&#34; you&#39;ll get a bunch of zope eggs installed in python&#39;s site-packages and this will probably cause problems. When I&#39;ve started developing with Zope 3 I had some hard time tracking some problems that ultimately turned out to be caused by zope packages installed in the system python &#34;</description>
+    </item>
+    
+    <item>
+      <title>The 763 projects in the Collective SVN</title>
+      <link>/blog/2008/01/31/the-763-projects-in-the-collective-svn/</link>
+      <pubDate>Thu, 31 Jan 2008 14:22:23 -0200</pubDate>
+      
+      <guid>/blog/2008/01/31/the-763-projects-in-the-collective-svn/</guid>
+      <description>Today I was curious about the number of projects found in the collective svn. They always seemed a lot, but I never knew how many. Until today, when I ran a xpath query over the subversion page and I found that there are 763! This number shocked me, I was expecting at most 200. My number of projects there is very small though, I can only claim ownership over 2 of them.</description>
+    </item>
+    
+    <item>
+      <title>Monty Python sketches and download script</title>
+      <link>/blog/2008/01/28/monty-python-sketches-and-download-script/</link>
+      <pubDate>Mon, 28 Jan 2008 12:32:16 -0200</pubDate>
+      
+      <guid>/blog/2008/01/28/monty-python-sketches-and-download-script/</guid>
+      <description>A friend pointed me to a page with many many links to Monty Python sketches videos. Being a Monty Python fan, I&#39;ve countered with this script:
+#!/usr/bin/python2.4
+downloader = &#34;/home/tibi/Software/youtube-dl.py &#39;%s&#39; -o &#39;%s&#39;&#34;
+url = &#34;http://onemansblog.com/2006/12/01/a-compendium-of-150-monty-python-sketches/&#34;
+import lxml.html
+import urllib
+import os
+content = urllib.urlopen(url)
+etree = lxml.html.parse(content)
+links = etree.xpath(&#39;//ol/li/a&#39;)
+for link in links:
+print &#34;Downloading &#34;, link.text
+cmd = downloader % (link.get(&#39;href&#39;), link.text + &#39;.flv&#39;)
+print os.popen(cmd).read() It needs the YouTube downloader script and lxml 2.</description>
+    </item>
+    
+    <item>
+      <title>Problem with jQuery version 1.2.2 and getJSON</title>
+      <link>/blog/2008/01/27/problem-with-jquery-version-1.2.2-and-getjson/</link>
+      <pubDate>Sun, 27 Jan 2008 14:53:25 -0200</pubDate>
+      
+      <guid>/blog/2008/01/27/problem-with-jquery-version-1.2.2-and-getjson/</guid>
+      <description>It took me a couple of hours to track this (I was just starting a new project using jQuery), but I finally nailed it: jQuery version 1.2.2 has a problem with loading JSON data from absolute urls. Use the trunk version and you&#39;ll be fine.</description>
+    </item>
+    
+    <item>
+      <title>Template layout options when developing with Zope 3</title>
+      <link>/blog/2007/12/17/template-layout-options-when-developing-with-zope-3/</link>
+      <pubDate>Mon, 17 Dec 2007 18:16:36 -0200</pubDate>
+      
+      <guid>/blog/2007/12/17/template-layout-options-when-developing-with-zope-3/</guid>
+      <description>When developing a Zope 2 site, the way the templates would be laid out is obvious: create a template for the site layout, use macros and slots to fill in that template and use the CMF skin overriding mechanism when you have to customize a certain template or Python script for another skin. Plone has been using this mechanism very successfully.
+With Zope 3 the path is not very clear. There are several mechanisms, each with its advantages and disadvantages.</description>
+    </item>
+    
+    <item>
+      <title>Trying out eggs and applications with workingenv, without poluting the system python</title>
+      <link>/blog/2007/11/14/trying-out-eggs-and-applications-with-workingenv-without-poluting-the-system-python/</link>
+      <pubDate>Wed, 14 Nov 2007 17:21:44 -0200</pubDate>
+      
+      <guid>/blog/2007/11/14/trying-out-eggs-and-applications-with-workingenv-without-poluting-the-system-python/</guid>
+      <description>Ever since I&#39;ve started working with zc.buildout I&#39;ve grown to love the whole &#34;environment as project&#34; setup that it provides: eggs and python packages are installed and contained in the buildout and they don&#39;t polute the system packages. There is another alternative: workingenv, which, while simpler in scope, it is easier to setup and use. For example, recently I&#39;ve wanted to see if lxml 2.0 can be installed in my system.</description>
+    </item>
+    
+    <item>
+      <title>The problem with buildout and PyDev</title>
+      <link>/blog/2007/09/09/the-problem-with-buildout-and-pydev/</link>
+      <pubDate>Sun, 09 Sep 2007 12:40:53 -0300</pubDate>
+      
+      <guid>/blog/2007/09/09/the-problem-with-buildout-and-pydev/</guid>
+      <description>Lately it has been possible to develop and simply deploy a Zope 3 based application by organizing code in a single Python package that uses zope3 packages as dependency, plus a buildout recipe that creates a running zope 3 instance based on these eggs. For anyone using Eclipse + PyDev, this approach has the following inconvenience: the `eggs` folder can&#39;t be properly imported as external source folder for the project. Eclipse knows about eggs, but only when they&#39;re in marked in a .</description>
+    </item>
+    
+    <item>
+      <title>Scripting Adobe Indesign with Python</title>
+      <link>/blog/2007/08/15/scripting-adobe-indesign-with-python/</link>
+      <pubDate>Wed, 15 Aug 2007 11:45:32 -0300</pubDate>
+      
+      <guid>/blog/2007/08/15/scripting-adobe-indesign-with-python/</guid>
+      <description>I&#39;m working on a larger project, with various components and one of the components is producing content with Plone which is then to be imported into Indesign, where each item from Plone gets to fill in a 2 page template. There are about 500 of these items, so this can&#39;t be done manually. InDesign is stupid (or maybe plugin friendly / commercially clever) enough that, even though it can import XML files and even perform XSLT transformations on them and has a &#34;</description>
+    </item>
+    
+    <item>
+      <title>Updates to Zope &amp; Plone tips section</title>
+      <link>/blog/2007/06/05/updates-to-zope--plone-tips-section/</link>
+      <pubDate>Tue, 05 Jun 2007 17:45:49 -0300</pubDate>
+      
+      <guid>/blog/2007/06/05/updates-to-zope--plone-tips-section/</guid>
+      <description>I&#39;ve updated the Zope &amp;amp; Plone tips and tutorials section with a bunch of new pages and several additions to the svn.zope.org package listing. I thought it might be interesting to highlight this here, I&#39;m not exactly sure how visible (or interesting!) is that section to the readers of this blog.</description>
+    </item>
+    
+    <item>
+      <title>Some thoughts about the purpose of this blog</title>
+      <link>/blog/2007/05/28/some-thoughts-about-the-purpose-of-this-blog/</link>
+      <pubDate>Mon, 28 May 2007 10:13:49 -0300</pubDate>
+      
+      <guid>/blog/2007/05/28/some-thoughts-about-the-purpose-of-this-blog/</guid>
+      <description>I&#39;ve been thinking lately at the purpose of this blog, what it wants to be, what is really a blog and what I should write here. The number of posts have gone down in the last half of year, partly due to increased work load and partly due to some restructuring that I have done. In general, I&#39;m unhappy about posting small tips and bits of information on the blog, that&#39;s why I have created a Tips &amp;amp; Tutorials section on this site.</description>
+    </item>
+    
+    <item>
+      <title>Running Python based software in the GPU?</title>
+      <link>/blog/2007/05/25/running-python-based-software-in-the-gpu/</link>
+      <pubDate>Fri, 25 May 2007 09:56:45 -0300</pubDate>
+      
+      <guid>/blog/2007/05/25/running-python-based-software-in-the-gpu/</guid>
+      <description>I&#39;m not a GFX or 3d programmer, but looking at this blog entry, I understand that these guys are getting ready a way to run Python based software in the GPU. I wonder what kind of speed improvements can be achieved through that, although I fear that it&#39;s only going to work for numeric type of programs.</description>
+    </item>
+    
+    <item>
+      <title>Using lovely.tag in an edit form (or advanced usage for zope.formlib&#39;s EditForm)</title>
+      <link>/blog/2007/05/24/using-lovely.tag-in-an-edit-form-or-advanced-usage-for-zope.formlibs-editform/</link>
+      <pubDate>Thu, 24 May 2007 17:54:23 -0300</pubDate>
+      
+      <guid>/blog/2007/05/24/using-lovely.tag-in-an-edit-form-or-advanced-usage-for-zope.formlibs-editform/</guid>
+      <description>lovely.tag is a nice package that has almost all the functionality one can desire from a tagging engine. Recently I needed to integrate it with some of my content types (but not exactly as a tagging widget, but as a global registry for a global vocabulary), so I&#39;ve created a couple of new widgets (an AJAX based multi-autocomplete one, based on z3c.widget.autocomplete and an add/remove widget, based on Plone&#39;s 3rd party AddRemoveWidget).</description>
+    </item>
+    
+    <item>
+      <title>Software is lame</title>
+      <link>/blog/2007/05/08/software-is-lame/</link>
+      <pubDate>Tue, 08 May 2007 08:24:14 -0300</pubDate>
+      
+      <guid>/blog/2007/05/08/software-is-lame/</guid>
+      <description>I may sound like a fanboy or something, but I&#39;m starting to think that it&#39;s impossible to have a perfect piece of software, especially with larger systems. Two things that happened to me lately that made me think this:
+How lame is that Windows doesn&#39;t automount USB sticks when they&#39;re present at boot time? Why would I have to remove+reinsert the stick just so Windows will see the bloody thing? My Kubuntu, of course, handles perfectly everything in this department (at least in my case).</description>
+    </item>
+    
+    <item>
+      <title>Brettspielwelt - the free, online boardgame portal</title>
+      <link>/blog/2007/05/03/brettspielwelt---the-free-online-boardgame-portal/</link>
+      <pubDate>Thu, 03 May 2007 09:51:20 -0300</pubDate>
+      
+      <guid>/blog/2007/05/03/brettspielwelt---the-free-online-boardgame-portal/</guid>
+      <description>I live in Europe, I&#39;m a geek, so I must also be a boardgame freak. I love games, and especially German style boardgames, with their intricate rules. Unfortunately, there&#39;s not much time to play, and not a lot of people that I can play with. Following a link on boardgamesgeek.com I&#39;ve stumbled on this website, an online portal of boardgames that you can play, something similar to IGS (the Internet Go Server), but that implements loads of boardgames to be played in multiplayer style.</description>
+    </item>
+    
+    <item>
+      <title>Passing data to viewlets from the parent template</title>
+      <link>/blog/2007/04/19/passing-data-to-viewlets-from-the-parent-template/</link>
+      <pubDate>Thu, 19 Apr 2007 19:58:14 -0300</pubDate>
+      
+      <guid>/blog/2007/04/19/passing-data-to-viewlets-from-the-parent-template/</guid>
+      <description>To insert a rendered viewlet manager into a page, one uses something like &#34;tal:replace=&#34;structure provider: ILeftSide&#34;. Of course, viewlet managers are providers, they implement the IContentProvider interface and are looked up with this interface in the &#39;provider&#39; TALES handler. One particular trick that content providers do is that they allow insertion of TAL data from the template, to make it accessible inside the content provider class. A sort of &#34;parameters&#34;, as it is detailed in the README.</description>
+    </item>
+    
+    <item>
+      <title>Traversing from Python a Zope 3 page that uses the traverse subpath</title>
+      <link>/blog/2007/04/13/traversing-from-python-a-zope-3-page-that-uses-the-traverse-subpath/</link>
+      <pubDate>Fri, 13 Apr 2007 11:38:52 -0300</pubDate>
+      
+      <guid>/blog/2007/04/13/traversing-from-python-a-zope-3-page-that-uses-the-traverse-subpath/</guid>
+      <description>Getting the traverse subpath in Zope 2 is relatively easy and involves almost no tricks. Doing the same thing in Zope3 is a bit more involved, but nevertheless still relatively easy. What might not be obvious at first is how to traverse to the page from Python code. Call me slow, but it took me about 2 minutes to think of the solution.
+The idea is: I have a page along these lines: http://localhost/site/tips/page_context/next.</description>
+    </item>
+    
+    <item>
+      <title>Starting the fans for an HP Compaq NX6125 with Ubuntu Feisty after suspend</title>
+      <link>/blog/2007/04/13/starting-the-fans-for-an-hp-compaq-nx6125-with-ubuntu-feisty-after-suspend/</link>
+      <pubDate>Fri, 13 Apr 2007 09:07:41 -0300</pubDate>
+      
+      <guid>/blog/2007/04/13/starting-the-fans-for-an-hp-compaq-nx6125-with-ubuntu-feisty-after-suspend/</guid>
+      <description>In the saga to make my laptop behave as best as I can I&#39;ve encountered a new obstacle: using Ubuntu Feisty Fawn (the beta) with kubuntu-desktop installed and using KDE, I can put the laptop in suspend mode, but the CPU fan won&#39;t turn on when I wake it. After a bit of searching I&#39;ve found out that I need to do:
+root@ubuntu:~# echo 0 &amp;gt; /proc/acpi/fan/C262/stateThis starts the fan. Writing 3 in that fan ACPI state will turn off the fan.</description>
+    </item>
+    
+    <item>
+      <title>Open source Zope app in the news!</title>
+      <link>/blog/2007/03/26/open-source-zope-app-in-the-news/</link>
+      <pubDate>Mon, 26 Mar 2007 19:46:13 -0300</pubDate>
+      
+      <guid>/blog/2007/03/26/open-source-zope-app-in-the-news/</guid>
+      <description>Today, on the front page of Slashdot, there was a link for an open source server monitoring &amp;amp; system management application. Well, what do you know, it runs on Zope 2! The visible source code is here</description>
+    </item>
+    
+    <item>
+      <title>One issue using Prototype&#39;s Ajax form submission with Zope 3</title>
+      <link>/blog/2007/03/25/one-issue-using-prototypes-ajax-form-submission-with-zope-3/</link>
+      <pubDate>Sun, 25 Mar 2007 16:08:02 -0300</pubDate>
+      
+      <guid>/blog/2007/03/25/one-issue-using-prototypes-ajax-form-submission-with-zope-3/</guid>
+      <description>I&#39;ve found a weird issue while trying to debug why on of my Ajax loaded forms wasn&#39;t, apparently, properly validated. Even though that the schema specified that the fields are required, the form action would get executed as if the validation wouldn&#39;t have been done or the request was properly validated. I thought at first that there&#39;s an issue with the form class/handling itself, but after some testing I came to the conclusion that it has to be the way I&#39;m doing the AJAX request.</description>
+    </item>
+    
+    <item>
+      <title>Roll for initiative, monkey boy!</title>
+      <link>/blog/2007/03/24/roll-for-initiative-monkey-boy/</link>
+      <pubDate>Sat, 24 Mar 2007 21:07:12 -0200</pubDate>
+      
+      <guid>/blog/2007/03/24/roll-for-initiative-monkey-boy/</guid>
+      <description>I thought I&#39;d put a link here for a source of great entertainment of mine: The Knights of the Dinner Table. Hope you&#39;ll be as entertained as I am every time I&#39;m watching them or reading the KODT comic strip.
+And another link: Barbarian Prince, a downloadable solitaire game, a mixture of boardgame/RPG/choose your own adventure. I found a review of this game in the KODT comics magazine, but there are a couple of other games there, for two players or solitaire.</description>
+    </item>
+    
+    <item>
+      <title>Getting the registered Zope 3 skin name for an interface</title>
+      <link>/blog/2007/03/23/getting-the-registered-zope-3-skin-name-for-an-interface/</link>
+      <pubDate>Fri, 23 Mar 2007 15:00:13 -0200</pubDate>
+      
+      <guid>/blog/2007/03/23/getting-the-registered-zope-3-skin-name-for-an-interface/</guid>
+      <description>Problem: I need to get the skin name for a Zope 3 interface registered as skin.
+Solution
+Starting with Zope 3.3, the skinning mechanism has been simplified and skins are now just interfaces. This means that a skin interface is now a named utility for the IBrowserSkinType. To get the name with which this class has been registered as an utility, something along these lines is needed:
+&amp;gt;&amp;gt;&amp;gt; from myapp.layer import IMyAppSkin</description>
+    </item>
+    
+    <item>
+      <title>Freeciv rediscovered</title>
+      <link>/blog/2007/03/20/freeciv-rediscovered/</link>
+      <pubDate>Tue, 20 Mar 2007 10:22:51 -0200</pubDate>
+      
+      <guid>/blog/2007/03/20/freeciv-rediscovered/</guid>
+      <description>I&#39;ve recently &#34;rediscovered&#34; Freeciv. I&#39;m a very casual gamer (15 minutes/day), but also an old, addicted, Civilization fan. Lately I&#39;ve been looking for a nice game to play on my Linux desktops and I&#39;ve found that Freeciv is finally getting some good graphics, as this was my biggest turn off I&#39;ve had with it before. I&#39;ve tried first the SDL client on Windows, but it is buggy and tends to freeze its popup windows.</description>
+    </item>
+    
+    <item>
+      <title>Embeding the Gecko engine in Python applications</title>
+      <link>/blog/2007/03/10/embeding-the-gecko-engine-in-python-applications/</link>
+      <pubDate>Sat, 10 Mar 2007 18:28:29 -0200</pubDate>
+      
+      <guid>/blog/2007/03/10/embeding-the-gecko-engine-in-python-applications/</guid>
+      <description>I&#39;ve got to deploy a new desktop based application, created, of course, with Zope 3. When you&#39;ve got a hammer, everything looks like a nail, indeed. This application uses HTML and CSS as its presentation layer (right, it&#39;s a web page), with a bit of Ajax thrown in. Due do time constraints, I&#39;m not even trying to get it to work properly on Internet Explorer (although it looks about 90% right, but I have some problems with Javascript), so I won&#39;t be embeding the Internet Explorer this time engine in my Python application, I&#39;ll just try to get the Gecko rendering engine, the one used in Firefox.</description>
+    </item>
+    
+    <item>
+      <title>A Zope 3 AJAX viewlet manager</title>
+      <link>/blog/2007/02/28/a-zope-3-ajax-viewlet-manager/</link>
+      <pubDate>Wed, 28 Feb 2007 19:24:51 -0200</pubDate>
+      
+      <guid>/blog/2007/02/28/a-zope-3-ajax-viewlet-manager/</guid>
+      <description>I&#39;ve finally got tired of writing small fragments of JavaScript code and views to be able to make different areas updatable through ajax for my current Zope 3 application. Plus, when I&#39;ve started writing this application, I&#39;ve started doing the layout with viewlets and managers, and it seems that for each viewlet that I&#39;m creating I have to have a way to get its content through AJAX, which means having a page available for it, and this is very odd, as it almost defeats the point of having viewlets.</description>
+    </item>
+    
+    <item>
+      <title>I hate brackets! (or rants of a JavaScript novice programmer)</title>
+      <link>/blog/2007/02/27/i-hate-brackets-or-rants-of-a-javascript-novice-programmer/</link>
+      <pubDate>Tue, 27 Feb 2007 17:09:31 -0200</pubDate>
+      
+      <guid>/blog/2007/02/27/i-hate-brackets-or-rants-of-a-javascript-novice-programmer/</guid>
+      <description>Javascript is nice, I&#39;m having fun building this Zope3/Ajax based application that I&#39;m working on right now. What I don&#39;t enjoy is the forest of non-alphanumeric characters that has started to clog my code. I&#39;m really a novice when it comes to Javascript, most of my professional programming has been done with other languages, but look for example at this fragment of code:
+ for (i=0; i&amp;lt; parent.childNodes.length; i++) {</description>
+    </item>
+    
+    <item>
+      <title>Mylar &#43; Trac: yet another reason to use Eclipse</title>
+      <link>/blog/2007/02/25/mylar---trac-yet-another-reason-to-use-eclipse/</link>
+      <pubDate>Sun, 25 Feb 2007 19:00:53 -0200</pubDate>
+      
+      <guid>/blog/2007/02/25/mylar---trac-yet-another-reason-to-use-eclipse/</guid>
+      <description>Today I&#39;ve wanted to change something in a trac instance I have setup for a project, when I thought: &#34;I wish there was a way to do this from inside Eclipse&#34;. And there is! After a bit of searching (this information is available from the Trac site), I&#39;ve discovered that Eclipse has a project that handles task based programming, project called Mylar, which has a Trac connector plugin financed through a Google Summer of Code project.</description>
+    </item>
+    
+    <item>
+      <title>Laptop memory updated</title>
+      <link>/blog/2007/02/25/laptop-memory-updated/</link>
+      <pubDate>Sun, 25 Feb 2007 18:53:41 -0200</pubDate>
+      
+      <guid>/blog/2007/02/25/laptop-memory-updated/</guid>
+      <description>Thanks to the friendly guys at RDC Computers (boo Material Computers, who just turned their backs and said that they don&#39;t have it), I&#39;ve upgraded the memory on my laptop. Now things have really started to fly. Before I only had 512 MB of RAM (which had to be shared with the onboard video card), but now I have a really cool 1.5 GB of RAM. I didn&#39;t want to go higher (to 2 GB) because I&#39;m thinking that the 1.</description>
+    </item>
+    
+    <item>
+      <title>Onwards to Gnome through Beryl and back to KDE</title>
+      <link>/blog/2007/02/21/onwards-to-gnome-through-beryl-and-back-to-kde/</link>
+      <pubDate>Wed, 21 Feb 2007 18:35:40 -0200</pubDate>
+      
+      <guid>/blog/2007/02/21/onwards-to-gnome-through-beryl-and-back-to-kde/</guid>
+      <description>I like my Linux to stay &#34;on the edge&#34;, I like the excitement of knowing that on the next update you&#39;ll get new or improved software, which happens a lot in the Open Source world. So I&#39;ve updated yesterday my laptop (a Compaq NX 6125) to the yet unreleased Ubuntu Feisty Fawn, an experienced that took almost 24 hours to have a fully working system at the end. I&#39;ll give some details of the problems encountered below.</description>
+    </item>
+    
+    <item>
+      <title>Fresh meat for programmers</title>
+      <link>/blog/2007/02/16/fresh-meat-for-programmers/</link>
+      <pubDate>Fri, 16 Feb 2007 20:52:16 -0200</pubDate>
+      
+      <guid>/blog/2007/02/16/fresh-meat-for-programmers/</guid>
+      <description>I&#39;ve just discovered (or rediscovered) some resources that I think are important enough to highlight here.
+The Zope Corporation has several eggs that are not published in the svn.zope.org subversion repository, eggs located at download.zope.org. There are several very interesting packages there, including some to build an intranet. I&#39;ll definately have a look at them.I&#39;ve rediscovered OpenJSAN, a Javascript repository full of goodies.
+And its really nice Planet Javascript
+ </description>
+    </item>
+    
+    <item>
+      <title>Using Zope Page Templates macros in other templates</title>
+      <link>/blog/2007/02/15/using-zope-page-templates-macros-in-other-templates/</link>
+      <pubDate>Thu, 15 Feb 2007 16:31:10 -0200</pubDate>
+      
+      <guid>/blog/2007/02/15/using-zope-page-templates-macros-in-other-templates/</guid>
+      <description>I won&#39;t try to discuss here the benefits of ZPT macros vs. viewlets and content providers or viceversa or when to use each of them, I&#39;ll just show a simple (basic even) technique of reusing template code across page templates, using the macros mechanism.
+Trying to get the macros with something like context/@@page_with_macros/macros/the_macro doesn&#39;t work, as BrowserView (and BrowserPage) doesn&#39;t know anything about Zope Page Templates. Of course, that&#39;s also because Zope 3 doesn&#39;t directly publishes templates, only pages.</description>
+    </item>
+    
+    <item>
+      <title>Using FCKEditor in Ajax views on Zope 3</title>
+      <link>/blog/2007/02/12/using-fckeditor-in-ajax-views-on-zope-3/</link>
+      <pubDate>Mon, 12 Feb 2007 21:14:48 -0200</pubDate>
+      
+      <guid>/blog/2007/02/12/using-fckeditor-in-ajax-views-on-zope-3/</guid>
+      <description>I&#39;m working on a new, AJAX based application for a friend, which will run under Zope 3. Being a rather &#34;CMS-ish&#34; type of application, I need to provide an easy way to edit some rich text fields. I&#39;ve settled on the FCKEditor, for which there is an already packaged library as zope.html (also depends on zope.file). I would have used TinyMCE, but I hit on a problem: all these visual editors have difficulties when loaded in &#34;</description>
+    </item>
+    
+    <item>
+      <title>First glance at Plone 3</title>
+      <link>/blog/2007/02/11/first-glance-at-plone-3/</link>
+      <pubDate>Sun, 11 Feb 2007 12:49:20 -0200</pubDate>
+      
+      <guid>/blog/2007/02/11/first-glance-at-plone-3/</guid>
+      <description>Thanks to the easy plone 3 buildout (plonout), I&#39;m having my first look at the upcoming Plone 3. Some of the more evident changes:
+Versioning is now possible thanks to CMFEditions, which means a &#34;Save as version&#34; option in the edit screen and a &#34;Versions&#34; page on objects.
+The Kupu integration has been improved, the Kupu configlet offering new functions: the possibility to edit the toolbar, a new, streamlined interface to control the resource types and the possibility to replace the reference browser with a kupu drawer.</description>
+    </item>
+    
+    <item>
+      <title>Zope buildout quickstart</title>
+      <link>/blog/2007/02/10/zope-buildout-quickstart/</link>
+      <pubDate>Sat, 10 Feb 2007 22:19:56 -0200</pubDate>
+      
+      <guid>/blog/2007/02/10/zope-buildout-quickstart/</guid>
+      <description>One of the bigger players in the latest move to automate Plone and Zope development and deployment has been buildout, so I figured it&#39;s about time to start learning it and see how it can help me. I&#39;m writing this short recipe as I progress through learning buildout to help me remember this stuff later on.
+Installing buildoutThe easiest way to install buildout is to get easy_install (a manager for python packages) on your system.</description>
+    </item>
+    
+    <item>
+      <title>The /@@/ resource view</title>
+      <link>/blog/2007/02/06/the-/-resource-view/</link>
+      <pubDate>Tue, 06 Feb 2007 16:17:17 -0200</pubDate>
+      
+      <guid>/blog/2007/02/06/the-/-resource-view/</guid>
+      <description>I recently encountered a problem that I presume would be pretty common when creating a site based on the z3c.layer.minimal browser layer: the resources, although accessible as ++resource++resource_name, are not accessible at the default location used by packages as zc.resourcelibrary: http://localhost/site/@@/resource_name
+The reason, as I have guessed, was that a certain page or view was missing, not being registered for the IMinimalLayer, which doesn&#39;t inherit from the IBrowserDefaultLayer. Grepping for &#34;</description>
+    </item>
+    
+    <item>
+      <title>Better load time for Plone sites</title>
+      <link>/blog/2007/02/06/better-load-time-for-plone-sites/</link>
+      <pubDate>Tue, 06 Feb 2007 10:32:23 -0200</pubDate>
+      
+      <guid>/blog/2007/02/06/better-load-time-for-plone-sites/</guid>
+      <description>You probably know by now that Plone sites are better suited at content creation that content delivery. Still, the Plone solution is too good to pass even when creating simpler sites, where +99% of the trafic will be anonymous one. And when you have a good hammer, everything looks like a nail.
+One of the various problems that Plone has when delivering this brochure type of websites is that the page weight is pretty high.</description>
+    </item>
+    
+    <item>
+      <title>Problems with migrating AT content from Plone 2.0 to Plone 2.5</title>
+      <link>/blog/2007/01/30/problems-with-migrating-at-content-from-plone-2.0-to-plone-2.5/</link>
+      <pubDate>Tue, 30 Jan 2007 23:39:53 -0200</pubDate>
+      
+      <guid>/blog/2007/01/30/problems-with-migrating-at-content-from-plone-2.0-to-plone-2.5/</guid>
+      <description>Latest problem that ate too much of my life already (took me a night to get through) was importing some content from a Plone 2.0 site to a new instance of Plone 2.5. The old content was created using an old version of AT (probably 1.2). To prepare the migration I&#39;ve created a new content type using ArchGenXML that mimicked the old product name, classes and fields and exported the content from the old Zope instance as a .</description>
+    </item>
+    
+    <item>
+      <title>Hosting Zope 3 on FreeBSD</title>
+      <link>/blog/2007/01/25/hosting-zope-3-on-freebsd/</link>
+      <pubDate>Thu, 25 Jan 2007 18:54:20 -0200</pubDate>
+      
+      <guid>/blog/2007/01/25/hosting-zope-3-on-freebsd/</guid>
+      <description>Today I had to setup the hosting of a Zope 3 application on a FreeBSD server. I don&#39;t have much love for FreeBSD as I&#39;m used to the Debian way of doing things, but after a couple of hours of tweaking the apache configuration files and the application I managed to get it properly running on that server.
+Some pointers to quickly getting things done:
+default apache on FreeBSD doesn&#39;t have mod_proxy installed.</description>
+    </item>
+    
+    <item>
+      <title>Firebug getting close to 1.0</title>
+      <link>/blog/2007/01/12/firebug-getting-close-to-1.0/</link>
+      <pubDate>Fri, 12 Jan 2007 18:55:01 -0200</pubDate>
+      
+      <guid>/blog/2007/01/12/firebug-getting-close-to-1.0/</guid>
+      <description>Wow! I am impressed. Following a discussion on slashdot I&#39;ve installed the new 1.0 beta version of Firebug, an extension for web developers. Created by the same author as the classic Dom Inspector, Firebug didn&#39;t seem too useful for me until now. The version on the mozilla extensions site is old (0.4), not so featured and to me it seemed to be really buggy. The new version seems to work very good and offers for each area of focus a multitude of information and options that puts it on first place in my toolkit as Plone web developer.</description>
+    </item>
+    
+    <item>
+      <title>Why do the GIMP developer hate us?</title>
+      <link>/blog/2006/12/21/why-do-the-gimp-developer-hate-us/</link>
+      <pubDate>Thu, 21 Dec 2006 14:21:47 -0200</pubDate>
+      
+      <guid>/blog/2006/12/21/why-do-the-gimp-developer-hate-us/</guid>
+      <description>I&#39;m working on a website for which I have received PSD templates and I just need to do a Plone skin based on the templates. I&#39;m using GIMP for various tasks, like trimming images, exporting for web, etc. Now that I have mapped some key shortcuts to their old Photoshop equivalents, to which I am used, Gimp seems more bearable. Not by much, though. Why do the Gimp developers decided that it&#39;s a cool and clever idea to develop this application in this way?</description>
+    </item>
+    
+    <item>
+      <title>Permission problems with adapters</title>
+      <link>/blog/2006/12/15/permission-problems-with-adapters/</link>
+      <pubDate>Fri, 15 Dec 2006 18:53:29 -0200</pubDate>
+      
+      <guid>/blog/2006/12/15/permission-problems-with-adapters/</guid>
+      <description>Recently I encountered a permission problem that I guess can be tipical when working with adapters based on marker interfaces (such as implementing IRatableItem with a class and adapting it to IRating).
+The code is classic simplistic example of adaptation, using the IAnnotation to store a rating, with the adapter being something along these lines:
+from interfaces import IRating
+from zope.annotation.interfaces import IAnnotations
+from zope.interface import implements
+class RatingAdapter(object):
+implements(IRating)</description>
+    </item>
+    
+    <item>
+      <title>Setting a dynamic i18n:domain in a ZPT template</title>
+      <link>/blog/2006/11/23/setting-a-dynamic-i18ndomain-in-a-zpt-template/</link>
+      <pubDate>Thu, 23 Nov 2006 21:14:36 -0200</pubDate>
+      
+      <guid>/blog/2006/11/23/setting-a-dynamic-i18ndomain-in-a-zpt-template/</guid>
+      <description>&amp;lt;h2 tal:define=&#34;statusMessage python:request.get(&#39;statusMessage&#39;); domain python:request.get(&#39;domain&#39;)&#34; tal:attributes=&#34;i18n:domain domain; i18n:translate string:&#34;&amp;gt;someText&amp;lt;/h2&amp;gt; </description>
+    </item>
+    
+    <item>
+      <title>Getting the parent object in an acquisition context</title>
+      <link>/blog/2006/11/07/getting-the-parent-object-in-an-acquisition-context/</link>
+      <pubDate>Tue, 07 Nov 2006 14:55:09 -0200</pubDate>
+      
+      <guid>/blog/2006/11/07/getting-the-parent-object-in-an-acquisition-context/</guid>
+      <description>To get the parent of an object, you&#39;d have to use this code:
+myparent = aq_inner.aq_parent.aq_self </description>
+    </item>
+    
+    <item>
+      <title>One liner to get the common elements of several lists</title>
+      <link>/blog/2006/11/06/one-liner-to-get-the-common-elements-of-several-lists/</link>
+      <pubDate>Mon, 06 Nov 2006 23:14:38 -0200</pubDate>
+      
+      <guid>/blog/2006/11/06/one-liner-to-get-the-common-elements-of-several-lists/</guid>
+      <description>While doing an exercise with a mockup catalog and indexes, I ran into the problem of filtering several lists and returning the common elements from the list. The following example demonstrate the usage of reduce(), one of the functional programming constructs that are less common and obvious in their usage.
+&amp;gt;&amp;gt;&amp;gt; a = [1,2,3,4]
+&amp;gt;&amp;gt;&amp;gt; b = [2,3,4,5]
+&amp;gt;&amp;gt;&amp;gt; c = [1,2,4,6]
+&amp;gt;&amp;gt;&amp;gt; d = [0,2,3]
+&amp;gt;&amp;gt;&amp;gt; z = [a,b,c,d]</description>
+    </item>
+    
+    <item>
+      <title>Pitfall of building python from source on Ubuntu</title>
+      <link>/blog/2006/10/29/pitfall-of-building-python-from-source-on-ubuntu/</link>
+      <pubDate>Sun, 29 Oct 2006 12:32:46 -0200</pubDate>
+      
+      <guid>/blog/2006/10/29/pitfall-of-building-python-from-source-on-ubuntu/</guid>
+      <description>Zope 3.3 doesn&#39;t work well with the python 2.4.4 that comes with Ubuntu Edgy. Something about a readline change somewhere in the python standard library. So I had to build python 2.4.3 from source. Being an impatient being, I haven&#39;t give it much thought and just unpacked the python tarball, hit ./configure and make install. I ended up with python installed in /usr/local/bin/python, which would be really really cool if Ubuntu wouldn&#39;t depend on python and wouldn&#39;t place /usr/local/bin at the beginning of $PATH.</description>
+    </item>
+    
+    <item>
+      <title>Catching and printing python exceptions</title>
+      <link>/blog/2006/10/27/catching-and-printing-python-exceptions/</link>
+      <pubDate>Fri, 27 Oct 2006 00:16:13 -0300</pubDate>
+      
+      <guid>/blog/2006/10/27/catching-and-printing-python-exceptions/</guid>
+      <description>&amp;gt;&amp;gt;&amp;gt; import traceback, sys
+&amp;gt;&amp;gt;&amp;gt; try:
+... 1/0
+... except:
+... traceback.print_exc(sys.exc_info())
+...
+Traceback (most recent call last):
+File &#34;&amp;lt;stdin&amp;gt;&#34;, line 2, in ?
+ZeroDivisionError: integer division or modulo by zero
+&amp;gt;&amp;gt;&amp;gt; </description>
+    </item>
+    
+    <item>
+      <title>How to define a new skin in Zope 3</title>
+      <link>/blog/2006/10/24/how-to-define-a-new-skin-in-zope-3/</link>
+      <pubDate>Tue, 24 Oct 2006 23:34:16 -0300</pubDate>
+      
+      <guid>/blog/2006/10/24/how-to-define-a-new-skin-in-zope-3/</guid>
+      <description>Lifted from zope.app.rotterdam
+Create a new browser skin layerfrom zope.publisher.interfaces.browser import IBrowserRequest
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+class rotterdam(IBrowserRequest):
+&#34;&#34;&#34;Layer for registering Rotterdam-specific macros.&#34;&#34;&#34;
+class Rotterdam(rotterdam, IDefaultBrowserLayer):
+&#34;&#34;&#34;The ``Rotterdam`` skin.
+It is available via ``++skin++Rotterdam``.
+&#34;&#34;&#34;
+Register the skin in configure.zcml&amp;lt;interface
+interface=&#34;zope.app.rotterdam.Rotterdam&#34;
+type=&#34;zope.publisher.interfaces.browser.IBrowserSkinType&#34;
+name=&#34;Rotterdam&#34;
+/&amp;gt;
+Declaring a resource and a page for the skin
+ &amp;lt;browser:resource
+name=&#34;zope3.css&#34;
+file=&#34;zope3.css&#34;
+layer=&#34;zope.app.rotterdam.rotterdam&#34; /&amp;gt;
+&amp;lt;browser:page
+for=&#34;*&#34;
+name=&#34;standard_macros&#34;
+permission=&#34;zope.View&#34;
+class=&#34;.standardmacros.StandardMacros&#34;
+layer=&#34;zope.app.rotterdam.rotterdam&#34;
+allowed_interface=&#34;zope.interface.common.mapping.IItemMapping&#34;
+/&amp;gt;
+ </description>
+    </item>
+    
+    <item>
+      <title>Bulk modifying AT content fields under restricted python scripts</title>
+      <link>/blog/2006/10/22/bulk-modifying-at-content-fields-under-restricted-python-scripts/</link>
+      <pubDate>Sun, 22 Oct 2006 00:40:34 -0300</pubDate>
+      
+      <guid>/blog/2006/10/22/bulk-modifying-at-content-fields-under-restricted-python-scripts/</guid>
+      <description>I&#39;m working on a project that mostly extends an older, legacy based Plone 2.0 project. This project has a CMFFormController form with about 20 fields and based on that input needs to create new AT content items, which is done in the action script of the controller chain. To achieve this, I have the following code:
+First, I have a field_mapping that maps the fields from the form to the AT field names.</description>
+    </item>
+    
+    <item>
+      <title>Deliverence - serving semi-static content out of a live site</title>
+      <link>/blog/2006/10/21/deliverence---serving-semi-static-content-out-of-a-live-site/</link>
+      <pubDate>Sat, 21 Oct 2006 22:19:51 -0300</pubDate>
+      
+      <guid>/blog/2006/10/21/deliverence---serving-semi-static-content-out-of-a-live-site/</guid>
+      <description>Deliverance is a lightweight, semi-static system for content delivery of CMS resources. It runs in mod_python, generating branded pages and navigation elements, giving high-performance throughput to anonymous visitors.
+Sounds interesting, especially in light of my contact with owners of bigger sites and editorial staff.
+This product can be downloaded from http://codespeak.net/svn/z3/deliverance/</description>
+    </item>
+    
+    <item>
+      <title>Custom traversing with Five and ITraversable</title>
+      <link>/blog/2006/10/21/custom-traversing-with-five-and-itraversable/</link>
+      <pubDate>Sat, 21 Oct 2006 18:23:34 -0300</pubDate>
+      
+      <guid>/blog/2006/10/21/custom-traversing-with-five-and-itraversable/</guid>
+      <description>This blog already contains a technique on how to customize the traversal to return any object, using __bobo_traverse__
+A more simple, modern and elegant way of doing achieving this is detailed in the newly released ImageRepository. Basically, it uses an adapter to change the implementation for ITraversable when the traversal is done on an object implementing a marker interface. I&#39;ve lifted the relevant code and pasted it below, but the original sources should be consulted for reference.</description>
+    </item>
+    
+    <item>
+      <title>Easy access to the zope namespace and modules</title>
+      <link>/blog/2006/10/20/easy-access-to-the-zope-namespace-and-modules/</link>
+      <pubDate>Fri, 20 Oct 2006 20:41:12 -0300</pubDate>
+      
+      <guid>/blog/2006/10/20/easy-access-to-the-zope-namespace-and-modules/</guid>
+      <description>Sometimes I just want to test a package under the zope namespace (installed usually in /opt/Zope2.9/lib/python or /usr/local/Zope3.2/lib/python), like for example the zope.testbrowser the other day. The easiest way to achieve this, without messing around with PYTHONHOME environment variables, or appending paths to sys.path is to change directory to the lib/python folder and start the python interpretor there. Because python will look in the current folder for modules and packages, they will be available in the interpretor.</description>
+    </item>
+    
+    <item>
+      <title>Testing file uploads fields with zope.testbrowser</title>
+      <link>/blog/2006/10/19/testing-file-uploads-fields-with-zope.testbrowser/</link>
+      <pubDate>Thu, 19 Oct 2006 21:43:12 -0300</pubDate>
+      
+      <guid>/blog/2006/10/19/testing-file-uploads-fields-with-zope.testbrowser/</guid>
+      <description>For some reason, the set_file method is not available for ListControls file upload objects inside the Browser object. To be able to fill in the file field, one needs to do
+myfilecontrol.mech_control.set_file(filestream, mimetype, filename). The problem gets weirder as set_file() is the method indicated by the README.txt doctest of zope.testbrowser package as the way to upload a file stream in a file upload widget, and I presume the README.txt test doesn&#39;t fail.</description>
+    </item>
+    
+    <item>
+      <title>Adding an overrides.zcml</title>
+      <link>/blog/2006/10/15/adding-an-overrides.zcml/</link>
+      <pubDate>Sun, 15 Oct 2006 19:54:07 -0300</pubDate>
+      
+      <guid>/blog/2006/10/15/adding-an-overrides.zcml/</guid>
+      <description>According to this discussion on #zope3-dev, one must do the following to get overrides to take effect:
+add an product-overrides.zcml in which to include &amp;lt;include package=&#34;foo&#34; file=&#34;overrides.zcml&#34; /&amp;gt;the *-overrides.zcml slugs needs to be loaded with includeOverrides </description>
+    </item>
+    
+    <item>
+      <title>AdvancedQuery and other portal_catalog tricks</title>
+      <link>/blog/2006/10/10/advancedquery-and-other-portal_catalog-tricks/</link>
+      <pubDate>Tue, 10 Oct 2006 16:00:32 -0300</pubDate>
+      
+      <guid>/blog/2006/10/10/advancedquery-and-other-portal_catalog-tricks/</guid>
+      <description>The normal ZCatalog queries and indexes are extremely limited. For example, I had a need to check for a &#34;Value not in KeywordIndex&#34; expression, which is impossible to do with the normal catalog. AdvancedQuery comes to the rescue, but things aren&#39;t too obvious there either. AQ has a In() expression that can be used in building queries, but it does the reverse thing: check something like &#34;IndexedValue not in ListOfValues&#34;.</description>
+    </item>
+    
+    <item>
+      <title>Little bits of info about CMFFormController</title>
+      <link>/blog/2006/10/07/little-bits-of-info-about-cmfformcontroller/</link>
+      <pubDate>Sat, 07 Oct 2006 19:47:47 -0300</pubDate>
+      
+      <guid>/blog/2006/10/07/little-bits-of-info-about-cmfformcontroller/</guid>
+      <description>One thing the documentation doesn&#39;t clearly state: you can set the status to a value and have that value defined as an action in the metadata file, basically redirecting the flow of the controller sequence to that action. To make things clear, I&#39;ll paste some code. In the login_initial.cpy.metadata file from CMFPlone we have this bit of code:
+[actions]
+action.success=traverse_to:string:login_next
+action.login_change_password=traverse_to:string:login_passwordSo basically we have two actions defined, depending on the type of status returned.</description>
+    </item>
+    
+    <item>
+      <title>Hacking at Plone membership&#39;s core: different content types for member folders</title>
+      <link>/blog/2006/10/07/hacking-at-plone-memberships-core-different-content-types-for-member-folders/</link>
+      <pubDate>Sat, 07 Oct 2006 19:18:13 -0300</pubDate>
+      
+      <guid>/blog/2006/10/07/hacking-at-plone-memberships-core-different-content-types-for-member-folders/</guid>
+      <description>I&#39;m using this technique for a site created with Plone 2.1, but it I think it can work on Plone 2.5 as well. Basically, I need a site with different membership types, and each membership type has a &#34;personal area&#34; (different member folder) where the user can add different object types and generally have a completely different browsing experience. I haven&#39;t implemented anything exotic such as CMFMember (not future proof) or membrane (not compatible, don&#39;t want to mess around yet) so I&#39;m sticking with plain Plone users.</description>
+    </item>
+    
+    <item>
+      <title>Creating zope content</title>
+      <link>/blog/2006/10/07/creating-zope-content/</link>
+      <pubDate>Sat, 07 Oct 2006 17:24:36 -0300</pubDate>
+      
+      <guid>/blog/2006/10/07/creating-zope-content/</guid>
+      <description>I had a need to create new external methods on install of a product. So, even if technique is old and well know to any Zope 2 old-timer, I&#39;m placing this here for my own reference.
+def install(portal):
+portal.manage_addProduct[&#39;ExternalMethod&#39;].manage_addExternalMethod(
+id = &#39;emailMe&#39;,
+title=&#39;emailMe&#39;,
+module=&#39;MyProduct.emailMe&#39;,
+function=&#39;emailMe&#39;)The code needs to interact with a legacy module (renamed here emailMe). The idea is that manage_addProduct returns a dictionary of factories and manage_addExternalMethod is the factory method defined in the ExternalMethod module.</description>
+    </item>
+    
+    <item>
+      <title>Get a translated object in a particular language</title>
+      <link>/blog/2006/10/07/get-a-translated-object-in-a-particular-language/</link>
+      <pubDate>Sat, 07 Oct 2006 14:13:26 -0300</pubDate>
+      
+      <guid>/blog/2006/10/07/get-a-translated-object-in-a-particular-language/</guid>
+      <description>Sometimes there is a need to get a translated piece of content in a particular language. Some examples include messing around with ATVM or stitching together a front page for a multilanguage website from editable content (site editors love pretty interfaces where they can tweak and edit every piece of a website). This piece of code is a bit older, but still does the job well. The boundLanguages/getLanguageBindings thing could be replaced with getPreferredLanguage() and I&#39;m pretty sure LinguaPlone got a prettier API than this, but it&#39;s a starting point in the right direction.</description>
+    </item>
+    
+    <item>
+      <title>Internationalization with Plone</title>
+      <link>/blog/2006/10/06/internationalization-with-plone/</link>
+      <pubDate>Fri, 06 Oct 2006 21:04:15 -0300</pubDate>
+      
+      <guid>/blog/2006/10/06/internationalization-with-plone/</guid>
+      <description>To generate automatically a .pot file necessary for translating msgids inside template files you need to get i18ndude (really easy since it was placed in cheeseshop):
+sudo easy_install i18ndudeSince I&#39;m using ArchGenXML, I already have a generated.pot file created. I&#39;ve renamed this file to old.pot and ran this (in the i18n folder):
+i18ndude rebuild-pot --pot ./generated.pot --merge old.pot --create MyProduct ./../skins/MyProduct/
+This command builds a pot file by looking at files in the skins folder and merging the extracted msgids with the ones in old.</description>
+    </item>
+    
+    <item>
+      <title>Dynamic vocabulary for an Archetypes field</title>
+      <link>/blog/2006/10/05/dynamic-vocabulary-for-an-archetypes-field/</link>
+      <pubDate>Thu, 05 Oct 2006 02:08:44 -0300</pubDate>
+      
+      <guid>/blog/2006/10/05/dynamic-vocabulary-for-an-archetypes-field/</guid>
+      <description>I keep forgetting how to do dynamic vocabularies for an AT field. As explained in the Vocabulary() method in Field.py, this method will return either the list defined in the vocabulary parameter of the field, or, among others, the list resulting from calling the method defined in the string given as value to the vocabulary parameter.
+The code below will make the explanation easier to understand:
+... LinesField(
+name=&#39;domains&#39;,
+vocabulary=&#39;getVocabularyForDomains&#39; )</description>
+    </item>
+    
+    <item>
+      <title>Easy install of actions with CMFQuickInstaller</title>
+      <link>/blog/2006/10/04/easy-install-of-actions-with-cmfquickinstaller/</link>
+      <pubDate>Wed, 04 Oct 2006 18:53:43 -0300</pubDate>
+      
+      <guid>/blog/2006/10/04/easy-install-of-actions-with-cmfquickinstaller/</guid>
+      <description>Although superseded by GenericSetup, this method is still useful and quick to setup. Basically, CMFQI will install actions defined in an xml file called &#34;actions&#34; located in the Extension folder. This behavior is documented in the CMFQI documentation files. An example follows below:
+&amp;lt;portal_actions&amp;gt;
+name=Manage group users
+id=userconfig
+action=string:manage_project_users
+condition=member
+permission=View
+category=folder
+visible=1
+&amp;lt;/portal_actions&amp;gt; </description>
+    </item>
+    
+    <item>
+      <title>Start Plone (or Zope) in debug mode under Windows</title>
+      <link>/blog/2006/10/04/start-plone-or-zope-in-debug-mode-under-windows/</link>
+      <pubDate>Wed, 04 Oct 2006 17:58:54 -0300</pubDate>
+      
+      <guid>/blog/2006/10/04/start-plone-or-zope-in-debug-mode-under-windows/</guid>
+      <description>Lifted from #plone:
+bin/runzope.bat -X &#34;debug-mode=on&#34; </description>
+    </item>
+    
+    <item>
+      <title>Fixing a zope database with fsrecover.py</title>
+      <link>/blog/2006/10/03/fixing-a-zope-database-with-fsrecover.py/</link>
+      <pubDate>Tue, 03 Oct 2006 01:14:24 -0300</pubDate>
+      
+      <guid>/blog/2006/10/03/fixing-a-zope-database-with-fsrecover.py/</guid>
+      <description>Due to hardware corruption I have a broken Data.fs that won&#39;t pack. To fix it the fsrecover.py script from the ZODB module can be used. For example, this is how to run the script to repair the broken database (I have zope installed in /opt/Zope2.8):
+cd /opt/Zope2.8/lib/python/
+python ZODB/fsrecover.py -v 1 /mnt/raid/Data.fs /mnt/raid/Data.fs.fixed
+The reason to run the fsrecover script with ZODB in front is that it imports from the ZODB module.</description>
+    </item>
+    
+    <item>
+      <title>Moving a Zope instance</title>
+      <link>/blog/2006/10/02/moving-a-zope-instance/</link>
+      <pubDate>Mon, 02 Oct 2006 23:09:05 -0300</pubDate>
+      
+      <guid>/blog/2006/10/02/moving-a-zope-instance/</guid>
+      <description>To move a zope instance location 3 files need to be edited in order to update the software home location:
+runzopezopectletc/zope.conf (change the software home location, right at the top of the file)
+ </description>
+    </item>
+    
+    <item>
+      <title>Override __bobo_traverse__ to provide custom URL  lookup</title>
+      <link>/blog/2006/10/02/override-__bobo_traverse__-to-provide-custom-url--lookup/</link>
+      <pubDate>Mon, 02 Oct 2006 14:06:20 -0300</pubDate>
+      
+      <guid>/blog/2006/10/02/override-__bobo_traverse__-to-provide-custom-url--lookup/</guid>
+      <description>This technique is lifted from ATContentTypes/content/image.py
+ def __bobo_traverse__(self, REQUEST, name):
+&#34;&#34;&#34;Transparent access to image scales
+&#34;&#34;&#34;
+if name.startswith(&#39;image&#39;):
+field = self.getField(&#39;image&#39;)
+image = None
+if name == &#39;image&#39;:
+image = field.getScale(self)
+else:
+scalename = name[len(&#39;image_&#39;):]
+if scalename in field.getAvailableSizes(self):
+image = field.getScale(self, scale=scalename)
+if image is not None and not isinstance(image, basestring):
+# image might be None or &#39;&#39; for empty images
+return image
+return ATCTFileContent.__bobo_traverse__(self, REQUEST, name)
+ </description>
+    </item>
+    
+    <item>
+      <title>Zope3 zcml: A content class declaration that provides an interface</title>
+      <link>/blog/2006/10/02/zope3-zcml-a-content-class-declaration-that-provides-an-interface/</link>
+      <pubDate>Mon, 02 Oct 2006 12:18:02 -0300</pubDate>
+      
+      <guid>/blog/2006/10/02/zope3-zcml-a-content-class-declaration-that-provides-an-interface/</guid>
+      <description>&amp;lt;content class=&#34;.bookmarker.BookMarker&#34;&amp;gt;
+&amp;lt;implements
+interface=&#34;zope.app.annotation.interfaces.IAttributeAnnotatable&#34;
+/&amp;gt;
+&amp;lt;/content&amp;gt; </description>
+    </item>
+    
+    <item>
+      <title>Zope3: Registering a help page</title>
+      <link>/blog/2006/10/01/zope3-registering-a-help-page/</link>
+      <pubDate>Sun, 01 Oct 2006 18:31:06 -0300</pubDate>
+      
+      <guid>/blog/2006/10/01/zope3-registering-a-help-page/</guid>
+      <description> &amp;lt;configure
+xmlns=&#34;http://namespaces.zope.org/zope&#34;
+xmlns:help=&#34;http://namespaces.zope.org/help&#34;
+&amp;gt;
+&amp;lt;!-- Register Help Topics --&amp;gt;
+&amp;lt;help:register
+id=&#34;zmi&#34;
+title=&#34;Zope ZMI&#34;
+doc_path=&#34;./help/ui.stx&#34;
+resources=&#34;mgmt-main-1.png&#34;
+/&amp;gt;
+&amp;lt;help:register id=&#34;welcome&#34;
+parent=&#34;onlinehelp&#34;
+title=&#34;Welcome&#34;
+doc_path=&#34;./help/welcome.stx&#34;
+/&amp;gt;
+&amp;lt;help:register
+id=&#34;onlinehelp&#34;
+title=&#34;Online Help System&#34;
+doc_path=&#34;./help/README.stx&#34;
+/&amp;gt;
+&amp;lt;help:register
+id=&#34;styleguide&#34;
+title=&#34;Zope Style Guide&#34;
+doc_path=&#34;styleguides.txt&#34;
+class=&#34;zope.app.onlinehelp.onlinehelptopic.RESTOnlineHelpTopic&#34;
+/&amp;gt;
+&amp;lt;help:register
+id=&#34;css&#34;
+parent=&#34;styleguide&#34;
+title=&#34;CSS Style Guide&#34;
+doc_path=&#34;index.html&#34;
+class=&#34;zope.app.onlinehelp.onlinehelptopic.ZPTOnlineHelpTopic&#34;
+/&amp;gt;
+&amp;lt;/configure&amp;gt;
+ </description>
+    </item>
+    
+    <item>
+      <title>Dapper &#43; 1 = Edgy</title>
+      <link>/blog/2006/10/01/dapper---1--edgy/</link>
+      <pubDate>Sun, 01 Oct 2006 11:22:46 -0300</pubDate>
+      
+      <guid>/blog/2006/10/01/dapper---1--edgy/</guid>
+      <description>I&#39;ve upgraded my laptop&#39;s Compaq nx6125 Dapper to Edgy yesterday. These are some of the issues and highlights that I encountered:
+The update manager that did the upgrade it is impressive, but the update was not entirely automatically, one of the gtk engine packages kept spewing errors. The update manager was able to go over this incident in the initial phase, but terminated with an error when it was about 95% to finishing the update.</description>
+    </item>
+    
+    <item>
+      <title>Kde applications vs Gnome applications</title>
+      <link>/blog/2006/09/23/kde-applications-vs-gnome-applications/</link>
+      <pubDate>Sat, 23 Sep 2006 18:22:43 -0300</pubDate>
+      
+      <guid>/blog/2006/09/23/kde-applications-vs-gnome-applications/</guid>
+      <description>I&#39;m switching a bunch of Gnome daily used apps to their KDE counterparts. Namely I&#39;ve switched from *Liferea to Akregate, from **GnoCHM to KchmViewer and from ***GIMP to Krita (Gimp sucks too much for me in terms of workflow, while Krita is more conventional and less awkward from some points of view). I&#39;m using already using Konversation for IRC (much better then XChat, I&#39;d use Chatzilla but it doesn&#39;t go to the systray), Tellico to keep a database of PS2 games and K3b for burning dvds.</description>
+    </item>
+    
+    <item>
+      <title>Best Plone quote ever</title>
+      <link>/blog/2006/09/22/best-plone-quote-ever/</link>
+      <pubDate>Fri, 22 Sep 2006 18:46:55 -0300</pubDate>
+      
+      <guid>/blog/2006/09/22/best-plone-quote-ever/</guid>
+      <description>[18:43] &amp;lt;julesa&amp;gt; newbie39: To paraphrase Jon Ribbens &#34;PHP is a minor evil perpetrated and created by incompetent amateurs, whereas Plone s a great and insidious evil, perpetrated by skilled but perverted professionals.&#34;
+I admit I love being evil! :-)</description>
+    </item>
+    
+    <item>
+      <title>Online tools to check DNS</title>
+      <link>/blog/2006/09/22/online-tools-to-check-dns/</link>
+      <pubDate>Fri, 22 Sep 2006 13:53:40 -0300</pubDate>
+      
+      <guid>/blog/2006/09/22/online-tools-to-check-dns/</guid>
+      <description>Every now and then I need to check the dns settings for some servers that I look after. Not being an expert, I use these two sites frequently to check that I&#39;m not doing anything stupid:
+http://www.dnsstuff.com/http://www.dnsreport.com
+My preferate is dnsreport.com, but I always forget its name and its pagerank on google is not too high. So I&#39;m doing my really really tiny bit in lifting up its page rank by linking to it on this page.</description>
+    </item>
+    
+    <item>
+      <title>Datetime output for an RSS2 feed</title>
+      <link>/blog/2006/09/21/datetime-output-for-an-rss2-feed/</link>
+      <pubDate>Thu, 21 Sep 2006 20:04:54 -0300</pubDate>
+      
+      <guid>/blog/2006/09/21/datetime-output-for-an-rss2-feed/</guid>
+      <description>To display properly, an RSS 2 feed needs to have the date entered in something resembling this format:
+&amp;lt;pubDate&amp;gt;Thu, 21 Sep 2006 15:15:26 GMT&amp;lt;/pubDate&amp;gt;This is needed to get a date to display in this format:
+&amp;lt;pubDate tal:content=&#34;python: DateTime(res.Date).rfc822()&#34;&amp;gt; &amp;lt;/pubDate&amp;gt; </description>
+    </item>
+    
+    <item>
+      <title>Short recipe for adaptation with Five</title>
+      <link>/blog/2006/09/20/short-recipe-for-adaptation-with-five/</link>
+      <pubDate>Wed, 20 Sep 2006 20:26:52 -0300</pubDate>
+      
+      <guid>/blog/2006/09/20/short-recipe-for-adaptation-with-five/</guid>
+      <description>&amp;gt;&amp;gt;&amp;gt; from zope.interface import Interface, Attribute, implementsLet&#39;s say we have an object type &#34;Person&#34;. This person can introduce himself with the name.
+class IPerson(Interface):
+name = Attribute(&#39;Name of the person&#39;)
+def say_name():
+&#34;&#34;&#34;The name of the person&#34;&#34;&#34;
+class Person(object):
+implements(IPerson)
+def __init__(self, name):
+self.name = name
+def say_name():
+return &#39;My name is &#39; + self.name
+Next, we have another object type, let&#39;s say &#34;Worker&#34;, with an interface of IWorker.
+class IWorker(Interface):</description>
+    </item>
+    
+    <item>
+      <title>Basic recipe for a Five view</title>
+      <link>/blog/2006/09/20/basic-recipe-for-a-five-view/</link>
+      <pubDate>Wed, 20 Sep 2006 12:35:28 -0300</pubDate>
+      
+      <guid>/blog/2006/09/20/basic-recipe-for-a-five-view/</guid>
+      <description>This recipe is addressed more to the zope2/plone developer with a bit of knowledge of the zope3 universe, but not much experience in implementing the new practices.
+Simply put, Five views are just like TTW python scripts, except without the limited forced security, and with the possibility to integrate them in unit testing and adapt them to other protocols then just http.
+First, things should be done the newly recommended &#34;</description>
+    </item>
+    
+    <item>
+      <title>Short checklist for Postfix &#43; MySQL &#43; Dovecot &#43; SASL authentication on Fedora</title>
+      <link>/blog/2006/09/16/short-checklist-for-postfix---mysql---dovecot---sasl-authentication-on-fedora/</link>
+      <pubDate>Sat, 16 Sep 2006 21:56:19 -0300</pubDate>
+      
+      <guid>/blog/2006/09/16/short-checklist-for-postfix---mysql---dovecot---sasl-authentication-on-fedora/</guid>
+      <description>1. Postfix needs to be rebuilt with Mysql enabled
+Follow this tutorial: http://postfix.wiki.xs4all.nl/index.php?title=Virtual_Users_and_Domains_with_Courier-IMAP_and_MySQL
+This one also helps: Virtual Users And Domains With Postfix, Courier And MySQL (Fedora Core 5) | HowtoForge - Linux Howtos and Tutorials
+2. Instal cyrus-sasl and cyrus-sasl-sql.
+Configure /etc/sysconfig/saslauthd to run with the rimap mechanism 3. Start saslauthd</description>
+    </item>
+    
+    <item>
+      <title>Adaptation explained</title>
+      <link>/blog/2006/09/10/adaptation-explained/</link>
+      <pubDate>Sun, 10 Sep 2006 10:52:39 -0300</pubDate>
+      
+      <guid>/blog/2006/09/10/adaptation-explained/</guid>
+      <description>It seems that there&#39;s a proposal to introduce adaptation in Python 3000, which sparked a discussion and a nice introduction to adaptation on the python-dev list. Another explanation here.</description>
+    </item>
+    
+    <item>
+      <title>Printing frameworks and wxPython</title>
+      <link>/blog/2006/09/06/printing-frameworks-and-wxpython/</link>
+      <pubDate>Wed, 06 Sep 2006 16:48:34 -0300</pubDate>
+      
+      <guid>/blog/2006/09/06/printing-frameworks-and-wxpython/</guid>
+      <description>As hard as I have tried to find, there&#39;s no good printing framework for wxPython. wxEasyPrinting sucks so much for anything more then simple text (for example, the table cells don&#39;t support specifying a height). Generating PDF files with a toolkit such as ReportLab (even with Platypus) is harder then it should be, especially when there&#39;s no ready made higher level framework. This page explores some of the common printing solutions on Windows.</description>
+    </item>
+    
+    <item>
+      <title>Override the default actions for an ArchGenXML based Archetype</title>
+      <link>/blog/2006/09/05/override-the-default-actions-for-an-archgenxml-based-archetype/</link>
+      <pubDate>Tue, 05 Sep 2006 22:03:04 -0300</pubDate>
+      
+      <guid>/blog/2006/09/05/override-the-default-actions-for-an-archgenxml-based-archetype/</guid>
+      <description>To specify the default view for an AT archetype the &#34;view&#34; action needs to be overriden. Adding a default_actions=True tagged value in the model will generate a view action that will use the base_view template. To be able to change the view action, default_actions should be deleted from the model and replaced with a base_actions=my_actions.
+The my_actions statement could look like this:
+my_actions = (
+{&#39;action&#39;: &#39;string:${object_url}/base_edit&#39;,
+&#39;category&#39;: &#39;object&#39;,
+&#39;id&#39;: &#39;edit&#39;,</description>
+    </item>
+    
+    <item>
+      <title>Customized Archetypes edit form with only one of the fields</title>
+      <link>/blog/2006/09/04/customized-archetypes-edit-form-with-only-one-of-the-fields/</link>
+      <pubDate>Mon, 04 Sep 2006 15:16:47 -0300</pubDate>
+      
+      <guid>/blog/2006/09/04/customized-archetypes-edit-form-with-only-one-of-the-fields/</guid>
+      <description>I recently had a need for an &#34;administration screen&#34; for an AT-based content that would give the administrators just one field to edit and following that edit, change the workflow state of that piece of content.
+Usually, to limit the fields visible in the edit form, I would give those fields different write permissions. Obviously, in this case this was not possible, so I had to take another path. Easiest way to achieve my goal was something like this:</description>
+    </item>
+    
+    <item>
+      <title>Trying KDE as the main work desktop</title>
+      <link>/blog/2006/09/02/trying-kde-as-the-main-work-desktop/</link>
+      <pubDate>Sat, 02 Sep 2006 20:38:22 -0300</pubDate>
+      
+      <guid>/blog/2006/09/02/trying-kde-as-the-main-work-desktop/</guid>
+      <description>Until a year ago, when I had my first hands-on experience with Ubuntu, I was a KDE fan. I still admire the desktop and follow closely the development, but I was so impressed at that time by the uniformity and visual appeal that Gnome, under Ubuntu, offered, that I switched. Recently I found the Gnome desktop to be a bit on the slow on my laptop, so I&#39;ve tried several lighter window managers.</description>
+    </item>
+    
+    <item>
+      <title>Running Microsoft Word as a Windows service</title>
+      <link>/blog/2006/09/01/running-microsoft-word-as-a-windows-service/</link>
+      <pubDate>Fri, 01 Sep 2006 13:09:44 -0300</pubDate>
+      
+      <guid>/blog/2006/09/01/running-microsoft-word-as-a-windows-service/</guid>
+      <description>Apparently, this is not recommended by Microsoft, but they have some pointers on how to achieve this on their website. How to configure Office applications to run under the interactive user accountConsiderations for server-side Automation of OfficeI ran through the steps in the first article and I can attest that it&#39;s possible to use Microsoft Word to generate, for example, PDF files by printing them from a service. I have the feeling that most of those steps are not needed if Word is not accessed as a COM service, and all is needed is to create a new user, start and configure Word to have a running instance and then configure the service to run as that user.</description>
+    </item>
+    
+    <item>
+      <title>Small snippet to read the title for a DCWorkflow state</title>
+      <link>/blog/2006/08/31/small-snippet-to-read-the-title-for-a-dcworkflow-state/</link>
+      <pubDate>Thu, 31 Aug 2006 01:19:45 -0300</pubDate>
+      
+      <guid>/blog/2006/08/31/small-snippet-to-read-the-title-for-a-dcworkflow-state/</guid>
+      <description>portal_workflow.getTitleForStateOnType(obj.review_state, obj.portal_type)
+Well, that&#39;s about it. I&#39;ll add other relevant API methods to work with the workflow tool when I&#39;ll have a need for them again.</description>
+    </item>
+    
+    <item>
+      <title>Improve Plone-based website performance with simple Apache caching</title>
+      <link>/blog/2006/08/30/improve-plone-based-website-performance-with-simple-apache-caching/</link>
+      <pubDate>Wed, 30 Aug 2006 00:38:53 -0300</pubDate>
+      
+      <guid>/blog/2006/08/30/improve-plone-based-website-performance-with-simple-apache-caching/</guid>
+      <description>I won&#39;t go too much into details, and this is more for my own personal reference, but using this short recipe I was able to increase by up to 100 times the performance of a plone based website. For a lot more details and more advanced techniques for caching, integration with squid and cachefu, visit the Plone documentation HowTo section.
+ The website hosts mostly news updates, and is edited mostly by an editorial staff, under a 24 hours cycle.</description>
+    </item>
+    
+    <item>
+      <title>Checking for a role or a permission in a context</title>
+      <link>/blog/2006/08/29/checking-for-a-role-or-a-permission-in-a-context/</link>
+      <pubDate>Tue, 29 Aug 2006 21:51:48 -0300</pubDate>
+      
+      <guid>/blog/2006/08/29/checking-for-a-role-or-a-permission-in-a-context/</guid>
+      <description>There are two very useful methods to check for certain security settings offered by the Plone API. First, to check if a user has a certain role, the following snippet can be used:
+roles_user_has = portal_membership.getCandidateLocalRoles(here)To check if a user has a certain permission, this API method can be used:
+portal_membership.checkPermission(&#39;Manage portal&#39;, here) </description>
+    </item>
+    
+    <item>
+      <title>Short recipe for membrane based user content types</title>
+      <link>/blog/2006/08/27/short-recipe-for-membrane-based-user-content-types/</link>
+      <pubDate>Sun, 27 Aug 2006 19:54:41 -0300</pubDate>
+      
+      <guid>/blog/2006/08/27/short-recipe-for-membrane-based-user-content-types/</guid>
+      <description>Create a membrane based content item (it just needs to implement certain interfaces defined in membrane.interfaces)Register the type with membranetoolImportant: Set the active workflow status (the state in which a member can login)
+ </description>
+    </item>
+    
+    <item>
+      <title>Allowing the anonymous to add portal content</title>
+      <link>/blog/2006/08/27/allowing-the-anonymous-to-add-portal-content/</link>
+      <pubDate>Sun, 27 Aug 2006 19:29:42 -0300</pubDate>
+      
+      <guid>/blog/2006/08/27/allowing-the-anonymous-to-add-portal-content/</guid>
+      <description>In order for anonymous users to be able to add a content item inside a folder, the following permissions need to be had:
+In the parent folder:
+ViewAdd portal contentAccess content informationCreate XXX (for example, if the content item has a &#34;creation_permission&#34;, this permission needs to be had.
+On the object:
+ViewModify portal contentAccess content information </description>
+    </item>
+    
+    <item>
+      <title>Creating an Archetypes validator</title>
+      <link>/blog/2006/08/27/creating-an-archetypes-validator/</link>
+      <pubDate>Sun, 27 Aug 2006 17:34:36 -0300</pubDate>
+      
+      <guid>/blog/2006/08/27/creating-an-archetypes-validator/</guid>
+      <description>Archetypes validators are used in the schema definition for a field. Default validators include isEmail, isURL, etc. This is how to create a new validator:
+First, the validator has to be registered with Archetypes, or zope will complain at startup and ignore the validator. So add something like this in the __init__.py of the product:
+from Products.validation import validation
+from validators import SamePasswordValidator
+validation.register(SamePasswordValidator(&#39;isSamePassword&#39;))Next, the source code for the validator (validators.</description>
+    </item>
+    
+    <item>
+      <title>Specify creation roles for AGX generated content</title>
+      <link>/blog/2006/08/27/specify-creation-roles-for-agx-generated-content/</link>
+      <pubDate>Sun, 27 Aug 2006 14:37:40 -0300</pubDate>
+      
+      <guid>/blog/2006/08/27/specify-creation-roles-for-agx-generated-content/</guid>
+      <description>An observation: when you want to specify the roles that are required for a user to have in order to create a piece of content, you&#39;ll have to also specify a creation permission.
+This means that the following tagged values are required, to something like:
+creation_permission = Create MyContent
+creation_roles = python: (&#39;Anonymous&#39;, &#39;Member&#39;)This generates the following code in config.py:
+DEFAULT_ADD_CONTENT_PERMISSION = &#34;Add portal content&#34;
+setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, (&#39;Manager&#39;, &#39;Owner&#39;))
+ADD_CONTENT_PERMISSIONS = {</description>
+    </item>
+    
+    <item>
+      <title>Creating and managing a Windows service (part 4)</title>
+      <link>/blog/2006/08/23/creating-and-managing-a-windows-service-part-4/</link>
+      <pubDate>Wed, 23 Aug 2006 16:44:06 -0300</pubDate>
+      
+      <guid>/blog/2006/08/23/creating-and-managing-a-windows-service-part-4/</guid>
+      <description>The final step is to &#34;compile&#34; everything into Windows executables using py2exe. For this I have the following setup.py file:
+from distutils.core import setup
+import py2exe
+import sys
+# If run without args, build executables, in quiet mode.
+if len(sys.argv) == 1:
+sys.argv.append(&#34;py2exe&#34;)
+sys.argv.append(&#34;-q&#34;)
+class Target:
+def __init__(self, **kw):
+self.__dict__.update(kw)
+# for the versioninfo resources
+self.version = &#34;0.1.0&#34;
+self.company_name = &#34;Pixelblaster Romania&#34;
+self.copyright = &#34;Copyright 2006 Pixelblaster Romania&#34;
+self.name = &#34;</description>
+    </item>
+    
+    <item>
+      <title>Creating and managing a Windows service (part 3)</title>
+      <link>/blog/2006/08/23/creating-and-managing-a-windows-service-part-3/</link>
+      <pubDate>Wed, 23 Aug 2006 16:34:50 -0300</pubDate>
+      
+      <guid>/blog/2006/08/23/creating-and-managing-a-windows-service-part-3/</guid>
+      <description>This third part shows the code needed to start/stop and set the startup type for the service. Actually, most of the necessary code sits in a ActiveState python-cookbook recipe, found here.
+So, the code, using the recipe is simple (well, except that it&#39;s presented as a wxwidgets windows):
+#!/usr/bin/env python
+# -*- coding: ISO-8859-1 -*-
+# generated by wxGlade 0.4.1cvs on Mon Aug 21 19:12:22 2006
+import wx
+from dlgControlerMainFrame import dlgControlerMainFrame</description>
+    </item>
+    
+    <item>
+      <title>Creating and managing a Windows service (part 2)</title>
+      <link>/blog/2006/08/23/creating-and-managing-a-windows-service-part-2/</link>
+      <pubDate>Wed, 23 Aug 2006 15:33:47 -0300</pubDate>
+      
+      <guid>/blog/2006/08/23/creating-and-managing-a-windows-service-part-2/</guid>
+      <description>This part of the recipe shows the python code needed to create (install) the Windows service. I didn&#39;t write most of this, I just found it somewhere on the internet. Credit due to the original author.
+import sys
+import win32service, win32serviceutil
+from config import SERVICE_NAME, SERVICE_DISPLAY_NAME, SOFTWAREPATH
+service_path = &#34;%s\myservice.exe&#34; % SOFTWAREPATH
+def debug(msg):
+print msg
+def removeSvc():
+debug(&#39;called removeSvc()&#39;)
+win32serviceutil.RemoveService(SERVICE_NAME)
+debug(&#39;...service was removed&#39;)
+def installSvc():
+debug(&#39;installSvc()&#39;)
+hscm = win32service.OpenSCManager(None,None,win32service.SC_MANAGER_ALL_ACCESS)</description>
+    </item>
+    
+    <item>
+      <title>Creating and managing a Windows service (part 1)</title>
+      <link>/blog/2006/08/23/creating-and-managing-a-windows-service-part-1/</link>
+      <pubDate>Wed, 23 Aug 2006 15:29:14 -0300</pubDate>
+      
+      <guid>/blog/2006/08/23/creating-and-managing-a-windows-service-part-1/</guid>
+      <description>I&#39;m starting a longer piece on creating and managing a python based Windows service, so look for the other parts in this blog for the complete &#34;recipe&#34;
+First, our tools: py2exe has, among its deployment targets, a &#34;windows service&#34; option, so we&#39;ll need that. To manage the service and interact with the Windows event log, the Python win32 extension is needed. Py2exe has a sample service in the samples/advanced folder, on which I&#39;ve based my code.</description>
+    </item>
+    
+    <item>
+      <title>Capturing print statements output</title>
+      <link>/blog/2006/08/23/capturing-print-statements-output/</link>
+      <pubDate>Wed, 23 Aug 2006 13:57:21 -0300</pubDate>
+      
+      <guid>/blog/2006/08/23/capturing-print-statements-output/</guid>
+      <description>Sometimes you have code that has a lot of print statements, which are helping you with debugging. But what happens if you try to port that code to an environment without a console? In the best case, you won&#39;t see the prints anymore, in the worse case, the code will fail because there&#39;s no &#34;valid file descriptor&#34; to which to write.
+The solution to this problem is to replace python&#39;s stdout file, which will enable the code output to be recorded and maybe logged for debugging purposes.</description>
+    </item>
+    
+    <item>
+      <title>Short guide to dns with bind on Fedora</title>
+      <link>/blog/2006/08/23/short-guide-to-dns-with-bind-on-fedora/</link>
+      <pubDate>Wed, 23 Aug 2006 09:40:13 -0300</pubDate>
+      
+      <guid>/blog/2006/08/23/short-guide-to-dns-with-bind-on-fedora/</guid>
+      <description>I&#39;m replacing a tinydns server with bind9, so I may as well put the setup here, as future reference.
+First,
+yum install bind-chroot
+to install the chrooted bind server.
+Next, edit the /var/named/chroot/etc/named.conf
+options {
+directory &#34;/var/named&#34;;
+dump-file &#34;/var/named/data/cache_dump.db&#34;;
+statistics-file &#34;/var/named/data/named_stats.txt&#34;;
+recursion no;
+};
+//root global
+//life
+zone &#34;life.org.ro&#34; {
+type master;
+file &#34;/etc/db.life.org.ro&#34;;
+notify yes;
+};
+zone &#34;0.0.127.in-addr.arpa&#34; {
+type master;
+file &#34;/etc/db.localhost&#34;;
+allow-update { none; };
+};
+zone &#34;</description>
+    </item>
+    
+    <item>
+      <title>Creating arbitrary objects in the current module namespace</title>
+      <link>/blog/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace/</link>
+      <pubDate>Wed, 16 Aug 2006 20:26:30 -0300</pubDate>
+      
+      <guid>/blog/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace/</guid>
+      <description>This short recipe will show how to create arbitrary named objects in the current module namespace. Either globals() or locals() can be used for the task, depending on the namespace where the variables have to be created (global or local). &amp;gt;&amp;gt;&amp;gt; for i in range(10):
+&amp;gt;&amp;gt;&amp;gt; globals()[&#39;test%s&#39; % i] = i
+&amp;gt;&amp;gt;&amp;gt; print test0
+0
+&amp;gt;&amp;gt;&amp;gt; print test1
+1
+ </description>
+    </item>
+    
+    <item>
+      <title>Short intro to ZEO</title>
+      <link>/blog/2006/08/14/short-intro-to-zeo/</link>
+      <pubDate>Mon, 14 Aug 2006 19:37:45 -0300</pubDate>
+      
+      <guid>/blog/2006/08/14/short-intro-to-zeo/</guid>
+      <description>Joel Burton is holding ad-hoc tutorials on IRC :-)
+Anyway, here&#39;s his recipe to running ZEO
+&amp;lt;joelburton&amp;gt; having your site running under zeo also allows you to &#34;zopectl debug&#34; it while it&#39;s still running, which is insanely useful. i _always_ run zope under zeo, even during development, even on my laptop, etc., and i recommend that to others.
+&amp;lt;joelburton&amp;gt; thegoldenaura: zeo just splits zope-the-app-server and zope-the-database into two
+&amp;lt;joelburton&amp;gt; the goldenaura: for small sites, where you expect to have just one zope server for your zeo server, i do it like this:</description>
+    </item>
+    
+    <item>
+      <title>Small tip when using wxWidgets</title>
+      <link>/blog/2006/08/13/small-tip-when-using-wxwidgets/</link>
+      <pubDate>Sun, 13 Aug 2006 18:09:58 -0300</pubDate>
+      
+      <guid>/blog/2006/08/13/small-tip-when-using-wxwidgets/</guid>
+      <description>Always put your controls in a sizer inside a panel. So, the actual tree would be frame &amp;gt; sizer &amp;gt; panel &amp;gt; sizer &amp;gt; ... controls
+The reason is that the panel component will enable tab traversal. Also, the panel can so be used to group the widgets into logical groups, to facilitate traversing them with the tab key. Oh, did I mention wxGlade (from cvs) rules? </description>
+    </item>
+    
+    <item>
+      <title>Miniguide to openldap</title>
+      <link>/blog/2006/08/13/miniguide-to-openldap/</link>
+      <pubDate>Sun, 13 Aug 2006 00:25:52 -0300</pubDate>
+      
+      <guid>/blog/2006/08/13/miniguide-to-openldap/</guid>
+      <description>LDAP is a lot easier then one might think at first sight. First, reading this short introduction to LDAP will tell us that LDAP is just an object database, that holds trees of objects and schemas of those objects. This is nice and easy for anyone acustomed to ZODB and Archetypes.
+Next, installing. The OpenLDAP server on Debian is called slapd, so apt-get install slapd. After that, run dpkg-reconfigure -plow slapd which will allow reconfiguring the domains.</description>
+    </item>
+    
+    <item>
+      <title>Tricks of the mind</title>
+      <link>/blog/2006/08/12/tricks-of-the-mind/</link>
+      <pubDate>Sat, 12 Aug 2006 19:48:21 -0300</pubDate>
+      
+      <guid>/blog/2006/08/12/tricks-of-the-mind/</guid>
+      <description>I&#39;ve been playing in my mind, for the last two days, for no apparent reason, &#34;Birds of a feather&#34; by Phish. I even asked myself at one point what&#39;s with the song that keeps appearing in my mind. Well, I think I found the reason. For the last two days, the first portlet on my customized slashdot homepage was KDENews, which had a news item on a &#34;Birds of a Feather&#34;</description>
+    </item>
+    
+    <item>
+      <title>Overriding the form controler script for AT content</title>
+      <link>/blog/2006/08/12/overriding-the-form-controler-script-for-at-content/</link>
+      <pubDate>Sat, 12 Aug 2006 17:43:29 -0300</pubDate>
+      
+      <guid>/blog/2006/08/12/overriding-the-form-controler-script-for-at-content/</guid>
+      <description>Just like the edit form or the view page can be overriden for an AT type, so can the form controler script that would be called by the form. This recipe is lifted from SignupSheet (which I think got an inspiration from POI):
+The form controler script (mytype_post.cpy):
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind state=state
+##bind subpath=traverse_subpath
+##parameters=
+##title=Do something
+##
+#do something here, like for example, changing the workflow status of the object</description>
+    </item>
+    
+    <item>
+      <title>Cool use of Z3 tech in a Plone product</title>
+      <link>/blog/2006/08/12/cool-use-of-z3-tech-in-a-plone-product/</link>
+      <pubDate>Sat, 12 Aug 2006 17:07:38 -0300</pubDate>
+      
+      <guid>/blog/2006/08/12/cool-use-of-z3-tech-in-a-plone-product/</guid>
+      <description>Easycommenting is a product that enables commenting on any content item. Rather dull, but the technology used to create it is very interesting. The skeleton is generated with ArchGenXML, but the content is zope 3 aware and can be adapted to use by any other object.
+My main interest is to regard it as a documentation, as its implementation is clean and covers several areas of functionality that I&#39;m very interested these days (z3 content in plone, adaptors, views, etc).</description>
+    </item>
+    
+    <item>
+      <title>I don&#39;t like the new python.org webpage</title>
+      <link>/blog/2006/08/12/i-dont-like-the-new-python.org-webpage/</link>
+      <pubDate>Sat, 12 Aug 2006 13:50:59 -0300</pubDate>
+      
+      <guid>/blog/2006/08/12/i-dont-like-the-new-python.org-webpage/</guid>
+      <description>When it first appeared, I said &#34;heh&#34;, but now I don&#39;t like the new python.org webpage. The new page certainly looks a lot more &#39;designed&#39;, but the old one was certainly cute, and had the classic python logo. Where&#39;s that lovely snake? My concern is the overall feel of the page, not its content or internal organization. The present colors are too &#34;4 years ago&#34;, I especially hate that blueish color.</description>
+    </item>
+    
+    <item>
+      <title>Games for Linux</title>
+      <link>/blog/2006/08/12/games-for-linux/</link>
+      <pubDate>Sat, 12 Aug 2006 13:28:05 -0300</pubDate>
+      
+      <guid>/blog/2006/08/12/games-for-linux/</guid>
+      <description>Following link from the PyPi, I&#39;ve stumbled upon this page: http://emhsoft.net/index.html
+The abstract shooters on that page are very nice. Also, a few of those games are implemented with pygame ;-) . </description>
+    </item>
+    
+    <item>
+      <title>Accessing a zope object stripped of acquisition</title>
+      <link>/blog/2006/08/08/accessing-a-zope-object-stripped-of-acquisition/</link>
+      <pubDate>Tue, 08 Aug 2006 18:48:59 -0300</pubDate>
+      
+      <guid>/blog/2006/08/08/accessing-a-zope-object-stripped-of-acquisition/</guid>
+      <description>To get an object completely stripped of its acquisition layers, the following snippet can be employed
+import Acquisition
+obj_no_aq = Acquisition.aq_base(obj)
+No acquisition means no methods or properties inherited from the container or the container chain.
+Although a bit old, the Zope Developer Guide, with its chapter on Acquisition do a fine job at explaining the intricacies of acquisition in Zope 2.</description>
+    </item>
+    
+    <item>
+      <title>Clouseau: A new developer tool for Plone</title>
+      <link>/blog/2006/08/08/clouseau-a-new-developer-tool-for-plone/</link>
+      <pubDate>Tue, 08 Aug 2006 18:42:38 -0300</pubDate>
+      
+      <guid>/blog/2006/08/08/clouseau-a-new-developer-tool-for-plone/</guid>
+      <description>A new developer tool was placed in the Collective. This Ajax tool offers a python prompt similar to running &#34;zopect debug&#34; or breaking into the zope through a pdb call. It is really cool and useful in debugging and exploring Plone. I&#39;d rank this tool as extremely important to the regular Plone developer, along DocFinder or the pdb debugging module.
+Current location is here:http://svn.plone.org/svn/collective/Clouseau/</description>
+    </item>
+    
+    <item>
+      <title>Getting a list of catalog indexes and metadata</title>
+      <link>/blog/2006/08/06/getting-a-list-of-catalog-indexes-and-metadata/</link>
+      <pubDate>Sun, 06 Aug 2006 19:37:16 -0300</pubDate>
+      
+      <guid>/blog/2006/08/06/getting-a-list-of-catalog-indexes-and-metadata/</guid>
+      <description>I recently had a need to get a list of the indexes from the portal_catalog.
+While the metadata has an API method to get it, using something along:
+pc = getToolByName(self, &#39;portal_catalog&#39;)
+metadatas = pc.enumerateColumns()I couldn&#39;t find the equivalent API method to get the Indexes. After digging through the DTML files used by ZCatalog, I came up with the following method:
+pc = getToolByName(self, &#39;portal_catalog&#39;)
+indexes = pc.Indexes.objectIds() </description>
+    </item>
+    
+    <item>
+      <title>Basic unittesting for Plone</title>
+      <link>/blog/2006/08/04/basic-unittesting-for-plone/</link>
+      <pubDate>Fri, 04 Aug 2006 16:28:23 -0300</pubDate>
+      
+      <guid>/blog/2006/08/04/basic-unittesting-for-plone/</guid>
+      <description>Create a new package called &#34;tests&#34; inside the product. Add modules that begin with test*, like testSetup. Next, run the tests with zope/bin/zopectl test -s Products.MyProduct (zope 2.9)
+from Testing import ZopeTestCase
+ZopeTestCase.installProduct(&#39;DRFSkin&#39;)
+from Products.PloneTestCase.PloneTestCase import PloneTestCase
+from Products.PloneTestCase.PloneTestCase import FunctionalTestCase
+from Products.PloneTestCase.PloneTestCase import setupPloneSite
+setupPloneSite(products=(&#39;DRFSkin&#39;,))
+class TestTool(PloneTestCase):
+def afterSetUp(self):
+pass
+def testProductPath(self):
+x = True
+self.failUnless( x )
+def test_suite():
+from unittest import TestSuite, makeSuite
+suite = TestSuite()
+suite.addTest(makeSuite(TestTool))</description>
+    </item>
+    
+    <item>
+      <title>Getting the real path of a zope product</title>
+      <link>/blog/2006/08/04/getting-the-real-path-of-a-zope-product/</link>
+      <pubDate>Fri, 04 Aug 2006 15:09:38 -0300</pubDate>
+      
+      <guid>/blog/2006/08/04/getting-the-real-path-of-a-zope-product/</guid>
+      <description>To get the path of a zope product, one can use the following snippet:
+from Globals import package_home
+product_path = package_home(product_globals) </description>
+    </item>
+    
+    <item>
+      <title>Locked yourself out of zope?</title>
+      <link>/blog/2006/08/04/locked-yourself-out-of-zope/</link>
+      <pubDate>Fri, 04 Aug 2006 14:41:09 -0300</pubDate>
+      
+      <guid>/blog/2006/08/04/locked-yourself-out-of-zope/</guid>
+      <description>A very easy way to add a user to zope from outside zope:
+Turn off zope.Run &amp;lt;instance_home&amp;gt;/bin/zopectl adduser username password
+The user will be added as Owner to the acl_users in the main zope root.</description>
+    </item>
+    
+    <item>
+      <title>Quick guide to ZopeSkel</title>
+      <link>/blog/2006/08/02/quick-guide-to-zopeskel/</link>
+      <pubDate>Wed, 02 Aug 2006 18:16:31 -0300</pubDate>
+      
+      <guid>/blog/2006/08/02/quick-guide-to-zopeskel/</guid>
+      <description>Download and run as root ez_installrun:easy_install http://svn.plone.org/svn/collective/ZopeSkel/trunk#egg=ZopeSkel-devcreate a new Plone Core product using paster create -t plone product_name
+References: http://danielnouri.org/blog/devel/zope/zopeskel-plonecore.htmlhttp://plone.org/documentation/tutorial/using-zope-formlib-with-plone/tutorial-all-pageIn Zope 2.9, the pythonproducts is needed for this or any other regular python package created with setuptools to work.</description>
+    </item>
+    
+    <item>
+      <title>When a product reinstall fails...</title>
+      <link>/blog/2006/07/31/when-a-product-reinstall-fails.../</link>
+      <pubDate>Mon, 31 Jul 2006 11:37:55 -0300</pubDate>
+      
+      <guid>/blog/2006/07/31/when-a-product-reinstall-fails.../</guid>
+      <description>It happened to me several times, and I always forget what the problem is. Sometimes a product reinstall (from QuickInstaller) fails with an odd error: AttributeError: manage_addTool. This only means that the product is broken. Make a visit to the Zope Control Panel \ Products and look in the refresh page for the product on the real reason why it fails.</description>
+    </item>
+    
+    <item>
+      <title>Tutorial on integrating z3 tech into Plone</title>
+      <link>/blog/2006/07/30/tutorial-on-integrating-z3-tech-into-plone/</link>
+      <pubDate>Sun, 30 Jul 2006 16:22:11 -0300</pubDate>
+      
+      <guid>/blog/2006/07/30/tutorial-on-integrating-z3-tech-into-plone/</guid>
+      <description>There&#39;s a tutorial in the collective that shows a bit of how to use z3 tech inside Plone</description>
+    </item>
+    
+    <item>
+      <title>Adding a new view method to a portal type</title>
+      <link>/blog/2006/07/27/adding-a-new-view-method-to-a-portal-type/</link>
+      <pubDate>Thu, 27 Jul 2006 18:56:32 -0300</pubDate>
+      
+      <guid>/blog/2006/07/27/adding-a-new-view-method-to-a-portal-type/</guid>
+      <description>While this method is superceeded by GenericSetup, it&#39;s usefull enough that I place it here.
+ptypes = portal.portal_types
+psite = getattr(ptypes, &#39;Plone Site&#39;)
+view_methods = psite.view_methods
+vm = list(view_methods) + [&#39;main_frontpage&#39;]
+psite.manage_changeProperties(view_methods=vm) </description>
+    </item>
+    
+    <item>
+      <title>Using z3 style events</title>
+      <link>/blog/2006/07/24/using-z3-style-events/</link>
+      <pubDate>Mon, 24 Jul 2006 21:03:12 -0300</pubDate>
+      
+      <guid>/blog/2006/07/24/using-z3-style-events/</guid>
+      <description>Based on my previous entry on at_post_create_script, I was curios on how to achieve something like that using z3 style events. Now, I know that it&#39;s not the same and the following events are meant only to replace manage_afterAdd and so on, but I&#39;m pretty sure that there are (or will be) events fired that would replace the at_post_* scripts.
+So, easy as it gets:
+Create a new python package inside the zope Products folder, add the following method inside __init__.</description>
+    </item>
+    
+    <item>
+      <title>My favorite development environment</title>
+      <link>/blog/2006/07/22/my-favorite-development-environment/</link>
+      <pubDate>Sat, 22 Jul 2006 19:54:38 -0300</pubDate>
+      
+      <guid>/blog/2006/07/22/my-favorite-development-environment/</guid>
+      <description>I thought I&#39;d add some words about the development environment that I feel most comfortable with.
+First, I use AGX for most of my plone development. It&#39;s useful as a quick skeleton generator, but also as a way to structure the content. To generate the UML files I use Poseidon Community Edition. Up until recently it was buggy, and I still consider it to be, but I learned what to do so I won&#39;t trigger the bugs (quick tip: don&#39;t ever rename tagged values, delete it and recreate it.</description>
+    </item>
+    
+    <item>
+      <title>How to access directly fields and widgets from an Archetypes content</title>
+      <link>/blog/2006/07/21/how-to-access-directly-fields-and-widgets-from-an-archetypes-content/</link>
+      <pubDate>Fri, 21 Jul 2006 18:42:11 -0300</pubDate>
+      
+      <guid>/blog/2006/07/21/how-to-access-directly-fields-and-widgets-from-an-archetypes-content/</guid>
+      <description>There are two ways to access the field values and widgets from inside an AT content item. First, a more complex example on getting fields and widgets properties using self.schema:
+for fname in self.schema.keys():
+field = self.schema.get(fname)
+widget = field.widget
+widgetLabel = widget.Label(self)
+fieldValue = field.get(self))
+To get a field value, one could use  self.schema[&#39;customer_copy_to&#39;].get(self)The second way uses self.Schema() and shows the equivalent of the above example
+self.Schema().getField(&#39;customer_copy_to&#39;).get(self)
+Of course, there&#39;s always the default generated AT getters, but sometimes it&#39;s not possible to use those (for example, when you want to get the raw value of a field.</description>
+    </item>
+    
+    <item>
+      <title>How to use at_post_create_script to with multi-schemata content types</title>
+      <link>/blog/2006/07/21/how-to-use-at_post_create_script-to-with-multi-schemata-content-types/</link>
+      <pubDate>Fri, 21 Jul 2006 18:30:17 -0300</pubDate>
+      
+      <guid>/blog/2006/07/21/how-to-use-at_post_create_script-to-with-multi-schemata-content-types/</guid>
+      <description>When using at_post_create_script to hook up in the &#34;post creation&#34; events of AT, if the content type has multiple schematas, the script will be called each time the &#34;next&#34; button is pushed.
+To properly use the script, a check can be added to see if the &#34;save&#34; button was pressed:
+security.declarePrivate(&#39;at_post_create_script&#39;)
+def at_post_create_script(self, **kwargs):
+if self.REQUEST.get(&#39;form_submit&#39;, None) == &#39;Save&#39;:
+pass #do something here </description>
+    </item>
+    
+    <item>
+      <title>Archive</title>
+      <link>/archive/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/archive/</guid>
+      <description>Hello world</description>
     </item>
     
   </channel>

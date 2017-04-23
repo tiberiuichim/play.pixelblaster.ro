@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Django on The Plone Expanse</title>
-    <link>/tags/django/index.xml</link>
+    <link>/tags/django/</link>
     <description>Recent content in Django on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/django/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Jan 2017 09:46:35 -0100</lastBuildDate>
+    
+	<atom:link href="/tags/django/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Django templates make me go mad...</title>
@@ -15,10 +18,8 @@
       <pubDate>Mon, 02 Jan 2017 09:46:35 -0100</pubDate>
       
       <guid>/blog/2017/01/02/django-templates-make-me-go-mad.../</guid>
-      <description>&lt;p&gt;Why is this a positive thing? Excerpt from Django Oscar, an eComerce framework.&lt;/p&gt;
-&lt;pre&gt;&amp;lt;li class=&#34;step2 {% if step == 2 %}active{% else %}{% if step == 3 %}previous{% else %}{% if step &amp;gt; 2 %}visited{% else %}disabled{% endif %}{% endif %}{% endif %} &#34;&amp;gt;&lt;/pre&gt;
-&lt;p&gt;Gah...&lt;/p&gt;
-</description>
+      <description>Why is this a positive thing? Excerpt from Django Oscar, an eComerce framework.
+&amp;lt;li class=&#34;step2 {% if step == 2 %}active{% else %}{% if step == 3 %}previous{% else %}{% if step &amp;gt; 2 %}visited{% else %}disabled{% endif %}{% endif %}{% endif %} &#34;&amp;gt; Gah...</description>
     </item>
     
     <item>
@@ -27,27 +28,8 @@
       <pubDate>Mon, 30 Nov 2009 20:36:41 -0200</pubDate>
       
       <guid>/blog/2009/11/30/a-dont-do-for-internationalizing-django-templates/</guid>
-      <description>&lt;p&gt;I&#39;m internationalizing a Pinax website and I&#39;ve encountered this piece of code in a template:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;input type=&#34;submit&#34; value=&#34;{% trans &#34;invite&#34; %}&#34;/&amp;gt;
-{% blocktrans %}{{ other_user }} to be a friend.{% endblocktrans %}
-&lt;/pre&gt;
-&lt;p&gt;The message ids for this code would be two separate blocks: &#34;invite&#34; and &#34; %{other_user}s to be a friend&#34;. Both offer very little in terms of context and make the translators job difficult. Correct, in my point of view, would be the more convoluted form of:&lt;/p&gt;
-&lt;pre&gt;{% blocktrans %}
-&amp;lt;input type=&#34;submit&#34; value=&#34;invite&#34;/&amp;gt;
-{{ other_user }} to be a friend.
-{%&amp;nbsp; endblocktrans %}
-&lt;/pre&gt;
-&lt;p&gt;This implies that the translators know enough HTML to notice that the value attribute needs to be translated, but the end result is a lot more flexible and provides real context to them.&lt;/p&gt;
-&lt;p&gt;TL;DR: don&#39;t split paragraphs into separate translation units. It&#39;s a NO-NO.&lt;/p&gt;
-&lt;p&gt;UPDATE: I have found what is probably the worst example of how to create a translatable template. Remember, don&#39;t assume the English language resembles anything like another language.&lt;/p&gt;
-&lt;pre&gt;{% trans &#34;edited by user&#34; %} {{ obj.editor.username }} {% trans &#34;at&#34;%} {{ obj.modified|date:&#34;H:i&#34; }}
-&lt;/pre&gt;
-&lt;p&gt;This should be done this way:&lt;/p&gt;
-&lt;pre&gt;{% blocktrans with obj.editor.username as editor_username and obj.modified|date:&#34;H:i&#34; as obj_modified
-edited by user {{ editor_username }} at {{ obj_modified }}
-{% endblocktrans %}
-&lt;/pre&gt;
-</description>
+      <description>I&#39;m internationalizing a Pinax website and I&#39;ve encountered this piece of code in a template:
+&amp;lt;input type=&#34;submit&#34; value=&#34;{% trans &#34;invite&#34; %}&#34;/&amp;gt; {% blocktrans %}{{ other_user }} to be a friend.{% endblocktrans %}  The message ids for this code would be two separate blocks: &#34;invite&#34; and &#34; %{other_user}s to be a friend&#34;. Both offer very little in terms of context and make the translators job difficult. Correct, in my point of view, would be the more convoluted form of:</description>
     </item>
     
     <item>
@@ -56,11 +38,8 @@ edited by user {{ editor_username }} at {{ obj_modified }}
       <pubDate>Mon, 30 Nov 2009 11:57:54 -0200</pubDate>
       
       <guid>/blog/2009/11/30/odd-thing-in-django-the-date-filter-takes-php-as-reference-instead-of-python/</guid>
-      <description>&lt;p&gt;I wonder what possible explanation there is for the behaviour of the date template filter.&lt;/p&gt;
-&lt;pre&gt;Uses the same format as PHP&#39;s date() function (http://php.net/date) with some custom extensions.
-&lt;/pre&gt;
-&lt;p&gt;I understand where Django comes from, but I think this sort of things should be more aligned with the rest of the Python world.&lt;/p&gt;
-</description>
+      <description>I wonder what possible explanation there is for the behaviour of the date template filter.
+Uses the same format as PHP&#39;s date() function (http://php.net/date) with some custom extensions.  I understand where Django comes from, but I think this sort of things should be more aligned with the rest of the Python world.</description>
     </item>
     
     <item>
@@ -69,26 +48,10 @@ edited by user {{ editor_username }} at {{ obj_modified }}
       <pubDate>Wed, 18 Nov 2009 14:27:15 -0200</pubDate>
       
       <guid>/blog/2009/11/18/if-django-templates-are-an-improvement-over-xml-templates-then-by-all-means-please-give-me-xml/</guid>
-      <description>&lt;p&gt;I fail to see how&lt;/p&gt;
-&lt;pre&gt;{% block %} 
-...
-{% endblock %}
-&lt;/pre&gt;
-&lt;p&gt;is in any way better or &#34;less scary&#34; then, let&#39;s say&lt;/p&gt;
-&lt;pre&gt;&amp;lt;dj:block&amp;gt;
-...
-&amp;lt;/dj:block&amp;gt;
-&lt;/pre&gt;
-&lt;p&gt;Yet another rant, this time triggered by the error I got when writing this piece of code:&lt;/p&gt;
-&lt;pre&gt;{% blocktrans with offer.offerer.username as offerer_username 
-               and offer.offered_time|date as offerer_date %}
-...
-{% endblocktrans %}
-&lt;/pre&gt;
-I just wanted to split the tag on multiple lines, but it seems that&#39;s not possible. If Django templates would have been XML, then it wouldn&#39;t have been any problem formatting that piece just how I want it. Right now, the joined line takes two times the amount of my screen width.
-&lt;p&gt;One more thing to grudge about is that vim, even with djangohtml syntax type installed, is not very knowledgeble about how to format the template file (it treats the tags as regular piece of text). Probably this could be fixed, so I shouldn&#39;t complain about this too much.&lt;/p&gt;
-&lt;p&gt;I think Django templates are compiled to python code, so it&#39;s natural that they&#39;re treated in an imperative, dumb way, but that&#39;s not the only way of doing things. For example, &lt;a class=&#34;external-link&#34; href=&#34;http://launchpad.net/chameleon.core&#34;&gt;Chameleon&lt;/a&gt; is another templating library that compiles its templates as python code, has no problem working with an XML based templating language frontends.&lt;/p&gt;
-</description>
+      <description>I fail to see how
+{% block %} ... {% endblock %}  is in any way better or &#34;less scary&#34; then, let&#39;s say
+&amp;lt;dj:block&amp;gt; ... &amp;lt;/dj:block&amp;gt;  Yet another rant, this time triggered by the error I got when writing this piece of code:
+{% blocktrans with offer.offerer.username as offerer_username and offer.offered_time|date as offerer_date %} ... {% endblocktrans %}  I just wanted to split the tag on multiple lines, but it seems that&#39;s not possible.</description>
     </item>
     
     <item>
@@ -97,27 +60,9 @@ I just wanted to split the tag on multiple lines, but it seems that&#39;s not po
       <pubDate>Tue, 17 Nov 2009 19:00:49 -0200</pubDate>
       
       <guid>/blog/2009/11/17/the-case-against-django-templates/</guid>
-      <description>&lt;p&gt;I have many grudges against the django templating language and its templates (in short, I hate them), so I&#39;m gathering evidence to support what my &#34;spider sense&#34; tells me. Today the template tag system goes under fire.&lt;/p&gt;
-&lt;p&gt;Given the following template fragment:&lt;/p&gt;
-&lt;pre&gt;{% load i18n %}
-{% load avatar_tags %}
-{% load voting_tags %}
-{% load pagination_tags %}
-{% load extra_voting_tags %}
-{% load in_filter %}
-{% load extra_tagging_tags %}
-{% load sorting_tags %}&lt;/pre&gt;
-&lt;p&gt;Which one is responsible for the following &#34;anchor&#34; tag?&lt;/p&gt;
-&lt;pre&gt;{% anchor &#34;hotness&#34; &#34;reddit-like hotness&#34; %}&lt;/pre&gt;
-&lt;p&gt;That&#39;s the equivalent of diving into a python module, with lots of &#34;from X import *&#34; at the top. Where do you find the definition of a symbol? At least, if it were Python, I could do a tag search in Vim, or a &#34;go to definition&#34; in Eclipse. If this practice is frowned upon in the rest of the Python world, why are so many programmers praising the Django templating system? Am I the only mad man here? My problems with this tag is that it doesn&#39;t translate the content, so I&#39;ll need to grep for its source and change it.&lt;/p&gt;
-&lt;p&gt;The template tags in Django are about extending the templating language, as to provide the programmer with new and specialized ways to interact with the template and its environment. The reason for this &#34;tag inflation&#34; is that the django templating language, for all its richness (by tags and filters numbers, I mean), is really limited. Python expressions are not allowed, and for every imaginable use case, there needs to be a tag, specialized or not.&lt;/p&gt;
-&lt;p&gt;How would Zope 3 solve, for example, a problem similar to the one the &#34;anchor&#34; tag handles? Well, rendering a special link for a content item could be as easy as&lt;/p&gt;
-&lt;pre&gt;&amp;lt;a href=&#34;&#34; tal:replace=&#34;someobject/@@hotness_link&#34;&amp;gt;&amp;lt;img src=&#34;hotness.gif&#34; /&amp;gt;&amp;lt;/a&amp;gt;
-&lt;/pre&gt;
-&lt;p&gt;Is this better? I think so. I&#39;m editing HTML, and the &amp;lt;a /&amp;gt; tag is way better in expressing what the end result will be, compared to a simple {% anchor %} tag. Even more, the &amp;lt;img /&amp;gt; tag inside is purely cosmetic, just to cue the viewer of what the final result will be. The entire &amp;lt;a /&amp;gt; tag, with its content, will be replaced by whatever result is rendered calling the the someobject/@@hotness_link view. Finding the source of the hotness_link view is easily introspectable TTW using a debug tool such as &lt;a class=&#34;external-link&#34; href=&#34;http://svn.zope.org/lovely.skinbrowser/&#34;&gt;lovely.skinbrowser&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;The ZPT templates from Zope 3 can also give you a mechanism where you can add new expression types, but there&#39;s just one or two packages in the wild that define new expression types. Now compare this to the regular Django projects, were defining new tags is something that almost all projects do.&lt;/p&gt;
-&lt;p&gt;In conclusion, even though Django templates are much more imperative then ZPT, which are very declarative, they don&#39;t achieve the power and simplicity that they strive for.&lt;/p&gt;
-</description>
+      <description>I have many grudges against the django templating language and its templates (in short, I hate them), so I&#39;m gathering evidence to support what my &#34;spider sense&#34; tells me. Today the template tag system goes under fire.
+Given the following template fragment:
+{% load i18n %} {% load avatar_tags %} {% load voting_tags %} {% load pagination_tags %} {% load extra_voting_tags %} {% load in_filter %} {% load extra_tagging_tags %} {% load sorting_tags %} Which one is responsible for the following &#34;</description>
     </item>
     
     <item>
@@ -126,34 +71,8 @@ I just wanted to split the tag on multiple lines, but it seems that&#39;s not po
       <pubDate>Thu, 12 Nov 2009 20:57:19 -0200</pubDate>
       
       <guid>/blog/2009/11/12/djangos-makemessages-sucks-for-my-use-cases/</guid>
-      <description>&lt;p&gt;Yet another angry rant, caused, of course, by using Django in anger. Nothing wrong with using something in anger, that&#39;s the real way I learn something. Zope 3 even has an online book on how to use it in anger.&lt;/p&gt;
-&lt;p&gt;That said, Django&#39;s makemessages administrative command sucks by being way too inflexible to anything but the ideal Django development environment. My environment looks like this: I have a project based on Pinax, which I&#39;m developing and deploying using zc.buildout. My source code sits in src, where I have several packages. I also have a &#34;localsettings.py&#34; module located in the root of the buildout, because I don&#39;t want to have it inside the src folder. Pinax is located in parts/Pinax, and it&#39;s actually a git checkout, based on my own fork of Pinax. Pinax doesn&#39;t have translations at the moment (I think I saw a ticket in its tracker about reintroducing a translation package), so I&#39;m on my own here with regards to translation.&lt;/p&gt;
-&lt;p&gt;With this setup, it is close to impossible for me to generate anything useful without a lot of hacking and swearing. Makemessages insists on being run from inside a Django project, and when I did that, it complains about missing localsettings module. Pointing the root of the buildout as pythonpath didn&#39;t do anything. A good thing that I have already extracted messages from the templates, before switching to the buildout project structure.&lt;/p&gt;
-&lt;p&gt;Some solutions that I have found:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;I can extract messages from the Pinax python modules using this homegrown script:&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;pre&gt;PYFILES=/tmp/pyfiles
-PINAX=parts/Pinax/pinax/ 
-BASE=/home/tibi/work/ProjectBuildout/src/project/locale/ro/LC_MESSAGES/
-POTFILE_PYTHON=$BASE/python.pot
-POTFILE_TEMPLATES=$BASE/templates.pot
-POTFILE=$BASE/django.pot
-POFILE=$BASE/django.po
-
-#extract messages from python code
-find $PINAX | grep &#34;.*py$&#34; &amp;gt; /tmp/pyfiles
-touch $POTFILE_PYTHON
-xgettext -j -L python -d django -f $PYFILES -o $POTFILE_PYTHON
-
-#merge the templates + python messages into one pot file
-msgcat -o $POTFILE $POTFILE_TEMPLATES $POTFILE_PYTHON
-
-#merge the potfile with the po file
-msgmerge -U -N $POFILE $POTFILE&lt;/pre&gt;
-&lt;ul&gt;&lt;li&gt;I have copied all the templates from pinax and its associated applications inside a template folder in my project. Now I can generate the po file, from my src/project folder, with&lt;/li&gt;&lt;/ul&gt;
-&lt;pre&gt;../../bin/py ./../../manage.py makemessages -e .py -e .html -l ro
-&lt;/pre&gt;
-&lt;p&gt;Of course, I can&#39;t run this over the other apps and packages in my src/ folder to extract messages from the python modules, so I am forced to adjust the first script to take those folders into consideration.&lt;/p&gt;
-</description>
+      <description>Yet another angry rant, caused, of course, by using Django in anger. Nothing wrong with using something in anger, that&#39;s the real way I learn something. Zope 3 even has an online book on how to use it in anger.
+That said, Django&#39;s makemessages administrative command sucks by being way too inflexible to anything but the ideal Django development environment. My environment looks like this: I have a project based on Pinax, which I&#39;m developing and deploying using zc.</description>
     </item>
     
     <item>
@@ -162,10 +81,8 @@ msgmerge -U -N $POFILE $POTFILE&lt;/pre&gt;
       <pubDate>Sun, 08 Nov 2009 21:35:58 -0200</pubDate>
       
       <guid>/blog/2009/11/08/using-cherrypy-to-work-around-a-django/flup-bug/</guid>
-      <description>&lt;p&gt;A bug creeped in one of my Django 1.1 projects that is in beta-testing right now: the Pinax wiki app looks for a REMOTE_ADDR value in request.META, which was not set in my environment. My environment is a pretty standard (as far as this setup goes) nginx + fcgi (flup on the django side) + django. Further work on this issue revealed, step by step, that:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;REMOTE_ADDR needs to be somehow set by a Django middleware, based on an http header, &lt;br /&gt;&lt;/li&gt;&lt;li&gt;so I&#39;ve added django.middleware.http.SetRemoteAddrFromForwardedFor to the list of loaded middleware&lt;/li&gt;&lt;li&gt;but that middleware is deprecated in Django 1.1 and does nothing, so I rewrote this middleware based on &lt;a class=&#34;external-link&#34; href=&#34;http://www.djangobook.com/en/1.0/chapter15/&#34;&gt;Chapter 15 of Django Book&lt;/a&gt;&lt;/li&gt;&lt;li&gt;this new middleware did its job, but for some reason flup stripped that header from the request and the proper values never got to Django&lt;/li&gt;&lt;li&gt;this made me look for a replacement for flup, which I found in &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/django-cpserver/&#34;&gt;django-cpserver&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;This package adds a new admin command, &#39;runcpserver&#39;, which replaces the default development server by something more appropriate to production. The word on the &#39;net-streets&#39; is that it runs well and does its job, so I&#39;ll be using it for the time being. The recommended solution is to run apache+mod_wsgi and proxy that to nginx, but right now I don&#39;t want the extra administrative overhead that Apache represents. If I can&#39;t get enough &#34;juice&#34; out of one instance of cpserver, I&#39;ll just add an extra instance and balance them with nginx or haproxy.&lt;/p&gt;
-</description>
+      <description>A bug creeped in one of my Django 1.1 projects that is in beta-testing right now: the Pinax wiki app looks for a REMOTE_ADDR value in request.META, which was not set in my environment. My environment is a pretty standard (as far as this setup goes) nginx + fcgi (flup on the django side) + django. Further work on this issue revealed, step by step, that:
+REMOTE_ADDR needs to be somehow set by a Django middleware, based on an http header, so I&#39;ve added django.</description>
     </item>
     
     <item>
@@ -174,25 +91,9 @@ msgmerge -U -N $POFILE $POTFILE&lt;/pre&gt;
       <pubDate>Thu, 05 Nov 2009 21:06:48 -0200</pubDate>
       
       <guid>/blog/2009/11/05/django-gotcha-the-urls.py-needs-to-define-the-404-view/</guid>
-      <description>&lt;p&gt;Probably this is documented somewhere in the Django docs, but, I mean, who has time to read the docs? :-) In the urls.py file for my project I didn&#39;t do a&lt;/p&gt;
-&lt;pre&gt;from django.conf.urls.defaults import *&lt;/pre&gt;
-&lt;p&gt;because that&#39;s just bad style. Instead I&#39;ve just imported what I needed: patterns, include and url. Later on I got this error in my email:&lt;/p&gt;
-&lt;pre&gt;Traceback (most recent call last):
-
-  File &#34;/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/handlers/base.py&#34;, line 118, in get_response
-    callback, param_dict = resolver.resolve404()
-
-  File &#34;/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/urlresolvers.py&#34;, line 263, in resolve404
-    return self._resolve_special(&#39;404&#39;)
-
-  File &#34;/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/urlresolvers.py&#34;, line 255, in _resolve_special
-    callback = getattr(self.urlconf_module, &#39;handler%s&#39; % view_type)
-
-AttributeError: &#39;module&#39; object has no attribute &#39;handler404&#39;
-&lt;/pre&gt;
-&lt;p&gt;Just looking at the error I could determine the cause: my urlconf module (urls.py) didn&#39;t have a handler404 view defined, so I just gave up and replaced my specific imports with the asterisk import.&lt;/p&gt;
-&lt;p&gt;On a side note, what&#39;s up with Django logging? By default, the only way to log errors in production environments is by email. Really!? If I would want emails, I&#39;d setup the syslog to email me those entries. I already have the logwatch emailing me stuff that happens on my server. One step above is django-db-log, which I haven&#39;t tried yet, but which seems to be logging errors to the db. Word is that real logging, using the logging python module, will be introduced in Django 1.2.&lt;/p&gt;
-</description>
+      <description>Probably this is documented somewhere in the Django docs, but, I mean, who has time to read the docs? :-) In the urls.py file for my project I didn&#39;t do a
+from django.conf.urls.defaults import * because that&#39;s just bad style. Instead I&#39;ve just imported what I needed: patterns, include and url. Later on I got this error in my email:
+Traceback (most recent call last): File &#34;/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/handlers/base.py&#34;, line 118, in get_response callback, param_dict = resolver.</description>
     </item>
     
     <item>
@@ -201,54 +102,8 @@ AttributeError: &#39;module&#39; object has no attribute &#39;handler404&#39;
       <pubDate>Wed, 07 Oct 2009 19:17:32 -0300</pubDate>
       
       <guid>/blog/2009/10/07/questioning-the-quality-of-code-in-django-third-party-projects/</guid>
-      <description>&lt;p&gt;I&#39;m not sure how I feel about this... In some ways, I think it&#39;s very positive that a relative newcomer can just jump in and release an opensource project that can be taken and reused by others. Did Django allowed this? That&#39;s very positively PHP-like...&lt;/p&gt;
-&lt;p&gt;I&#39;m talking about a glimpse at some code that I caught while helping my brother integrate the Diamandas forum to a site he&#39;s doing. It stunned me that it has the marks of a developer that is not very experienced with the language or the framework, but it&#39;s moving at a speed that is too great to stop and fix or check what he&#39;s doing.&lt;/p&gt;
-&lt;p&gt;This:&lt;/p&gt;
-&lt;pre&gt;pr = False&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-if forum.use_prefixes:&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-    p = Prefix.objects.filter(forums=forum)&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-    if len(p) &amp;gt; 0:&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-        pr = []&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-        for i in p:&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-            pr.append(i)
-&lt;/pre&gt;
-&lt;p&gt;is a fragment from an apparently &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/diamanda/source/browse/trunk/diamandas/myghtyboard/modelwrappers.py#47&#34;&gt;nice Django forum add-on&lt;/a&gt;. First, it could easily be rewritten as:&lt;/p&gt;
-&lt;pre&gt;pr = []
-if forum.use_prefixes:
-&amp;nbsp;&amp;nbsp;&amp;nbsp; pr = Prefix.objects.filter(forums=forum)
-&lt;/pre&gt;
-&lt;p&gt;Suppose you don&#39;t trust the Django queryset results to really behave like a list (that could happen for some legitimate reasons, but I&#39;m sure that&#39;s not the case here). Then you could write the last line as:&lt;/p&gt;
-&lt;pre&gt;pr = list(Prefix.objects.filter(forums=forum))&lt;/pre&gt;
-&lt;p&gt;Of course, no more lazy loading of objects and a bit more memory consumption. More, about the looks of this code:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&#34;len(p) &amp;gt; 0&#34; can be rewritten as &#34;if p&#34;&lt;/li&gt;&lt;li&gt;why define the &#34;pr&#34; as a False value instead of an empty list, which will become at one point?&lt;/li&gt;&lt;li&gt;why use the &#34;i&#34; name for a prefix object type, when this is typically used as an integer counter?&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Further on that page there&#39;s&lt;/p&gt;
-&lt;pre&gt;tp = TopicPrefix(topic=new_place)
-tp.save()
-tp.prefix=pr
-tp.save()
-&lt;/pre&gt;
-&lt;p&gt;I haven&#39;t tried this, but I&#39;m pretty sure that only one call to save() is needed. Probably more odd things could be found, but I haven&#39;t tried to look further - I already found the source of my brother&#39;s problems.&lt;/p&gt;
-&lt;p&gt;These superficial aspects are the ones that make me also question the architectural choices that were made for this add-on, the overall quality of the code that might impact performance, etc. How can I trust an application that has bits of code like this? I&#39;m pretty sure that this particular developer (I haven&#39;t bothered tracking exactly who it was) has a bright future in the Django community and will probably polish his Python skills to generate good code. Overall, the Python and Django communities will also benefit from an influx of new developers. But I&#39;m left feeling insecure about my decision to write code for the Django platform. I&#39;m mostly (or I want to be) an integrator and I depend on good third-party addons, which Django seems to have a lot. But if two out of three projects that I have tried (Satchmo and Diamandas) left me confused, how else should I feel? Ironically, the one project that I have really liked (LFS) came from a Zope developer... So maybe we need a bigger Zope &amp;gt; Django migration phenomena.&lt;/p&gt;
-&lt;p&gt;UPDATE: well, it looks like Django isn&#39;t free of promoting (IMHO) stupid solutions, too. Check out this piece of code from the &lt;a class=&#34;external-link&#34; href=&#34;http://docs.djangoproject.com/en/dev/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display&#34;&gt;Django admin documentation&lt;/a&gt;:&lt;/p&gt;
-&lt;pre&gt;return self.birthday.strftime(&#39;%Y&#39;)[:3] == &#39;195&#39;
-&lt;/pre&gt;
-&lt;p&gt;This smells a lot like stupid code that beginner PHP programmers would write. When you&#39;re dealing with a number (the year), why convert it to a string? The code itself yields correct results, but the method used feels stupid. I&#39;d rather see something like:&lt;/p&gt;
-&lt;pre&gt;return 1949 &amp;lt; self.birthday.year &amp;lt; 1960
-&lt;/pre&gt;
-&lt;p&gt;Another one, not a bug, but a design decision from Django, which forces third party projects like Pinax to mangle with the syspath just to get django happy:&lt;/p&gt;
-&lt;pre&gt;  File &#34;/home/tibi/work/lib/python2.5/site-packages/django/contrib/auth/models.py&#34;, line 283, in get_profile
-    app_label, model_name = settings.AUTH_PROFILE_MODULE.split(&#39;.&#39;)
-&lt;/pre&gt;
-&lt;p&gt;What&#39;s my AUTH_PROFILE_MODULE set to?&lt;/p&gt;
-&lt;pre&gt;AUTH_PROFILE_MODULE = &#39;pinax.apps.basic_profiles.Profile&#39;
-&lt;/pre&gt;
-&lt;p&gt;Actually, thinking more about this: &#34;pinax.apps.basic_profiles.Profile&#34; is not even a real path, Profile is a class in &#34;models.py&#34;, so it might be valid for Django to request its special rules there. Valid, but non-intuitive and non-standard for the rest of the Python world.&lt;/p&gt;
-&lt;p&gt;Another weird stuff, this time in Pinax. Looks like really young code, which hasn&#39;t been subjected to a thorough code review yet: friends_app/views.py. This is file has some weird indentation problems (some lines get indented more then they need to be). What about this piece of code:&lt;/p&gt;
-&lt;pre&gt;authsub_token = request.session.get(&#39;authsub_token&#39;)
-del request.session[&#39;authsub_token&#39;]&lt;/pre&gt;
-&lt;p&gt;If &#39;authsub_token&#39; is not in the session, (as it was my case, which made me discover this), you&#39;ll get an error on the second line. Of course, this bug highlights the more important problem, of the missing authsub_token, but what about the careless programming?&lt;/p&gt;
-</description>
+      <description>I&#39;m not sure how I feel about this... In some ways, I think it&#39;s very positive that a relative newcomer can just jump in and release an opensource project that can be taken and reused by others. Did Django allowed this? That&#39;s very positively PHP-like...
+I&#39;m talking about a glimpse at some code that I caught while helping my brother integrate the Diamandas forum to a site he&#39;s doing. It stunned me that it has the marks of a developer that is not very experienced with the language or the framework, but it&#39;s moving at a speed that is too great to stop and fix or check what he&#39;s doing.</description>
     </item>
     
     <item>
@@ -257,18 +112,8 @@ del request.session[&#39;authsub_token&#39;]&lt;/pre&gt;
       <pubDate>Thu, 17 Sep 2009 22:59:23 -0300</pubDate>
       
       <guid>/blog/2009/09/17/customizing-django-lfs-lightning-fast-shop-for-the-non-django-developer/</guid>
-      <description>&lt;p&gt;I&#39;m not a Django developer, but I have a project that involves deploying a LFS site, and it took me a bit of time and effort to understand how to customize its templates and resources. This all may seem obvious to the any Django developer, but I&#39;m not, so I think this info needs to be out there.&lt;/p&gt;
-&lt;p&gt;As a side note, at first I have reviewed Satchmo, as it seemed to have more traction in the Django community (being a Zope/Plone developer, I am more aware of the previous work done by the LFS developer, the EasyShop). The Satchmo installation, for the un-initiated, seems to be a nightmare of many different settings that needed to be tweaked, skeletons that don&#39;t work OOTB, at least in the way I have installed them. On top of all this,  it seems to think that I also need to develop some sort of project that will integrate with the Satchmo shop (but this may be due to Django). What happened to treating your product as the end product? After a bit of effort, I had one instance running and ready to review it. Several days, in another Linux virtual machine (I&#39;ve switched from VMWare to VirtualBox), I&#39;ve tried to install Satchmo again, this time using djangorecipe. I didn&#39;t have the same patience, though.&lt;/p&gt;
-&lt;p&gt;A short look at LFS convinced me to at least give it a try: there is a buildout that can be installed easily (although there were a few dependencies that I had to install), the &#34;backend&#34; is polished compared to the default django admin views used by Satchmo, and, while it is simpler, less featured, than Satchmo, it does everything I need.&lt;/p&gt;
-&lt;p&gt;Onward to customizing the LFS: my goal is to be able to change templates (for example, the base layout) and publish a new logo.&lt;/p&gt;
-&lt;p&gt;I&#39;ve created a new folder &#34;mytheme&#34; inside the buildout, with two subfolders: &#34;templates&#34; and &#34;static&#34;. The path to the templates folder needs to be inserted in the &#34;TEMPLATES_DIRS&#34; variables from settings.py. To customize the base template, for example, I&#39;ve created a  &#34;lfs/base.html&#34; file inside the &#34;templates&#34; folder. Its content can be copied from the original in the lfs_theme folder. I&#39;ve added a new line in the header section, pointing to a new CSS file that will customize the base LFS stylesheet.&lt;/p&gt;
-&lt;pre&gt;&amp;lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;{{ MEDIA_URL }}mytheme/css/custom.css&#34; /&amp;gt;&lt;/pre&gt;
-&lt;p&gt;As a side note, this templates folder can be used for overriding any other template: templates in Django are usually denoted by a relative path, and you need only to replicate this path inside our overriding templates folder.&lt;/p&gt;
-&lt;p&gt;Next, overriding and creating new resources: I have created a &#34;static&#34; folder inside &#34;mytheme&#34; and I&#39;ve linked to it inside the lfs_project/media folder. Inside the &#34;mytheme&#34; folder I can now host images and files, in 2 new &#34;css&#34; and &#34;img&#34; subfolders. Back in my customized base.html, I have changed the logo path:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;img class=&#34;logo&#34; src=&#34;{{ MEDIA_URL }}mytheme/img/logo.jpg&#34; alt=&#34;Logo&#34; /&amp;gt;&lt;/pre&gt;
-&lt;p&gt;That&#39;s about it: I got a custom CSS, the ability to customize templates and to point to new images. I&#39;m happy for now.&lt;/p&gt;
-&lt;p&gt;As I have said in the beginning, this is all basic stuff. No harm done in pointing to the obvious though, as there seem to be many new developers flocking to Django, all with different level of expertise.&lt;/p&gt;
-</description>
+      <description>I&#39;m not a Django developer, but I have a project that involves deploying a LFS site, and it took me a bit of time and effort to understand how to customize its templates and resources. This all may seem obvious to the any Django developer, but I&#39;m not, so I think this info needs to be out there.
+As a side note, at first I have reviewed Satchmo, as it seemed to have more traction in the Django community (being a Zope/Plone developer, I am more aware of the previous work done by the LFS developer, the EasyShop).</description>
     </item>
     
   </channel>

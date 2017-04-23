@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ubuntu on The Plone Expanse</title>
-    <link>/tags/ubuntu/index.xml</link>
+    <link>/tags/ubuntu/</link>
     <description>Recent content in Ubuntu on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Nov 2008 21:13:23 -0200</lastBuildDate>
+    
+	<atom:link href="/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Moving to Intrepid and KDE 4.1</title>
@@ -15,19 +18,7 @@
       <pubDate>Sun, 23 Nov 2008 21:13:23 -0200</pubDate>
       
       <guid>/blog/2008/11/23/moving-to-intrepid-and-kde-4.1/</guid>
-      <description>&lt;p&gt;&lt;a title=&#34;KDE 4.1 screenshot&#34; class=&#34;internal-link&#34; href=&#34;../screenshot.png&#34;&gt;&lt;img class=&#34;image-right&#34; src=&#34;../screenshot.png/image_preview&#34; alt=&#34;KDE 4.1 screenshot&#34; /&gt;&lt;/a&gt;I&#39;ve migrated my laptop (my main workstation, these days) and I&#39;ve done
-a complete migration to the KDE 4.1 desktop. Things are not perfect,
-(on the old KDE 3.5 I&#39;d say things were 99% according to my tastes),
-but I&#39;m trying to accomodate and find replacements. I didn&#39;t like the
-KDE 4.1 launcher at first and I&#39;ve even tested Launcelot for a while,
-but now I&#39;m back to the default menu and I&#39;m starting to like it (on
-3.5 I was using Tasty Menu).&lt;/p&gt;
-&lt;p&gt;I&#39;m using Scultptura style with the Scultura-Stone color scheme and Sculptura window decoration. I needed to add another plasmoid from kde-look, the panel spacer, to make the systray smaller and separate the buttons on the right side to those on the left.&lt;/p&gt;
-&lt;p&gt;Things that I&#39;m missing:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;no &#34;window&#34; list menu widget, which I&#39;ve tried to replace with a plasmoid. I might as well remove it, because it doesn&#39;t list all the windows from all desktops, just the current desktop.&lt;/li&gt;&lt;li&gt;I don&#39;t like the double spacing of the clock &amp;amp; date widget, I wish that it was a single line. I saw that there&#39;s a plasmoid on kde-look.org, I might try that.&lt;/li&gt;&lt;li&gt;I don&#39;t like the black background in the systray (at the right top)&lt;/li&gt;&lt;li&gt;There&#39;s no working &#34;app shortcuts buttons&#34; plasmoid, although I may try to simulate that with the Quick Access plasmoid.&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Things that I&#39;m happy with:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Shiny new software!&lt;/li&gt;&lt;li&gt;KDE 4.1 is actually not that horrible, once I tweak it (although Kde 3.5 had the same problem, closest to my &#34;visual&#34; tastes comes Gnome, but I like Kde applications better).&lt;/li&gt;&lt;li&gt;NetworkManager seems to deal a bit better with my wireless connection (when my girlfriend opens her Macbook I get terrible disconnects from the access point)&lt;/li&gt;&lt;/ul&gt;
-</description>
+      <description>I&#39;ve migrated my laptop (my main workstation, these days) and I&#39;ve done a complete migration to the KDE 4.1 desktop. Things are not perfect, (on the old KDE 3.5 I&#39;d say things were 99% according to my tastes), but I&#39;m trying to accomodate and find replacements. I didn&#39;t like the KDE 4.1 launcher at first and I&#39;ve even tested Launcelot for a while, but now I&#39;m back to the default menu and I&#39;m starting to like it (on 3.</description>
     </item>
     
     <item>
@@ -36,8 +27,8 @@ but now I&#39;m back to the default menu and I&#39;m starting to like it (on
       <pubDate>Sat, 22 Jul 2006 19:54:38 -0300</pubDate>
       
       <guid>/blog/2006/07/22/my-favorite-development-environment/</guid>
-      <description>&lt;p&gt;I thought I&#39;d add some words about the development environment that I feel most comfortable with.&lt;/p&gt;&lt;p&gt;First, I use AGX for most of my plone development. It&#39;s useful as a quick skeleton generator, but also as a way to structure the content. To generate the UML files I use Poseidon Community Edition. Up until recently it was buggy, and I still consider it to be, but I learned what to do so I won&#39;t trigger the bugs (quick tip: don&#39;t ever rename tagged values, delete it and recreate it. If you rename a tgv, it will rename that tgv in the entire model). I&#39;ve tried ArgoUML and, despite having better support for AGX, it felt buggy. And I don&#39;t like the way you have to hunt down the tgvs in that long list when adding one.&lt;br /&gt;&lt;/p&gt;&lt;p&gt;I use JEdit as text editor. It&#39;s not the greatest python editor, but it&#39;s a good all-arounder. I like its xml support, it&#39;s great when editing page templates. It&#39;s fast, has a ton of plugins and a nice &#34;hypersearch&#34; bar that you can place at the top and use it to quickly search in the curent document. Lately I&#39;ve started using SPE for a wxpython based project, and I&#39;m also trying Eclipse with pydev.&lt;br /&gt;&lt;/p&gt;&lt;p&gt;When creating a plone skin, the Firefox Dom Inspector is invaluable. &lt;br /&gt;&lt;/p&gt;&lt;p&gt;I use Ubuntu Dapper as the main OS. Although I have dual boot, 99% of the time I spend it in Linux. It has been my main OS since Breezy Badger came out, and I like it a lot. It runs Java software really fast and Gnome is terific DE. I was a KDE (with WindowsMaker as window manager) fan until my first contact with Ubuntu. It&#39;s nice! I bind alt + 1, 2 and so on to the each desktop and so I can switch really fast to the application I&#39;m interested in. I put Jedit on desktop 1, the gnome terminal on desktop 2 and firefox on desktop 3. I can run Internet Explorer 6 and Photoshop 7, to cover even the last Windows needs.&lt;br /&gt;&lt;/p&gt;&lt;p&gt;And last, I listen to &lt;a href=&#34;http://www.radioparadise.com&#34; target=&#34;_self&#34;&gt;Radio Paradise&lt;/a&gt; with Rhythmbox. When I feel like exploring, I use StreamTuner or head over to &lt;a href=&#34;http://radio.grassyhill.org/&#34; target=&#34;_self&#34;&gt;Radio Grassy Hill&lt;/a&gt;, &lt;a href=&#34;http://www.borderradio.com&#34; target=&#34;_self&#34;&gt;BorderRadio&lt;/a&gt; or &lt;a href=&#34;http://deviantaudio.com/&#34; target=&#34;_self&#34;&gt;Deviant Audio&lt;/a&gt;. Either that, or listen to my extensive collection of Grateful Dead mp3 recordings.&lt;br /&gt;&lt;/p&gt;
-</description>
+      <description>I thought I&#39;d add some words about the development environment that I feel most comfortable with.
+First, I use AGX for most of my plone development. It&#39;s useful as a quick skeleton generator, but also as a way to structure the content. To generate the UML files I use Poseidon Community Edition. Up until recently it was buggy, and I still consider it to be, but I learned what to do so I won&#39;t trigger the bugs (quick tip: don&#39;t ever rename tagged values, delete it and recreate it.</description>
     </item>
     
   </channel>

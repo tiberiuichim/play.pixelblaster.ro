@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Colaborative on The Plone Expanse</title>
-    <link>/tags/colaborative/index.xml</link>
+    <link>/tags/colaborative/</link>
     <description>Recent content in Colaborative on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/colaborative/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Feb 2010 12:04:41 -0200</lastBuildDate>
+    
+	<atom:link href="/tags/colaborative/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Can you do this on your shiny Mac?</title>
@@ -15,10 +18,8 @@
       <pubDate>Thu, 25 Feb 2010 12:04:41 -0200</pubDate>
       
       <guid>/blog/2010/02/25/can-you-do-this-on-your-shiny-mac/</guid>
-      <description>&lt;p&gt;Probably you can, but you have never done it because you have a shiny interface for everything. I&#39;m talking about this discovery of mine:&lt;/p&gt;
-&lt;pre&gt;svn diff | kompare -&lt;/pre&gt;
-&lt;p&gt;What it does is to take the output from svn diff and pipe it into Kompare, a merge/diff utility from the KDE Project. I can do this from the command line, straight from the directory that I&#39;m in, and bang! I get a nice graphical overview, complete with the tree structure that I can navigate to see what I&#39;m about to commit. Honestly, this little command gets me excited everytime I run it.&lt;/p&gt;
-</description>
+      <description>Probably you can, but you have never done it because you have a shiny interface for everything. I&#39;m talking about this discovery of mine:
+svn diff | kompare - What it does is to take the output from svn diff and pipe it into Kompare, a merge/diff utility from the KDE Project. I can do this from the command line, straight from the directory that I&#39;m in, and bang! I get a nice graphical overview, complete with the tree structure that I can navigate to see what I&#39;m about to commit.</description>
     </item>
     
   </channel>

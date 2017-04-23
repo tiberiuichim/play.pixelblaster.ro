@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rants on The Plone Expanse</title>
-    <link>/tags/rants/index.xml</link>
+    <link>/tags/rants/</link>
     <description>Recent content in Rants on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/rants/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Jan 2017 09:46:35 -0100</lastBuildDate>
+    
+	<atom:link href="/tags/rants/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Django templates make me go mad...</title>
@@ -15,10 +18,8 @@
       <pubDate>Mon, 02 Jan 2017 09:46:35 -0100</pubDate>
       
       <guid>/blog/2017/01/02/django-templates-make-me-go-mad.../</guid>
-      <description>&lt;p&gt;Why is this a positive thing? Excerpt from Django Oscar, an eComerce framework.&lt;/p&gt;
-&lt;pre&gt;&amp;lt;li class=&#34;step2 {% if step == 2 %}active{% else %}{% if step == 3 %}previous{% else %}{% if step &amp;gt; 2 %}visited{% else %}disabled{% endif %}{% endif %}{% endif %} &#34;&amp;gt;&lt;/pre&gt;
-&lt;p&gt;Gah...&lt;/p&gt;
-</description>
+      <description>Why is this a positive thing? Excerpt from Django Oscar, an eComerce framework.
+&amp;lt;li class=&#34;step2 {% if step == 2 %}active{% else %}{% if step == 3 %}previous{% else %}{% if step &amp;gt; 2 %}visited{% else %}disabled{% endif %}{% endif %}{% endif %} &#34;&amp;gt; Gah...</description>
     </item>
     
     <item>
@@ -27,117 +28,8 @@
       <pubDate>Sat, 24 Dec 2016 08:47:35 -0100</pubDate>
       
       <guid>/blog/2016/12/24/always-fun-deciphering-ruby-dsls-part-1/</guid>
-      <description>&lt;p&gt;I never back down from a new system or programming language and thankfully my daily work has exposed me to some Ruby and Rails code. So I&#39;ve been learning some, just enough to be able to tweak code, fix bugs and make minor additions. I&#39;m not a fan of the Ruby on Rails design, but I enjoy it as a challenge.&lt;/p&gt;
-&lt;p&gt;One thing that I found difficult was writing code that uses some of the many DSLs created by the community. My work has exposed me to Retire (an old ElasticSearch integration library), but now I just saw some code on ActiveAdmin&#39;s homepage and I thought I&#39;ll have some fun trying to understand it.&lt;/p&gt;
-&lt;p&gt;The code, taken verbatim from &lt;a class=&#34;external-link&#34; href=&#34;http://activeadmin.info/&#34;&gt;http://activeadmin.info/&lt;/a&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;ruby&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# app/admin/products.rb&lt;/span&gt;
-&lt;span class=&#34;no&#34;&gt;ActiveAdmin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;register&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Product&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;d&lt;/span&gt;
-
-  &lt;span class=&#34;c1&#34;&gt;# Create sections on the index screen&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;scope&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:all&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;default:&lt;/span&gt; &lt;span class=&#34;kp&#34;&gt;true&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;scope&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:available&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;scope&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:drafts&lt;/span&gt;
-
-  &lt;span class=&#34;c1&#34;&gt;# Filterable attributes on the index screen&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;filter&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:title&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;filter&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:author&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;as:&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:select&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;collection:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Product&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;authors&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;filter&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:price&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;filter&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:created_at&lt;/span&gt;
-
-  &lt;span class=&#34;c1&#34;&gt;# Customize columns displayed on the index screen in the table&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;column&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:title&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;column&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&#34;Price&#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;sortable:&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:price&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;product&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;
-      &lt;span class=&#34;n&#34;&gt;number_to_currency&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;product&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;price&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;default_actions&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Let&#39;s start!&lt;/p&gt;
-&lt;p&gt;First line, first WTF:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;ruby&#34;&gt;&lt;span class=&#34;no&#34;&gt;ActiveAdmin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;register&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Product&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I can&#39;t really tell if the do...end block is something that will be called on the Product class, or it&#39;s something that will be passed to the ActiveAdmin.register method call. I&#39;ll asume the block is passed to the register call.&lt;/p&gt;
-&lt;p&gt;Next line, it was a big WTF when I&#39;ve first started working on my project. My usual learning method is to just start working and whenever I see something that I don&#39;t understand, I&#39;ll stop and research it. It makes for nice, strong impressions (smiley). Of course, what impresses is the ease with which those colons switch sides, left and right of the word. Let&#39;s just say Python doesn&#39;t have that.&amp;nbsp;&lt;/p&gt;
-&lt;p&gt;So, this line&amp;nbsp;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;ruby&#34;&gt;  &lt;span class=&#34;n&#34;&gt;scope&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:all&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;default:&lt;/span&gt; &lt;span class=&#34;kp&#34;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;is translated to something like&lt;/p&gt;
-&lt;pre&gt;scope(Symbol(&#39;all&#39;), {Symbol(&#39;default&#39;): True})&lt;/pre&gt;
-&lt;p&gt;Even now that I had a vague idea what it means, it took me a bit to translate. Python doesn&#39;t have symbols, it is idiomatic to use strings instead, so it would be usually written as:&lt;/p&gt;
-&lt;pre&gt;scope(&#39;all&#39;, {&#39;default&#39;: True})&lt;/pre&gt;
-&lt;p&gt;I don&#39;t think that&#39;s too bad. A lot more clear what happens. I initially thought that :strings are just a Ruby way of not writing quotes, but a few hours spent trying to understand why Ruby on Rails breaks for no apparent reason somewhere deep inside taught me, the hard way, that those are magic names that can be just created on the spot, no need to import them and they&#39;ll always match if the given name is identical. AKA symbols. Worst part is when you need to do somestrvar.tosym just to be able to test some matches, when that string comes from &#34;the outside&#34;.&lt;/p&gt;
-&lt;p&gt;I don&#39;t really like that code can be written in multiple ways, each with its own intricacies. This simplified way of declaring a hashmap in the method parameters can only be used as last parameter? Just a sample from an interactive irb session:&lt;/p&gt;
-&lt;pre&gt;irb(main):001:0&amp;gt; def x (a, b) puts a; puts b; end
-irb(main):002:0&amp;gt; x :all, default: true
-all
-{:default=&amp;gt;true}
-=&amp;gt; nil
-irb(main):003:0&amp;gt; x default: true, :all
-SyntaxError: (irb):003: syntax error, unexpected &#39;\n&#39;, expecting =&amp;gt;
-        from /usr/bin/irb:11:in `&amp;lt;main&amp;gt;&#39;&lt;/pre&gt;
-&lt;p&gt;Moving on... multiple times calling the same method? Why???&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;ruby&#34;&gt;  &lt;span class=&#34;n&#34;&gt;scope&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:all&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;default:&lt;/span&gt; &lt;span class=&#34;kp&#34;&gt;true&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;scope&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:available&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;scope&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:drafts&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code class=&#34;ruby&#34;&gt;&lt;span class=&#34;ss&#34;&gt;Without reading the code or the documentation, I feel that any of my guesses could be wrong. The comment above that code helps a bit:&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&amp;nbsp;&amp;nbsp;&lt;span class=&#34;c1&#34;&gt;# Create sections on the index screen&lt;/span&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img class=&#34;image-right&#34; src=&#34;../features.png/image_mini&#34; alt=&#34;ActiveAdmin Features&#34; /&gt; So, after thinking, reading the homepage, looking at that pretty pic, my guess is: first line defines a new section on the &#34;front page&#34; that will show &#34;all&#34; products, and it will be the default section. The next two lines define two other sections that will filter &#34;available&#34; products and &#34;drafts&#34; products.&lt;/p&gt;
-&lt;div&gt;Next lines: the filter calls. First line, same old, but the second line... WTF? yet another Ruby syntax kink?&lt;/div&gt;
-&lt;div&gt;
-&lt;pre&gt;&lt;code class=&#34;ruby&#34;&gt;&lt;span class=&#34;n&#34;&gt;filter&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:author&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;as:&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:select&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;collection:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Product&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;authors&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;code class=&#34;ruby&#34;&gt;&lt;span class=&#34;p&#34;&gt;Ok, ok, ok. &#34;filter&#34; is method name, the rest are parameters. First argument, :author, that&#39;s a symbol. After that comes a hashmap with two members, at keys :as and :collection. The weirdest is that -&amp;gt; sign and the accolades. That will be an inline anonymous block, but I&#39;ve only understood that by replicating this code in irb:&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;ruby&#34;&gt;&lt;span class=&#34;p&#34;&gt;irb(main):034:0&amp;gt; x :first, as: &#39;blabla&#39;, default: -&amp;gt;{1} &amp;nbsp;&amp;nbsp;&amp;nbsp;
-first
-
-{:as=&amp;gt;&#34;blabla&#34;, :default=&amp;gt;#&amp;lt;Proc:0x000000014d81a8@(irb):34 (lambda)&amp;gt;}
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code class=&#34;ruby&#34;&gt;I&#39;m guessing the reason that it cannot simply pass &#34;Product.authors&#34; to collection is that ruby will call the .authors method (as there&#39;s no attribute access in Ruby, only methods call). Is there a way to pass a Ruby method without calling it, without defining a lambda? Who knows, maybe I&#39;ll find out at one point.&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code class=&#34;ruby&#34;&gt;&lt;span class=&#34;p&#34;&gt;And the last method call. Ruby blocks are strange for me. I get them, I grok them, but they&#39;re just opaque. &#34;Hey you, method there, here is some code, take it and &#39;eval&#39; it in your scope. Don&#39;t worry, I promise it will be cool&#34;. Meh... &amp;nbsp;&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;code class=&#34;ruby&#34;&gt;&lt;span class=&#34;p&#34;&gt;&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;ruby&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;# Customize columns displayed on the index screen in the table&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;column&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:title&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;column&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&#34;Price&#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;sortable:&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:price&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;product&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;
-      &lt;span class=&#34;n&#34;&gt;number_to_currency&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;product&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;price&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;default_actions&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code class=&#34;ruby&#34;&gt;&lt;span class=&#34;p&#34;&gt;But we&#39;re already inside a block started at first line, &#34;&lt;/span&gt;&lt;/code&gt;&lt;span class=&#34;no&#34;&gt;ActiveAdmin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;register&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Product&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&#34;. So where &#34;scope&#34;, &#34;filter&#34; and &#34;index&#34; come from? I&#39;m guessing they belong to the ActiveAdmin class?&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;k&#34;&gt;As I&#39;ve already mentioned, I can&#39;t understand Ruby DSLs and my lack of experience with the language means that I always end up having to read the code. No documentation could replace that, in my experience, for this particular case.&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;k&#34;&gt;So, reading through the active_admin.rb file. WTF?&lt;/span&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;span class=&#34;k&#34;&gt;&lt;span class=&#34;pl-k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;pl-en&#34;&gt;&lt;span class=&#34;pl-smi&#34;&gt;&amp;lt;&amp;lt; self&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;span class=&#34;k&#34;&gt;&lt;span class=&#34;pl-en&#34;&gt;&lt;span class=&#34;pl-smi&#34;&gt;Ah... so there&#39;s a module as the parent level, now we&#39;re defining a class that &#34;inherits???&#34; self? So, aparently just regular Ruby business: http://stackoverflow.com/questions/2505067/class-self-idiom-in-ruby As far as I can understand, we&#39;re adding the code that follows (from inside the class definition) to the module &#34;class definition instance&#34;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;pre&gt;    attr_accessor :application
-
-    def application
-      @application ||= ::ActiveAdmin::Application.new
-    end&lt;/pre&gt;
-&lt;p&gt;So this ActiveAdmin module gets an instance variable called &#34;application&#34;, accessible through the &#34;application&#34; accessor. It will be created, if it doesn&#39;t exist, by instantiating ActiveAdmin::Application.&amp;nbsp;&lt;/p&gt;
-&lt;p&gt;Next, another oddity:&lt;/p&gt;
-&lt;pre&gt;delegate &lt;span class=&#34;pl-c1&#34;&gt;:register&lt;/span&gt;,      &lt;span class=&#34;pl-c1&#34;&gt;to:&lt;/span&gt; &lt;span class=&#34;pl-c1&#34;&gt;:application&lt;/span&gt;&lt;/pre&gt;
-We&#39;re delegating any calls to a method called &#34;register&#34; to the &#34;application&#34; object? It appears so&amp;nbsp;http://api.rubyonrails.org/classes/Module.html#method-i-delegate
-&lt;div&gt;&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;So, next to research is that Application class. Inside active_admin/application.rb we have the &#34;register&#34; method:&lt;/div&gt;
-&lt;pre&gt;    # Registers a brand new configuration for the given resource.
-    def register(resource, options = {}, &amp;amp;block)
-      ns = options.fetch(:namespace){ default_namespace }
-      namespace(ns).register resource, options, &amp;amp;block
-    end&lt;/pre&gt;
-&lt;p&gt;So, in our &#34;ActiveAdmin&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;register&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;Product&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&#34; line, we&#39;ve passed resource as Product, no options, but we did pass a block, specified here as a reference to a block. They are further passed to a namespace construction. After more indirection, going through&amp;nbsp;&lt;/span&gt;active_admin/namespace.rb with&amp;nbsp;&lt;/p&gt;
-&lt;pre&gt;parse_registration_block(config, resource_class, &lt;span class=&#34;pl-k&#34;&gt;&amp;amp;&lt;/span&gt;block) &lt;span class=&#34;pl-k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;pl-k&#34;&gt;block_given?&lt;/span&gt;&lt;/pre&gt;
-&lt;p&gt;we get to this&lt;/p&gt;
-&lt;pre&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; config.dsl = ResourceDSL.new(config, resource_class)
-&amp;nbsp; &amp;nbsp; &amp;nbsp; config.dsl.run_registration_block(&amp;amp;block)&lt;/pre&gt;
-&lt;p&gt;run_registration_block just evaluates the block in the dsl context. And we finally get to see what the index call does:&lt;/p&gt;
-&lt;pre&gt;    # Configure the index page for the resource
-    def index(options = {}, &amp;amp;block)
-      options[:as] ||= :table
-      config.set_page_presenter :index, ActiveAdmin::PagePresenter.new(options, &amp;amp;block)
-    end&lt;/pre&gt;
-&lt;p&gt;Another indirection. We need to look at PagePresenter. Which just stores the options... and actually the set_page_presenter pottentially does some stuff?&lt;/p&gt;
-&lt;p&gt;to be continued...&lt;/p&gt;
-</description>
+      <description>I never back down from a new system or programming language and thankfully my daily work has exposed me to some Ruby and Rails code. So I&#39;ve been learning some, just enough to be able to tweak code, fix bugs and make minor additions. I&#39;m not a fan of the Ruby on Rails design, but I enjoy it as a challenge.
+One thing that I found difficult was writing code that uses some of the many DSLs created by the community.</description>
     </item>
     
     <item>
@@ -146,40 +38,9 @@ We&#39;re delegating any calls to a method called &#34;register&#34; to the &#34
       <pubDate>Mon, 02 May 2011 10:13:55 -0300</pubDate>
       
       <guid>/blog/2011/05/02/version-conflict-zc.buildouts-version-of-madness/</guid>
-      <description>&lt;p&gt;I&#39;m not even trying to understand what happens, because it&#39;s aggravating to see buildouts fail like this:&lt;/p&gt;
-&lt;pre&gt;While:
-&amp;nbsp; Installing.
-&amp;nbsp; Getting section zope2.
-&amp;nbsp; Initializing section zope2.
-&amp;nbsp; Installing recipe plone.recipe.zope2install.
-Error: There is a version conflict.
-We already have: setuptools 0.6c9&lt;/pre&gt;
-&lt;p&gt;or, worse, this:&lt;/p&gt;
-&lt;pre&gt;While:
-&amp;nbsp; Installing.
-&amp;nbsp; Getting section zope2.
-&amp;nbsp; Initializing section zope2.
-&amp;nbsp; Installing recipe plone.recipe.zope2install.
-Error: There is a version conflict.
-We already have: zc.buildout 1.5.2&lt;/pre&gt;
-&lt;p&gt;Well, technically I know what happens: for example, zc.buildout is latest 2.0a1 now, but I&#39;ve already installed 1.5.2 in my virtualenv (the bootstrap process failed hard, there are a tons of bugs there, I&#39;ve had more failures in bootstrap then success, lately) and I had one product in my buildout which depended on zc.buildout, so it tried to pull the latest, only to get a version conflict.&lt;/p&gt;
-&lt;p&gt;I wish zc.buildout would behave more inteligently. Even specifying&amp;nbsp;&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;prefer-final = true&lt;br /&gt;&lt;/pre&gt;
-&lt;p&gt;didn&#39;t do much to solve my problems. The only way to solve the problem was to add the following to the buildout.cfg file:&lt;/p&gt;
-&lt;pre&gt;[buildout]
-...
-versions = versions
-
-[versions]
-zc.buildout =1.5.2
-setuptools = 0.6c9
-
-&lt;/pre&gt;
-&lt;p&gt;UPDATE: a better solution is to have:&lt;/p&gt;
-&lt;pre&gt;[versions]
-zc.buildout =
-setuptools =&lt;/pre&gt;
-</description>
+      <description>I&#39;m not even trying to understand what happens, because it&#39;s aggravating to see buildouts fail like this:
+While: &amp;nbsp; Installing. &amp;nbsp; Getting section zope2. &amp;nbsp; Initializing section zope2. &amp;nbsp; Installing recipe plone.recipe.zope2install. Error: There is a version conflict. We already have: setuptools 0.6c9 or, worse, this:
+While: &amp;nbsp; Installing. &amp;nbsp; Getting section zope2. &amp;nbsp; Initializing section zope2. &amp;nbsp; Installing recipe plone.recipe.zope2install. Error: There is a version conflict. We already have: zc.</description>
     </item>
     
     <item>
@@ -188,8 +49,7 @@ setuptools =&lt;/pre&gt;
       <pubDate>Sun, 01 May 2011 12:41:20 -0300</pubDate>
       
       <guid>/blog/2011/05/01/building-pil-with-jpeg-support-on-ubuntu-11.04/</guid>
-      <description>&lt;p&gt;I had problems building PIL with jpeg support on the latest Ubuntu. There are now two libjpeg libraries: one called libjpeg62 and one libjpeg8. Every guide on the net explaining how to compile PIL with jpeg support points to installing libjpeg62-dev. Needless to say, libjpeg8-dev is actually needed to properly build PIL. My reason for initially avoiding libjpeg8 is that it causes libsdlimage-dev to be uninstalled, so it looks like I&#39;ll have to juggle packages whenever I want to compile something that requires SDL.&lt;/p&gt;
-</description>
+      <description>I had problems building PIL with jpeg support on the latest Ubuntu. There are now two libjpeg libraries: one called libjpeg62 and one libjpeg8. Every guide on the net explaining how to compile PIL with jpeg support points to installing libjpeg62-dev. Needless to say, libjpeg8-dev is actually needed to properly build PIL. My reason for initially avoiding libjpeg8 is that it causes libsdlimage-dev to be uninstalled, so it looks like I&#39;ll have to juggle packages whenever I want to compile something that requires SDL.</description>
     </item>
     
     <item>
@@ -198,10 +58,8 @@ setuptools =&lt;/pre&gt;
       <pubDate>Thu, 25 Feb 2010 12:04:41 -0200</pubDate>
       
       <guid>/blog/2010/02/25/can-you-do-this-on-your-shiny-mac/</guid>
-      <description>&lt;p&gt;Probably you can, but you have never done it because you have a shiny interface for everything. I&#39;m talking about this discovery of mine:&lt;/p&gt;
-&lt;pre&gt;svn diff | kompare -&lt;/pre&gt;
-&lt;p&gt;What it does is to take the output from svn diff and pipe it into Kompare, a merge/diff utility from the KDE Project. I can do this from the command line, straight from the directory that I&#39;m in, and bang! I get a nice graphical overview, complete with the tree structure that I can navigate to see what I&#39;m about to commit. Honestly, this little command gets me excited everytime I run it.&lt;/p&gt;
-</description>
+      <description>Probably you can, but you have never done it because you have a shiny interface for everything. I&#39;m talking about this discovery of mine:
+svn diff | kompare - What it does is to take the output from svn diff and pipe it into Kompare, a merge/diff utility from the KDE Project. I can do this from the command line, straight from the directory that I&#39;m in, and bang! I get a nice graphical overview, complete with the tree structure that I can navigate to see what I&#39;m about to commit.</description>
     </item>
     
     <item>
@@ -210,10 +68,8 @@ setuptools =&lt;/pre&gt;
       <pubDate>Thu, 28 Jan 2010 21:29:31 -0200</pubDate>
       
       <guid>/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/</guid>
-      <description>&lt;p&gt;I&#39;ve had a buildout bootstrap process failure, this time a weird one, perhaps I should document the bug and report it.&lt;/p&gt;
-&lt;p&gt;The latest Ubuntu version which I have installed (Lucid Lynx) comes with a package called python-pkg-resources, which packages &lt;a class=&#34;external-link&#34; href=&#34;http://www.python.org/dev/peps/pep-0365/&#34;&gt;pkg_resources&lt;/a&gt;, which used to be available only through the setuptools distribution. Buildout&#39;s bootstrap.py  tries to guess if Setuptools or Distribute are installed by checking the availability of pkg_resources; by guessing wrong it all comes to a crash at the end.&lt;/p&gt;
-&lt;p&gt;I&#39;m not very interested in debugging these types of problems anymore. Distribution/packaging tools should just work. I want to focus on my work, not debug the toolchain. No more corner cases or whatver. So I&#39;m gonna compile separate Pythons in the future, especially when dealing with older Zope/Plones.&lt;/p&gt;
-</description>
+      <description>I&#39;ve had a buildout bootstrap process failure, this time a weird one, perhaps I should document the bug and report it.
+The latest Ubuntu version which I have installed (Lucid Lynx) comes with a package called python-pkg-resources, which packages pkg_resources, which used to be available only through the setuptools distribution. Buildout&#39;s bootstrap.py tries to guess if Setuptools or Distribute are installed by checking the availability of pkg_resources; by guessing wrong it all comes to a crash at the end.</description>
     </item>
     
     <item>
@@ -222,12 +78,7 @@ setuptools =&lt;/pre&gt;
       <pubDate>Thu, 28 Jan 2010 20:57:23 -0200</pubDate>
       
       <guid>/blog/2010/01/28/dear-pypi-uploaders-dont-use-a-download-url-upload-your-package-instead/</guid>
-      <description>&lt;p&gt;I think this is the Python Index biggest mistake, the one which makes it unreliable for serious development environments: exposing package entries with no real package files and just a download URL. To see what I&#39;m talking about, just examine the PyPI records for &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/BeautifulSoup&#34;&gt;BeautifulSoup&lt;/a&gt;
- or &lt;a class=&#34;external-link&#34; href=&#34;http://pypi.python.org/pypi/ipython/&#34;&gt;IPython&lt;/a&gt;,
- packages that are very common in buildouts. As soon as the author and publisher of that package has a hosting problem, the developer that uses that package also has a problem. Buildouts will completely fail and this will cause dead times and frustration for the developers.&lt;/p&gt;
-&lt;p&gt;Yes, there are a couple of PyPi mirrors, but they only mirror files hosted by PyPi. The central PyPi site will probably have better performance and availability then what individual groups and developers can provide and it&#39;s always easier to mirror one single website than many, so there&#39;s no shame or loss of pride in using the PyPi to host your files. Please do so!&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&lt;/p&gt;
-</description>
+      <description>I think this is the Python Index biggest mistake, the one which makes it unreliable for serious development environments: exposing package entries with no real package files and just a download URL. To see what I&#39;m talking about, just examine the PyPI records for BeautifulSoup or IPython, packages that are very common in buildouts. As soon as the author and publisher of that package has a hosting problem, the developer that uses that package also has a problem.</description>
     </item>
     
     <item>
@@ -236,27 +87,8 @@ setuptools =&lt;/pre&gt;
       <pubDate>Mon, 30 Nov 2009 20:36:41 -0200</pubDate>
       
       <guid>/blog/2009/11/30/a-dont-do-for-internationalizing-django-templates/</guid>
-      <description>&lt;p&gt;I&#39;m internationalizing a Pinax website and I&#39;ve encountered this piece of code in a template:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;input type=&#34;submit&#34; value=&#34;{% trans &#34;invite&#34; %}&#34;/&amp;gt;
-{% blocktrans %}{{ other_user }} to be a friend.{% endblocktrans %}
-&lt;/pre&gt;
-&lt;p&gt;The message ids for this code would be two separate blocks: &#34;invite&#34; and &#34; %{other_user}s to be a friend&#34;. Both offer very little in terms of context and make the translators job difficult. Correct, in my point of view, would be the more convoluted form of:&lt;/p&gt;
-&lt;pre&gt;{% blocktrans %}
-&amp;lt;input type=&#34;submit&#34; value=&#34;invite&#34;/&amp;gt;
-{{ other_user }} to be a friend.
-{%&amp;nbsp; endblocktrans %}
-&lt;/pre&gt;
-&lt;p&gt;This implies that the translators know enough HTML to notice that the value attribute needs to be translated, but the end result is a lot more flexible and provides real context to them.&lt;/p&gt;
-&lt;p&gt;TL;DR: don&#39;t split paragraphs into separate translation units. It&#39;s a NO-NO.&lt;/p&gt;
-&lt;p&gt;UPDATE: I have found what is probably the worst example of how to create a translatable template. Remember, don&#39;t assume the English language resembles anything like another language.&lt;/p&gt;
-&lt;pre&gt;{% trans &#34;edited by user&#34; %} {{ obj.editor.username }} {% trans &#34;at&#34;%} {{ obj.modified|date:&#34;H:i&#34; }}
-&lt;/pre&gt;
-&lt;p&gt;This should be done this way:&lt;/p&gt;
-&lt;pre&gt;{% blocktrans with obj.editor.username as editor_username and obj.modified|date:&#34;H:i&#34; as obj_modified
-edited by user {{ editor_username }} at {{ obj_modified }}
-{% endblocktrans %}
-&lt;/pre&gt;
-</description>
+      <description>I&#39;m internationalizing a Pinax website and I&#39;ve encountered this piece of code in a template:
+&amp;lt;input type=&#34;submit&#34; value=&#34;{% trans &#34;invite&#34; %}&#34;/&amp;gt; {% blocktrans %}{{ other_user }} to be a friend.{% endblocktrans %}  The message ids for this code would be two separate blocks: &#34;invite&#34; and &#34; %{other_user}s to be a friend&#34;. Both offer very little in terms of context and make the translators job difficult. Correct, in my point of view, would be the more convoluted form of:</description>
     </item>
     
     <item>
@@ -265,11 +97,8 @@ edited by user {{ editor_username }} at {{ obj_modified }}
       <pubDate>Mon, 30 Nov 2009 11:57:54 -0200</pubDate>
       
       <guid>/blog/2009/11/30/odd-thing-in-django-the-date-filter-takes-php-as-reference-instead-of-python/</guid>
-      <description>&lt;p&gt;I wonder what possible explanation there is for the behaviour of the date template filter.&lt;/p&gt;
-&lt;pre&gt;Uses the same format as PHP&#39;s date() function (http://php.net/date) with some custom extensions.
-&lt;/pre&gt;
-&lt;p&gt;I understand where Django comes from, but I think this sort of things should be more aligned with the rest of the Python world.&lt;/p&gt;
-</description>
+      <description>I wonder what possible explanation there is for the behaviour of the date template filter.
+Uses the same format as PHP&#39;s date() function (http://php.net/date) with some custom extensions.  I understand where Django comes from, but I think this sort of things should be more aligned with the rest of the Python world.</description>
     </item>
     
     <item>
@@ -278,26 +107,10 @@ edited by user {{ editor_username }} at {{ obj_modified }}
       <pubDate>Wed, 18 Nov 2009 14:27:15 -0200</pubDate>
       
       <guid>/blog/2009/11/18/if-django-templates-are-an-improvement-over-xml-templates-then-by-all-means-please-give-me-xml/</guid>
-      <description>&lt;p&gt;I fail to see how&lt;/p&gt;
-&lt;pre&gt;{% block %} 
-...
-{% endblock %}
-&lt;/pre&gt;
-&lt;p&gt;is in any way better or &#34;less scary&#34; then, let&#39;s say&lt;/p&gt;
-&lt;pre&gt;&amp;lt;dj:block&amp;gt;
-...
-&amp;lt;/dj:block&amp;gt;
-&lt;/pre&gt;
-&lt;p&gt;Yet another rant, this time triggered by the error I got when writing this piece of code:&lt;/p&gt;
-&lt;pre&gt;{% blocktrans with offer.offerer.username as offerer_username 
-               and offer.offered_time|date as offerer_date %}
-...
-{% endblocktrans %}
-&lt;/pre&gt;
-I just wanted to split the tag on multiple lines, but it seems that&#39;s not possible. If Django templates would have been XML, then it wouldn&#39;t have been any problem formatting that piece just how I want it. Right now, the joined line takes two times the amount of my screen width.
-&lt;p&gt;One more thing to grudge about is that vim, even with djangohtml syntax type installed, is not very knowledgeble about how to format the template file (it treats the tags as regular piece of text). Probably this could be fixed, so I shouldn&#39;t complain about this too much.&lt;/p&gt;
-&lt;p&gt;I think Django templates are compiled to python code, so it&#39;s natural that they&#39;re treated in an imperative, dumb way, but that&#39;s not the only way of doing things. For example, &lt;a class=&#34;external-link&#34; href=&#34;http://launchpad.net/chameleon.core&#34;&gt;Chameleon&lt;/a&gt; is another templating library that compiles its templates as python code, has no problem working with an XML based templating language frontends.&lt;/p&gt;
-</description>
+      <description>I fail to see how
+{% block %} ... {% endblock %}  is in any way better or &#34;less scary&#34; then, let&#39;s say
+&amp;lt;dj:block&amp;gt; ... &amp;lt;/dj:block&amp;gt;  Yet another rant, this time triggered by the error I got when writing this piece of code:
+{% blocktrans with offer.offerer.username as offerer_username and offer.offered_time|date as offerer_date %} ... {% endblocktrans %}  I just wanted to split the tag on multiple lines, but it seems that&#39;s not possible.</description>
     </item>
     
     <item>
@@ -306,27 +119,9 @@ I just wanted to split the tag on multiple lines, but it seems that&#39;s not po
       <pubDate>Tue, 17 Nov 2009 19:00:49 -0200</pubDate>
       
       <guid>/blog/2009/11/17/the-case-against-django-templates/</guid>
-      <description>&lt;p&gt;I have many grudges against the django templating language and its templates (in short, I hate them), so I&#39;m gathering evidence to support what my &#34;spider sense&#34; tells me. Today the template tag system goes under fire.&lt;/p&gt;
-&lt;p&gt;Given the following template fragment:&lt;/p&gt;
-&lt;pre&gt;{% load i18n %}
-{% load avatar_tags %}
-{% load voting_tags %}
-{% load pagination_tags %}
-{% load extra_voting_tags %}
-{% load in_filter %}
-{% load extra_tagging_tags %}
-{% load sorting_tags %}&lt;/pre&gt;
-&lt;p&gt;Which one is responsible for the following &#34;anchor&#34; tag?&lt;/p&gt;
-&lt;pre&gt;{% anchor &#34;hotness&#34; &#34;reddit-like hotness&#34; %}&lt;/pre&gt;
-&lt;p&gt;That&#39;s the equivalent of diving into a python module, with lots of &#34;from X import *&#34; at the top. Where do you find the definition of a symbol? At least, if it were Python, I could do a tag search in Vim, or a &#34;go to definition&#34; in Eclipse. If this practice is frowned upon in the rest of the Python world, why are so many programmers praising the Django templating system? Am I the only mad man here? My problems with this tag is that it doesn&#39;t translate the content, so I&#39;ll need to grep for its source and change it.&lt;/p&gt;
-&lt;p&gt;The template tags in Django are about extending the templating language, as to provide the programmer with new and specialized ways to interact with the template and its environment. The reason for this &#34;tag inflation&#34; is that the django templating language, for all its richness (by tags and filters numbers, I mean), is really limited. Python expressions are not allowed, and for every imaginable use case, there needs to be a tag, specialized or not.&lt;/p&gt;
-&lt;p&gt;How would Zope 3 solve, for example, a problem similar to the one the &#34;anchor&#34; tag handles? Well, rendering a special link for a content item could be as easy as&lt;/p&gt;
-&lt;pre&gt;&amp;lt;a href=&#34;&#34; tal:replace=&#34;someobject/@@hotness_link&#34;&amp;gt;&amp;lt;img src=&#34;hotness.gif&#34; /&amp;gt;&amp;lt;/a&amp;gt;
-&lt;/pre&gt;
-&lt;p&gt;Is this better? I think so. I&#39;m editing HTML, and the &amp;lt;a /&amp;gt; tag is way better in expressing what the end result will be, compared to a simple {% anchor %} tag. Even more, the &amp;lt;img /&amp;gt; tag inside is purely cosmetic, just to cue the viewer of what the final result will be. The entire &amp;lt;a /&amp;gt; tag, with its content, will be replaced by whatever result is rendered calling the the someobject/@@hotness_link view. Finding the source of the hotness_link view is easily introspectable TTW using a debug tool such as &lt;a class=&#34;external-link&#34; href=&#34;http://svn.zope.org/lovely.skinbrowser/&#34;&gt;lovely.skinbrowser&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;The ZPT templates from Zope 3 can also give you a mechanism where you can add new expression types, but there&#39;s just one or two packages in the wild that define new expression types. Now compare this to the regular Django projects, were defining new tags is something that almost all projects do.&lt;/p&gt;
-&lt;p&gt;In conclusion, even though Django templates are much more imperative then ZPT, which are very declarative, they don&#39;t achieve the power and simplicity that they strive for.&lt;/p&gt;
-</description>
+      <description>I have many grudges against the django templating language and its templates (in short, I hate them), so I&#39;m gathering evidence to support what my &#34;spider sense&#34; tells me. Today the template tag system goes under fire.
+Given the following template fragment:
+{% load i18n %} {% load avatar_tags %} {% load voting_tags %} {% load pagination_tags %} {% load extra_voting_tags %} {% load in_filter %} {% load extra_tagging_tags %} {% load sorting_tags %} Which one is responsible for the following &#34;</description>
     </item>
     
     <item>
@@ -335,34 +130,8 @@ I just wanted to split the tag on multiple lines, but it seems that&#39;s not po
       <pubDate>Thu, 12 Nov 2009 20:57:19 -0200</pubDate>
       
       <guid>/blog/2009/11/12/djangos-makemessages-sucks-for-my-use-cases/</guid>
-      <description>&lt;p&gt;Yet another angry rant, caused, of course, by using Django in anger. Nothing wrong with using something in anger, that&#39;s the real way I learn something. Zope 3 even has an online book on how to use it in anger.&lt;/p&gt;
-&lt;p&gt;That said, Django&#39;s makemessages administrative command sucks by being way too inflexible to anything but the ideal Django development environment. My environment looks like this: I have a project based on Pinax, which I&#39;m developing and deploying using zc.buildout. My source code sits in src, where I have several packages. I also have a &#34;localsettings.py&#34; module located in the root of the buildout, because I don&#39;t want to have it inside the src folder. Pinax is located in parts/Pinax, and it&#39;s actually a git checkout, based on my own fork of Pinax. Pinax doesn&#39;t have translations at the moment (I think I saw a ticket in its tracker about reintroducing a translation package), so I&#39;m on my own here with regards to translation.&lt;/p&gt;
-&lt;p&gt;With this setup, it is close to impossible for me to generate anything useful without a lot of hacking and swearing. Makemessages insists on being run from inside a Django project, and when I did that, it complains about missing localsettings module. Pointing the root of the buildout as pythonpath didn&#39;t do anything. A good thing that I have already extracted messages from the templates, before switching to the buildout project structure.&lt;/p&gt;
-&lt;p&gt;Some solutions that I have found:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;I can extract messages from the Pinax python modules using this homegrown script:&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;pre&gt;PYFILES=/tmp/pyfiles
-PINAX=parts/Pinax/pinax/ 
-BASE=/home/tibi/work/ProjectBuildout/src/project/locale/ro/LC_MESSAGES/
-POTFILE_PYTHON=$BASE/python.pot
-POTFILE_TEMPLATES=$BASE/templates.pot
-POTFILE=$BASE/django.pot
-POFILE=$BASE/django.po
-
-#extract messages from python code
-find $PINAX | grep &#34;.*py$&#34; &amp;gt; /tmp/pyfiles
-touch $POTFILE_PYTHON
-xgettext -j -L python -d django -f $PYFILES -o $POTFILE_PYTHON
-
-#merge the templates + python messages into one pot file
-msgcat -o $POTFILE $POTFILE_TEMPLATES $POTFILE_PYTHON
-
-#merge the potfile with the po file
-msgmerge -U -N $POFILE $POTFILE&lt;/pre&gt;
-&lt;ul&gt;&lt;li&gt;I have copied all the templates from pinax and its associated applications inside a template folder in my project. Now I can generate the po file, from my src/project folder, with&lt;/li&gt;&lt;/ul&gt;
-&lt;pre&gt;../../bin/py ./../../manage.py makemessages -e .py -e .html -l ro
-&lt;/pre&gt;
-&lt;p&gt;Of course, I can&#39;t run this over the other apps and packages in my src/ folder to extract messages from the python modules, so I am forced to adjust the first script to take those folders into consideration.&lt;/p&gt;
-</description>
+      <description>Yet another angry rant, caused, of course, by using Django in anger. Nothing wrong with using something in anger, that&#39;s the real way I learn something. Zope 3 even has an online book on how to use it in anger.
+That said, Django&#39;s makemessages administrative command sucks by being way too inflexible to anything but the ideal Django development environment. My environment looks like this: I have a project based on Pinax, which I&#39;m developing and deploying using zc.</description>
     </item>
     
     <item>
@@ -371,54 +140,8 @@ msgmerge -U -N $POFILE $POTFILE&lt;/pre&gt;
       <pubDate>Wed, 07 Oct 2009 19:17:32 -0300</pubDate>
       
       <guid>/blog/2009/10/07/questioning-the-quality-of-code-in-django-third-party-projects/</guid>
-      <description>&lt;p&gt;I&#39;m not sure how I feel about this... In some ways, I think it&#39;s very positive that a relative newcomer can just jump in and release an opensource project that can be taken and reused by others. Did Django allowed this? That&#39;s very positively PHP-like...&lt;/p&gt;
-&lt;p&gt;I&#39;m talking about a glimpse at some code that I caught while helping my brother integrate the Diamandas forum to a site he&#39;s doing. It stunned me that it has the marks of a developer that is not very experienced with the language or the framework, but it&#39;s moving at a speed that is too great to stop and fix or check what he&#39;s doing.&lt;/p&gt;
-&lt;p&gt;This:&lt;/p&gt;
-&lt;pre&gt;pr = False&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-if forum.use_prefixes:&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-    p = Prefix.objects.filter(forums=forum)&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-    if len(p) &amp;gt; 0:&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-        pr = []&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-        for i in p:&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; 
-            pr.append(i)
-&lt;/pre&gt;
-&lt;p&gt;is a fragment from an apparently &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/diamanda/source/browse/trunk/diamandas/myghtyboard/modelwrappers.py#47&#34;&gt;nice Django forum add-on&lt;/a&gt;. First, it could easily be rewritten as:&lt;/p&gt;
-&lt;pre&gt;pr = []
-if forum.use_prefixes:
-&amp;nbsp;&amp;nbsp;&amp;nbsp; pr = Prefix.objects.filter(forums=forum)
-&lt;/pre&gt;
-&lt;p&gt;Suppose you don&#39;t trust the Django queryset results to really behave like a list (that could happen for some legitimate reasons, but I&#39;m sure that&#39;s not the case here). Then you could write the last line as:&lt;/p&gt;
-&lt;pre&gt;pr = list(Prefix.objects.filter(forums=forum))&lt;/pre&gt;
-&lt;p&gt;Of course, no more lazy loading of objects and a bit more memory consumption. More, about the looks of this code:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&#34;len(p) &amp;gt; 0&#34; can be rewritten as &#34;if p&#34;&lt;/li&gt;&lt;li&gt;why define the &#34;pr&#34; as a False value instead of an empty list, which will become at one point?&lt;/li&gt;&lt;li&gt;why use the &#34;i&#34; name for a prefix object type, when this is typically used as an integer counter?&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Further on that page there&#39;s&lt;/p&gt;
-&lt;pre&gt;tp = TopicPrefix(topic=new_place)
-tp.save()
-tp.prefix=pr
-tp.save()
-&lt;/pre&gt;
-&lt;p&gt;I haven&#39;t tried this, but I&#39;m pretty sure that only one call to save() is needed. Probably more odd things could be found, but I haven&#39;t tried to look further - I already found the source of my brother&#39;s problems.&lt;/p&gt;
-&lt;p&gt;These superficial aspects are the ones that make me also question the architectural choices that were made for this add-on, the overall quality of the code that might impact performance, etc. How can I trust an application that has bits of code like this? I&#39;m pretty sure that this particular developer (I haven&#39;t bothered tracking exactly who it was) has a bright future in the Django community and will probably polish his Python skills to generate good code. Overall, the Python and Django communities will also benefit from an influx of new developers. But I&#39;m left feeling insecure about my decision to write code for the Django platform. I&#39;m mostly (or I want to be) an integrator and I depend on good third-party addons, which Django seems to have a lot. But if two out of three projects that I have tried (Satchmo and Diamandas) left me confused, how else should I feel? Ironically, the one project that I have really liked (LFS) came from a Zope developer... So maybe we need a bigger Zope &amp;gt; Django migration phenomena.&lt;/p&gt;
-&lt;p&gt;UPDATE: well, it looks like Django isn&#39;t free of promoting (IMHO) stupid solutions, too. Check out this piece of code from the &lt;a class=&#34;external-link&#34; href=&#34;http://docs.djangoproject.com/en/dev/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display&#34;&gt;Django admin documentation&lt;/a&gt;:&lt;/p&gt;
-&lt;pre&gt;return self.birthday.strftime(&#39;%Y&#39;)[:3] == &#39;195&#39;
-&lt;/pre&gt;
-&lt;p&gt;This smells a lot like stupid code that beginner PHP programmers would write. When you&#39;re dealing with a number (the year), why convert it to a string? The code itself yields correct results, but the method used feels stupid. I&#39;d rather see something like:&lt;/p&gt;
-&lt;pre&gt;return 1949 &amp;lt; self.birthday.year &amp;lt; 1960
-&lt;/pre&gt;
-&lt;p&gt;Another one, not a bug, but a design decision from Django, which forces third party projects like Pinax to mangle with the syspath just to get django happy:&lt;/p&gt;
-&lt;pre&gt;  File &#34;/home/tibi/work/lib/python2.5/site-packages/django/contrib/auth/models.py&#34;, line 283, in get_profile
-    app_label, model_name = settings.AUTH_PROFILE_MODULE.split(&#39;.&#39;)
-&lt;/pre&gt;
-&lt;p&gt;What&#39;s my AUTH_PROFILE_MODULE set to?&lt;/p&gt;
-&lt;pre&gt;AUTH_PROFILE_MODULE = &#39;pinax.apps.basic_profiles.Profile&#39;
-&lt;/pre&gt;
-&lt;p&gt;Actually, thinking more about this: &#34;pinax.apps.basic_profiles.Profile&#34; is not even a real path, Profile is a class in &#34;models.py&#34;, so it might be valid for Django to request its special rules there. Valid, but non-intuitive and non-standard for the rest of the Python world.&lt;/p&gt;
-&lt;p&gt;Another weird stuff, this time in Pinax. Looks like really young code, which hasn&#39;t been subjected to a thorough code review yet: friends_app/views.py. This is file has some weird indentation problems (some lines get indented more then they need to be). What about this piece of code:&lt;/p&gt;
-&lt;pre&gt;authsub_token = request.session.get(&#39;authsub_token&#39;)
-del request.session[&#39;authsub_token&#39;]&lt;/pre&gt;
-&lt;p&gt;If &#39;authsub_token&#39; is not in the session, (as it was my case, which made me discover this), you&#39;ll get an error on the second line. Of course, this bug highlights the more important problem, of the missing authsub_token, but what about the careless programming?&lt;/p&gt;
-</description>
+      <description>I&#39;m not sure how I feel about this... In some ways, I think it&#39;s very positive that a relative newcomer can just jump in and release an opensource project that can be taken and reused by others. Did Django allowed this? That&#39;s very positively PHP-like...
+I&#39;m talking about a glimpse at some code that I caught while helping my brother integrate the Diamandas forum to a site he&#39;s doing. It stunned me that it has the marks of a developer that is not very experienced with the language or the framework, but it&#39;s moving at a speed that is too great to stop and fix or check what he&#39;s doing.</description>
     </item>
     
     <item>
@@ -427,18 +150,8 @@ del request.session[&#39;authsub_token&#39;]&lt;/pre&gt;
       <pubDate>Thu, 17 Sep 2009 22:59:23 -0300</pubDate>
       
       <guid>/blog/2009/09/17/customizing-django-lfs-lightning-fast-shop-for-the-non-django-developer/</guid>
-      <description>&lt;p&gt;I&#39;m not a Django developer, but I have a project that involves deploying a LFS site, and it took me a bit of time and effort to understand how to customize its templates and resources. This all may seem obvious to the any Django developer, but I&#39;m not, so I think this info needs to be out there.&lt;/p&gt;
-&lt;p&gt;As a side note, at first I have reviewed Satchmo, as it seemed to have more traction in the Django community (being a Zope/Plone developer, I am more aware of the previous work done by the LFS developer, the EasyShop). The Satchmo installation, for the un-initiated, seems to be a nightmare of many different settings that needed to be tweaked, skeletons that don&#39;t work OOTB, at least in the way I have installed them. On top of all this,  it seems to think that I also need to develop some sort of project that will integrate with the Satchmo shop (but this may be due to Django). What happened to treating your product as the end product? After a bit of effort, I had one instance running and ready to review it. Several days, in another Linux virtual machine (I&#39;ve switched from VMWare to VirtualBox), I&#39;ve tried to install Satchmo again, this time using djangorecipe. I didn&#39;t have the same patience, though.&lt;/p&gt;
-&lt;p&gt;A short look at LFS convinced me to at least give it a try: there is a buildout that can be installed easily (although there were a few dependencies that I had to install), the &#34;backend&#34; is polished compared to the default django admin views used by Satchmo, and, while it is simpler, less featured, than Satchmo, it does everything I need.&lt;/p&gt;
-&lt;p&gt;Onward to customizing the LFS: my goal is to be able to change templates (for example, the base layout) and publish a new logo.&lt;/p&gt;
-&lt;p&gt;I&#39;ve created a new folder &#34;mytheme&#34; inside the buildout, with two subfolders: &#34;templates&#34; and &#34;static&#34;. The path to the templates folder needs to be inserted in the &#34;TEMPLATES_DIRS&#34; variables from settings.py. To customize the base template, for example, I&#39;ve created a  &#34;lfs/base.html&#34; file inside the &#34;templates&#34; folder. Its content can be copied from the original in the lfs_theme folder. I&#39;ve added a new line in the header section, pointing to a new CSS file that will customize the base LFS stylesheet.&lt;/p&gt;
-&lt;pre&gt;&amp;lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;{{ MEDIA_URL }}mytheme/css/custom.css&#34; /&amp;gt;&lt;/pre&gt;
-&lt;p&gt;As a side note, this templates folder can be used for overriding any other template: templates in Django are usually denoted by a relative path, and you need only to replicate this path inside our overriding templates folder.&lt;/p&gt;
-&lt;p&gt;Next, overriding and creating new resources: I have created a &#34;static&#34; folder inside &#34;mytheme&#34; and I&#39;ve linked to it inside the lfs_project/media folder. Inside the &#34;mytheme&#34; folder I can now host images and files, in 2 new &#34;css&#34; and &#34;img&#34; subfolders. Back in my customized base.html, I have changed the logo path:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;img class=&#34;logo&#34; src=&#34;{{ MEDIA_URL }}mytheme/img/logo.jpg&#34; alt=&#34;Logo&#34; /&amp;gt;&lt;/pre&gt;
-&lt;p&gt;That&#39;s about it: I got a custom CSS, the ability to customize templates and to point to new images. I&#39;m happy for now.&lt;/p&gt;
-&lt;p&gt;As I have said in the beginning, this is all basic stuff. No harm done in pointing to the obvious though, as there seem to be many new developers flocking to Django, all with different level of expertise.&lt;/p&gt;
-</description>
+      <description>I&#39;m not a Django developer, but I have a project that involves deploying a LFS site, and it took me a bit of time and effort to understand how to customize its templates and resources. This all may seem obvious to the any Django developer, but I&#39;m not, so I think this info needs to be out there.
+As a side note, at first I have reviewed Satchmo, as it seemed to have more traction in the Django community (being a Zope/Plone developer, I am more aware of the previous work done by the LFS developer, the EasyShop).</description>
     </item>
     
     <item>
@@ -447,10 +160,213 @@ del request.session[&#39;authsub_token&#39;]&lt;/pre&gt;
       <pubDate>Wed, 05 Aug 2009 11:39:26 -0300</pubDate>
       
       <guid>/blog/2009/08/05/reportlab-is-one-frustrating-piece-of-software.../</guid>
-      <description>&lt;p&gt;I&#39;m starting to grow a strong dislike to it, enough to steer me off Python to JVM, with Jython or Scala. Case in point: its authors considered that it&#39;s appropriate to overload the Paragraph class from the platypus module, to make it accept a form of &#34;xml&#34;. There&#39;s no switch to disable this behavior and its xml handling is something straight out of the 90&#39;s: no namespaces, no validation. What happens for example, when you&#39;re trying to make a paragraph with the text:&lt;/p&gt;
-&lt;pre&gt; &#34;Some html documents contain &amp;lt;img&amp;gt; tags&#34;&lt;/pre&gt;
-&lt;p&gt;That&#39;s right, you&#39;ll encounter an error. The &#34;&amp;lt;img&amp;gt;&#34; fragment is interpreted as an img tag for the Paragraph, which will then complain that it&#39;s missing a src attribute. I wonder how can ReportLab be promoted as an enterprise solution and still display this behavior. The easiest solution, in my opinion, would be to create a new class that accepts properly formated xml, and RL&#39;s special tags need to be isolated in a new namespace. Fortunately, for the time being, I can do a replace for the &#34;&amp;lt;&#34; character with the &amp;amp;lt; entity.&lt;/p&gt;
-</description>
+      <description>I&#39;m starting to grow a strong dislike to it, enough to steer me off Python to JVM, with Jython or Scala. Case in point: its authors considered that it&#39;s appropriate to overload the Paragraph class from the platypus module, to make it accept a form of &#34;xml&#34;. There&#39;s no switch to disable this behavior and its xml handling is something straight out of the 90&#39;s: no namespaces, no validation. What happens for example, when you&#39;re trying to make a paragraph with the text:</description>
+    </item>
+    
+    <item>
+      <title>Laughable bug in a new Google Webmaster Tools feature</title>
+      <link>/blog/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature/</link>
+      <pubDate>Thu, 11 Jun 2009 15:53:16 -0300</pubDate>
+      
+      <guid>/blog/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature/</guid>
+      <description>Somebody at Google has screwed up in a laughable manner. Webmaster Tools just got a new feature: the ability to tell Google that you have moved a site to a new domain. I&#39;m in the same situation with one site that I manage: www.caleidoscop.org.ro has been moved recently to www.caleidoscop.org. Although I have done my best (I still need to persuade nginx to generate 301 redirects instead of 302) to ease this transition and absolutely everything pointing to the .</description>
+    </item>
+    
+    <item>
+      <title>My new blog dedicated to all things VIM</title>
+      <link>/blog/2009/05/10/my-new-blog-dedicated-to-all-things-vim/</link>
+      <pubDate>Sun, 10 May 2009 18:45:45 -0300</pubDate>
+      
+      <guid>/blog/2009/05/10/my-new-blog-dedicated-to-all-things-vim/</guid>
+      <description>I&#39;ve opened a new blog, at http://vimzone.pixelblaster.ro It runs on the latest Plone 3, with the NottreDamme skin and Scrawl as the blogging product. I&#39;ll probably install also the QuillsEnabled extension. There&#39;s not a lot of content on it, although it&#39;s already almost 2 months old. It&#39;s a place for me to scribble things I know about VIM and use or discover.</description>
+    </item>
+    
+    <item>
+      <title>The sorry state of internationalization in Plone</title>
+      <link>/blog/2009/04/16/the-sorry-state-of-internationalization-in-plone/</link>
+      <pubDate>Thu, 16 Apr 2009 17:32:14 -0300</pubDate>
+      
+      <guid>/blog/2009/04/16/the-sorry-state-of-internationalization-in-plone/</guid>
+      <description>Ever since Plone 2.5 stopped being the hot new thing in the Plone world, the state of content internationalization support in Plone has been declining. Partly due to the difficulty of extending Zope 2 products, LinguaPlone has always been a hack, but at least back then it worked. These days I&#39;m not heavily involved with Plone, but whenever I need to add LinguaPlone to a Plone 3 site, I cringe and weep, especially that those projects never allocate time for me to fix the obvious problems.</description>
+    </item>
+    
+    <item>
+      <title>Success on a one year old problem installing CacheFu</title>
+      <link>/blog/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu/</link>
+      <pubDate>Sat, 28 Feb 2009 17:47:14 -0200</pubDate>
+      
+      <guid>/blog/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu/</guid>
+      <description>I&#39;ve upgraded CacheFu (Products.CacheSetup) to the latest 1.2 for some of the websites that I manage, in a Plone 2.5 cluster. One of them had a problem that I haven&#39;t been able to track previously, due to limited time: on a reinstall of CacheSetup, due to product upgrades, CacheFu couldn&#39;t be installed anymore. The traceback was something like:
+this product has already been installed without Quickinstaller!failed: Traceback (most recent call last): File &#34;</description>
+    </item>
+    
+    <item>
+      <title>Specific imports versus module imports in Python</title>
+      <link>/blog/2008/12/03/specific-imports-versus-module-imports-in-python/</link>
+      <pubDate>Wed, 03 Dec 2008 12:05:20 -0200</pubDate>
+      
+      <guid>/blog/2008/12/03/specific-imports-versus-module-imports-in-python/</guid>
+      <description>I&#39;ve always been a fan of explicit, separate imports in Python, vs generic module imports. Maybe it&#39;s because I like things to be explicit, or I&#39;ve been spoiled by the way Eclipse Pydev deals with auto-importing, but I have an aversion towards generic module imports. To keep the code style consistent, I even rewrite to this style any foreign code that ends up in my code.
+Specifically, I&#39;m talking about:</description>
+    </item>
+    
+    <item>
+      <title>Moving to Intrepid and KDE 4.1</title>
+      <link>/blog/2008/11/23/moving-to-intrepid-and-kde-4.1/</link>
+      <pubDate>Sun, 23 Nov 2008 21:13:23 -0200</pubDate>
+      
+      <guid>/blog/2008/11/23/moving-to-intrepid-and-kde-4.1/</guid>
+      <description>I&#39;ve migrated my laptop (my main workstation, these days) and I&#39;ve done a complete migration to the KDE 4.1 desktop. Things are not perfect, (on the old KDE 3.5 I&#39;d say things were 99% according to my tastes), but I&#39;m trying to accomodate and find replacements. I didn&#39;t like the KDE 4.1 launcher at first and I&#39;ve even tested Launcelot for a while, but now I&#39;m back to the default menu and I&#39;m starting to like it (on 3.</description>
+    </item>
+    
+    <item>
+      <title>Stupid Internet Explorer and stupid IE bugs</title>
+      <link>/blog/2008/09/15/stupid-internet-explorer-and-stupid-ie-bugs/</link>
+      <pubDate>Mon, 15 Sep 2008 14:38:42 -0300</pubDate>
+      
+      <guid>/blog/2008/09/15/stupid-internet-explorer-and-stupid-ie-bugs/</guid>
+      <description>I&#39;m placing the finishing touches on a web application I&#39;ve been writing on and off for the last year. At last, I&#39;ve reached Internet Explorer bugs, which are usually the last to be fixed. Among several other stupid but documented bugs, I&#39;ve found one which I couldn&#39;t find documented in a shallow search on Google: it seems IE has an algorithm for comparing strings that is different then the one that is used internally when sorting an array of strings.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu Hardy Heron: some things are bad</title>
+      <link>/blog/2008/03/28/ubuntu-hardy-heron-some-things-are-bad/</link>
+      <pubDate>Fri, 28 Mar 2008 09:53:44 -0200</pubDate>
+      
+      <guid>/blog/2008/03/28/ubuntu-hardy-heron-some-things-are-bad/</guid>
+      <description>Note to self: always create a root account on Ubuntu. I&#39;ve updated my laptop to Kubuntu Hardy Heron, and while some things worked fine, there are a couple of stupid bugs that chained to make my life hard.
+First of all, why did the Network Configuration applet in Settings Manager in KDE saw fit to delete the hostname of my localhost, tibi-laptop, from /etc/hosts? Now I can&#39;t run anything with sudo, as it imediately aborts with an error &#34;</description>
+    </item>
+    
+    <item>
+      <title>Why do I use Zope 3?</title>
+      <link>/blog/2008/03/19/why-do-i-use-zope-3/</link>
+      <pubDate>Wed, 19 Mar 2008 19:33:08 -0200</pubDate>
+      
+      <guid>/blog/2008/03/19/why-do-i-use-zope-3/</guid>
+      <description>I&#39;m in the process of beginning a new project and I&#39;m debating on what framework to use. Of course it will be Zope 3, but why do I use it. Well, it&#39;s sure something that has to do with these facts:
+it&#39;s open source, with a strong, mature community around itwhile it&#39;s still actively development, it has a stable API
+ it&#39;s written in Python, one of the easiest and most powerful languagesit&#39;s built around a component architecture, which means writing pluggable applications comes naturallysolves the problem of publishing objects through the webeverything is transaction based.</description>
+    </item>
+    
+    <item>
+      <title>Updates to Zope &amp; Plone tips section</title>
+      <link>/blog/2007/06/05/updates-to-zope--plone-tips-section/</link>
+      <pubDate>Tue, 05 Jun 2007 17:45:49 -0300</pubDate>
+      
+      <guid>/blog/2007/06/05/updates-to-zope--plone-tips-section/</guid>
+      <description>I&#39;ve updated the Zope &amp;amp; Plone tips and tutorials section with a bunch of new pages and several additions to the svn.zope.org package listing. I thought it might be interesting to highlight this here, I&#39;m not exactly sure how visible (or interesting!) is that section to the readers of this blog.</description>
+    </item>
+    
+    <item>
+      <title>Some thoughts about the purpose of this blog</title>
+      <link>/blog/2007/05/28/some-thoughts-about-the-purpose-of-this-blog/</link>
+      <pubDate>Mon, 28 May 2007 10:13:49 -0300</pubDate>
+      
+      <guid>/blog/2007/05/28/some-thoughts-about-the-purpose-of-this-blog/</guid>
+      <description>I&#39;ve been thinking lately at the purpose of this blog, what it wants to be, what is really a blog and what I should write here. The number of posts have gone down in the last half of year, partly due to increased work load and partly due to some restructuring that I have done. In general, I&#39;m unhappy about posting small tips and bits of information on the blog, that&#39;s why I have created a Tips &amp;amp; Tutorials section on this site.</description>
+    </item>
+    
+    <item>
+      <title>Running Python based software in the GPU?</title>
+      <link>/blog/2007/05/25/running-python-based-software-in-the-gpu/</link>
+      <pubDate>Fri, 25 May 2007 09:56:45 -0300</pubDate>
+      
+      <guid>/blog/2007/05/25/running-python-based-software-in-the-gpu/</guid>
+      <description>I&#39;m not a GFX or 3d programmer, but looking at this blog entry, I understand that these guys are getting ready a way to run Python based software in the GPU. I wonder what kind of speed improvements can be achieved through that, although I fear that it&#39;s only going to work for numeric type of programs.</description>
+    </item>
+    
+    <item>
+      <title>I hate brackets! (or rants of a JavaScript novice programmer)</title>
+      <link>/blog/2007/02/27/i-hate-brackets-or-rants-of-a-javascript-novice-programmer/</link>
+      <pubDate>Tue, 27 Feb 2007 17:09:31 -0200</pubDate>
+      
+      <guid>/blog/2007/02/27/i-hate-brackets-or-rants-of-a-javascript-novice-programmer/</guid>
+      <description>Javascript is nice, I&#39;m having fun building this Zope3/Ajax based application that I&#39;m working on right now. What I don&#39;t enjoy is the forest of non-alphanumeric characters that has started to clog my code. I&#39;m really a novice when it comes to Javascript, most of my professional programming has been done with other languages, but look for example at this fragment of code:
+ for (i=0; i&amp;lt; parent.childNodes.length; i++) {</description>
+    </item>
+    
+    <item>
+      <title>Mylar &#43; Trac: yet another reason to use Eclipse</title>
+      <link>/blog/2007/02/25/mylar---trac-yet-another-reason-to-use-eclipse/</link>
+      <pubDate>Sun, 25 Feb 2007 19:00:53 -0200</pubDate>
+      
+      <guid>/blog/2007/02/25/mylar---trac-yet-another-reason-to-use-eclipse/</guid>
+      <description>Today I&#39;ve wanted to change something in a trac instance I have setup for a project, when I thought: &#34;I wish there was a way to do this from inside Eclipse&#34;. And there is! After a bit of searching (this information is available from the Trac site), I&#39;ve discovered that Eclipse has a project that handles task based programming, project called Mylar, which has a Trac connector plugin financed through a Google Summer of Code project.</description>
+    </item>
+    
+    <item>
+      <title>Laptop memory updated</title>
+      <link>/blog/2007/02/25/laptop-memory-updated/</link>
+      <pubDate>Sun, 25 Feb 2007 18:53:41 -0200</pubDate>
+      
+      <guid>/blog/2007/02/25/laptop-memory-updated/</guid>
+      <description>Thanks to the friendly guys at RDC Computers (boo Material Computers, who just turned their backs and said that they don&#39;t have it), I&#39;ve upgraded the memory on my laptop. Now things have really started to fly. Before I only had 512 MB of RAM (which had to be shared with the onboard video card), but now I have a really cool 1.5 GB of RAM. I didn&#39;t want to go higher (to 2 GB) because I&#39;m thinking that the 1.</description>
+    </item>
+    
+    <item>
+      <title>Onwards to Gnome through Beryl and back to KDE</title>
+      <link>/blog/2007/02/21/onwards-to-gnome-through-beryl-and-back-to-kde/</link>
+      <pubDate>Wed, 21 Feb 2007 18:35:40 -0200</pubDate>
+      
+      <guid>/blog/2007/02/21/onwards-to-gnome-through-beryl-and-back-to-kde/</guid>
+      <description>I like my Linux to stay &#34;on the edge&#34;, I like the excitement of knowing that on the next update you&#39;ll get new or improved software, which happens a lot in the Open Source world. So I&#39;ve updated yesterday my laptop (a Compaq NX 6125) to the yet unreleased Ubuntu Feisty Fawn, an experienced that took almost 24 hours to have a fully working system at the end. I&#39;ll give some details of the problems encountered below.</description>
+    </item>
+    
+    <item>
+      <title>First glance at Plone 3</title>
+      <link>/blog/2007/02/11/first-glance-at-plone-3/</link>
+      <pubDate>Sun, 11 Feb 2007 12:49:20 -0200</pubDate>
+      
+      <guid>/blog/2007/02/11/first-glance-at-plone-3/</guid>
+      <description>Thanks to the easy plone 3 buildout (plonout), I&#39;m having my first look at the upcoming Plone 3. Some of the more evident changes:
+Versioning is now possible thanks to CMFEditions, which means a &#34;Save as version&#34; option in the edit screen and a &#34;Versions&#34; page on objects.
+The Kupu integration has been improved, the Kupu configlet offering new functions: the possibility to edit the toolbar, a new, streamlined interface to control the resource types and the possibility to replace the reference browser with a kupu drawer.</description>
+    </item>
+    
+    <item>
+      <title>Why do the GIMP developer hate us?</title>
+      <link>/blog/2006/12/21/why-do-the-gimp-developer-hate-us/</link>
+      <pubDate>Thu, 21 Dec 2006 14:21:47 -0200</pubDate>
+      
+      <guid>/blog/2006/12/21/why-do-the-gimp-developer-hate-us/</guid>
+      <description>I&#39;m working on a website for which I have received PSD templates and I just need to do a Plone skin based on the templates. I&#39;m using GIMP for various tasks, like trimming images, exporting for web, etc. Now that I have mapped some key shortcuts to their old Photoshop equivalents, to which I am used, Gimp seems more bearable. Not by much, though. Why do the Gimp developers decided that it&#39;s a cool and clever idea to develop this application in this way?</description>
+    </item>
+    
+    <item>
+      <title>Kde applications vs Gnome applications</title>
+      <link>/blog/2006/09/23/kde-applications-vs-gnome-applications/</link>
+      <pubDate>Sat, 23 Sep 2006 18:22:43 -0300</pubDate>
+      
+      <guid>/blog/2006/09/23/kde-applications-vs-gnome-applications/</guid>
+      <description>I&#39;m switching a bunch of Gnome daily used apps to their KDE counterparts. Namely I&#39;ve switched from *Liferea to Akregate, from **GnoCHM to KchmViewer and from ***GIMP to Krita (Gimp sucks too much for me in terms of workflow, while Krita is more conventional and less awkward from some points of view). I&#39;m using already using Konversation for IRC (much better then XChat, I&#39;d use Chatzilla but it doesn&#39;t go to the systray), Tellico to keep a database of PS2 games and K3b for burning dvds.</description>
+    </item>
+    
+    <item>
+      <title>Trying KDE as the main work desktop</title>
+      <link>/blog/2006/09/02/trying-kde-as-the-main-work-desktop/</link>
+      <pubDate>Sat, 02 Sep 2006 20:38:22 -0300</pubDate>
+      
+      <guid>/blog/2006/09/02/trying-kde-as-the-main-work-desktop/</guid>
+      <description>Until a year ago, when I had my first hands-on experience with Ubuntu, I was a KDE fan. I still admire the desktop and follow closely the development, but I was so impressed at that time by the uniformity and visual appeal that Gnome, under Ubuntu, offered, that I switched. Recently I found the Gnome desktop to be a bit on the slow on my laptop, so I&#39;ve tried several lighter window managers.</description>
+    </item>
+    
+    <item>
+      <title>Tricks of the mind</title>
+      <link>/blog/2006/08/12/tricks-of-the-mind/</link>
+      <pubDate>Sat, 12 Aug 2006 19:48:21 -0300</pubDate>
+      
+      <guid>/blog/2006/08/12/tricks-of-the-mind/</guid>
+      <description>I&#39;ve been playing in my mind, for the last two days, for no apparent reason, &#34;Birds of a feather&#34; by Phish. I even asked myself at one point what&#39;s with the song that keeps appearing in my mind. Well, I think I found the reason. For the last two days, the first portlet on my customized slashdot homepage was KDENews, which had a news item on a &#34;Birds of a Feather&#34;</description>
+    </item>
+    
+    <item>
+      <title>I don&#39;t like the new python.org webpage</title>
+      <link>/blog/2006/08/12/i-dont-like-the-new-python.org-webpage/</link>
+      <pubDate>Sat, 12 Aug 2006 13:50:59 -0300</pubDate>
+      
+      <guid>/blog/2006/08/12/i-dont-like-the-new-python.org-webpage/</guid>
+      <description>When it first appeared, I said &#34;heh&#34;, but now I don&#39;t like the new python.org webpage. The new page certainly looks a lot more &#39;designed&#39;, but the old one was certainly cute, and had the classic python logo. Where&#39;s that lovely snake? My concern is the overall feel of the page, not its content or internal organization. The present colors are too &#34;4 years ago&#34;, I especially hate that blueish color.</description>
     </item>
     
   </channel>

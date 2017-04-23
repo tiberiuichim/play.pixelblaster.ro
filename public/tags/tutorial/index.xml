@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tutorial on The Plone Expanse</title>
-    <link>/tags/tutorial/index.xml</link>
+    <link>/tags/tutorial/</link>
     <description>Recent content in Tutorial on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Jan 2017 09:21:46 -0100</lastBuildDate>
+    
+	<atom:link href="/tags/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Do you really need that metadata column?</title>
@@ -15,45 +18,8 @@
       <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
       
       <guid>/blog/2017/01/08/do-you-really-need-that-metadata-column/</guid>
-      <description>&lt;p&gt;It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&amp;nbsp;&lt;/p&gt;
-&lt;p&gt;As an example: when exploring collective.portlet.collectionfilter I&#39;ve noticed that the definition of the filters need both the index name and the metadata column. Ex:&lt;/p&gt;
-&lt;pre&gt;GROUPBY_CRITERIA = {
-    &#39;Subject&#39;: {
-        &#39;index&#39;: &#39;Subject&#39;,  # For querying
-        &#39;metadata&#39;: &#39;Subject&#39;,  # For constructing the list
-        &#39;display_modifier&#39;: None,  # For modifying list items (e.g. dates)
-        &#39;query_range&#39;: None  # For range searches (e.g. for dates or numbers)
-    },
-...&lt;/pre&gt;
-&lt;div&gt;The metadata is needed because the search result is a whole bag of brains and the portlet groups results by their values, so it needs to know the real values. With minimal changes it is possible to avoid the need for that metadata column.&lt;/div&gt;
-&lt;p&gt;This is the original code in collectionfilter.py:&lt;/p&gt;
-&lt;pre&gt;attr = GROUPBY_CRITERIA[self.data.group_by][&#39;metadata&#39;]
-mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
-
-grouped_results = {}
-for item in results:
-    val = getattr(item, attr, None)
-    if callable(val):
-        val = val()
-    if not getattr(val, &#39;__iter__&#39;, False):
-        val = [val]&lt;/pre&gt;
-&lt;div&gt;And these are the minimal changes:&lt;/div&gt;
-&lt;pre&gt;mod = GROUPBY_CRITERIA[self.data.group_by][&#39;display_modifier&#39;]
-
-catalog = getToolByName(self.context, &#39;portal_catalog&#39;)
-unindex = catalog._catalog.indexes[idx]._unindex
-
-grouped_results = {}
-for item in results:
-    rid = item._brain.getRID()
-    # val = getattr(item, attr, None)
-    val = unindex.get(rid)
-    if callable(val):
-        val = val()
-    if not getattr(val, &#39;__iter__&#39;, False):
-        val = [val]&lt;/pre&gt;
-&lt;p&gt;It reads the field values from the _unindex mapping of the indexes (which exist for most of the indexes in the Plone catalog. Exceptions are indexes for Title, Description, getObjPositionInParent and SearchableText). Most of the ZCatalog indexes have two mappings where they store information: the forward &#34;mapping&#34; (field value =&amp;gt; objectid) and the reverse mapping (object id =&amp;gt; field value). In this above snippet we&#39;re reading the reverse mapping to get the original field value. So, no need for a dedicated metadata column.&lt;/p&gt;
-</description>
+      <description>It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&amp;nbsp;
+As an example: when exploring collective.</description>
     </item>
     
     <item>
@@ -62,25 +28,7 @@ for item in results:
       <pubDate>Tue, 13 Dec 2016 09:26:44 -0100</pubDate>
       
       <guid>/blog/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks/</guid>
-      <description>&lt;p&gt;For some time I&#39;ve had to deal with two separate, docker-compose based application stacks. One of them combining a Ruby on Rails app with a whole suite of ElasticSearch nodes, sidekiq worker, Postgresql, nginx, the whole shebang. Another is just a plain Zope/Plone stack, but the difficulties remain the same: when I wanted to do production debugging or just plain development using that environment, I needed something that can be started manually, in the whole stack. I don&#39;t want to have to deal with &lt;a class=&#34;external-link&#34; href=&#34;https://pypi.python.org/pypi/rpdb/&#34;&gt;rpdb&lt;/a&gt;&amp;nbsp;or remote byebug just to be able to debug. I want to poke around the whole stacks and see what happens.&amp;nbsp;&lt;/p&gt;
-&lt;p&gt;So my solution was, in both cases, to configure another service in the docker-compose stack that just did nothing.&lt;/p&gt;
-&lt;pre&gt;...
-debug:
- &amp;nbsp;image: plone
- &amp;nbsp;ports:
- &amp;nbsp;&amp;nbsp;&amp;nbsp;- &#34;8090:8080&#34;
- &amp;nbsp;volumes:
- &amp;nbsp;&amp;nbsp;&amp;nbsp;- ./src:/plone/instance/src
- &amp;nbsp;entrypoint: sh -c &#34;tail -f /dev/null&#34;
-&lt;/pre&gt;
-&lt;p&gt;Something like the above. Notice the entry point, which just keeps the container up, but does nothing. Now I can run&lt;/p&gt;
-&lt;pre&gt;docker exec -it debug_1 bash&lt;/pre&gt;
-&lt;p&gt;And inside the container, I can edit the eggs to set a pdb.trace() line whereever, then start the instance:&amp;nbsp;&lt;/p&gt;
-&lt;pre&gt;bin/standalone fg&lt;/pre&gt;
-&lt;p&gt;Why go through this trouble instead of just running the plone container with something like&lt;/p&gt;
-&lt;pre&gt;docker run --name debug plone&lt;/pre&gt;
-&lt;p&gt;Usually docker-compose stack are entertwined services that need connecting to one another. My given service debug could be linked to whatever other service: postfix, postgresql, elasticsearch, etc. Why go through the trouble of linking manually, from the command line, when I can just get docker-compose to do it?&lt;/p&gt;
-</description>
+      <description>For some time I&#39;ve had to deal with two separate, docker-compose based application stacks. One of them combining a Ruby on Rails app with a whole suite of ElasticSearch nodes, sidekiq worker, Postgresql, nginx, the whole shebang. Another is just a plain Zope/Plone stack, but the difficulties remain the same: when I wanted to do production debugging or just plain development using that environment, I needed something that can be started manually, in the whole stack.</description>
     </item>
     
     <item>
@@ -89,107 +37,9 @@ debug:
       <pubDate>Wed, 31 Aug 2016 08:12:43 -0200</pubDate>
       
       <guid>/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/</guid>
-      <description>&lt;p&gt;This would be a sort of tutorial on how to implement a new plone.app.contentrules Trigger Event, how to write a new plone.stringinterp variable substitutor and how to trigger the event from a browser page (or z3c.form).&lt;/p&gt;
-&lt;p&gt;This allows configuring a new trigger event from the Content Rules Plone control panel configlet and to assign a new Email action, with customizable body template.&lt;/p&gt;
-&lt;p&gt;Let&#39;s say our task is to implement a contact form:&lt;/p&gt;
-&lt;pre&gt;from plone.directives import form
-from plone.api.portal import show_message
-from zope.event import notify
-
-class IContactForm(form.Schema):
-    name = schema.TextLine(title=u&#34;Your Name&#34;, required=True)
-    email = Email(title=u&#34;Contact eMail:&#34;, required=True)
-
-class ContactInformation(Implicit):
-    &#34;&#34;&#34; A container to be passed to plone.app.contentrules for contact info
-    &#34;&#34;&#34;
-
-    def __init__(self, name=None, email=None):
-        self.name = name
-        self.email = email
-
-class ContactForm(form.SchemaForm):
-
-    schema = IContactForm
-    ignoreContext = True
-
-    label = u&#34;Contact Form&#34;
-
-    fields = field.Fields(IContactForm)
-
-    @button.buttonAndHandler(u&#34;Submit&#34;)
-    def handleApply(self, action):
-        data, errors = self.extractData()
-        if errors:
-            self.status = self.formErrorsMessage
-            return
-
-        name = data.get(&#39;name&#39;)
-        email = data.get(&#39;email&#39;)
-
-        obj = ContactInformation(name=name, email=email)
-        obj = obj.__of__(self.context)
-        notify(ContactEvent(obj))
-        show_message(message=&#34;Message sent&#34;, request=self.request, type=&#39;info&#39;)&lt;/pre&gt;
-&lt;p&gt;The ContactInformation object is needed to pass information from the form to the content rules machinery. It needs to be acquisition aware, as plone.app.contentrules will try to trigger events up its chain of acquisition. This can also be replaced by setting some annotation on the request.&lt;/p&gt;
-&lt;p&gt;We need a custom event with an event handler that triggers the content rules execution:&lt;/p&gt;
-&lt;pre&gt;from zope.interface import implements
-from zope.component.interfaces import ObjectEvent, IObjectEvent
-from plone.app.contentrules.handlers import execute_rules
-
-class IContactEvent(IObjectEvent):
-    &#34;&#34;&#34;
-    &#34;&#34;&#34;
-
-class ContactEvent(ObjectEvent):
-    implements(IContactEvent)
-
-def trigger_contentrules(event):
-    execute_rules(event)&lt;/pre&gt;
-&lt;p&gt;Now, a bit of zcml to register the event with plone.app.contentrules and setup the event handler:&lt;/p&gt;
-&lt;pre&gt;&amp;lt;interface
-    interface=&#34;.events.IContactEvent&#34;
-    type=&#34;plone.contentrules.rule.interfaces.IRuleEventType&#34;
-    name=&#34;Contact form triggered&#34;
-    /&amp;gt;
-
-&amp;lt;subscriber for=&#34;.events.IContactEvent&#34; handler=&#34;.events.trigger_contentrules&#34; /&amp;gt;&lt;/pre&gt;
-&lt;p&gt;This will make the &#34;Contact form triggered&#34; event available for the Plone Content Rules and, thanks to the notify() call in the form handler, trigger the content rules execution.&lt;/p&gt;
-&lt;p&gt;One last thing that we need is to access the information submitted in the form. The ContactInformation object serves as a container for that information, so we&#39;ll need special variables for the Email action:&lt;/p&gt;
-&lt;pre&gt;class contact_email(BaseSubstitution):
-    description = u&#34;Contact email&#34;
-    category = &#39;ContactForm&#39;
-
-    adapts(Interface)
-
-    def safe_call(self):
-        return self.context.email
-
-
-class contact_name(BaseSubstitution):
-    description = u&#34;Contact name&#34;
-    category = &#39;ContactForm&#39;
-
-    adapts(Interface)
-
-    def safe_call(self):
-        return self.context.name&lt;/pre&gt;
-&lt;div&gt;and the zcml for this:&lt;/div&gt;
-&lt;pre&gt;&amp;lt;adapter
-    for=&#34;*&#34;
-    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
-    factory=&#34;.stringinterp.contact_email&#34;
-    name=&#34;contact_email&#34;
-    /&amp;gt;
-
-&amp;lt;adapter
-    for=&#34;*&#34;
-    provides=&#34;plone.stringinterp.interfaces.IStringSubstitution&#34;
-    factory=&#34;.stringinterp.contact_name&#34;
-    name=&#34;contact_name&#34;
-    /&amp;gt;&lt;/pre&gt;
-&lt;div&gt;So why use this mechanism instead of something like PloneFormGen? In my case, the site administrator is used to changing email templates for various events (object created, published, etc) from the Content Rules panel, so why not keep everything simple and consistent?&lt;/div&gt;
-</description>
+      <description>This would be a sort of tutorial on how to implement a new plone.app.contentrules Trigger Event, how to write a new plone.stringinterp variable substitutor and how to trigger the event from a browser page (or z3c.form).
+This allows configuring a new trigger event from the Content Rules Plone control panel configlet and to assign a new Email action, with customizable body template.
+Let&#39;s say our task is to implement a contact form:</description>
     </item>
     
     <item>
@@ -198,12 +48,8 @@ class contact_name(BaseSubstitution):
       <pubDate>Fri, 16 Jan 2009 20:16:42 -0200</pubDate>
       
       <guid>/blog/2009/01/16/learningjourney-a-zope-3-tutorial/</guid>
-      <description>&lt;p&gt;Last year, in December, I held a 3 day Zope 3 training for about 10 Zope 2 and Python programmers. For this training I had prepared a 50 pages booklet with some tutorials and reference information (most of it written by me especially for this occasion). The feedback was pretty positive, but only time will tell if I was succesful or not with my training.&lt;/p&gt;
-&lt;p&gt;I have published the training material on Google Code in a project called &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/&#34;&gt;z3ergo&lt;/a&gt;. My intention is to publish there more packages and tutorials, as they come. The beef of the tutorial was a simple but complete application called &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/source/browse/#svn/LearningJourney&#34;&gt;LearningJourney&lt;/a&gt;. My initial intention was to have an application where students could enter a log of the things that they learn, but it could be thought as a simple blog system as well. This is a &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/source/browse/#svn/LearningJourney&#34;&gt;full Zope 3 tutorial application, complete with a site, skin and registration process&lt;/a&gt;. I hope somebody can find it useful. The leaflet is published there in two languages (&lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/source/browse/LearningJourney/LearningJourney-AZope3Introduction-en.pdf&#34;&gt;English&lt;/a&gt; and &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/source/browse/LearningJourney/LearningJourney-AZope3Introduction-ro.pdf&#34;&gt;Romanian&lt;/a&gt;), in pdf format. You can find the source code for the docs in the &lt;a class=&#34;external-link&#34; href=&#34;http://code.google.com/p/z3ergo/source/browse/#svn/LearningJourney/docs/source&#34;&gt;LearningJourney docs &lt;/a&gt;folder.&lt;/p&gt;
-&lt;p&gt;The materials cover a lot of the Zope 3 landscape, as this training was for knowledgeable Zope 2/Plone programmers who were evaluating Zope 3 and also had access to other Zope 3 docs, such as &lt;a class=&#34;external-link&#34; href=&#34;http://worldcookery.com&#34;&gt;Philipp&#39;s Zope 3 book&lt;/a&gt;. Keep this in mind when going through the docs and wonder why they&#39;re so slim.&lt;/p&gt;
-&lt;p&gt;The training itself was pretty non-formal. I&#39;ve used the booklet and the sourcecode to guide them through what a Zope 3 application means. There were a lot of questions (practically, the training flow was more question based, with just a few interventions from me to guide it to a different direction), but many things that were covered mostly at surface. We didn&#39;t have any practical exercises, although I wish I was able to have them, it might have helped the students feel a little bit less lost. A more structured approach could have helped as well, who knows. It was both tiring and fun and I got to meet lots of cool people, with which I will hopefull colaborate in the future.&lt;/p&gt;
-&lt;p&gt;If there&#39;s an interest in getting more out of these docs, or you might need me as a Zope 3 trainer, feel free to contact me using this site&#39;s contact form.&lt;/p&gt;
-</description>
+      <description>Last year, in December, I held a 3 day Zope 3 training for about 10 Zope 2 and Python programmers. For this training I had prepared a 50 pages booklet with some tutorials and reference information (most of it written by me especially for this occasion). The feedback was pretty positive, but only time will tell if I was succesful or not with my training.
+I have published the training material on Google Code in a project called z3ergo.</description>
     </item>
     
     <item>
@@ -212,155 +58,7 @@ class contact_name(BaseSubstitution):
       <pubDate>Wed, 08 Oct 2008 17:14:46 -0300</pubDate>
       
       <guid>/blog/2008/10/08/richtext-control-with-wxpython-saving-loading-and-converting-from-internal-xml-to-html/</guid>
-      <description>&lt;p&gt;I tend to be an angry caveman these days (see my previous post) and this doesn&#39;t lead to too much clear thinking. I&#39;ve been dealing with the wx.richtext.RichTextCtrl for the past couple of days and I think I&#39;m now close to finishing the tasks that I set myself to do with it. I&#39;m trying to run a bunch of richtext controls on the same page, that would increase their size and show a toolbar when focused. My first problems came from the fact that all 5 of them flashed a caret which I couldn&#39;t hide. Trying to do ctrl.GetCaret().Hide() would result in a crash. After struggling with various possible solutions - none of which worked, I&#39;ve realized that I should try the latest wxpython distribution, I was even decided to compile it manually. Fortunately, the wxwidgets project offers a repository for Ubuntu and sure enough, after I&#39;ve upgraded, things started to work (I still needed to hide the caret for all the richtext controls and show it when they were focused, but that&#39;s no problem).&lt;/p&gt;
-&lt;p&gt;Now, unto the next tasks: saving and loading the content of these fields. I wanted to display the content in an HtmlWindow control, so converting the content to html was one thing I had to discover how to do. First step that I&#39;ve tried, saving the html and loading it through the RichTextCtrl and its closely related buffers and handlers didn&#39;t work, so I&#39;ve settled for a solution that involves one RichTextHTMLHandler and one RichTextXmlHandler. To help me understand how this thing works, I&#39;ve created a clean example class where I could play with this thing. I hope it helps someone, as I haven&#39;t found too much info on this on the web (the Load/SaveStream methods are not even documented anywhere).&lt;/p&gt;
-&lt;p&gt;The toolbar class is taken from my project, created with wxGlade, while the frame class is created by me, manually (actually, this is the first frame that I have created by hand). To demonstrate the loading and saving, a variable is used to keep the content (self.content). Change the text, add some formatting, hit Save and then Load. This will take the text that was saved from the richtext control (in xml format), load it in a buffer and convert it to html which is then displayed in the HtmlWindow. I&#39;ve only tried this on Linux, hope it works on Windows too. Oh, and you need to supply your own icons if you want to try the code (hint: I&#39;ve used /usr/share/icons/gnome/32x32/actions as source of my icons.&lt;/p&gt;
-&lt;pre&gt;#!/usr/bin/env python
-from StringIO import StringIO
-import wx
-import wx.html
-import wx.richtext
-
-class TextFormatToolBar(wx.ToolBar):
-    def __init__(self, *args, **kwds):
-        self.text_ctrl = kwds.pop(&#39;text_ctrl&#39;)
-        kwds[&#34;style&#34;] = wx.TB_FLAT|wx.TB_3DBUTTONS
-        wx.ToolBar.__init__(self, *args, **kwds)
-        self.AddLabelTool(wx.ID_CUT, &#34;Cut&#34;, wx.Bitmap(&#34;edit-cut.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;Cut selection&#34;, &#34;&#34;)
-        self.AddLabelTool(wx.ID_COPY, &#34;Copy&#34;, wx.Bitmap(&#34;edit-copy.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddLabelTool(wx.ID_PASTE, &#34;Paste&#34;, wx.Bitmap(&#34;edit-paste.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddSeparator()
-        self.AddLabelTool(wx.ID_UNDO, &#34;Undo&#34;, wx.Bitmap(&#34;edit-undo.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddLabelTool(wx.ID_REDO, &#34;Redo&#34;, wx.Bitmap(&#34;edit-redo.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddSeparator()
-        self.AddLabelTool(wx.ID_BOLD, &#34;Bold&#34;, wx.Bitmap(&#34;format-text-bold.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddLabelTool(wx.ID_ITALIC, &#34;Italic&#34;, wx.Bitmap(&#34;format-text-italic.png&#34;, wx.BITMAP_TYPE_ANY), 
-wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-        self.AddLabelTool(wx.ID_UNDERLINE, &#34;Underline&#34;, wx.Bitmap(&#34;format-text-underline.png&#34;, 
-wx.BITMAP_TYPE_ANY), wx.NullBitmap, wx.ITEM_NORMAL, &#34;&#34;, &#34;&#34;)
-
-        self.Realize()
-
-        self.Bind(wx.EVT_TOOL, self.handle_bold, id=wx.ID_BOLD)
-        self.Bind(wx.EVT_TOOL, self.handle_italic, id=wx.ID_ITALIC)
-        self.Bind(wx.EVT_TOOL, self.handle_underline, id=wx.ID_UNDERLINE)
-        self.Bind(wx.EVT_TOOL, self.handle_paste, id=wx.ID_PASTE)
-        self.Bind(wx.EVT_TOOL, self.handle_copy, id=wx.ID_COPY)
-        self.Bind(wx.EVT_TOOL, self.handle_cut, id=wx.ID_CUT)
-        self.Bind(wx.EVT_TOOL, self.handle_undo, id=wx.ID_UNDO)
-        self.Bind(wx.EVT_TOOL, self.handle_redo, id=wx.ID_REDO)
-
-    def handle_bold(self, event):
-        self.text_ctrl.ApplyBoldToSelection()
-
-    def handle_italic(self, event):
-        self.text_ctrl.ApplyItalicToSelection()
-
-    def handle_underline(self, event):
-        self.text_ctrl.ApplyUnderlineToSelection()
-
-    def handle_paste(self, event):
-        self.text_ctrl.Paste()
-        
-    def handle_copy(self, event):
-        self.text_ctrl.Copy()
-        
-    def handle_cut(self, event):
-        self.text_ctrl.Cut()
-        
-    def handle_undo(self, event):
-        self.text_ctrl.Undo()
-        
-    def handle_redo(self, event):
-        self.text_ctrl.Redo()
-
-
-class TopFrame(wx.Frame):
-    def __init__(self, *args, **kwargs):
-        wx.Frame.__init__(self, *args, **kwargs)
-        self.Freeze()
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        rt = wx.richtext.RichTextCtrl(self, -1)
-        toolbar = TextFormatToolBar(self, text_ctrl=rt)
-        rt.SetMinSize((300,200))
-        htmlwindow = wx.html.HtmlWindow(self)
-        htmlwindow.SetMinSize((300,200))
-        save_button = wx.Button(self, label=&#34;Save&#34;)
-        load_button = wx.Button(self, label=&#34;Load&#34;)
-        btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        btn_sizer.Add(load_button, 0, wx.EXPAND|wx.ALL, 6)
-        btn_sizer.Add(save_button, 0, wx.EXPAND|wx.ALL, 6)
-        self.Bind(wx.EVT_BUTTON, self.handle_save, save_button)
-        self.Bind(wx.EVT_BUTTON, self.handle_load, load_button)
-        sizer.Add(toolbar, 0, wx.EXPAND|wx.ALL, 6)
-        sizer.Add(rt, 1, wx.EXPAND|wx.ALL, 6)
-        sizer.Add(htmlwindow, 1, wx.EXPAND|wx.ALL, 6)
-        sizer.Add(btn_sizer)
-        self.SetSizer(sizer)
-        sizer.Fit(self)
-        self.Thaw()
-        self.rt = rt
-        self.htmlwindow = htmlwindow
-        
-    def handle_save(self, event):
-        out = StringIO()
-        handler = wx.richtext.RichTextXMLHandler()
-        buffer = self.rt.GetBuffer()
-        handler.SaveStream(buffer, out)
-        out.seek(0)
-        self.content = out.read()
-        
-    def handle_load(self, event):
-        out = StringIO()
-        handler = wx.richtext.RichTextXMLHandler()
-        buffer = self.rt.GetBuffer()
-        buffer.AddHandler(handler)
-        out.write(self.content)
-        out.seek(0)
-        handler.LoadStream(buffer, out)
-        self.rt.Refresh()
-        
-        cio = StringIO()
-        cio.write(self.content)
-        cio.seek(0)
-        cout = StringIO()
-        
-        xmlhandler = wx.richtext.RichTextXMLHandler()
-        htmlhandler = wx.richtext.RichTextHTMLHandler()
-        newbuff = wx.richtext.RichTextBuffer()
-        newbuff.AddHandler(htmlhandler)
-        
-        xmlhandler.LoadStream(newbuff, cio) #load xml into buffer
-        newbuff.SaveStream(cout, wx.richtext.RICHTEXT_TYPE_HTML)
-        cout.seek(0)
-        self.htmlwindow.SetPage(cout.read())
-
-
-class MyApp(wx.App):
-
-    def OnInit(self):
-        wx.InitAllImageHandlers()
-        frame = TopFrame(None, - 1, &#34;&#34;)
-        self.SetTopWindow(frame)
-        
-        frame.Show()
-        return 1
-    
-
-def start():
-    app = MyApp(0)
-    app.MainLoop()
-    
-if __name__ == &#34;__main__&#34;:
-    start()
-&lt;/pre&gt;
-</description>
+      <description>I tend to be an angry caveman these days (see my previous post) and this doesn&#39;t lead to too much clear thinking. I&#39;ve been dealing with the wx.richtext.RichTextCtrl for the past couple of days and I think I&#39;m now close to finishing the tasks that I set myself to do with it. I&#39;m trying to run a bunch of richtext controls on the same page, that would increase their size and show a toolbar when focused.</description>
     </item>
     
   </channel>

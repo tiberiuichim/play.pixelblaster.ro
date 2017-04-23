@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Gui on The Plone Expanse</title>
-    <link>/tags/gui/index.xml</link>
+    <link>/tags/gui/</link>
     <description>Recent content in Gui on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/gui/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Nov 2008 21:13:23 -0200</lastBuildDate>
+    
+	<atom:link href="/tags/gui/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Moving to Intrepid and KDE 4.1</title>
@@ -15,19 +18,7 @@
       <pubDate>Sun, 23 Nov 2008 21:13:23 -0200</pubDate>
       
       <guid>/blog/2008/11/23/moving-to-intrepid-and-kde-4.1/</guid>
-      <description>&lt;p&gt;&lt;a title=&#34;KDE 4.1 screenshot&#34; class=&#34;internal-link&#34; href=&#34;../screenshot.png&#34;&gt;&lt;img class=&#34;image-right&#34; src=&#34;../screenshot.png/image_preview&#34; alt=&#34;KDE 4.1 screenshot&#34; /&gt;&lt;/a&gt;I&#39;ve migrated my laptop (my main workstation, these days) and I&#39;ve done
-a complete migration to the KDE 4.1 desktop. Things are not perfect,
-(on the old KDE 3.5 I&#39;d say things were 99% according to my tastes),
-but I&#39;m trying to accomodate and find replacements. I didn&#39;t like the
-KDE 4.1 launcher at first and I&#39;ve even tested Launcelot for a while,
-but now I&#39;m back to the default menu and I&#39;m starting to like it (on
-3.5 I was using Tasty Menu).&lt;/p&gt;
-&lt;p&gt;I&#39;m using Scultptura style with the Scultura-Stone color scheme and Sculptura window decoration. I needed to add another plasmoid from kde-look, the panel spacer, to make the systray smaller and separate the buttons on the right side to those on the left.&lt;/p&gt;
-&lt;p&gt;Things that I&#39;m missing:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;no &#34;window&#34; list menu widget, which I&#39;ve tried to replace with a plasmoid. I might as well remove it, because it doesn&#39;t list all the windows from all desktops, just the current desktop.&lt;/li&gt;&lt;li&gt;I don&#39;t like the double spacing of the clock &amp;amp; date widget, I wish that it was a single line. I saw that there&#39;s a plasmoid on kde-look.org, I might try that.&lt;/li&gt;&lt;li&gt;I don&#39;t like the black background in the systray (at the right top)&lt;/li&gt;&lt;li&gt;There&#39;s no working &#34;app shortcuts buttons&#34; plasmoid, although I may try to simulate that with the Quick Access plasmoid.&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Things that I&#39;m happy with:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Shiny new software!&lt;/li&gt;&lt;li&gt;KDE 4.1 is actually not that horrible, once I tweak it (although Kde 3.5 had the same problem, closest to my &#34;visual&#34; tastes comes Gnome, but I like Kde applications better).&lt;/li&gt;&lt;li&gt;NetworkManager seems to deal a bit better with my wireless connection (when my girlfriend opens her Macbook I get terrible disconnects from the access point)&lt;/li&gt;&lt;/ul&gt;
-</description>
+      <description>I&#39;ve migrated my laptop (my main workstation, these days) and I&#39;ve done a complete migration to the KDE 4.1 desktop. Things are not perfect, (on the old KDE 3.5 I&#39;d say things were 99% according to my tastes), but I&#39;m trying to accomodate and find replacements. I didn&#39;t like the KDE 4.1 launcher at first and I&#39;ve even tested Launcelot for a while, but now I&#39;m back to the default menu and I&#39;m starting to like it (on 3.</description>
     </item>
     
   </channel>

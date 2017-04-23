@@ -347,7 +347,7 @@
   </url>
   
   <url>
-    <loc>/blog/2008/11/18/subversion-1.5-&#43;-default-instalation-plone-3.1-buildout-no-problems-here/</loc>
+    <loc>/blog/2008/11/18/subversion-1.5---default-instalation-plone-3.1-buildout-no-problems-here/</loc>
     <lastmod>2008-11-18T15:10:43-02:00</lastmod>
   </url>
   
@@ -542,7 +542,7 @@
   </url>
   
   <url>
-    <loc>/blog/2007/02/25/mylar-&#43;-trac-yet-another-reason-to-use-eclipse/</loc>
+    <loc>/blog/2007/02/25/mylar---trac-yet-another-reason-to-use-eclipse/</loc>
     <lastmod>2007-02-25T19:00:53-02:00</lastmod>
   </url>
   
@@ -747,7 +747,7 @@
   </url>
   
   <url>
-    <loc>/blog/2006/10/01/dapper-&#43;-1--edgy/</loc>
+    <loc>/blog/2006/10/01/dapper---1--edgy/</loc>
     <lastmod>2006-10-01T11:22:46-03:00</lastmod>
   </url>
   
@@ -782,7 +782,7 @@
   </url>
   
   <url>
-    <loc>/blog/2006/09/16/short-checklist-for-postfix-&#43;-mysql-&#43;-dovecot-&#43;-sasl-authentication-on-fedora/</loc>
+    <loc>/blog/2006/09/16/short-checklist-for-postfix---mysql---dovecot---sasl-authentication-on-fedora/</loc>
     <lastmod>2006-09-16T21:56:19-03:00</lastmod>
   </url>
   
@@ -1205,7 +1205,7 @@
   </url>
   
   <url>
-    <loc>/tags/plone.app/index.theming/</loc>
+    <loc>/tags/plone.app.theming/</loc>
     <lastmod>2016-06-30T14:51:42-02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -1272,6 +1272,7 @@
   
   <url>
     <loc>/tags/</loc>
+    <lastmod>2007-05-08T08:24:14-03:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Firefox on The Plone Expanse</title>
-    <link>/tags/firefox/index.xml</link>
+    <link>/tags/firefox/</link>
     <description>Recent content in Firefox on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2016 Tiberiu Ichim</copyright>
-    <atom:link href="/tags/firefox/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 24 Mar 2015 05:36:13 +0700</lastBuildDate>
+    
+	<atom:link href="/tags/firefox/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Essential Firefox addons</title>
@@ -15,10 +18,8 @@
       <pubDate>Tue, 24 Mar 2015 05:36:13 +0700</pubDate>
       
       <guid>/blog/2015/03/24/essential-firefox-addons/</guid>
-      <description>&lt;p&gt;Without these addons, Firefox may not be my favourite browser. With them, it&#39;s a beast that has no match among all other browsers. So, a top 10 of my favourite extensions:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Vimperator: the essential plugin, makes Firefox behave in a modal manner similar to VIM. Includes many shortcuts similar to vim. Integrates an external editor (like GVim) with any textarea. My favourite things with it: really fast opening/closing of tabs, URL address copying and pasting, follow links, etc. Just awsome. The external editor thingy has no easy answer in Chrome, where you&#39;d have to be running an http proxy, because addons are sandboxed and can&#39;t access the disk.&lt;br /&gt;&lt;/li&gt;&lt;li&gt;TreeStyleTabs: another awesome plugin, with no match in the Chrome world, where sidebars are an external window.&lt;/li&gt;&lt;li&gt;SessionManager: Firefox has a built-in, but SM is better&lt;/li&gt;&lt;li&gt;LastPass: while I have Firefox sync enabled, it is better to be able to access those login information from my mobile devices.&lt;/li&gt;&lt;li&gt;Auto Unload Tab: when you have 100+ tabs loaded, it&#39;s a requirement. Firefox has an automatic unload tab feature, but it can&#39;t be controlled and in my experience, it didn&#39;t work well.&lt;/li&gt;&lt;li&gt;Ghostery + uBlock: get rid of annoying stuff&lt;/li&gt;&lt;li&gt;Flashgot: I use it sometimes to make backups of video streams. For youtube I use youtube-dl.&lt;/li&gt;&lt;li&gt;Clearly: easy saving content to Evernote&lt;br /&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;In the past, Firebug would have been at the front of this list, but right now it&#39;s buggy, slows down the browser (switching tabs), so it gets ignored in favour of Chromium.&lt;/p&gt;
-</description>
+      <description>Without these addons, Firefox may not be my favourite browser. With them, it&#39;s a beast that has no match among all other browsers. So, a top 10 of my favourite extensions:
+Vimperator: the essential plugin, makes Firefox behave in a modal manner similar to VIM. Includes many shortcuts similar to vim. Integrates an external editor (like GVim) with any textarea. My favourite things with it: really fast opening/closing of tabs, URL address copying and pasting, follow links, etc.</description>
     </item>
     
   </channel>
