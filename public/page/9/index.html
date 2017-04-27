@@ -70,6 +70,29 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2008/04/08/a-tip-on-debugging-zope-2-with-zeo/">A tip on debugging Zope 2 with ZEO</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Apr 8, 2008</time></span>
+
+        <p class="discreet">I'm having some troubles with CacheFu, and I've resorted to deleting some objects from a debug prompt, which is very easy to get at if one runs the Zope under ZEO. Still, I couldn't delete the objects because I was getting Unauthorized errors. Luckily, there is #plone, from which I got the following tip:
+&lt;naro&gt; from AccessControl.SecurityManagement import newSecurityManager &lt;naro&gt; user = app.acl_users.getUser('admin') &lt;naro&gt; newSecurityManager(None, user)  Thanks, naro!&nbsp;
+Update: I realize now that I didn't write how to connect to ZEO: [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2008/04/08/a-tip-on-debugging-zope-2-with-zeo/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2008/03/28/ubuntu-hardy-heron-some-things-are-bad/">Ubuntu Hardy Heron: some things are bad</a></h2>
 
         <p class="post-tags">
@@ -268,27 +291,6 @@ With Zope 3 the path is not very clear. There are several mechanisms, each with 
 
         <div class="read-more-link">
           <a href="/blog/2007/12/17/template-layout-options-when-developing-with-zope-3/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2007/11/14/trying-out-eggs-and-applications-with-workingenv-without-poluting-the-system-python/">Trying out eggs and applications with workingenv, without poluting the system python</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Nov 14, 2007</time></span>
-
-        <p class="discreet">Ever since I've started working with zc.buildout I've grown to love the whole "environment as project" setup that it provides: eggs and python packages are installed and contained in the buildout and they don't polute the system packages. There is another alternative: workingenv, which, while simpler in scope, it is easier to setup and use. For example, recently I've wanted to see if lxml 2.0 can be installed in my system. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2007/11/14/trying-out-eggs-and-applications-with-workingenv-without-poluting-the-system-python/">Read More&rarr;</a>
         </div>
 
       </div>

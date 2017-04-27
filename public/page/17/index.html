@@ -70,6 +70,27 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/09/06/printing-frameworks-and-wxpython/">Printing frameworks and wxPython</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/windows">Windows</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Sep 6, 2006</time></span>
+
+        <p class="discreet">As hard as I have tried to find, there's no good printing framework for wxPython. wxEasyPrinting sucks so much for anything more then simple text (for example, the table cells don't support specifying a height). Generating PDF files with a toolkit such as ReportLab (even with Platypus) is harder then it should be, especially when there's no ready made higher level framework. This page explores some of the common printing solutions on Windows. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/09/06/printing-frameworks-and-wxpython/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/09/05/override-the-default-actions-for-an-archgenxml-based-archetype/">Override the default actions for an ArchGenXML based Archetype</a></h2>
 
         <p class="post-tags">
@@ -266,31 +287,6 @@ ViewModify portal contentAccess content information  [...]</p>
 
         <div class="read-more-link">
           <a href="/blog/2006/08/27/allowing-the-anonymous-to-add-portal-content/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/27/creating-an-archetypes-validator/">Creating an Archetypes validator</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Aug 27, 2006</time></span>
-
-        <p class="discreet">Archetypes validators are used in the schema definition for a field. Default validators include isEmail, isURL, etc. This is how to create a new validator:
-First, the validator has to be registered with Archetypes, or zope will complain at startup and ignore the validator. So add something like this in the __init__.py of the product:
-from Products.validation import validation
-from validators import SamePasswordValidator
-validation.register(SamePasswordValidator('isSamePassword'))Next, the source code for the validator (validators. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/27/creating-an-archetypes-validator/">Read More&rarr;</a>
         </div>
 
       </div>

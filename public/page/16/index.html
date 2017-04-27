@@ -70,6 +70,62 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/01/zope3-registering-a-help-page/">Zope3: Registering a help page</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>
+        </p>
+
+        <span class="post-date"><time>Oct 1, 2006</time></span>
+
+        <p class="discreet"> &lt;configure
+xmlns="http://namespaces.zope.org/zope"
+xmlns:help="http://namespaces.zope.org/help"
+&gt;
+&lt;!-- Register Help Topics --&gt;
+&lt;help:register
+id="zmi"
+title="Zope ZMI"
+doc_path="./help/ui.stx"
+resources="mgmt-main-1.png"
+/&gt;
+&lt;help:register id="welcome"
+parent="onlinehelp"
+title="Welcome"
+doc_path="./help/welcome.stx"
+/&gt;
+&lt;help:register
+id="onlinehelp"
+title="Online Help System"
+doc_path="./help/README.stx"
+/&gt;
+&lt;help:register
+id="styleguide"
+title="Zope Style Guide"
+doc_path="styleguides.txt"
+class="zope.app.onlinehelp.onlinehelptopic.RESTOnlineHelpTopic"
+/&gt;
+&lt;help:register
+id="css"
+parent="styleguide"
+title="CSS Style Guide"
+doc_path="index.html"
+class="zope.app.onlinehelp.onlinehelptopic.ZPTOnlineHelpTopic"
+/&gt;
+&lt;/configure&gt;
+  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/01/zope3-registering-a-help-page/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/10/01/dapper---1--edgy/">Dapper &#43; 1 = Edgy</a></h2>
 
         <p class="post-tags">
@@ -275,27 +331,6 @@ Configure /etc/sysconfig/saslauthd to run with the rimap mechanism 3. Start sasl
 
         <div class="read-more-link">
           <a href="/blog/2006/09/10/adaptation-explained/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/09/06/printing-frameworks-and-wxpython/">Printing frameworks and wxPython</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/windows">Windows</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Sep 6, 2006</time></span>
-
-        <p class="discreet">As hard as I have tried to find, there's no good printing framework for wxPython. wxEasyPrinting sucks so much for anything more then simple text (for example, the table cells don't support specifying a height). Generating PDF files with a toolkit such as ReportLab (even with Platypus) is harder then it should be, especially when there's no ready made higher level framework. This page explores some of the common printing solutions on Windows. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/09/06/printing-frameworks-and-wxpython/">Read More&rarr;</a>
         </div>
 
       </div>

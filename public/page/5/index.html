@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2010/05/12/some-issues-with-zc.recipe.eggs-python-option/">Some issues with zc.recipe.egg&#39;s python option</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/buildout">buildout</a>
+        </p>
+
+        <span class="post-date"><time>May 12, 2010</time></span>
+
+        <p class="discreet">I've recently had to integrate a script/package into a Plone 2.5 buildout that runs on top of Python 2.4. Due to that package's dependence of a sane imaplib (and the one in Python 2.4 is buggy), I had to run the script with python2.6. To make a script run on a different python, you need to do:
+[myscript] recipe = zc.regipe.egg eggs = &nbsp;&nbsp;&nbsp;&nbsp; myegg &nbsp;&nbsp;&nbsp;&nbsp; IMAPClient python = python26 The python26 option is actually the name of a buildout part that configures the python executable path [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2010/05/12/some-issues-with-zc.recipe.eggs-python-option/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2010/02/25/can-you-do-this-on-your-shiny-mac/">Can you do this on your shiny Mac?</a></h2>
 
         <p class="post-tags">
@@ -261,28 +283,6 @@ Given the following template fragment:
 
         <div class="read-more-link">
           <a href="/blog/2009/11/17/the-case-against-django-templates/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2009/11/12/djangos-makemessages-sucks-for-my-use-cases/">Django&#39;s makemessages sucks for my use cases</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/django">Django</a>
-        </p>
-
-        <span class="post-date"><time>Nov 12, 2009</time></span>
-
-        <p class="discreet">Yet another angry rant, caused, of course, by using Django in anger. Nothing wrong with using something in anger, that's the real way I learn something. Zope 3 even has an online book on how to use it in anger.
-That said, Django's makemessages administrative command sucks by being way too inflexible to anything but the ideal Django development environment. My environment looks like this: I have a project based on Pinax, which I'm developing and deploying using zc. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2009/11/12/djangos-makemessages-sucks-for-my-use-cases/">Read More&rarr;</a>
         </div>
 
       </div>

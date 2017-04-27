@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Archlinux on The Plone Expanse</title>
+    <link>/tags/archlinux/</link>
+    <description>Recent content in Archlinux on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2016 Tiberiu Ichim</copyright>
+    <lastBuildDate>Thu, 27 Apr 2017 20:15:15 +0300</lastBuildDate>
+    
+	<atom:link href="/tags/archlinux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How I broke my archlinux and fixed it</title>
+      <link>/blog/2017/04/27/how-i-broke-my-archlinux-and-fixed-it/</link>
+      <pubDate>Thu, 27 Apr 2017 20:15:15 +0300</pubDate>
+      
+      <guid>/blog/2017/04/27/how-i-broke-my-archlinux-and-fixed-it/</guid>
+      <description>Today, new lesson learnt. I needed to test something with Internet Explorer and Edge, so I&amp;rsquo;ve downloaded the test images from the Microsoft website, then proceeded to install virtualbox, in my current KDE based ArchLinux desktop (which I love a lot). A simple pacman -S virtualbox perhaps? Yes, except&amp;hellip;
+After installing virtualbox, it complained about some missing libssl2.0.0 lib&amp;hellip; so I thought maybe I don&amp;rsquo;t have that installed? I didn&amp;rsquo;t really research it, just installed openssl.</description>
+    </item>
+    
+  </channel>
+</rss>

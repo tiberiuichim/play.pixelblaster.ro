@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/13/small-tip-when-using-wxwidgets/">Small tip when using wxWidgets</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Aug 13, 2006</time></span>
+
+        <p class="discreet">Always put your controls in a sizer inside a panel. So, the actual tree would be frame &gt; sizer &gt; panel &gt; sizer &gt; ... controls
+The reason is that the panel component will enable tab traversal. Also, the panel can so be used to group the widgets into logical groups, to facilitate traversing them with the tab key. Oh, did I mention wxGlade (from cvs) rules?  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/13/small-tip-when-using-wxwidgets/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/08/13/miniguide-to-openldap/">Miniguide to openldap</a></h2>
 
         <p class="post-tags">
@@ -275,43 +297,6 @@ indexes = pc.Indexes.objectIds()  [...]</p>
 
         <div class="read-more-link">
           <a href="/blog/2006/08/06/getting-a-list-of-catalog-indexes-and-metadata/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/04/basic-unittesting-for-plone/">Basic unittesting for Plone</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Aug 4, 2006</time></span>
-
-        <p class="discreet">Create a new package called "tests" inside the product. Add modules that begin with test*, like testSetup. Next, run the tests with zope/bin/zopectl test -s Products.MyProduct (zope 2.9)
-from Testing import ZopeTestCase
-ZopeTestCase.installProduct('DRFSkin')
-from Products.PloneTestCase.PloneTestCase import PloneTestCase
-from Products.PloneTestCase.PloneTestCase import FunctionalTestCase
-from Products.PloneTestCase.PloneTestCase import setupPloneSite
-setupPloneSite(products=('DRFSkin',))
-class TestTool(PloneTestCase):
-def afterSetUp(self):
-pass
-def testProductPath(self):
-x = True
-self.failUnless( x )
-def test_suite():
-from unittest import TestSuite, makeSuite
-suite = TestSuite()
-suite.addTest(makeSuite(TestTool)) [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/04/basic-unittesting-for-plone/">Read More&rarr;</a>
         </div>
 
       </div>

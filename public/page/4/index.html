@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2012/01/16/a-simple-epub-file-renaming-utility/">A simple epub file renaming utility</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Jan 16, 2012</time></span>
+
+        <p class="discreet">I have a couple of epub files that have random names assigned to them, and I wanted to rename them based on their metadata, in the form Author - Title. Below is what I came up with:
+#!/usr/bin/python from zipfile import ZipFile import lxml.etree import os.path import shutil import sys namespaces = { 'u':"urn:oasis:names:tc:opendocument:xmlns:container", 'xsi':"http://www.w3.org/2001/XMLSchema-instance", 'opf':"http://www.idpf.org/2007/opf", 'dcterms':"http://purl.org/dc/terms/", 'calibre':"http://calibre.kovidgoyal.net/2009/metadata", 'dc':"http://purl.org/dc/elements/1.1/", } def main(): if len(sys.argv) != 2: print "Need a path." sys. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2012/01/16/a-simple-epub-file-renaming-utility/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2011/06/28/getting-the-superclasses-for-a-python-object/">Getting the superclasses for a python object</a></h2>
 
         <p class="post-tags">
@@ -258,28 +280,6 @@ Fortunately, Gloworm has been updated in svn trunk. To get the latest version yo
 
         <div class="read-more-link">
           <a href="/blog/2010/08/22/migrating-content-folders-from-plone-3-to-plone-4-via-zexp-import/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2010/05/12/some-issues-with-zc.recipe.eggs-python-option/">Some issues with zc.recipe.egg&#39;s python option</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/buildout">buildout</a>
-        </p>
-
-        <span class="post-date"><time>May 12, 2010</time></span>
-
-        <p class="discreet">I've recently had to integrate a script/package into a Plone 2.5 buildout that runs on top of Python 2.4. Due to that package's dependence of a sane imaplib (and the one in Python 2.4 is buggy), I had to run the script with python2.6. To make a script run on a different python, you need to do:
-[myscript] recipe = zc.regipe.egg eggs = &nbsp;&nbsp;&nbsp;&nbsp; myegg &nbsp;&nbsp;&nbsp;&nbsp; IMAPClient python = python26 The python26 option is actually the name of a buildout part that configures the python executable path [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2010/05/12/some-issues-with-zc.recipe.eggs-python-option/">Read More&rarr;</a>
         </div>
 
       </div>

@@ -70,6 +70,33 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/07/creating-zope-content/">Creating zope content</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Oct 7, 2006</time></span>
+
+        <p class="discreet">I had a need to create new external methods on install of a product. So, even if technique is old and well know to any Zope 2 old-timer, I'm placing this here for my own reference.
+def install(portal):
+portal.manage_addProduct['ExternalMethod'].manage_addExternalMethod(
+id = 'emailMe',
+title='emailMe',
+module='MyProduct.emailMe',
+function='emailMe')The code needs to interact with a legacy module (renamed here emailMe). The idea is that manage_addProduct returns a dictionary of factories and manage_addExternalMethod is the factory method defined in the ExternalMethod module. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/07/creating-zope-content/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/10/07/get-a-translated-object-in-a-particular-language/">Get a translated object in a particular language</a></h2>
 
         <p class="post-tags">
@@ -294,62 +321,6 @@ interface="zope.app.annotation.interfaces.IAttributeAnnotatable"
 
         <div class="read-more-link">
           <a href="/blog/2006/10/02/zope3-zcml-a-content-class-declaration-that-provides-an-interface/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/10/01/zope3-registering-a-help-page/">Zope3: Registering a help page</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope3">zope3</a>
-        </p>
-
-        <span class="post-date"><time>Oct 1, 2006</time></span>
-
-        <p class="discreet"> &lt;configure
-xmlns="http://namespaces.zope.org/zope"
-xmlns:help="http://namespaces.zope.org/help"
-&gt;
-&lt;!-- Register Help Topics --&gt;
-&lt;help:register
-id="zmi"
-title="Zope ZMI"
-doc_path="./help/ui.stx"
-resources="mgmt-main-1.png"
-/&gt;
-&lt;help:register id="welcome"
-parent="onlinehelp"
-title="Welcome"
-doc_path="./help/welcome.stx"
-/&gt;
-&lt;help:register
-id="onlinehelp"
-title="Online Help System"
-doc_path="./help/README.stx"
-/&gt;
-&lt;help:register
-id="styleguide"
-title="Zope Style Guide"
-doc_path="styleguides.txt"
-class="zope.app.onlinehelp.onlinehelptopic.RESTOnlineHelpTopic"
-/&gt;
-&lt;help:register
-id="css"
-parent="styleguide"
-title="CSS Style Guide"
-doc_path="index.html"
-class="zope.app.onlinehelp.onlinehelptopic.ZPTOnlineHelpTopic"
-/&gt;
-&lt;/configure&gt;
-  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/10/01/zope3-registering-a-help-page/">Read More&rarr;</a>
         </div>
 
       </div>

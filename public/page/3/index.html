@@ -70,6 +70,30 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2016/10/13/how-to-make-the-linked-object-editable-in-droppable-collective.cover-tiles/">How to make the linked object editable in droppable collective.cover tiles</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Oct 13, 2016</time></span>
+
+        <p class="discreet">By default, collective.cover offers one mechanism to "drop" objects to their tiles, by using the "Add content" button at the top. I've received feedback that the button will not be very friendly to editors, so my solution, in this case, is really simple.
+In the tile schema, instead of the default:
+ uuid = schema.TextLine( title=_(u'UUID'), required=False, readonly=True, ) redefine uuid to be such as:
+from plone.formwidget.contenttree import UUIDSourceBinder from z3c. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2016/10/13/how-to-make-the-linked-object-editable-in-droppable-collective.cover-tiles/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2016/09/15/trigger-cron-style-jobs-in-plone-sites-without-passwords/">Trigger cron style jobs in Plone sites without passwords</a></h2>
 
         <p class="post-tags">
@@ -262,28 +286,6 @@ Vimperator: the essential plugin, makes Firefox behave in a modal manner similar
 
         <div class="read-more-link">
           <a href="/blog/2015/03/24/essential-firefox-addons/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2012/01/16/a-simple-epub-file-renaming-utility/">A simple epub file renaming utility</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Jan 16, 2012</time></span>
-
-        <p class="discreet">I have a couple of epub files that have random names assigned to them, and I wanted to rename them based on their metadata, in the form Author - Title. Below is what I came up with:
-#!/usr/bin/python from zipfile import ZipFile import lxml.etree import os.path import shutil import sys namespaces = { 'u':"urn:oasis:names:tc:opendocument:xmlns:container", 'xsi':"http://www.w3.org/2001/XMLSchema-instance", 'opf':"http://www.idpf.org/2007/opf", 'dcterms':"http://purl.org/dc/terms/", 'calibre':"http://calibre.kovidgoyal.net/2009/metadata", 'dc':"http://purl.org/dc/elements/1.1/", } def main(): if len(sys.argv) != 2: print "Need a path." sys. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2012/01/16/a-simple-epub-file-renaming-utility/">Read More&rarr;</a>
         </div>
 
       </div>
