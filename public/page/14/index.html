@@ -70,6 +70,36 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/27/catching-and-printing-python-exceptions/">Catching and printing python exceptions</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Oct 27, 2006</time></span>
+
+        <p class="discreet">&gt;&gt;&gt; import traceback, sys
+&gt;&gt;&gt; try:
+... 1/0
+... except:
+... traceback.print_exc(sys.exc_info())
+...
+Traceback (most recent call last):
+File "&lt;stdin&gt;", line 2, in ?
+ZeroDivisionError: integer division or modulo by zero
+&gt;&gt;&gt;  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/27/catching-and-printing-python-exceptions/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/10/24/how-to-define-a-new-skin-in-zope-3/">How to define a new skin in Zope 3</a></h2>
 
         <p class="post-tags">
@@ -287,27 +317,6 @@ action.login_change_password=traverse_to:string:login_passwordSo basically we ha
 
         <div class="read-more-link">
           <a href="/blog/2006/10/07/little-bits-of-info-about-cmfformcontroller/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/10/07/hacking-at-plone-memberships-core-different-content-types-for-member-folders/">Hacking at Plone membership&#39;s core: different content types for member folders</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Oct 7, 2006</time></span>
-
-        <p class="discreet">I'm using this technique for a site created with Plone 2.1, but it I think it can work on Plone 2.5 as well. Basically, I need a site with different membership types, and each membership type has a "personal area" (different member folder) where the user can add different object types and generally have a completely different browsing experience. I haven't implemented anything exotic such as CMFMember (not future proof) or membrane (not compatible, don't want to mess around yet) so I'm sticking with plain Plone users. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/10/07/hacking-at-plone-memberships-core-different-content-types-for-member-folders/">Read More&rarr;</a>
         </div>
 
       </div>

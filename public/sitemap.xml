@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>/blog/2017/05/08/restart-docker-after-archlinux-upgrade/</loc>
+    <lastmod>2017-05-08T09:35:54+03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/2017/04/27/how-i-broke-my-archlinux-and-fixed-it/</loc>
     <lastmod>2017-04-27T20:15:15+03:00</lastmod>
   </url>
@@ -1030,7 +1035,7 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2017-04-27T20:15:15+03:00</lastmod>
+    <lastmod>2017-05-08T09:35:54+03:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1060,7 +1065,7 @@
   
   <url>
     <loc>/tags/cookbook/</loc>
-    <lastmod>2017-04-27T20:15:15+03:00</lastmod>
+    <lastmod>2017-05-08T09:35:54+03:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1174,7 +1179,7 @@
   
   <url>
     <loc>/tags/linux/</loc>
-    <lastmod>2017-04-27T20:15:15+03:00</lastmod>
+    <lastmod>2017-05-08T09:35:54+03:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1306,7 +1311,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2017-04-27T20:15:15+03:00</lastmod>
+    <lastmod>2017-05-08T09:35:54+03:00</lastmod>
     <priority>0</priority>
   </url>
   
