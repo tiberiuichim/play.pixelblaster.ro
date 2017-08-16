@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>/blog/2017/08/15/my-recipe-for-cronjobs-with-docker/</loc>
+    <lastmod>2017-08-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/08/14/running-pyramid-with-flask-in-the-same-python-process/</loc>
+    <lastmod>2017-08-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2017/08/03/restore-missing-blobs-from-blob-cache/</loc>
+    <lastmod>2017-08-03T13:40:28+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/2017/05/08/restart-docker-after-archlinux-upgrade/</loc>
     <lastmod>2017-05-08T09:35:54+03:00</lastmod>
   </url>
@@ -1035,7 +1050,7 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2017-05-08T09:35:54+03:00</lastmod>
+    <lastmod>2017-08-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1065,13 +1080,19 @@
   
   <url>
     <loc>/tags/cookbook/</loc>
-    <lastmod>2017-05-08T09:35:54+03:00</lastmod>
+    <lastmod>2017-08-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/cornice/</loc>
     <lastmod>2017-01-25T23:09:45+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/cron/</loc>
+    <lastmod>2017-08-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1107,7 +1128,7 @@
   
   <url>
     <loc>/tags/docker/</loc>
-    <lastmod>2016-12-13T09:26:44-01:00</lastmod>
+    <lastmod>2017-08-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1132,6 +1153,12 @@
   <url>
     <loc>/tags/firefox/</loc>
     <lastmod>2015-03-24T05:36:13+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/flask/</loc>
+    <lastmod>2017-08-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1221,7 +1248,7 @@
   
   <url>
     <loc>/tags/plone/</loc>
-    <lastmod>2017-04-23T16:12:13+03:00</lastmod>
+    <lastmod>2017-08-03T13:40:28+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1245,13 +1272,13 @@
   
   <url>
     <loc>/tags/pyramid/</loc>
-    <lastmod>2017-02-25T03:45:44+01:00</lastmod>
+    <lastmod>2017-08-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/python/</loc>
-    <lastmod>2017-02-22T06:33:34+01:00</lastmod>
+    <lastmod>2017-08-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1264,6 +1291,12 @@
   <url>
     <loc>/tags/rails/</loc>
     <lastmod>2016-12-24T08:47:35-01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/rancher/</loc>
+    <lastmod>2017-08-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1311,7 +1344,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2017-05-08T09:35:54+03:00</lastmod>
+    <lastmod>2017-08-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1377,7 +1410,7 @@
   
   <url>
     <loc>/tags/zope/</loc>
-    <lastmod>2017-01-08T09:21:46-01:00</lastmod>
+    <lastmod>2017-08-03T13:40:28+00:00</lastmod>
     <priority>0</priority>
   </url>
   

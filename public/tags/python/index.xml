@@ -6,11 +6,32 @@
     <description>Recent content in Python on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>@2016 Tiberiu Ichim</copyright>
-    <lastBuildDate>Wed, 22 Feb 2017 06:33:34 +0100</lastBuildDate>
+    <copyright>@2017 Tiberiu Ichim</copyright>
+    <lastBuildDate>Mon, 14 Aug 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Running Pyramid with Flask, in the same Python process</title>
+      <link>/blog/2017/08/14/running-pyramid-with-flask-in-the-same-python-process/</link>
+      <pubDate>Mon, 14 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2017/08/14/running-pyramid-with-flask-in-the-same-python-process/</guid>
+      <description>Thanks to the wonders of WSGI and well behaved frameworks, it is now trivial to mix and match applications and have them run in the same Python process.
+Normally, in a production scenario, uwsgi would be used to split and map the URL spaces to different apps, but for development it is simpler to just use good old PythonPaste. In my case, I&amp;rsquo;ve wanted to have the RQ Dashboard (which is based on Flask) integrated with a Pyramid app that I&amp;rsquo;m working on.</description>
+    </item>
+    
+    <item>
+      <title>Restore missing blobs from blob cache</title>
+      <link>/blog/2017/08/03/restore-missing-blobs-from-blob-cache/</link>
+      <pubDate>Thu, 03 Aug 2017 13:40:28 +0000</pubDate>
+      
+      <guid>/blog/2017/08/03/restore-missing-blobs-from-blob-cache/</guid>
+      <description>I had a curious case of missing-but-present blobs in an old Plone service, configured with a Zeo server and 2 Zope instances.
+The root of the problem (I think) was that the blob folder configuration was broken: the Zope client instances were configured with shared blobs to &amp;ldquo;off&amp;rdquo;, but they were really sharing the same caching folder.
+In the end, the blobs were loaded by the Zope services and everything appeared to be working, but when I&amp;rsquo;ve tried to move the blobstorage folder to a new machine, I ended up with missing blobs.</description>
+    </item>
     
     <item>
       <title>Python packaging vs npm</title>

@@ -41,7 +41,7 @@
     <div class="sidebar-about">
       <a href="/"><h1>The Plone Expanse </h1></a>
       <p class="lead">
-       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+       A bit of Plone, Zope and a dash of everything else 
       </p>
     </div>
 
@@ -58,13 +58,80 @@
       
     </ul>
 
-    <p>@2016 Tiberiu Ichim</p>
+    <p>@2017 Tiberiu Ichim</p>
   </div>
 </div>
 
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/30/improve-plone-based-website-performance-with-simple-apache-caching/">Improve Plone-based website performance with simple Apache caching</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Aug 30, 2006</time></span>
+
+        <p class="discreet">I won't go too much into details, and this is more for my own personal reference, but using this short recipe I was able to increase by up to 100 times the performance of a plone based website. For a lot more details and more advanced techniques for caching, integration with squid and cachefu, visit the Plone documentation HowTo section.
+ The website hosts mostly news updates, and is edited mostly by an editorial staff, under a 24 hours cycle. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/30/improve-plone-based-website-performance-with-simple-apache-caching/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/29/checking-for-a-role-or-a-permission-in-a-context/">Checking for a role or a permission in a context</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 29, 2006</time></span>
+
+        <p class="discreet">There are two very useful methods to check for certain security settings offered by the Plone API. First, to check if a user has a certain role, the following snippet can be used:
+roles_user_has = portal_membership.getCandidateLocalRoles(here)To check if a user has a certain permission, this API method can be used:
+portal_membership.checkPermission('Manage portal', here)  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/29/checking-for-a-role-or-a-permission-in-a-context/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/27/short-recipe-for-membrane-based-user-content-types/">Short recipe for membrane based user content types</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 27, 2006</time></span>
+
+        <p class="discreet">Create a membrane based content item (it just needs to implement certain interfaces defined in membrane.interfaces)Register the type with membranetoolImportant: Set the active workflow status (the state in which a member can login)
+  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/27/short-recipe-for-membrane-based-user-content-types/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -264,99 +331,6 @@ First, our tools: py2exe has, among its deployment targets, a "windows service" 
       
       
 
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/23/capturing-print-statements-output/">Capturing print statements output</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Aug 23, 2006</time></span>
-
-        <p class="discreet">Sometimes you have code that has a lot of print statements, which are helping you with debugging. But what happens if you try to port that code to an environment without a console? In the best case, you won't see the prints anymore, in the worse case, the code will fail because there's no "valid file descriptor" to which to write.
-The solution to this problem is to replace python's stdout file, which will enable the code output to be recorded and maybe logged for debugging purposes. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/23/capturing-print-statements-output/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/23/short-guide-to-dns-with-bind-on-fedora/">Short guide to dns with bind on Fedora</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/linux">Linux</a>
-        </p>
-
-        <span class="post-date"><time>Aug 23, 2006</time></span>
-
-        <p class="discreet">I'm replacing a tinydns server with bind9, so I may as well put the setup here, as future reference.
-First,
-yum install bind-chroot
-to install the chrooted bind server.
-Next, edit the /var/named/chroot/etc/named.conf
-options {
-directory "/var/named";
-dump-file "/var/named/data/cache_dump.db";
-statistics-file "/var/named/data/named_stats.txt";
-recursion no;
-};
-//root global
-//life
-zone "life.org.ro" {
-type master;
-file "/etc/db.life.org.ro";
-notify yes;
-};
-zone "0.0.127.in-addr.arpa" {
-type master;
-file "/etc/db.localhost";
-allow-update { none; };
-};
-zone " [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/23/short-guide-to-dns-with-bind-on-fedora/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace/">Creating arbitrary objects in the current module namespace</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Aug 16, 2006</time></span>
-
-        <p class="discreet">This short recipe will show how to create arbitrary named objects in the current module namespace. Either globals() or locals() can be used for the task, depending on the namespace where the variables have to be created (global or local). &gt;&gt;&gt; for i in range(10):
-&gt;&gt;&gt; globals()['test%s' % i] = i
-&gt;&gt;&gt; print test0
-0
-&gt;&gt;&gt; print test1
-1
-  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
       <nav id="page-nav">
 
     
@@ -383,6 +357,17 @@ zone " [...]</p>
       hljs.highlightBlock(block);
     });
   });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104721960-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 
 </body>

@@ -41,7 +41,7 @@
     <div class="sidebar-about">
       <a href="/"><h1>The Plone Expanse </h1></a>
       <p class="lead">
-       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+       A bit of Plone, Zope and a dash of everything else 
       </p>
     </div>
 
@@ -58,13 +58,76 @@
       
     </ul>
 
-    <p>@2016 Tiberiu Ichim</p>
+    <p>@2017 Tiberiu Ichim</p>
   </div>
 </div>
 
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2007/03/20/freeciv-rediscovered/">Freeciv rediscovered</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/windows">Windows</a>, <a href="/tags/fun">fun</a>, <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Mar 20, 2007</time></span>
+
+        <p class="discreet">I've recently "rediscovered" Freeciv. I'm a very casual gamer (15 minutes/day), but also an old, addicted, Civilization fan. Lately I've been looking for a nice game to play on my Linux desktops and I've found that Freeciv is finally getting some good graphics, as this was my biggest turn off I've had with it before. I've tried first the SDL client on Windows, but it is buggy and tends to freeze its popup windows. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2007/03/20/freeciv-rediscovered/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2007/03/10/embeding-the-gecko-engine-in-python-applications/">Embeding the Gecko engine in Python applications</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/windows">Windows</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Mar 10, 2007</time></span>
+
+        <p class="discreet">I've got to deploy a new desktop based application, created, of course, with Zope 3. When you've got a hammer, everything looks like a nail, indeed. This application uses HTML and CSS as its presentation layer (right, it's a web page), with a bit of Ajax thrown in. Due do time constraints, I'm not even trying to get it to work properly on Internet Explorer (although it looks about 90% right, but I have some problems with Javascript), so I won't be embeding the Internet Explorer this time engine in my Python application, I'll just try to get the Gecko rendering engine, the one used in Firefox. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2007/03/10/embeding-the-gecko-engine-in-python-applications/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2007/02/28/a-zope-3-ajax-viewlet-manager/">A Zope 3 AJAX viewlet manager</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/ajax">AJAX</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/zope3">zope3</a>
+        </p>
+
+        <span class="post-date"><time>Feb 28, 2007</time></span>
+
+        <p class="discreet">I've finally got tired of writing small fragments of JavaScript code and views to be able to make different areas updatable through ajax for my current Zope 3 application. Plus, when I've started writing this application, I've started doing the layout with viewlets and managers, and it seems that for each viewlet that I'm creating I have to have a way to get its content through AJAX, which means having a page available for it, and this is very odd, as it almost defeats the point of having viewlets. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2007/02/28/a-zope-3-ajax-viewlet-manager/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -220,73 +283,6 @@ Trying to get the macros with something like context/@@page_with_macros/macros/t
       
       
 
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2007/02/11/first-glance-at-plone-3/">First glance at Plone 3</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Feb 11, 2007</time></span>
-
-        <p class="discreet">Thanks to the easy plone 3 buildout (plonout), I'm having my first look at the upcoming Plone 3. Some of the more evident changes:
-Versioning is now possible thanks to CMFEditions, which means a "Save as version" option in the edit screen and a "Versions" page on objects.
-The Kupu integration has been improved, the Kupu configlet offering new functions: the possibility to edit the toolbar, a new, streamlined interface to control the resource types and the possibility to replace the reference browser with a kupu drawer. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2007/02/11/first-glance-at-plone-3/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2007/02/10/zope-buildout-quickstart/">Zope buildout quickstart</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/linux">Linux</a>
-        </p>
-
-        <span class="post-date"><time>Feb 10, 2007</time></span>
-
-        <p class="discreet">One of the bigger players in the latest move to automate Plone and Zope development and deployment has been buildout, so I figured it's about time to start learning it and see how it can help me. I'm writing this short recipe as I progress through learning buildout to help me remember this stuff later on.
-Installing buildoutThe easiest way to install buildout is to get easy_install (a manager for python packages) on your system. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2007/02/10/zope-buildout-quickstart/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2007/02/06/the-/-resource-view/">The /@@/ resource view</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Feb 6, 2007</time></span>
-
-        <p class="discreet">I recently encountered a problem that I presume would be pretty common when creating a site based on the z3c.layer.minimal browser layer: the resources, although accessible as ++resource++resource_name, are not accessible at the default location used by packages as zc.resourcelibrary: http://localhost/site/@@/resource_name
-The reason, as I have guessed, was that a certain page or view was missing, not being registered for the IMinimalLayer, which doesn't inherit from the IBrowserDefaultLayer. Grepping for " [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2007/02/06/the-/-resource-view/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
       <nav id="page-nav">
 
     
@@ -313,6 +309,17 @@ The reason, as I have guessed, was that a certain page or view was missing, not 
       hljs.highlightBlock(block);
     });
   });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104721960-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 
 </body>

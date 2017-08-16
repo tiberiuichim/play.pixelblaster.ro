@@ -6,7 +6,7 @@
     <description>Recent content in Tags on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>@2016 Tiberiu Ichim</copyright>
+    <copyright>@2017 Tiberiu Ichim</copyright>
     <lastBuildDate>Tue, 08 May 2007 08:24:14 -0300</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -78,7 +78,7 @@
     <item>
       <title>Cookbook</title>
       <link>/tags/cookbook/</link>
-      <pubDate>Mon, 08 May 2017 09:35:54 +0300</pubDate>
+      <pubDate>Tue, 15 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/cookbook/</guid>
       <description></description>
@@ -90,6 +90,15 @@
       <pubDate>Wed, 25 Jan 2017 23:09:45 +0100</pubDate>
       
       <guid>/tags/cornice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cron</title>
+      <link>/tags/cron/</link>
+      <pubDate>Tue, 15 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/cron/</guid>
       <description></description>
     </item>
     
@@ -141,7 +150,7 @@
     <item>
       <title>Docker</title>
       <link>/tags/docker/</link>
-      <pubDate>Tue, 13 Dec 2016 09:26:44 -0100</pubDate>
+      <pubDate>Tue, 15 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/docker/</guid>
       <description></description>
@@ -180,6 +189,15 @@
       <pubDate>Tue, 24 Mar 2015 05:36:13 +0700</pubDate>
       
       <guid>/tags/firefox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Flask</title>
+      <link>/tags/flask/</link>
+      <pubDate>Mon, 14 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/flask/</guid>
       <description></description>
     </item>
     
@@ -312,7 +330,7 @@
     <item>
       <title>Plone</title>
       <link>/tags/plone/</link>
-      <pubDate>Sun, 23 Apr 2017 16:12:13 +0300</pubDate>
+      <pubDate>Thu, 03 Aug 2017 13:40:28 +0000</pubDate>
       
       <guid>/tags/plone/</guid>
       <description></description>
@@ -348,7 +366,7 @@
     <item>
       <title>Pyramid</title>
       <link>/tags/pyramid/</link>
-      <pubDate>Sat, 25 Feb 2017 03:45:44 +0100</pubDate>
+      <pubDate>Mon, 14 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/pyramid/</guid>
       <description></description>
@@ -357,7 +375,7 @@
     <item>
       <title>Python</title>
       <link>/tags/python/</link>
-      <pubDate>Wed, 22 Feb 2017 06:33:34 +0100</pubDate>
+      <pubDate>Mon, 14 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/python/</guid>
       <description></description>
@@ -378,6 +396,15 @@
       <pubDate>Sat, 24 Dec 2016 08:47:35 -0100</pubDate>
       
       <guid>/tags/rails/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rancher</title>
+      <link>/tags/rancher/</link>
+      <pubDate>Tue, 15 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rancher/</guid>
       <description></description>
     </item>
     
@@ -528,7 +555,7 @@
     <item>
       <title>Zope</title>
       <link>/tags/zope/</link>
-      <pubDate>Sun, 08 Jan 2017 09:21:46 -0100</pubDate>
+      <pubDate>Thu, 03 Aug 2017 13:40:28 +0000</pubDate>
       
       <guid>/tags/zope/</guid>
       <description></description>

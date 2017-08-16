@@ -6,11 +6,22 @@
     <description>Recent content in Plone on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>@2016 Tiberiu Ichim</copyright>
-    <lastBuildDate>Sun, 23 Apr 2017 16:12:13 +0300</lastBuildDate>
+    <copyright>@2017 Tiberiu Ichim</copyright>
+    <lastBuildDate>Thu, 03 Aug 2017 13:40:28 +0000</lastBuildDate>
     
 	<atom:link href="/tags/plone/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Restore missing blobs from blob cache</title>
+      <link>/blog/2017/08/03/restore-missing-blobs-from-blob-cache/</link>
+      <pubDate>Thu, 03 Aug 2017 13:40:28 +0000</pubDate>
+      
+      <guid>/blog/2017/08/03/restore-missing-blobs-from-blob-cache/</guid>
+      <description>I had a curious case of missing-but-present blobs in an old Plone service, configured with a Zeo server and 2 Zope instances.
+The root of the problem (I think) was that the blob folder configuration was broken: the Zope client instances were configured with shared blobs to &amp;ldquo;off&amp;rdquo;, but they were really sharing the same caching folder.
+In the end, the blobs were loaded by the Zope services and everything appeared to be working, but when I&amp;rsquo;ve tried to move the blobstorage folder to a new machine, I ended up with missing blobs.</description>
+    </item>
     
     <item>
       <title>Hello world with Plone and Riot (Javascript frontent library)</title>

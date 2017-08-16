@@ -41,7 +41,7 @@
     <div class="sidebar-about">
       <a href="/"><h1>The Plone Expanse </h1></a>
       <p class="lead">
-       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+       A bit of Plone, Zope and a dash of everything else 
       </p>
     </div>
 
@@ -58,13 +58,98 @@
       
     </ul>
 
-    <p>@2016 Tiberiu Ichim</p>
+    <p>@2017 Tiberiu Ichim</p>
   </div>
 </div>
 
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/03/fixing-a-zope-database-with-fsrecover.py/">Fixing a zope database with fsrecover.py</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Oct 3, 2006</time></span>
+
+        <p class="discreet">Due to hardware corruption I have a broken Data.fs that won't pack. To fix it the fsrecover.py script from the ZODB module can be used. For example, this is how to run the script to repair the broken database (I have zope installed in /opt/Zope2.8):
+cd /opt/Zope2.8/lib/python/
+python ZODB/fsrecover.py -v 1 /mnt/raid/Data.fs /mnt/raid/Data.fs.fixed
+The reason to run the fsrecover script with ZODB in front is that it imports from the ZODB module. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/03/fixing-a-zope-database-with-fsrecover.py/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/02/moving-a-zope-instance/">Moving a Zope instance</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Oct 2, 2006</time></span>
+
+        <p class="discreet">To move a zope instance location 3 files need to be edited in order to update the software home location:
+runzopezopectletc/zope.conf (change the software home location, right at the top of the file)
+  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/02/moving-a-zope-instance/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/02/override-__bobo_traverse__-to-provide-custom-url--lookup/">Override __bobo_traverse__ to provide custom URL  lookup</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Oct 2, 2006</time></span>
+
+        <p class="discreet">This technique is lifted from ATContentTypes/content/image.py
+ def __bobo_traverse__(self, REQUEST, name):
+"""Transparent access to image scales
+"""
+if name.startswith('image'):
+field = self.getField('image')
+image = None
+if name == 'image':
+image = field.getScale(self)
+else:
+scalename = name[len('image_'):]
+if scalename in field.getAvailableSizes(self):
+image = field.getScale(self, scale=scalename)
+if image is not None and not isinstance(image, basestring):
+# image might be None or '' for empty images
+return image
+return ATCTFileContent.__bobo_traverse__(self, REQUEST, name)
+  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/02/override-__bobo_traverse__-to-provide-custom-url--lookup/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -260,87 +345,6 @@ My preferate is dnsreport.com, but I always forget its name and its pagerank on 
       
       
 
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/09/20/short-recipe-for-adaptation-with-five/">Short recipe for adaptation with Five</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Sep 20, 2006</time></span>
-
-        <p class="discreet">&gt;&gt;&gt; from zope.interface import Interface, Attribute, implementsLet's say we have an object type "Person". This person can introduce himself with the name.
-class IPerson(Interface):
-name = Attribute('Name of the person')
-def say_name():
-"""The name of the person"""
-class Person(object):
-implements(IPerson)
-def __init__(self, name):
-self.name = name
-def say_name():
-return 'My name is ' + self.name
-Next, we have another object type, let's say "Worker", with an interface of IWorker.
-class IWorker(Interface): [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/09/20/short-recipe-for-adaptation-with-five/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/09/20/basic-recipe-for-a-five-view/">Basic recipe for a Five view</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Sep 20, 2006</time></span>
-
-        <p class="discreet">This recipe is addressed more to the zope2/plone developer with a bit of knowledge of the zope3 universe, but not much experience in implementing the new practices.
-Simply put, Five views are just like TTW python scripts, except without the limited forced security, and with the possibility to integrate them in unit testing and adapt them to other protocols then just http.
-First, things should be done the newly recommended " [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/09/20/basic-recipe-for-a-five-view/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/09/16/short-checklist-for-postfix---mysql---dovecot---sasl-authentication-on-fedora/">Short checklist for Postfix &#43; MySQL &#43; Dovecot &#43; SASL authentication on Fedora</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/linux">Linux</a>
-        </p>
-
-        <span class="post-date"><time>Sep 16, 2006</time></span>
-
-        <p class="discreet">1. Postfix needs to be rebuilt with Mysql enabled
-Follow this tutorial: http://postfix.wiki.xs4all.nl/index.php?title=Virtual_Users_and_Domains_with_Courier-IMAP_and_MySQL
-This one also helps: Virtual Users And Domains With Postfix, Courier And MySQL (Fedora Core 5) | HowtoForge - Linux Howtos and Tutorials
-2. Instal cyrus-sasl and cyrus-sasl-sql.
-Configure /etc/sysconfig/saslauthd to run with the rimap mechanism 3. Start saslauthd [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/09/16/short-checklist-for-postfix---mysql---dovecot---sasl-authentication-on-fedora/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
       <nav id="page-nav">
 
     
@@ -367,6 +371,17 @@ Configure /etc/sysconfig/saslauthd to run with the rimap mechanism 3. Start sasl
       hljs.highlightBlock(block);
     });
   });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104721960-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 
 </body>

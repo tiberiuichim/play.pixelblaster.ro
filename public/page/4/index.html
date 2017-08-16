@@ -41,7 +41,7 @@
     <div class="sidebar-about">
       <a href="/"><h1>The Plone Expanse </h1></a>
       <p class="lead">
-       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+       A bit of Plone, Zope and a dash of everything else 
       </p>
     </div>
 
@@ -58,13 +58,81 @@
       
     </ul>
 
-    <p>@2016 Tiberiu Ichim</p>
+    <p>@2017 Tiberiu Ichim</p>
   </div>
 </div>
 
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/">The case of the strange RichText widgets</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/plone">Plone</a>, <a href="/tags/bugs">bugs</a>
+        </p>
+
+        <span class="post-date"><time>Jun 13, 2016</time></span>
+
+        <p class="discreet">On a Plone 4.3 with plone.app.widgets 1.8.0 and plone.app.contenttypes 1.1b5 installed, there's one weird bit of inconsistency:
+The TinyMCE widget rendered by the plone.app.contenttype's IRichText behaviour is different from any other RichText field added in the dexterity model. Even on the same page, for example, if I edit the Document dexterity type and add a rich text field, the resulting widget is different. How do I know? Try inserting an image by selecting it, in the popup dialog, from the site content browser. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2015/05/05/zodb-how-to-get-and-read-objects-from-an-undo-information/">ZODB: How to get and read objects from an undo information</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope">zope</a>, <a href="/tags/debugging">debugging</a>, <a href="/tags/zodb">ZODB</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>May 5, 2015</time></span>
+
+        <p class="discreet">This is useful for example if you have transactions that cause writes to the database and you don't know what has been written. First, identify the ID of the transaction that you're interested. In the Undo tab of Zope, inspect the checkbox for the transaction and copy the part that looks like an id from its value.
+Then, in a zope debugging shell (started with bin/instance debug), I've done:
+&gt;&gt;&gt; import base64, cPickle &gt;&gt;&gt; webtid = " [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2015/05/05/zodb-how-to-get-and-read-objects-from-an-undo-information/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2015/04/20/the-wrong-way-to-sudo-su-and-the-right-way/">The wrong way to sudo su, and the right way</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Apr 20, 2015</time></span>
+
+        <p class="discreet">I've never had a formal training on Linux. My knowledge comes from my experience working on it for the last 12 years, but some things I've just learned as simple recipes and never bother looking them up.
+One such thing was changing users with sudo. I've been doing it as:
+sudo su &lt;user&gt; - Notice the dash at the end, which makes provides a "real" environment for &lt;user&gt;, just as if I would have logged in with that user, directly. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2015/04/20/the-wrong-way-to-sudo-su-and-the-right-way/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -223,70 +291,6 @@ zope-conf-additional = &nbsp;&nbsp;&nbsp; &lt;environment&gt; &nbsp;&nbsp;&nbsp;
       
       
 
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2011/01/04/running-products.gloworm-on-plone-4/">Running Products.Gloworm on Plone 4</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Jan 4, 2011</time></span>
-
-        <p class="discreet">For some reason, the TTW developer tools tend to get neglected in the Plone world. A valuable tools such as Clouseau has fallen out of favour and now Gloworm, the @@manage-viewlets replacement/complement won't run in Plone 4 (at least at version 1.0, which is the latest right now on PyPI).
-Fortunately, Gloworm has been updated in svn trunk. To get the latest version you need to add it to sources (in buildout. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2011/01/04/running-products.gloworm-on-plone-4/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2011/01/02/a-pattern-for-programatically-creating-plone-content/">A pattern for programatically creating Plone content</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Jan 2, 2011</time></span>
-
-        <p class="discreet">I'm importing content from a legacy system to a new website that I'm doing with Plone 4 (wow! what an improvement, in speed and technology) and was looking at the existing documentation on how to programatically create new Plone content. The issue I'm having with the existing documentation is that it's incomplete. It won't give you automatically created ids, you'll have to manually call mutators if you don't know any better, etc. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2011/01/02/a-pattern-for-programatically-creating-plone-content/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2010/09/19/a-miniguide-to-dolmen-packages/">A miniguide to Dolmen packages</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/dolmen">Dolmen</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/grok">Grok</a>
-        </p>
-
-        <span class="post-date"><time>Sep 19, 2010</time></span>
-
-        <p class="discreet">I'm finally starting a long-overdue project which I have decided to do with Dolmen. As usual, I start by studying its source code and the packages that are available for it. By itself it can will get me about 60% with the requirements for my project, so it's a pretty good starting base. I plan to also study and use some of the menhir.* packages, which are pretty good as generic CMS content types. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2010/09/19/a-miniguide-to-dolmen-packages/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
       <nav id="page-nav">
 
     
@@ -313,6 +317,17 @@ Fortunately, Gloworm has been updated in svn trunk. To get the latest version yo
       hljs.highlightBlock(block);
     });
   });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104721960-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 
 </body>

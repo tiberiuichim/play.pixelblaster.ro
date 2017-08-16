@@ -3,7 +3,7 @@
 theme = "hyde-pb"
 languageCode = "en-us"
 title = "The Plone Expanse"
-description ="Zope/Plone tips and tutorial, by Tiberiu Ichim"
+description ="Zope, Plone, Python tips and tutorials, by Tiberiu Ichim"
 baseurl = "/"
 Paginate = 10
 
@@ -14,8 +14,8 @@ Paginate = 10
 
 [params]
     Author = "Tiberiu Ichim"
-    Description = "My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else"
-    Copyright = "@2016 Tiberiu Ichim"
+    Description = "A bit of Plone, Zope and a dash of everything else"
+    Copyright = "@2017 Tiberiu Ichim"
 
     # layoutReverse = true
     disqusShortName = "play-pixelblaster-ro"

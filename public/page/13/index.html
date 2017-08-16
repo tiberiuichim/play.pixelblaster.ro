@@ -41,7 +41,7 @@
     <div class="sidebar-about">
       <a href="/"><h1>The Plone Expanse </h1></a>
       <p class="lead">
-       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+       A bit of Plone, Zope and a dash of everything else 
       </p>
     </div>
 
@@ -58,13 +58,80 @@
       
     </ul>
 
-    <p>@2016 Tiberiu Ichim</p>
+    <p>@2017 Tiberiu Ichim</p>
   </div>
 </div>
 
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2007/02/11/first-glance-at-plone-3/">First glance at Plone 3</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/rants">rants</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Feb 11, 2007</time></span>
+
+        <p class="discreet">Thanks to the easy plone 3 buildout (plonout), I'm having my first look at the upcoming Plone 3. Some of the more evident changes:
+Versioning is now possible thanks to CMFEditions, which means a "Save as version" option in the edit screen and a "Versions" page on objects.
+The Kupu integration has been improved, the Kupu configlet offering new functions: the possibility to edit the toolbar, a new, streamlined interface to control the resource types and the possibility to replace the reference browser with a kupu drawer. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2007/02/11/first-glance-at-plone-3/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2007/02/10/zope-buildout-quickstart/">Zope buildout quickstart</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Feb 10, 2007</time></span>
+
+        <p class="discreet">One of the bigger players in the latest move to automate Plone and Zope development and deployment has been buildout, so I figured it's about time to start learning it and see how it can help me. I'm writing this short recipe as I progress through learning buildout to help me remember this stuff later on.
+Installing buildoutThe easiest way to install buildout is to get easy_install (a manager for python packages) on your system. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2007/02/10/zope-buildout-quickstart/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2007/02/06/the-/-resource-view/">The /@@/ resource view</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Feb 6, 2007</time></span>
+
+        <p class="discreet">I recently encountered a problem that I presume would be pretty common when creating a site based on the z3c.layer.minimal browser layer: the resources, although accessible as ++resource++resource_name, are not accessible at the default location used by packages as zc.resourcelibrary: http://localhost/site/@@/resource_name
+The reason, as I have guessed, was that a certain page or view was missing, not being registered for the IMinimalLayer, which doesn't inherit from the IBrowserDefaultLayer. Grepping for " [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2007/02/06/the-/-resource-view/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -224,75 +291,6 @@ implements(IRating) [...]</p>
       
       
 
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/11/07/getting-the-parent-object-in-an-acquisition-context/">Getting the parent object in an acquisition context</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Nov 7, 2006</time></span>
-
-        <p class="discreet">To get the parent of an object, you'd have to use this code:
-myparent = aq_inner.aq_parent.aq_self  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/11/07/getting-the-parent-object-in-an-acquisition-context/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/11/06/one-liner-to-get-the-common-elements-of-several-lists/">One liner to get the common elements of several lists</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Nov 6, 2006</time></span>
-
-        <p class="discreet">While doing an exercise with a mockup catalog and indexes, I ran into the problem of filtering several lists and returning the common elements from the list. The following example demonstrate the usage of reduce(), one of the functional programming constructs that are less common and obvious in their usage.
-&gt;&gt;&gt; a = [1,2,3,4]
-&gt;&gt;&gt; b = [2,3,4,5]
-&gt;&gt;&gt; c = [1,2,4,6]
-&gt;&gt;&gt; d = [0,2,3]
-&gt;&gt;&gt; z = [a,b,c,d] [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/11/06/one-liner-to-get-the-common-elements-of-several-lists/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/10/29/pitfall-of-building-python-from-source-on-ubuntu/">Pitfall of building python from source on Ubuntu</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/linux">Linux</a>
-        </p>
-
-        <span class="post-date"><time>Oct 29, 2006</time></span>
-
-        <p class="discreet">Zope 3.3 doesn't work well with the python 2.4.4 that comes with Ubuntu Edgy. Something about a readline change somewhere in the python standard library. So I had to build python 2.4.3 from source. Being an impatient being, I haven't give it much thought and just unpacked the python tarball, hit ./configure and make install. I ended up with python installed in /usr/local/bin/python, which would be really really cool if Ubuntu wouldn't depend on python and wouldn't place /usr/local/bin at the beginning of $PATH. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/10/29/pitfall-of-building-python-from-source-on-ubuntu/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
       <nav id="page-nav">
 
     
@@ -319,6 +317,17 @@ myparent = aq_inner.aq_parent.aq_self  [...]</p>
       hljs.highlightBlock(block);
     });
   });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104721960-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 
 </body>

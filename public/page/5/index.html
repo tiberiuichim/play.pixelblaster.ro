@@ -41,7 +41,7 @@
     <div class="sidebar-about">
       <a href="/"><h1>The Plone Expanse </h1></a>
       <p class="lead">
-       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+       A bit of Plone, Zope and a dash of everything else 
       </p>
     </div>
 
@@ -58,13 +58,77 @@
       
     </ul>
 
-    <p>@2016 Tiberiu Ichim</p>
+    <p>@2017 Tiberiu Ichim</p>
   </div>
 </div>
 
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2011/01/04/running-products.gloworm-on-plone-4/">Running Products.Gloworm on Plone 4</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jan 4, 2011</time></span>
+
+        <p class="discreet">For some reason, the TTW developer tools tend to get neglected in the Plone world. A valuable tools such as Clouseau has fallen out of favour and now Gloworm, the @@manage-viewlets replacement/complement won't run in Plone 4 (at least at version 1.0, which is the latest right now on PyPI).
+Fortunately, Gloworm has been updated in svn trunk. To get the latest version you need to add it to sources (in buildout. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2011/01/04/running-products.gloworm-on-plone-4/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2011/01/02/a-pattern-for-programatically-creating-plone-content/">A pattern for programatically creating Plone content</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jan 2, 2011</time></span>
+
+        <p class="discreet">I'm importing content from a legacy system to a new website that I'm doing with Plone 4 (wow! what an improvement, in speed and technology) and was looking at the existing documentation on how to programatically create new Plone content. The issue I'm having with the existing documentation is that it's incomplete. It won't give you automatically created ids, you'll have to manually call mutators if you don't know any better, etc. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2011/01/02/a-pattern-for-programatically-creating-plone-content/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2010/09/19/a-miniguide-to-dolmen-packages/">A miniguide to Dolmen packages</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/dolmen">Dolmen</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/grok">Grok</a>
+        </p>
+
+        <span class="post-date"><time>Sep 19, 2010</time></span>
+
+        <p class="discreet">I'm finally starting a long-overdue project which I have decided to do with Dolmen. As usual, I start by studying its source code and the packages that are available for it. By itself it can will get me about 60% with the requirements for my project, so it's a pretty good starting base. I plan to also study and use some of the menhir.* packages, which are pretty good as generic CMS content types. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2010/09/19/a-miniguide-to-dolmen-packages/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -219,74 +283,6 @@ from zope.app.applicationcontrol.applicationcontrol import applicationController
       
       
 
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2009/11/30/a-dont-do-for-internationalizing-django-templates/">A don&#39;t do for internationalizing Django templates</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/django">Django</a>
-        </p>
-
-        <span class="post-date"><time>Nov 30, 2009</time></span>
-
-        <p class="discreet">I'm internationalizing a Pinax website and I've encountered this piece of code in a template:
-&lt;input type="submit" value="{% trans "invite" %}"/&gt; {% blocktrans %}{{ other_user }} to be a friend.{% endblocktrans %}  The message ids for this code would be two separate blocks: "invite" and " %{other_user}s to be a friend". Both offer very little in terms of context and make the translators job difficult. Correct, in my point of view, would be the more convoluted form of: [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2009/11/30/a-dont-do-for-internationalizing-django-templates/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2009/11/30/odd-thing-in-django-the-date-filter-takes-php-as-reference-instead-of-python/">Odd thing in Django: the date filter takes PHP as reference instead of Python</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>, <a href="/tags/django">Django</a>
-        </p>
-
-        <span class="post-date"><time>Nov 30, 2009</time></span>
-
-        <p class="discreet">I wonder what possible explanation there is for the behaviour of the date template filter.
-Uses the same format as PHP's date() function (http://php.net/date) with some custom extensions.  I understand where Django comes from, but I think this sort of things should be more aligned with the rest of the Python world. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2009/11/30/odd-thing-in-django-the-date-filter-takes-php-as-reference-instead-of-python/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2009/11/18/if-django-templates-are-an-improvement-over-xml-templates-then-by-all-means-please-give-me-xml/">If Django templates are an improvement over XML templates, then, by all means, please give me XML</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>, <a href="/tags/django">Django</a>
-        </p>
-
-        <span class="post-date"><time>Nov 18, 2009</time></span>
-
-        <p class="discreet">I fail to see how
-{% block %} ... {% endblock %}  is in any way better or "less scary" then, let's say
-&lt;dj:block&gt; ... &lt;/dj:block&gt;  Yet another rant, this time triggered by the error I got when writing this piece of code:
-{% blocktrans with offer.offerer.username as offerer_username and offer.offered_time|date as offerer_date %} ... {% endblocktrans %}  I just wanted to split the tag on multiple lines, but it seems that's not possible. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2009/11/18/if-django-templates-are-an-improvement-over-xml-templates-then-by-all-means-please-give-me-xml/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
       <nav id="page-nav">
 
     
@@ -313,6 +309,17 @@ Uses the same format as PHP's date() function (http://php.net/date) with some cu
       hljs.highlightBlock(block);
     });
   });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104721960-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 
 </body>

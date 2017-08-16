@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cron on The Plone Expanse</title>
+    <link>/tags/cron/</link>
+    <description>Recent content in Cron on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2017 Tiberiu Ichim</copyright>
+    <lastBuildDate>Tue, 15 Aug 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/cron/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My recipe for cronjobs with Docker</title>
+      <link>/blog/2017/08/15/my-recipe-for-cronjobs-with-docker/</link>
+      <pubDate>Tue, 15 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2017/08/15/my-recipe-for-cronjobs-with-docker/</guid>
+      <description>One of the bigger annoyances when it comes to bigger application stacks (such as the typical Plone/Zope) is dealing with cron jobs and, in general, async tasks. The problem is that of the number of &amp;ldquo;pieces&amp;rdquo;: having to deal with cron, in addition to the rest of the stack only increases the maintainance burden: it&amp;rsquo;s easy to forget that the stack needs to have cronjobs installed, etc. One way to avoid it is to include the cron jobs in the stack, with a buildout recipe.</description>
+    </item>
+    
+  </channel>
+</rss>

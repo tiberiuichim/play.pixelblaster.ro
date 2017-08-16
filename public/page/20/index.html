@@ -41,7 +41,7 @@
     <div class="sidebar-about">
       <a href="/"><h1>The Plone Expanse </h1></a>
       <p class="lead">
-       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+       A bit of Plone, Zope and a dash of everything else 
       </p>
     </div>
 
@@ -58,13 +58,82 @@
       
     </ul>
 
-    <p>@2016 Tiberiu Ichim</p>
+    <p>@2017 Tiberiu Ichim</p>
   </div>
 </div>
 
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/12/games-for-linux/">Games for Linux</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/fun">fun</a>, <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Aug 12, 2006</time></span>
+
+        <p class="discreet">Following link from the PyPi, I've stumbled upon this page: http://emhsoft.net/index.html
+The abstract shooters on that page are very nice. Also, a few of those games are implemented with pygame ;-) .  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/12/games-for-linux/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/08/accessing-a-zope-object-stripped-of-acquisition/">Accessing a zope object stripped of acquisition</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 8, 2006</time></span>
+
+        <p class="discreet">To get an object completely stripped of its acquisition layers, the following snippet can be employed
+import Acquisition
+obj_no_aq = Acquisition.aq_base(obj)
+No acquisition means no methods or properties inherited from the container or the container chain.
+Although a bit old, the Zope Developer Guide, with its chapter on Acquisition do a fine job at explaining the intricacies of acquisition in Zope 2. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/08/accessing-a-zope-object-stripped-of-acquisition/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/08/clouseau-a-new-developer-tool-for-plone/">Clouseau: A new developer tool for Plone</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 8, 2006</time></span>
+
+        <p class="discreet">A new developer tool was placed in the Collective. This Ajax tool offers a python prompt similar to running "zopect debug" or breaking into the zope through a pdb call. It is really cool and useful in debugging and exploring Plone. I'd rank this tool as extremely important to the regular Plone developer, along DocFinder or the pdb debugging module.
+Current location is here:http://svn.plone.org/svn/collective/Clouseau/ [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/08/clouseau-a-new-developer-tool-for-plone/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -241,77 +310,6 @@ References: http://danielnouri.org/blog/devel/zope/zopeskel-plonecore.htmlhttp:/
       
       
 
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/07/27/adding-a-new-view-method-to-a-portal-type/">Adding a new view method to a portal type</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Jul 27, 2006</time></span>
-
-        <p class="discreet">While this method is superceeded by GenericSetup, it's usefull enough that I place it here.
-ptypes = portal.portal_types
-psite = getattr(ptypes, 'Plone Site')
-view_methods = psite.view_methods
-vm = list(view_methods) + ['main_frontpage']
-psite.manage_changeProperties(view_methods=vm)  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/07/27/adding-a-new-view-method-to-a-portal-type/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/07/24/using-z3-style-events/">Using z3 style events</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Jul 24, 2006</time></span>
-
-        <p class="discreet">Based on my previous entry on at_post_create_script, I was curios on how to achieve something like that using z3 style events. Now, I know that it's not the same and the following events are meant only to replace manage_afterAdd and so on, but I'm pretty sure that there are (or will be) events fired that would replace the at_post_* scripts.
-So, easy as it gets:
-Create a new python package inside the zope Products folder, add the following method inside __init__. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/07/24/using-z3-style-events/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/07/22/my-favorite-development-environment/">My favorite development environment</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/ubuntu">Ubuntu</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/linux">Linux</a>
-        </p>
-
-        <span class="post-date"><time>Jul 22, 2006</time></span>
-
-        <p class="discreet">I thought I'd add some words about the development environment that I feel most comfortable with.
-First, I use AGX for most of my plone development. It's useful as a quick skeleton generator, but also as a way to structure the content. To generate the UML files I use Poseidon Community Edition. Up until recently it was buggy, and I still consider it to be, but I learned what to do so I won't trigger the bugs (quick tip: don't ever rename tagged values, delete it and recreate it. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/07/22/my-favorite-development-environment/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
       <nav id="page-nav">
 
     
@@ -338,6 +336,17 @@ First, I use AGX for most of my plone development. It's useful as a quick skelet
       hljs.highlightBlock(block);
     });
   });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104721960-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 
 </body>

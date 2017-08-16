@@ -6,11 +6,21 @@
     <description>Recent content in Pyramid on The Plone Expanse</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>@2016 Tiberiu Ichim</copyright>
-    <lastBuildDate>Sat, 25 Feb 2017 03:45:44 +0100</lastBuildDate>
+    <copyright>@2017 Tiberiu Ichim</copyright>
+    <lastBuildDate>Mon, 14 Aug 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/pyramid/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Running Pyramid with Flask, in the same Python process</title>
+      <link>/blog/2017/08/14/running-pyramid-with-flask-in-the-same-python-process/</link>
+      <pubDate>Mon, 14 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2017/08/14/running-pyramid-with-flask-in-the-same-python-process/</guid>
+      <description>Thanks to the wonders of WSGI and well behaved frameworks, it is now trivial to mix and match applications and have them run in the same Python process.
+Normally, in a production scenario, uwsgi would be used to split and map the URL spaces to different apps, but for development it is simpler to just use good old PythonPaste. In my case, I&amp;rsquo;ve wanted to have the RQ Dashboard (which is based on Flask) integrated with a Pyramid app that I&amp;rsquo;m working on.</description>
+    </item>
     
     <item>
       <title>Using pyramid_jwt with pyramid_multiauth</title>

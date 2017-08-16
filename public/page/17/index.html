@@ -41,7 +41,7 @@
     <div class="sidebar-about">
       <a href="/"><h1>The Plone Expanse </h1></a>
       <p class="lead">
-       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+       A bit of Plone, Zope and a dash of everything else 
       </p>
     </div>
 
@@ -58,13 +58,94 @@
       
     </ul>
 
-    <p>@2016 Tiberiu Ichim</p>
+    <p>@2017 Tiberiu Ichim</p>
   </div>
 </div>
 
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/09/20/short-recipe-for-adaptation-with-five/">Short recipe for adaptation with Five</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Sep 20, 2006</time></span>
+
+        <p class="discreet">&gt;&gt;&gt; from zope.interface import Interface, Attribute, implementsLet's say we have an object type "Person". This person can introduce himself with the name.
+class IPerson(Interface):
+name = Attribute('Name of the person')
+def say_name():
+"""The name of the person"""
+class Person(object):
+implements(IPerson)
+def __init__(self, name):
+self.name = name
+def say_name():
+return 'My name is ' + self.name
+Next, we have another object type, let's say "Worker", with an interface of IWorker.
+class IWorker(Interface): [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/09/20/short-recipe-for-adaptation-with-five/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/09/20/basic-recipe-for-a-five-view/">Basic recipe for a Five view</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Sep 20, 2006</time></span>
+
+        <p class="discreet">This recipe is addressed more to the zope2/plone developer with a bit of knowledge of the zope3 universe, but not much experience in implementing the new practices.
+Simply put, Five views are just like TTW python scripts, except without the limited forced security, and with the possibility to integrate them in unit testing and adapt them to other protocols then just http.
+First, things should be done the newly recommended " [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/09/20/basic-recipe-for-a-five-view/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/09/16/short-checklist-for-postfix---mysql---dovecot---sasl-authentication-on-fedora/">Short checklist for Postfix &#43; MySQL &#43; Dovecot &#43; SASL authentication on Fedora</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Sep 16, 2006</time></span>
+
+        <p class="discreet">1. Postfix needs to be rebuilt with Mysql enabled
+Follow this tutorial: http://postfix.wiki.xs4all.nl/index.php?title=Virtual_Users_and_Domains_with_Courier-IMAP_and_MySQL
+This one also helps: Virtual Users And Domains With Postfix, Courier And MySQL (Fedora Core 5) | HowtoForge - Linux Howtos and Tutorials
+2. Instal cyrus-sasl and cyrus-sasl-sql.
+Configure /etc/sysconfig/saslauthd to run with the rimap mechanism 3. Start saslauthd [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/09/16/short-checklist-for-postfix---mysql---dovecot---sasl-authentication-on-fedora/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -222,73 +303,6 @@ Well, that's about it. I'll add other relevant API methods to work with the work
       
       
 
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/30/improve-plone-based-website-performance-with-simple-apache-caching/">Improve Plone-based website performance with simple Apache caching</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/linux">Linux</a>
-        </p>
-
-        <span class="post-date"><time>Aug 30, 2006</time></span>
-
-        <p class="discreet">I won't go too much into details, and this is more for my own personal reference, but using this short recipe I was able to increase by up to 100 times the performance of a plone based website. For a lot more details and more advanced techniques for caching, integration with squid and cachefu, visit the Plone documentation HowTo section.
- The website hosts mostly news updates, and is edited mostly by an editorial staff, under a 24 hours cycle. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/30/improve-plone-based-website-performance-with-simple-apache-caching/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/29/checking-for-a-role-or-a-permission-in-a-context/">Checking for a role or a permission in a context</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Aug 29, 2006</time></span>
-
-        <p class="discreet">There are two very useful methods to check for certain security settings offered by the Plone API. First, to check if a user has a certain role, the following snippet can be used:
-roles_user_has = portal_membership.getCandidateLocalRoles(here)To check if a user has a certain permission, this API method can be used:
-portal_membership.checkPermission('Manage portal', here)  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/29/checking-for-a-role-or-a-permission-in-a-context/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/27/short-recipe-for-membrane-based-user-content-types/">Short recipe for membrane based user content types</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Aug 27, 2006</time></span>
-
-        <p class="discreet">Create a membrane based content item (it just needs to implement certain interfaces defined in membrane.interfaces)Register the type with membranetoolImportant: Set the active workflow status (the state in which a member can login)
-  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/27/short-recipe-for-membrane-based-user-content-types/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
       <nav id="page-nav">
 
     
@@ -315,6 +329,17 @@ portal_membership.checkPermission('Manage portal', here)  [...]</p>
       hljs.highlightBlock(block);
     });
   });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104721960-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 
 </body>

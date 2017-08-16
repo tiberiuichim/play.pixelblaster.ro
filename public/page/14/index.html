@@ -41,7 +41,7 @@
     <div class="sidebar-about">
       <a href="/"><h1>The Plone Expanse </h1></a>
       <p class="lead">
-       My thoughts, rants and tutorials on programming with a focus on the Plone, Zope and a dash of everything else 
+       A bit of Plone, Zope and a dash of everything else 
       </p>
     </div>
 
@@ -58,13 +58,82 @@
       
     </ul>
 
-    <p>@2016 Tiberiu Ichim</p>
+    <p>@2017 Tiberiu Ichim</p>
   </div>
 </div>
 
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/11/07/getting-the-parent-object-in-an-acquisition-context/">Getting the parent object in an acquisition context</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Nov 7, 2006</time></span>
+
+        <p class="discreet">To get the parent of an object, you'd have to use this code:
+myparent = aq_inner.aq_parent.aq_self  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/11/07/getting-the-parent-object-in-an-acquisition-context/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/11/06/one-liner-to-get-the-common-elements-of-several-lists/">One liner to get the common elements of several lists</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Nov 6, 2006</time></span>
+
+        <p class="discreet">While doing an exercise with a mockup catalog and indexes, I ran into the problem of filtering several lists and returning the common elements from the list. The following example demonstrate the usage of reduce(), one of the functional programming constructs that are less common and obvious in their usage.
+&gt;&gt;&gt; a = [1,2,3,4]
+&gt;&gt;&gt; b = [2,3,4,5]
+&gt;&gt;&gt; c = [1,2,4,6]
+&gt;&gt;&gt; d = [0,2,3]
+&gt;&gt;&gt; z = [a,b,c,d] [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/11/06/one-liner-to-get-the-common-elements-of-several-lists/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/29/pitfall-of-building-python-from-source-on-ubuntu/">Pitfall of building python from source on Ubuntu</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Oct 29, 2006</time></span>
+
+        <p class="discreet">Zope 3.3 doesn't work well with the python 2.4.4 that comes with Ubuntu Edgy. Something about a readline change somewhere in the python standard library. So I had to build python 2.4.3 from source. Being an impatient being, I haven't give it much thought and just unpacked the python tarball, hit ./configure and make install. I ended up with python installed in /usr/local/bin/python, which would be really really cool if Ubuntu wouldn't depend on python and wouldn't place /usr/local/bin at the beginning of $PATH. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/29/pitfall-of-building-python-from-source-on-ubuntu/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -256,73 +325,6 @@ myfilecontrol.mech_control.set_file(filestream, mimetype, filename). The problem
       
       
 
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/10/15/adding-an-overrides.zcml/">Adding an overrides.zcml</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Oct 15, 2006</time></span>
-
-        <p class="discreet">According to this discussion on #zope3-dev, one must do the following to get overrides to take effect:
-add an product-overrides.zcml in which to include &lt;include package="foo" file="overrides.zcml" /&gt;the *-overrides.zcml slugs needs to be loaded with includeOverrides  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/10/15/adding-an-overrides.zcml/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/10/10/advancedquery-and-other-portal_catalog-tricks/">AdvancedQuery and other portal_catalog tricks</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Oct 10, 2006</time></span>
-
-        <p class="discreet">The normal ZCatalog queries and indexes are extremely limited. For example, I had a need to check for a "Value not in KeywordIndex" expression, which is impossible to do with the normal catalog. AdvancedQuery comes to the rescue, but things aren't too obvious there either. AQ has a In() expression that can be used in building queries, but it does the reverse thing: check something like "IndexedValue not in ListOfValues". [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/10/10/advancedquery-and-other-portal_catalog-tricks/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/10/07/little-bits-of-info-about-cmfformcontroller/">Little bits of info about CMFFormController</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Oct 7, 2006</time></span>
-
-        <p class="discreet">One thing the documentation doesn't clearly state: you can set the status to a value and have that value defined as an action in the metadata file, basically redirecting the flow of the controller sequence to that action. To make things clear, I'll paste some code. In the login_initial.cpy.metadata file from CMFPlone we have this bit of code:
-[actions]
-action.success=traverse_to:string:login_next
-action.login_change_password=traverse_to:string:login_passwordSo basically we have two actions defined, depending on the type of status returned. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/10/07/little-bits-of-info-about-cmfformcontroller/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
       <nav id="page-nav">
 
     
@@ -349,6 +351,17 @@ action.login_change_password=traverse_to:string:login_passwordSo basically we ha
       hljs.highlightBlock(block);
     });
   });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104721960-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 
 </body>
