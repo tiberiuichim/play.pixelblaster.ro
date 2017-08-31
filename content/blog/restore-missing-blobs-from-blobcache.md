@@ -19,6 +19,13 @@ and copy them to the "proper" location. This could have been just a simple Pytho
 with Zope.
 
 ```python
+from Products.Five import BrowserView
+from ZODB.POSException import POSKeyError
+from ZODB.blob import FilesystemHelper
+from ZODB.utils import p64
+import os.path
+import shutil
+
 class SyncBlobsFromCache(BrowserView):
     """ Sync blobs from the blobcache to the zeostorage blobstorage
     """
