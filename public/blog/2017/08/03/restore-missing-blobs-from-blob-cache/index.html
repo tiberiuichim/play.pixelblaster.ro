@@ -89,7 +89,14 @@ the real blobstorage) identify blobs that are present in the cache, convert thei
 and copy them to the &ldquo;proper&rdquo; location. This could have been just a simple Python script, but easy enough to write it integrated
 with Zope.</p>
 
-<pre><code class="language-python">class SyncBlobsFromCache(BrowserView):
+<pre><code class="language-python">from Products.Five import BrowserView
+from ZODB.POSException import POSKeyError
+from ZODB.blob import FilesystemHelper
+from ZODB.utils import p64
+import os.path
+import shutil
+
+class SyncBlobsFromCache(BrowserView):
     &quot;&quot;&quot; Sync blobs from the blobcache to the zeostorage blobstorage
     &quot;&quot;&quot;
 
