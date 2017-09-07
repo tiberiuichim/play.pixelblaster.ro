@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/02/05/reset-the-generations-level-for-a-zope-application/">Reset the generations level for a Zope application</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Feb 5, 2009</time></span>
+
+        <p class="discreet">While developing an application and writing some migration code (using zope.app.generations), I had the need to reset the generation number recorded in the database for my application to a version lower than the current generation number (because my generation code didn't run properly and I didn't want to create bogus generation files). To solve this issue, in a pdb prompt I had to run:
+(Pdb) db = self.request.publication.db (Pdb) conn = db. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/02/05/reset-the-generations-level-for-a-zope-application/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2009/01/16/learningjourney-a-zope-3-tutorial/">LearningJourney: A Zope 3 tutorial</a></h2>
 
         <p class="post-tags">
@@ -254,27 +276,6 @@ The solution is to upgrade the installed setuptools to the latest version. For e
 
         <div class="read-more-link">
           <a href="/blog/2008/09/15/stupid-internet-explorer-and-stupid-ie-bugs/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2008/09/14/workingenv-setuptools-and-svn-1.5-redux/">Workingenv, setuptools and svn 1.5 redux</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">python</a>
-        </p>
-
-        <span class="post-date"><time>Sep 14, 2008</time></span>
-
-        <p class="discreet">I'm back to dealing with the incompatibility between setuptools and svn 1.5 which I have installed. Last time I've solved the problem by doing a svn checkout of http://svn.python.org/projects/sandbox/branches/setuptools-0.6/ and running sudo python setup.py install. Now I'm trying to do setup a virtualenv to play with repoze.catalog and I'm hitting the same problem. Of course, virtualenv comes with a hardcoded setuptools package and so it will setup a "broken" setuptools in the virtual environment. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2008/09/14/workingenv-setuptools-and-svn-1.5-redux/">Read More&rarr;</a>
         </div>
 
       </div>

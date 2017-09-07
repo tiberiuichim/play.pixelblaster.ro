@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2017/02/25/using-pyramid_jwt-with-pyramid_multiauth/">Using pyramid_jwt with pyramid_multiauth</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/pyramid">Pyramid</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Feb 25, 2017</time></span>
+
+        <p class="discreet">pyramid_jwt has its own convenience method of registering as an authentication policy, through config.set_jwt_authentication_policy. It does so because the constructor of its policy takes a lot of arguments, so it&rsquo;s best to trust the package to do its own setup.
+But this makes it a bit harder to use with pyramid_multiauth, as you can&rsquo;t easily pass the JWTAuthenticationPolicy policy to the multiauth.policies setting. Turns out that is not hard at all. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2017/02/25/using-pyramid_jwt-with-pyramid_multiauth/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2017/02/23/installing-node-with-nvm/">Installing node with NVM</a></h2>
 
         <p class="post-tags">
@@ -263,28 +285,6 @@ As an example: when exploring collective. [...]</p>
 
         <div class="read-more-link">
           <a href="/blog/2017/01/08/do-you-really-need-that-metadata-column/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2017/01/05/auto-bootstrap-nvim-configuration/">Auto-bootstrap (n)vim configuration</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/vim">vim</a>
-        </p>
-
-        <span class="post-date"><time>Jan 5, 2017</time></span>
-
-        <p class="discreet">Ever since I've moved to Neovim and redid my whole setup, I've had this piece of code at the top of my init.vim:
-if empty(glob('~/.config/nvim/autoload/plug.vim')) silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim autocmd VimEnter * PlugInstall | source $MYVIMRC endif  Together with the rest of that dotfile, it automatically bootstraps the whole plugins install process, which makes moving to a new machine a simple operation of just cloning the repo in the proper location, start once Neovim to let it bootstrap, then boom, everything fits in place. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2017/01/05/auto-bootstrap-nvim-configuration/">Read More&rarr;</a>
         </div>
 
       </div>

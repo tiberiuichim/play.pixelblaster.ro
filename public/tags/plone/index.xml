@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2017 Tiberiu Ichim</copyright>
-    <lastBuildDate>Thu, 03 Aug 2017 13:40:28 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 06 Sep 2017 18:30:18 +0100</lastBuildDate>
     
 	<atom:link href="/tags/plone/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Identifying and fixing broken objects in a Plone website</title>
+      <link>/blog/2017/09/06/identifying-and-fixing-broken-objects-in-a-plone-website/</link>
+      <pubDate>Wed, 06 Sep 2017 18:30:18 +0100</pubDate>
+      
+      <guid>/blog/2017/09/06/identifying-and-fixing-broken-objects-in-a-plone-website/</guid>
+      <description>I&amp;rsquo;ve removed plone.app.stagingbehavior from a website because the new plone.app.iterate has the same functionality. In addition, the p.a.s package was overriding adapters that I wanted to write.
+Now, my problem was that I could no longer save any related items, I would get an error:
+Module ZPublisher.Publish, line 138, in publish Module ZPublisher.mapply, line 77, in mapply Module ZPublisher.Publish, line 48, in call_object Module plone.z3cform.layout, line 66, in __call__ Module plone.</description>
+    </item>
     
     <item>
       <title>Restore missing blobs from blob cache</title>

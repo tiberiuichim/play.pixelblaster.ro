@@ -70,6 +70,29 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/09/21/datetime-output-for-an-rss2-feed/">Datetime output for an RSS2 feed</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Sep 21, 2006</time></span>
+
+        <p class="discreet">To display properly, an RSS 2 feed needs to have the date entered in something resembling this format:
+&lt;pubDate&gt;Thu, 21 Sep 2006 15:15:26 GMT&lt;/pubDate&gt;This is needed to get a date to display in this format:
+&lt;pubDate tal:content="python: DateTime(res.Date).rfc822()"&gt; &lt;/pubDate&gt;  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/09/21/datetime-output-for-an-rss2-feed/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/09/20/short-recipe-for-adaptation-with-five/">Short recipe for adaptation with Five</a></h2>
 
         <p class="post-tags">
@@ -275,28 +298,6 @@ Usually, to limit the fields visible in the edit form, I would give those fields
 
         <div class="read-more-link">
           <a href="/blog/2006/09/01/running-microsoft-word-as-a-windows-service/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/31/small-snippet-to-read-the-title-for-a-dcworkflow-state/">Small snippet to read the title for a DCWorkflow state</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Aug 31, 2006</time></span>
-
-        <p class="discreet">portal_workflow.getTitleForStateOnType(obj.review_state, obj.portal_type)
-Well, that's about it. I'll add other relevant API methods to work with the workflow tool when I'll have a need for them again. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/31/small-snippet-to-read-the-title-for-a-dcworkflow-state/">Read More&rarr;</a>
         </div>
 
       </div>

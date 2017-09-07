@@ -70,6 +70,29 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2011/02/08/set-product-configuration-globally-in-zope.conf/">Set product configuration globally in zope.conf</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Feb 8, 2011</time></span>
+
+        <p class="discreet">I have a Zope product that needs to write in a centralized location, across multiple instances. The classic Python solution would be to write a variable in a config.py module and read that location from the code, but this feels unelegant in an environment that uses zc.buildout for deployment. The solution I have found is, as follows:
+In buildout.cfg, in the instance part definition, add:
+zope-conf-additional = &nbsp;&nbsp;&nbsp; &lt;environment&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mylocation ${buildout:directory}/var/mylocation &nbsp;&nbsp;&nbsp; &lt;/environment&gt;  Next, inside the product code I have: [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2011/02/08/set-product-configuration-globally-in-zope.conf/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2011/01/04/running-products.gloworm-on-plone-4/">Running Products.Gloworm on Plone 4</a></h2>
 
         <p class="post-tags">
@@ -255,28 +278,6 @@ The latest Ubuntu version which I have installed (Lucid Lynx) comes with a packa
 
         <div class="read-more-link">
           <a href="/blog/2010/01/28/dear-pypi-uploaders-dont-use-a-download-url-upload-your-package-instead/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok/">Test if developer mode is set in Zope 3 and Grok</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/grok">Grok</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Jan 15, 2010</time></span>
-
-        <p class="discreet">I've started an application that uses Dolmen, a lightweight CMS built on top of Grok, and I want to be able to "rollup" the megrok.resource files based on the devmode setting that was set in the zope.conf file. After a bit of digging, I came up with this code that tells me the current devmode setting for the running instance:
-from zope.app.applicationcontrol.applicationcontrol import applicationController from zope.app.applicationcontrol.interfaces import IRuntimeInfo def get_debug_mode(): &nbsp;&nbsp;&nbsp; " [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok/">Read More&rarr;</a>
         </div>
 
       </div>

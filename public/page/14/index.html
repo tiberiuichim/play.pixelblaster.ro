@@ -70,6 +70,27 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/11/23/setting-a-dynamic-i18ndomain-in-a-zpt-template/">Setting a dynamic i18n:domain in a ZPT template</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Nov 23, 2006</time></span>
+
+        <p class="discreet">&lt;h2 tal:define="statusMessage python:request.get('statusMessage'); domain python:request.get('domain')" tal:attributes="i18n:domain domain; i18n:translate string:"&gt;someText&lt;/h2&gt;  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/11/23/setting-a-dynamic-i18ndomain-in-a-zpt-template/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/11/07/getting-the-parent-object-in-an-acquisition-context/">Getting the parent object in an acquisition context</a></h2>
 
         <p class="post-tags">
@@ -297,28 +318,6 @@ A more simple, modern and elegant way of doing achieving this is detailed in the
 
         <div class="read-more-link">
           <a href="/blog/2006/10/20/easy-access-to-the-zope-namespace-and-modules/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/10/19/testing-file-uploads-fields-with-zope.testbrowser/">Testing file uploads fields with zope.testbrowser</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Oct 19, 2006</time></span>
-
-        <p class="discreet">For some reason, the set_file method is not available for ListControls file upload objects inside the Browser object. To be able to fill in the file field, one needs to do
-myfilecontrol.mech_control.set_file(filestream, mimetype, filename). The problem gets weirder as set_file() is the method indicated by the README.txt doctest of zope.testbrowser package as the way to upload a file stream in a file upload widget, and I presume the README.txt test doesn't fail. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/10/19/testing-file-uploads-fields-with-zope.testbrowser/">Read More&rarr;</a>
         </div>
 
       </div>

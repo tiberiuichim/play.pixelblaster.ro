@@ -70,6 +70,27 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql/">How to use pgloader to migrate sqlite database to postgresql</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/docker">Docker</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/postgresql">Postgresql</a>, <a href="/tags/sqlite">SQLite</a>, <a href="/tags/kotti">Kotti</a>
+        </p>
+
+        <span class="post-date"><time>Jun 13, 2016</time></span>
+
+        <p class="discreet">I needed to migrate a Kotti database, from its default sqlite file store, to Postgresql. Clued in by StackOverflow, I've tried using pgloader, but the version coming with Ubuntu is old: 2.x instead of the brand new 3.x. But the jump to 3.x meant a switch in programming languages as well: the new one is written in Lisp. I didn't want to install and compile the whole Lisp bundle just to run pgloader and I didn't find a binary distribution either, and after a recent exposure to Docker, I thought I'll give the dockerized version of pgloader a try. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2016/06/13/the-case-of-the-strange-richtext-widgets/">The case of the strange RichText widgets</a></h2>
 
         <p class="post-tags">
@@ -262,29 +283,6 @@ import cPickle def export(self): pas = self.acl_users users = pas.source_users p
 
         <div class="read-more-link">
           <a href="/blog/2011/03/09/export/import-users-in-and-out-of-plone/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2011/02/08/set-product-configuration-globally-in-zope.conf/">Set product configuration globally in zope.conf</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Feb 8, 2011</time></span>
-
-        <p class="discreet">I have a Zope product that needs to write in a centralized location, across multiple instances. The classic Python solution would be to write a variable in a config.py module and read that location from the code, but this feels unelegant in an environment that uses zc.buildout for deployment. The solution I have found is, as follows:
-In buildout.cfg, in the instance part definition, add:
-zope-conf-additional = &nbsp;&nbsp;&nbsp; &lt;environment&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mylocation ${buildout:directory}/var/mylocation &nbsp;&nbsp;&nbsp; &lt;/environment&gt;  Next, inside the product code I have: [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2011/02/08/set-product-configuration-globally-in-zope.conf/">Read More&rarr;</a>
         </div>
 
       </div>

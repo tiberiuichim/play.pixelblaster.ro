@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/19/testing-file-uploads-fields-with-zope.testbrowser/">Testing file uploads fields with zope.testbrowser</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Oct 19, 2006</time></span>
+
+        <p class="discreet">For some reason, the set_file method is not available for ListControls file upload objects inside the Browser object. To be able to fill in the file field, one needs to do
+myfilecontrol.mech_control.set_file(filestream, mimetype, filename). The problem gets weirder as set_file() is the method indicated by the README.txt doctest of zope.testbrowser package as the way to upload a file stream in a file upload widget, and I presume the README.txt test doesn't fail. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/19/testing-file-uploads-fields-with-zope.testbrowser/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/10/15/adding-an-overrides.zcml/">Adding an overrides.zcml</a></h2>
 
         <p class="post-tags">
@@ -277,28 +299,6 @@ visible=1
 
         <div class="read-more-link">
           <a href="/blog/2006/10/04/easy-install-of-actions-with-cmfquickinstaller/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/10/04/start-plone-or-zope-in-debug-mode-under-windows/">Start Plone (or Zope) in debug mode under Windows</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/windows">Windows</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Oct 4, 2006</time></span>
-
-        <p class="discreet">Lifted from #plone:
-bin/runzope.bat -X "debug-mode=on"  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/10/04/start-plone-or-zope-in-debug-mode-under-windows/">Read More&rarr;</a>
         </div>
 
       </div>

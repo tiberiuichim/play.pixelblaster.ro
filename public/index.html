@@ -70,6 +70,29 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2017/09/06/identifying-and-fixing-broken-objects-in-a-plone-website/">Identifying and fixing broken objects in a Plone website</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/plone">Plone</a>, <a href="/tags/programming">programming</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/tutorial">tutorial</a>
+        </p>
+
+        <span class="post-date"><time>Sep 6, 2017</time></span>
+
+        <p class="discreet">I&rsquo;ve removed plone.app.stagingbehavior from a website because the new plone.app.iterate has the same functionality. In addition, the p.a.s package was overriding adapters that I wanted to write.
+Now, my problem was that I could no longer save any related items, I would get an error:
+Module ZPublisher.Publish, line 138, in publish Module ZPublisher.mapply, line 77, in mapply Module ZPublisher.Publish, line 48, in call_object Module plone.z3cform.layout, line 66, in __call__ Module plone. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2017/09/06/identifying-and-fixing-broken-objects-in-a-plone-website/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2017/08/15/my-recipe-for-cronjobs-with-docker/">My recipe for cronjobs with Docker</a></h2>
 
         <p class="post-tags">
@@ -265,28 +288,6 @@ First, we want to analyse what&rsquo;s inside the bundle. A good utility is webp
 
         <div class="read-more-link">
           <a href="/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2017/02/25/using-pyramid_jwt-with-pyramid_multiauth/">Using pyramid_jwt with pyramid_multiauth</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/pyramid">Pyramid</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Feb 25, 2017</time></span>
-
-        <p class="discreet">pyramid_jwt has its own convenience method of registering as an authentication policy, through config.set_jwt_authentication_policy. It does so because the constructor of its policy takes a lot of arguments, so it&rsquo;s best to trust the package to do its own setup.
-But this makes it a bit harder to use with pyramid_multiauth, as you can&rsquo;t easily pass the JWTAuthenticationPolicy policy to the multiauth.policies setting. Turns out that is not hard at all. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2017/02/25/using-pyramid_jwt-with-pyramid_multiauth/">Read More&rarr;</a>
         </div>
 
       </div>

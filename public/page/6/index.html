@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok/">Test if developer mode is set in Zope 3 and Grok</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/grok">Grok</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Jan 15, 2010</time></span>
+
+        <p class="discreet">I've started an application that uses Dolmen, a lightweight CMS built on top of Grok, and I want to be able to "rollup" the megrok.resource files based on the devmode setting that was set in the zope.conf file. After a bit of digging, I came up with this code that tells me the current devmode setting for the running instance:
+from zope.app.applicationcontrol.applicationcontrol import applicationController from zope.app.applicationcontrol.interfaces import IRuntimeInfo def get_debug_mode(): &nbsp;&nbsp;&nbsp; " [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2010/01/15/test-if-developer-mode-is-set-in-zope-3-and-grok/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2009/11/30/a-dont-do-for-internationalizing-django-templates/">A don&#39;t do for internationalizing Django templates</a></h2>
 
         <p class="post-tags">
@@ -263,28 +285,6 @@ I'm talking about a glimpse at some code that I caught while helping my brother 
 
         <div class="read-more-link">
           <a href="/blog/2009/10/07/questioning-the-quality-of-code-in-django-third-party-projects/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2009/09/17/customizing-django-lfs-lightning-fast-shop-for-the-non-django-developer/">Customizing Django LFS (Lightning Fast Shop) for the non-django developer</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/django">Django</a>
-        </p>
-
-        <span class="post-date"><time>Sep 17, 2009</time></span>
-
-        <p class="discreet">I'm not a Django developer, but I have a project that involves deploying a LFS site, and it took me a bit of time and effort to understand how to customize its templates and resources. This all may seem obvious to the any Django developer, but I'm not, so I think this info needs to be out there.
-As a side note, at first I have reviewed Satchmo, as it seemed to have more traction in the Django community (being a Zope/Plone developer, I am more aware of the previous work done by the LFS developer, the EasyShop). [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2009/09/17/customizing-django-lfs-lightning-fast-shop-for-the-non-django-developer/">Read More&rarr;</a>
         </div>
 
       </div>
