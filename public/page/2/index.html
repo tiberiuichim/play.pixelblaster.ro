@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/">Loading packages without z3c.autoinclude in Plone 5.1</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/plone">Plone</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Feb 25, 2017</time></span>
+
+        <p class="discreet">The new Plone 5.1 development buildout doesn&rsquo;t include a zcml property in its [instance] section. It is no longer needed, with all eggs already providing a z3c.autoinclude entrypoint. This, unless you want to load an older package which doesn&rsquo;t have such an entry point. That&rsquo;s when the trouble starts. Adding a, for example:
+[instance] ... zcml += cs.auth.facebook  doesn&rsquo;t work. There is really no zcml property in any of the extended cfg file, so Zope will try to load this package first, which will result in a &ldquo;permission not defined&rdquo; zcml error. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2017/02/25/using-pyramid_jwt-with-pyramid_multiauth/">Using pyramid_jwt with pyramid_multiauth</a></h2>
 
         <p class="post-tags">
@@ -263,28 +285,6 @@ tmux In the beginning I&rsquo;ve used Yakuake tabs to split servers and files in
 
         <div class="read-more-link">
           <a href="/blog/2017/01/18/editing-short-python-scripts-with-vim/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2017/01/08/do-you-really-need-that-metadata-column/">Do you really need that metadata column?</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope2">zope2</a>, <a href="/tags/zope">zope</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/tutorial">tutorial</a>, <a href="/tags/zcatalog">ZCatalog</a>
-        </p>
-
-        <span class="post-date"><time>Jan 8, 2017</time></span>
-
-        <p class="discreet">It is one of the tenets of Plone optimization that brain.getObject() should be avoided and instead new metadata columns should be defined, to pass have that information in the brain. In the interest of keeping the ZODB free of junk and avoid duplication of information, I argue that it is possible sometimes to avoid polluting the catalog and instead use the information stored in the index itself.&nbsp;
-As an example: when exploring collective. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2017/01/08/do-you-really-need-that-metadata-column/">Read More&rarr;</a>
         </div>
 
       </div>

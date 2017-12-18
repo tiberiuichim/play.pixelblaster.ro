@@ -70,6 +70,27 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/09/01/running-microsoft-word-as-a-windows-service/">Running Microsoft Word as a Windows service</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/windows">Windows</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Sep 1, 2006</time></span>
+
+        <p class="discreet">Apparently, this is not recommended by Microsoft, but they have some pointers on how to achieve this on their website. How to configure Office applications to run under the interactive user accountConsiderations for server-side Automation of OfficeI ran through the steps in the first article and I can attest that it's possible to use Microsoft Word to generate, for example, PDF files by printing them from a service. I have the feeling that most of those steps are not needed if Word is not accessed as a COM service, and all is needed is to create a new user, start and configure Word to have a running instance and then configure the service to run as that user. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/09/01/running-microsoft-word-as-a-windows-service/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/08/31/small-snippet-to-read-the-title-for-a-dcworkflow-state/">Small snippet to read the title for a DCWorkflow state</a></h2>
 
         <p class="post-tags">
@@ -291,40 +312,6 @@ from dlgControlerMainFrame import dlgControlerMainFrame [...]</p>
 
         <div class="read-more-link">
           <a href="/blog/2006/08/23/creating-and-managing-a-windows-service-part-3/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/23/creating-and-managing-a-windows-service-part-2/">Creating and managing a Windows service (part 2)</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Aug 23, 2006</time></span>
-
-        <p class="discreet">This part of the recipe shows the python code needed to create (install) the Windows service. I didn't write most of this, I just found it somewhere on the internet. Credit due to the original author.
-import sys
-import win32service, win32serviceutil
-from config import SERVICE_NAME, SERVICE_DISPLAY_NAME, SOFTWAREPATH
-service_path = "%s\myservice.exe" % SOFTWAREPATH
-def debug(msg):
-print msg
-def removeSvc():
-debug('called removeSvc()')
-win32serviceutil.RemoveService(SERVICE_NAME)
-debug('...service was removed')
-def installSvc():
-debug('installSvc()')
-hscm = win32service.OpenSCManager(None,None,win32service.SC_MANAGER_ALL_ACCESS) [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/23/creating-and-managing-a-windows-service-part-2/">Read More&rarr;</a>
         </div>
 
       </div>

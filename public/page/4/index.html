@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2016/06/30/how-to-completely-disable-diazo-on-a-specific-path/">How to completely disable Diazo on a specific path</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/diazo">diazo</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/plone.app.theming">plone.app.theming</a>, <a href="/tags/deliverance">deliverance</a>
+        </p>
+
+        <span class="post-date"><time>Jun 30, 2016</time></span>
+
+        <p class="discreet">I'm working on an (inherited) website that uses Plone and BackboneJS to offer a streamlined search interface over a catalog of items.
+My task was to apply a new Diazo theme, which worked great for the rest of the website, except for this search page. The items inserted by the Backbone app would be all garbled and wrong. In the end, I managed to isolate the problem to a single page template that would load only that SPA, and the problem still persisted, (on my development machine), while the same code ran ok on the production server. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2016/06/30/how-to-completely-disable-diazo-on-a-specific-path/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2016/06/13/how-to-use-pgloader-to-migrate-sqlite-database-to-postgresql/">How to use pgloader to migrate sqlite database to postgresql</a></h2>
 
         <p class="post-tags">
@@ -261,28 +283,6 @@ While: &nbsp; Installing. &nbsp; Getting section zope2. &nbsp; Initializing sect
 
         <div class="read-more-link">
           <a href="/blog/2011/05/01/building-pil-with-jpeg-support-on-ubuntu-11.04/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2011/03/09/export/import-users-in-and-out-of-plone/">Export/import users in and out of Plone</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Mar 9, 2011</time></span>
-
-        <p class="discreet">A dirty quick method of importing and exporting the users (only usernames and passwords) out of Plone, using 2 external methods. Code below, not much else to say.
-import cPickle def export(self): pas = self.acl_users users = pas.source_users passwords = users._user_passwords result = dict(passwords) f = open('/tmp/out.blob', 'w') cPickle.dump(result, f) f.close() return "done" def import_users(self): pas = self.acl_users users = pas.source_users f = open('/tmp/out.blob') res = cPickle.load(f) f.close() for uid, pwd in res. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2011/03/09/export/import-users-in-and-out-of-plone/">Read More&rarr;</a>
         </div>
 
       </div>

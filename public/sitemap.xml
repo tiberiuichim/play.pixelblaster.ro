@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>/blog/2017/12/18/a-quick-and-dirty-mini-plugin-system-for-python/</loc>
+    <lastmod>2017-12-18T16:22:22+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/2017/09/06/identifying-and-fixing-broken-objects-in-a-plone-website/</loc>
     <lastmod>2017-09-06T18:30:18+01:00</lastmod>
   </url>
@@ -1055,7 +1060,7 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2017-09-06T18:30:18+01:00</lastmod>
+    <lastmod>2017-12-18T16:22:22+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1085,7 +1090,7 @@
   
   <url>
     <loc>/tags/cookbook/</loc>
-    <lastmod>2017-09-06T18:30:18+01:00</lastmod>
+    <lastmod>2017-12-18T16:22:22+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1283,7 +1288,7 @@
   
   <url>
     <loc>/tags/python/</loc>
-    <lastmod>2017-08-14T00:00:00+00:00</lastmod>
+    <lastmod>2017-12-18T16:22:22+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1349,7 +1354,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2017-09-06T18:30:18+01:00</lastmod>
+    <lastmod>2017-12-18T16:22:22+02:00</lastmod>
     <priority>0</priority>
   </url>
   

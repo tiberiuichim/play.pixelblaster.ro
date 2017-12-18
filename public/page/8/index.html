@@ -70,6 +70,29 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/">Variable keys in dictionaries with Page Templates TALES syntax</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope">zope</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Feb 11, 2009</time></span>
+
+        <p class="discreet">I admit, I didn't knew this until now. In the following construction:
+&lt;div tal:content="somedict/keyname/someattr" /&gt; "keyname" is taken as a string, it's the literal name of the key for the somedict mapping. To use a variable instead of the literal value of the key name, I used to do:
+&lt;div tal:content="python somedict[key].someattr" /&gt; Browsing through the zope.app.catalog code, I saw that there's actually a way to use the TALES syntax: [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/02/11/variable-keys-in-dictionaries-with-page-templates-tales-syntax/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2009/02/05/reset-the-generations-level-for-a-zope-application/">Reset the generations level for a Zope application</a></h2>
 
         <p class="post-tags">
@@ -255,27 +278,6 @@ The solution is to upgrade the installed setuptools to the latest version. For e
 
         <div class="read-more-link">
           <a href="/blog/2008/10/08/richtext-control-with-wxpython-saving-loading-and-converting-from-internal-xml-to-html/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2008/09/15/stupid-internet-explorer-and-stupid-ie-bugs/">Stupid Internet Explorer and stupid IE bugs</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>, <a href="/tags/javascript">Javascript</a>
-        </p>
-
-        <span class="post-date"><time>Sep 15, 2008</time></span>
-
-        <p class="discreet">I'm placing the finishing touches on a web application I've been writing on and off for the last year. At last, I've reached Internet Explorer bugs, which are usually the last to be fixed. Among several other stupid but documented bugs, I've found one which I couldn't find documented in a shallow search on Google: it seems IE has an algorithm for comparing strings that is different then the one that is used internally when sorting an array of strings. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2008/09/15/stupid-internet-explorer-and-stupid-ie-bugs/">Read More&rarr;</a>
         </div>
 
       </div>

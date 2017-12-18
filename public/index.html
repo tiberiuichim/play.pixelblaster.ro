@@ -70,6 +70,29 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2017/12/18/a-quick-and-dirty-mini-plugin-system-for-python/">A quick and dirty mini-plugin system for Python</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Dec 18, 2017</time></span>
+
+        <p class="discreet">Inspired by Pyramid&rsquo;s and venusian&rsquo;s scan() call, I&rsquo;ve reimplemented an auto-discovery system for plugins. The problem is simple.
+Suppose we want to &ldquo;register&rdquo; a series of functions that can run automatically, based on aspects set in the calling environment. The simples and easiest solution is something like:
+# in some module, as a global declaration: from somethingA import runner_A from somethingB import runner_B runners = [ runner_A, runner_B ] # then, maybe in some function: def main(): # . [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2017/12/18/a-quick-and-dirty-mini-plugin-system-for-python/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2017/09/06/identifying-and-fixing-broken-objects-in-a-plone-website/">Identifying and fixing broken objects in a Plone website</a></h2>
 
         <p class="post-tags">
@@ -266,28 +289,6 @@ First, we want to analyse what&rsquo;s inside the bundle. A good utility is webp
 
         <div class="read-more-link">
           <a href="/blog/2017/03/02/analyse-and-optimize-a-webpack-vuejs-bundle/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/">Loading packages without z3c.autoinclude in Plone 5.1</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/plone">Plone</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Feb 25, 2017</time></span>
-
-        <p class="discreet">The new Plone 5.1 development buildout doesn&rsquo;t include a zcml property in its [instance] section. It is no longer needed, with all eggs already providing a z3c.autoinclude entrypoint. This, unless you want to load an older package which doesn&rsquo;t have such an entry point. That&rsquo;s when the trouble starts. Adding a, for example:
-[instance] ... zcml += cs.auth.facebook  doesn&rsquo;t work. There is really no zcml property in any of the extended cfg file, so Zope will try to load this package first, which will result in a &ldquo;permission not defined&rdquo; zcml error. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2017/02/25/loading-packages-without-z3c.autoinclude-in-plone-5.1/">Read More&rarr;</a>
         </div>
 
       </div>

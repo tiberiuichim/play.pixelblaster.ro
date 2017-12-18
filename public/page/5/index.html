@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2011/03/09/export/import-users-in-and-out-of-plone/">Export/import users in and out of Plone</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Mar 9, 2011</time></span>
+
+        <p class="discreet">A dirty quick method of importing and exporting the users (only usernames and passwords) out of Plone, using 2 external methods. Code below, not much else to say.
+import cPickle def export(self): pas = self.acl_users users = pas.source_users passwords = users._user_passwords result = dict(passwords) f = open('/tmp/out.blob', 'w') cPickle.dump(result, f) f.close() return "done" def import_users(self): pas = self.acl_users users = pas.source_users f = open('/tmp/out.blob') res = cPickle.load(f) f.close() for uid, pwd in res. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2011/03/09/export/import-users-in-and-out-of-plone/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2011/02/08/set-product-configuration-globally-in-zope.conf/">Set product configuration globally in zope.conf</a></h2>
 
         <p class="post-tags">
@@ -257,27 +279,6 @@ The latest Ubuntu version which I have installed (Lucid Lynx) comes with a packa
 
         <div class="read-more-link">
           <a href="/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2010/01/28/dear-pypi-uploaders-dont-use-a-download-url-upload-your-package-instead/">Dear PyPi uploaders: don&#39;t use a download URL, upload your package instead!</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/development">development</a>, <a href="/tags/buildout">buildout</a>, <a href="/tags/rants">rants</a>
-        </p>
-
-        <span class="post-date"><time>Jan 28, 2010</time></span>
-
-        <p class="discreet">I think this is the Python Index biggest mistake, the one which makes it unreliable for serious development environments: exposing package entries with no real package files and just a download URL. To see what I'm talking about, just examine the PyPI records for BeautifulSoup or IPython, packages that are very common in buildouts. As soon as the author and publisher of that package has a hosting problem, the developer that uses that package also has a problem. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2010/01/28/dear-pypi-uploaders-dont-use-a-download-url-upload-your-package-instead/">Read More&rarr;</a>
         </div>
 
       </div>

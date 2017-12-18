@@ -70,6 +70,33 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/12/15/permission-problems-with-adapters/">Permission problems with adapters</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Dec 15, 2006</time></span>
+
+        <p class="discreet">Recently I encountered a permission problem that I guess can be tipical when working with adapters based on marker interfaces (such as implementing IRatableItem with a class and adapting it to IRating).
+The code is classic simplistic example of adaptation, using the IAnnotation to store a rating, with the adapter being something along these lines:
+from interfaces import IRating
+from zope.annotation.interfaces import IAnnotations
+from zope.interface import implements
+class RatingAdapter(object):
+implements(IRating) [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/12/15/permission-problems-with-adapters/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/11/23/setting-a-dynamic-i18ndomain-in-a-zpt-template/">Setting a dynamic i18n:domain in a ZPT template</a></h2>
 
         <p class="post-tags">
@@ -297,27 +324,6 @@ A more simple, modern and elegant way of doing achieving this is detailed in the
 
         <div class="read-more-link">
           <a href="/blog/2006/10/21/custom-traversing-with-five-and-itraversable/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/10/20/easy-access-to-the-zope-namespace-and-modules/">Easy access to the zope namespace and modules</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Oct 20, 2006</time></span>
-
-        <p class="discreet">Sometimes I just want to test a package under the zope namespace (installed usually in /opt/Zope2.9/lib/python or /usr/local/Zope3.2/lib/python), like for example the zope.testbrowser the other day. The easiest way to achieve this, without messing around with PYTHONHOME environment variables, or appending paths to sys.path is to change directory to the lib/python folder and start the python interpretor there. Because python will look in the current folder for modules and packages, they will be available in the interpretor. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/10/20/easy-access-to-the-zope-namespace-and-modules/">Read More&rarr;</a>
         </div>
 
       </div>

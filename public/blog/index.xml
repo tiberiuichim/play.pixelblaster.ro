@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2017 Tiberiu Ichim</copyright>
-    <lastBuildDate>Wed, 06 Sep 2017 18:30:18 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 18 Dec 2017 16:22:22 +0200</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A quick and dirty mini-plugin system for Python</title>
+      <link>/blog/2017/12/18/a-quick-and-dirty-mini-plugin-system-for-python/</link>
+      <pubDate>Mon, 18 Dec 2017 16:22:22 +0200</pubDate>
+      
+      <guid>/blog/2017/12/18/a-quick-and-dirty-mini-plugin-system-for-python/</guid>
+      <description>Inspired by Pyramid&amp;rsquo;s and venusian&amp;rsquo;s scan() call, I&amp;rsquo;ve reimplemented an auto-discovery system for plugins. The problem is simple.
+Suppose we want to &amp;ldquo;register&amp;rdquo; a series of functions that can run automatically, based on aspects set in the calling environment. The simples and easiest solution is something like:
+# in some module, as a global declaration: from somethingA import runner_A from somethingB import runner_B runners = [ runner_A, runner_B ] # then, maybe in some function: def main(): # .</description>
+    </item>
     
     <item>
       <title>Identifying and fixing broken objects in a Plone website</title>
