@@ -3,7 +3,6 @@ Categories = ["Plone", "Volto", "Razzle"]
 Description = ""
 Tags = ["Plone", "Volto", "Razzle", "webpack", "cookbook"]
 date = "2019-11-17T13:58:36+01:00"
-menu = "main"
 title = "Speedup volto razzle builds"
 
 +++
