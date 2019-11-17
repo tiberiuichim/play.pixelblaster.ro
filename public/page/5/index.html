@@ -56,6 +56,8 @@
       
       <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
       
+      <li> <a href="/blog/2019/11/17/speedup-volto-razzle-builds/">Speedup volto razzle builds </a></li>
+      
     </ul>
 
     <p>@2017 Tiberiu Ichim</p>
@@ -65,6 +67,27 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2011/05/01/building-pil-with-jpeg-support-on-ubuntu-11.04/">Building PIL with JPEG support on Ubuntu 11.04</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/rants">rants</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>May 1, 2011</time></span>
+
+        <p class="discreet">I had problems building PIL with jpeg support on the latest Ubuntu. There are now two libjpeg libraries: one called libjpeg62 and one libjpeg8. Every guide on the net explaining how to compile PIL with jpeg support points to installing libjpeg62-dev. Needless to say, libjpeg8-dev is actually needed to properly build PIL. My reason for initially avoiding libjpeg8 is that it causes libsdlimage-dev to be uninstalled, so it looks like I'll have to juggle packages whenever I want to compile something that requires SDL. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2011/05/01/building-pil-with-jpeg-support-on-ubuntu-11.04/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -257,28 +280,6 @@ svn diff | kompare - What it does is to take the output from svn diff and pipe i
 
         <div class="read-more-link">
           <a href="/blog/2010/02/24/generating-products-outside-of-the-products.-namespace-with-archgenxml/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/">Another cause for buildout failures: system distributed Python</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">python</a>, <a href="/tags/rants">rants</a>, <a href="/tags/buildout">buildout</a>
-        </p>
-
-        <span class="post-date"><time>Jan 28, 2010</time></span>
-
-        <p class="discreet">I've had a buildout bootstrap process failure, this time a weird one, perhaps I should document the bug and report it.
-The latest Ubuntu version which I have installed (Lucid Lynx) comes with a package called python-pkg-resources, which packages pkg_resources, which used to be available only through the setuptools distribution. Buildout's bootstrap.py tries to guess if Setuptools or Distribute are installed by checking the availability of pkg_resources; by guessing wrong it all comes to a crash at the end. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/">Read More&rarr;</a>
         </div>
 
       </div>

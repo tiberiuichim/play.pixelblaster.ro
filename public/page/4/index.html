@@ -56,6 +56,8 @@
       
       <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
       
+      <li> <a href="/blog/2019/11/17/speedup-volto-razzle-builds/">Speedup volto razzle builds </a></li>
+      
     </ul>
 
     <p>@2017 Tiberiu Ichim</p>
@@ -65,6 +67,28 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/">How to fake fix broken persistent objects in ZODB</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/debugging">debugging</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/zodb">ZODB</a>, <a href="/tags/zope">zope</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 18, 2016</time></span>
+
+        <p class="discreet">I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.
+My solution, because I didn't care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -262,27 +286,6 @@ While: &nbsp; Installing. &nbsp; Getting section zope2. &nbsp; Initializing sect
 
         <div class="read-more-link">
           <a href="/blog/2011/05/02/version-conflict-zc.buildouts-version-of-madness/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2011/05/01/building-pil-with-jpeg-support-on-ubuntu-11.04/">Building PIL with JPEG support on Ubuntu 11.04</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>May 1, 2011</time></span>
-
-        <p class="discreet">I had problems building PIL with jpeg support on the latest Ubuntu. There are now two libjpeg libraries: one called libjpeg62 and one libjpeg8. Every guide on the net explaining how to compile PIL with jpeg support points to installing libjpeg62-dev. Needless to say, libjpeg8-dev is actually needed to properly build PIL. My reason for initially avoiding libjpeg8 is that it causes libsdlimage-dev to be uninstalled, so it looks like I'll have to juggle packages whenever I want to compile something that requires SDL. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2011/05/01/building-pil-with-jpeg-support-on-ubuntu-11.04/">Read More&rarr;</a>
         </div>
 
       </div>

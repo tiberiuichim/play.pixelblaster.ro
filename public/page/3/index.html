@@ -56,6 +56,8 @@
       
       <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
       
+      <li> <a href="/blog/2019/11/17/speedup-volto-razzle-builds/">Speedup volto razzle builds </a></li>
+      
     </ul>
 
     <p>@2017 Tiberiu Ichim</p>
@@ -65,6 +67,28 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2017/01/18/editing-short-python-scripts-with-vim/">Editing Short python scripts with vim</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/vim">vim</a>, <a href="/tags/programming">programming</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Jan 18, 2017</time></span>
+
+        <p class="discreet">Being that I usually find interesting to know about other people&rsquo;s workflow, here&rsquo;s a short description of my working environment that I typically use when developing in Python:
+tmux In the beginning I&rsquo;ve used Yakuake tabs to split servers and files in separate tabs. As the number grew, I&rsquo;ve started naming the tabs (and even had a short stint extending Yakuake to fit this use case), but as the number of projects and environments that I have to juggle kept growing, I&rsquo;ve resorted to splitting each separate tab into &ldquo;subtabs&rdquo;, using tmux. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2017/01/18/editing-short-python-scripts-with-vim/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -264,28 +288,6 @@ Let's say our task is to implement a contact form: [...]</p>
 
         <div class="read-more-link">
           <a href="/blog/2016/08/31/abusing-plone-content-rules-to-allow-site-admin-customizations-of-sent-emails/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/">How to fake fix broken persistent objects in ZODB</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/debugging">debugging</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/zodb">ZODB</a>, <a href="/tags/zope">zope</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Aug 18, 2016</time></span>
-
-        <p class="discreet">I have a Zope / Plone website with some old objects created by Products.feedfeeder and they store (for some weird reason) instances of BeautifulSoup objects. These objects were created with BeautifulSoup 3 and the installed version of BS is 4, which moved its classes in the bs4.* namespace. Now, running full-sweep searches in the site or a full catalog reindex fails because of these, now broken, objects.
-My solution, because I didn't care for those stored BeautifulSoup objects, was to fake the BeautifulSoup module and patch it into sys. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2016/08/18/how-to-fake-fix-broken-persistent-objects-in-zodb/">Read More&rarr;</a>
         </div>
 
       </div>

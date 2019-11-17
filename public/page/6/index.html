@@ -56,6 +56,8 @@
       
       <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
       
+      <li> <a href="/blog/2019/11/17/speedup-volto-razzle-builds/">Speedup volto razzle builds </a></li>
+      
     </ul>
 
     <p>@2017 Tiberiu Ichim</p>
@@ -65,6 +67,28 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/">Another cause for buildout failures: system distributed Python</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">python</a>, <a href="/tags/rants">rants</a>, <a href="/tags/buildout">buildout</a>
+        </p>
+
+        <span class="post-date"><time>Jan 28, 2010</time></span>
+
+        <p class="discreet">I've had a buildout bootstrap process failure, this time a weird one, perhaps I should document the bug and report it.
+The latest Ubuntu version which I have installed (Lucid Lynx) comes with a package called python-pkg-resources, which packages pkg_resources, which used to be available only through the setuptools distribution. Buildout's bootstrap.py tries to guess if Setuptools or Distribute are installed by checking the availability of pkg_resources; by guessing wrong it all comes to a crash at the end. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2010/01/28/another-cause-for-buildout-failures-system-distributed-python/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -261,29 +285,6 @@ REMOTE_ADDR needs to be somehow set by a Django middleware, based on an http hea
 
         <div class="read-more-link">
           <a href="/blog/2009/11/08/using-cherrypy-to-work-around-a-django/flup-bug/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2009/11/05/django-gotcha-the-urls.py-needs-to-define-the-404-view/">Django gotcha: the urls.py needs to define the 404 view</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/django">Django</a>
-        </p>
-
-        <span class="post-date"><time>Nov 5, 2009</time></span>
-
-        <p class="discreet">Probably this is documented somewhere in the Django docs, but, I mean, who has time to read the docs? :-) In the urls.py file for my project I didn't do a
-from django.conf.urls.defaults import * because that's just bad style. Instead I've just imported what I needed: patterns, include and url. Later on I got this error in my email:
-Traceback (most recent call last): File "/home/zope/djangoprojects/lib/python2.5/site-packages/Django-1.1.1-py2.5.egg/django/core/handlers/base.py", line 118, in get_response callback, param_dict = resolver. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2009/11/05/django-gotcha-the-urls.py-needs-to-define-the-404-view/">Read More&rarr;</a>
         </div>
 
       </div>

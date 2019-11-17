@@ -56,6 +56,8 @@
       
       <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
       
+      <li> <a href="/blog/2019/11/17/speedup-volto-razzle-builds/">Speedup volto razzle builds </a></li>
+      
     </ul>
 
     <p>@2017 Tiberiu Ichim</p>
@@ -65,6 +67,28 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/21/custom-traversing-with-five-and-itraversable/">Custom traversing with Five and ITraversable</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Oct 21, 2006</time></span>
+
+        <p class="discreet">This blog already contains a technique on how to customize the traversal to return any object, using __bobo_traverse__
+A more simple, modern and elegant way of doing achieving this is detailed in the newly released ImageRepository. Basically, it uses an adapter to change the implementation for ITraversable when the traversal is done on an object implementing a marker interface. I've lifted the relevant code and pasted it below, but the original sources should be consulted for reference. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/21/custom-traversing-with-five-and-itraversable/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -265,31 +289,6 @@ This command builds a pot file by looking at files in the skins folder and mergi
 
         <div class="read-more-link">
           <a href="/blog/2006/10/06/internationalization-with-plone/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/10/05/dynamic-vocabulary-for-an-archetypes-field/">Dynamic vocabulary for an Archetypes field</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Oct 5, 2006</time></span>
-
-        <p class="discreet">I keep forgetting how to do dynamic vocabularies for an AT field. As explained in the Vocabulary() method in Field.py, this method will return either the list defined in the vocabulary parameter of the field, or, among others, the list resulting from calling the method defined in the string given as value to the vocabulary parameter.
-The code below will make the explanation easier to understand:
-... LinesField(
-name='domains',
-vocabulary='getVocabularyForDomains' ) [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/10/05/dynamic-vocabulary-for-an-archetypes-field/">Read More&rarr;</a>
         </div>
 
       </div>

@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>/blog/2019/11/17/speedup-volto-razzle-builds/</loc>
+    <lastmod>2019-11-17T13:58:36+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/2017/12/18/a-quick-and-dirty-mini-plugin-system-for-python/</loc>
     <lastmod>2017-12-18T16:22:22+02:00</lastmod>
   </url>
@@ -1060,7 +1065,7 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2017-12-18T16:22:22+02:00</lastmod>
+    <lastmod>2019-11-17T13:58:36+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1090,7 +1095,7 @@
   
   <url>
     <loc>/tags/cookbook/</loc>
-    <lastmod>2017-12-18T16:22:22+02:00</lastmod>
+    <lastmod>2019-11-17T13:58:36+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1258,7 +1263,7 @@
   
   <url>
     <loc>/tags/plone/</loc>
-    <lastmod>2017-09-06T18:30:18+01:00</lastmod>
+    <lastmod>2019-11-17T13:58:36+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1323,6 +1328,12 @@
   </url>
   
   <url>
+    <loc>/tags/razzle/</loc>
+    <lastmod>2019-11-17T13:58:36+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/requirejs/</loc>
     <lastmod>2017-04-23T16:12:13+03:00</lastmod>
     <priority>0</priority>
@@ -1354,7 +1365,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2017-12-18T16:22:22+02:00</lastmod>
+    <lastmod>2019-11-17T13:58:36+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1383,6 +1394,12 @@
   </url>
   
   <url>
+    <loc>/tags/volto/</loc>
+    <lastmod>2019-11-17T13:58:36+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/vuejs/</loc>
     <lastmod>2017-03-02T14:54:52+01:00</lastmod>
     <priority>0</priority>
@@ -1390,7 +1407,7 @@
   
   <url>
     <loc>/tags/webpack/</loc>
-    <lastmod>2017-03-02T14:54:52+01:00</lastmod>
+    <lastmod>2019-11-17T13:58:36+01:00</lastmod>
     <priority>0</priority>
   </url>
   

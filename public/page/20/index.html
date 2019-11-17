@@ -56,6 +56,8 @@
       
       <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
       
+      <li> <a href="/blog/2019/11/17/speedup-volto-razzle-builds/">Speedup volto razzle builds </a></li>
+      
     </ul>
 
     <p>@2017 Tiberiu Ichim</p>
@@ -65,6 +67,38 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/12/overriding-the-form-controler-script-for-at-content/">Overriding the form controler script for AT content</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 12, 2006</time></span>
+
+        <p class="discreet">Just like the edit form or the view page can be overriden for an AT type, so can the form controler script that would be called by the form. This recipe is lifted from SignupSheet (which I think got an inspiration from POI):
+The form controler script (mytype_post.cpy):
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind state=state
+##bind subpath=traverse_subpath
+##parameters=
+##title=Do something
+##
+#do something here, like for example, changing the workflow status of the object [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/12/overriding-the-form-controler-script-for-at-content/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -283,28 +317,6 @@ The user will be added as Owner to the acl_users in the main zope root. [...]</p
 
         <div class="read-more-link">
           <a href="/blog/2006/08/04/locked-yourself-out-of-zope/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/02/quick-guide-to-zopeskel/">Quick guide to ZopeSkel</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Aug 2, 2006</time></span>
-
-        <p class="discreet">Download and run as root ez_installrun:easy_install http://svn.plone.org/svn/collective/ZopeSkel/trunk#egg=ZopeSkel-devcreate a new Plone Core product using paster create -t plone product_name
-References: http://danielnouri.org/blog/devel/zope/zopeskel-plonecore.htmlhttp://plone.org/documentation/tutorial/using-zope-formlib-with-plone/tutorial-all-pageIn Zope 2.9, the pythonproducts is needed for this or any other regular python package created with setuptools to work. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/02/quick-guide-to-zopeskel/">Read More&rarr;</a>
         </div>
 
       </div>

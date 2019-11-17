@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>React on The Plone Expanse</title>
+    <link>/tags/react/</link>
+    <description>Recent content in React on The Plone Expanse</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>@2017 Tiberiu Ichim</copyright>
+    <lastBuildDate>Wed, 21 Aug 2019 06:47:28 +0200</lastBuildDate>
+    
+	<atom:link href="/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Deploying volto</title>
+      <link>/blog/2019/08/21/deploying-volto/</link>
+      <pubDate>Wed, 21 Aug 2019 06:47:28 +0200</pubDate>
+      
+      <guid>/blog/2019/08/21/deploying-volto/</guid>
+      <description>One area where Volto is not enough documented is related to how to deploy in production. I&amp;rsquo;ve been working on deploying a testing server in production, so</description>
+    </item>
+    
+  </channel>
+</rss>

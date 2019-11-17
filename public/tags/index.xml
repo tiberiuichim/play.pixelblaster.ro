@@ -78,7 +78,7 @@
     <item>
       <title>Cookbook</title>
       <link>/tags/cookbook/</link>
-      <pubDate>Mon, 18 Dec 2017 16:22:22 +0200</pubDate>
+      <pubDate>Sun, 17 Nov 2019 13:58:36 +0100</pubDate>
       
       <guid>/tags/cookbook/</guid>
       <description></description>
@@ -330,7 +330,7 @@
     <item>
       <title>Plone</title>
       <link>/tags/plone/</link>
-      <pubDate>Wed, 06 Sep 2017 18:30:18 +0100</pubDate>
+      <pubDate>Sun, 17 Nov 2019 13:58:36 +0100</pubDate>
       
       <guid>/tags/plone/</guid>
       <description></description>
@@ -427,6 +427,15 @@
     </item>
     
     <item>
+      <title>Razzle</title>
+      <link>/tags/razzle/</link>
+      <pubDate>Sun, 17 Nov 2019 13:58:36 +0100</pubDate>
+      
+      <guid>/tags/razzle/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Requirejs</title>
       <link>/tags/requirejs/</link>
       <pubDate>Sun, 23 Apr 2017 16:12:13 +0300</pubDate>
@@ -499,6 +508,15 @@
     </item>
     
     <item>
+      <title>Volto</title>
+      <link>/tags/volto/</link>
+      <pubDate>Sun, 17 Nov 2019 13:58:36 +0100</pubDate>
+      
+      <guid>/tags/volto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Vuejs</title>
       <link>/tags/vuejs/</link>
       <pubDate>Thu, 02 Mar 2017 14:54:52 +0100</pubDate>
@@ -510,7 +528,7 @@
     <item>
       <title>Webpack</title>
       <link>/tags/webpack/</link>
-      <pubDate>Thu, 02 Mar 2017 14:54:52 +0100</pubDate>
+      <pubDate>Sun, 17 Nov 2019 13:58:36 +0100</pubDate>
       
       <guid>/tags/webpack/</guid>
       <description></description>
