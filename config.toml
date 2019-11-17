@@ -15,7 +15,7 @@ Paginate = 10
 [params]
     Author = "Tiberiu Ichim"
     Description = "A bit of Plone, Zope and a dash of everything else"
-    Copyright = "@2017 Tiberiu Ichim"
+    Copyright = "@2019 Tiberiu Ichim"
 
     # layoutReverse = true
     disqusShortName = "play-pixelblaster-ro"
