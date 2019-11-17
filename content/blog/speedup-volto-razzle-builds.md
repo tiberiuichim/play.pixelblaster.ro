@@ -8,7 +8,7 @@ title = "Speedup volto razzle builds"
 
 +++
 
-I've been looking for a way to speedup volto webpack builds, both while
+I've been looking for a way to speedup Volto razzle/webpack builds, both while
 developing and for "production" mode, when building the final bundle.
 Fortunately, this solution exists and it's extremely easy to integrate.
 
