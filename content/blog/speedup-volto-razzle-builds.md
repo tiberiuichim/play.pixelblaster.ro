@@ -54,10 +54,10 @@ faster: from 23 seconds to just 2 seconds.
 To integrate it run:
 
 ```
-npm install --save-dev hard-source-webpack-plugin
+yarn add -D hard-source-webpack-plugin
 ```
 
-Then change your frontend's razzle.config.js to something like:
+Then change your frontend's razzle.config.js to something like (for Volto <9):
 
 ```
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
@@ -77,6 +77,34 @@ const razzleModify = config.modify;
 module.exports = {
   modify: (config, { target, dev }, webpack) => {
     const vc = razzleModify(config, { target, dev }, webpack);
+    const hardSource = new HardSourceWebpackPlugin();
+    vc.plugins.push(hardSource);
+    return vc;
+  },
+};
+```
+
+Update: for Volto > 9, you should use:
+
+```
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+
+const jsConfig = require('./jsconfig').compilerOptions;
+
+const pathsConfig = jsConfig.paths;
+let voltoPath = './node_modules/@plone/volto';
+Object.keys(pathsConfig).forEach((pkg) => {
+  if (pkg === '@plone/volto') {
+    voltoPath = `./${jsConfig.baseUrl}/${pathsConfig[pkg][0]}`;
+  }
+});
+
+let voltoConfig = require(`${voltoPath}/razzle.config`);
+
+module.exports = {
+  ...voltoConfig,
+  modifyWebpackConfig: (opts) => {
+    const vc = voltoConfig.modifyWebpackConfig(opts);
     const hardSource = new HardSourceWebpackPlugin();
     vc.plugins.push(hardSource);
     return vc;
