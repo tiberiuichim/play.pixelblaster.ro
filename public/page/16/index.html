@@ -70,6 +70,30 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/06/internationalization-with-plone/">Internationalization with Plone</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Oct 6, 2006</time></span>
+
+        <p class="discreet">To generate automatically a .pot file necessary for translating msgids inside template files you need to get i18ndude (really easy since it was placed in cheeseshop):
+sudo easy_install i18ndudeSince I'm using ArchGenXML, I already have a generated.pot file created. I've renamed this file to old.pot and ran this (in the i18n folder):
+i18ndude rebuild-pot --pot ./generated.pot --merge old.pot --create MyProduct ./../skins/MyProduct/
+This command builds a pot file by looking at files in the skins folder and merging the extracted msgids with the ones in old. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/06/internationalization-with-plone/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/10/05/dynamic-vocabulary-for-an-archetypes-field/">Dynamic vocabulary for an Archetypes field</a></h2>
 
         <p class="post-tags">
@@ -327,27 +351,6 @@ The update manager that did the upgrade it is impressive, but the update was not
 
         <div class="read-more-link">
           <a href="/blog/2006/10/01/dapper---1--edgy/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/09/23/kde-applications-vs-gnome-applications/">Kde applications vs Gnome applications</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>, <a href="/tags/linux">Linux</a>
-        </p>
-
-        <span class="post-date"><time>Sep 23, 2006</time></span>
-
-        <p class="discreet">I'm switching a bunch of Gnome daily used apps to their KDE counterparts. Namely I've switched from *Liferea to Akregate, from **GnoCHM to KchmViewer and from ***GIMP to Krita (Gimp sucks too much for me in terms of workflow, while Krita is more conventional and less awkward from some points of view). I'm using already using Konversation for IRC (much better then XChat, I'd use Chatzilla but it doesn't go to the systray), Tellico to keep a database of PS2 games and K3b for burning dvds. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/09/23/kde-applications-vs-gnome-applications/">Read More&rarr;</a>
         </div>
 
       </div>

@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2019 Tiberiu Ichim</copyright>
-    <lastBuildDate>Sun, 17 Nov 2019 13:58:36 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 11 Dec 2019 21:35:24 +0100</lastBuildDate>
     
 	<atom:link href="/tags/volto/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A Volto gotcha when dealing with async calls</title>
+      <link>/blog/2019/12/11/a-volto-gotcha-when-dealing-with-async-calls/</link>
+      <pubDate>Wed, 11 Dec 2019 21:35:24 +0100</pubDate>
+      
+      <guid>/blog/2019/12/11/a-volto-gotcha-when-dealing-with-async-calls/</guid>
+      <description>Just some quick notes, in case this might help someone. After quite a bit of time and tests in trying to use asyncConnect to get data in a Volto component view (strictly focusing on the SSR side), I&amp;rsquo;ve realized that what I&amp;rsquo;m trying to do is not supported by the redux-connect library.
+In Volto, right now there are two components that use asyncConnect: App.jsx and Search.jsx. The purpose of asyncConnect is to have the server side rendered page &amp;ldquo;dynamic&amp;rdquo;, depending on the input from the originating request.</description>
+    </item>
     
     <item>
       <title>Speedup volto razzle builds</title>

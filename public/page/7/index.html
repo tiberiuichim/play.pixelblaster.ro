@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/11/08/using-cherrypy-to-work-around-a-django/flup-bug/">Using CherryPy to work around a Django/flup bug</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/django">Django</a>
+        </p>
+
+        <span class="post-date"><time>Nov 8, 2009</time></span>
+
+        <p class="discreet">A bug creeped in one of my Django 1.1 projects that is in beta-testing right now: the Pinax wiki app looks for a REMOTE_ADDR value in request.META, which was not set in my environment. My environment is a pretty standard (as far as this setup goes) nginx + fcgi (flup on the django side) + django. Further work on this issue revealed, step by step, that:
+REMOTE_ADDR needs to be somehow set by a Django middleware, based on an http header, so I've added django. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/11/08/using-cherrypy-to-work-around-a-django/flup-bug/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2009/11/05/django-gotcha-the-urls.py-needs-to-define-the-404-view/">Django gotcha: the urls.py needs to define the 404 view</a></h2>
 
         <p class="post-tags">
@@ -257,27 +279,6 @@ this product has already been installed without Quickinstaller!failed: Traceback
 
         <div class="read-more-link">
           <a href="/blog/2009/02/28/success-on-a-one-year-old-problem-installing-cachefu/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2009/02/16/making-peace-with-the-system-wide-installed-zope.interface/">Making peace with the system-wide installed zope.interface</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope">zope</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Feb 16, 2009</time></span>
-
-        <p class="discreet">While testing software to play music from a computer on my network, I have discovered Elisa, which is a wonderful piece of software built in Python and zope.interface. The package manager helpfully installed a python-zopeinterface package, which turned out to break one of the apps I've been working on (one of the packages that is used depends on a more recent version of zope.interface and breaks with a missing object import). [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2009/02/16/making-peace-with-the-system-wide-installed-zope.interface/">Read More&rarr;</a>
         </div>
 
       </div>

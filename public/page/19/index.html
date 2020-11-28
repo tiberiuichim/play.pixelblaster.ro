@@ -70,6 +70,42 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/23/creating-and-managing-a-windows-service-part-4/">Creating and managing a Windows service (part 4)</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Aug 23, 2006</time></span>
+
+        <p class="discreet">The final step is to "compile" everything into Windows executables using py2exe. For this I have the following setup.py file:
+from distutils.core import setup
+import py2exe
+import sys
+# If run without args, build executables, in quiet mode.
+if len(sys.argv) == 1:
+sys.argv.append("py2exe")
+sys.argv.append("-q")
+class Target:
+def __init__(self, **kw):
+self.__dict__.update(kw)
+# for the versioninfo resources
+self.version = "0.1.0"
+self.company_name = "Pixelblaster Romania"
+self.copyright = "Copyright 2006 Pixelblaster Romania"
+self.name = " [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/23/creating-and-managing-a-windows-service-part-4/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/08/23/creating-and-managing-a-windows-service-part-3/">Creating and managing a Windows service (part 3)</a></h2>
 
         <p class="post-tags">
@@ -307,27 +343,6 @@ Next, installing. The OpenLDAP server on Debian is called slapd, so apt-get inst
 
         <div class="read-more-link">
           <a href="/blog/2006/08/13/miniguide-to-openldap/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/12/tricks-of-the-mind/">Tricks of the mind</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>
-        </p>
-
-        <span class="post-date"><time>Aug 12, 2006</time></span>
-
-        <p class="discreet">I've been playing in my mind, for the last two days, for no apparent reason, "Birds of a feather" by Phish. I even asked myself at one point what's with the song that keeps appearing in my mind. Well, I think I found the reason. For the last two days, the first portlet on my customized slashdot homepage was KDENews, which had a news item on a "Birds of a Feather" [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/12/tricks-of-the-mind/">Read More&rarr;</a>
         </div>
 
       </div>

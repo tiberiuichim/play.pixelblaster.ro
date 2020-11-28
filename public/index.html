@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2019/12/11/a-volto-gotcha-when-dealing-with-async-calls/">A Volto gotcha when dealing with async calls</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/plone">Plone</a>, <a href="/tags/volto">Volto</a>
+        </p>
+
+        <span class="post-date"><time>Dec 11, 2019</time></span>
+
+        <p class="discreet">Just some quick notes, in case this might help someone. After quite a bit of time and tests in trying to use asyncConnect to get data in a Volto component view (strictly focusing on the SSR side), I&rsquo;ve realized that what I&rsquo;m trying to do is not supported by the redux-connect library.
+In Volto, right now there are two components that use asyncConnect: App.jsx and Search.jsx. The purpose of asyncConnect is to have the server side rendered page &ldquo;dynamic&rdquo;, depending on the input from the originating request. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2019/12/11/a-volto-gotcha-when-dealing-with-async-calls/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2019/11/17/speedup-volto-razzle-builds/">Speedup volto razzle builds</a></h2>
 
         <p class="post-tags">
@@ -264,30 +286,6 @@ My self-imposed requirements were:
 
         <div class="read-more-link">
           <a href="/blog/2017/04/23/hello-world-with-plone-and-riot-javascript-frontent-library/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2017/04/05/when-did-tmux-get-plugins/">When did tmux get plugins?</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/tmux">tmux</a>
-        </p>
-
-        <span class="post-date"><time>Apr 5, 2017</time></span>
-
-        <p class="discreet">Well, this is new to me. Apparently tmux now supports plugins. I don&rsquo;t really know if I need any plugin, I enjoy tmux as it is right now (after some customizations) but it&rsquo;s good to know that plugins finally exist for tmux.
-So, what do we have:
-First, the Tmux Plugin Manager: https://github.com/tmux-plugins/tpm
-Next, the tmux Facebook PathPicker plugin (which is a marvelous thing I didn&rsquo;t knew existed): https://github.com/tmux-plugins/tmux-fpp and https://github. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2017/04/05/when-did-tmux-get-plugins/">Read More&rarr;</a>
         </div>
 
       </div>

@@ -70,6 +70,28 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/09/04/customized-archetypes-edit-form-with-only-one-of-the-fields/">Customized Archetypes edit form with only one of the fields</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Sep 4, 2006</time></span>
+
+        <p class="discreet">I recently had a need for an "administration screen" for an AT-based content that would give the administrators just one field to edit and following that edit, change the workflow state of that piece of content.
+Usually, to limit the fields visible in the edit form, I would give those fields different write permissions. Obviously, in this case this was not possible, so I had to take another path. Easiest way to achieve my goal was something like this: [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/09/04/customized-archetypes-edit-form-with-only-one-of-the-fields/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/09/02/trying-kde-as-the-main-work-desktop/">Trying KDE as the main work desktop</a></h2>
 
         <p class="post-tags">
@@ -270,42 +292,6 @@ ADD_CONTENT_PERMISSIONS = { [...]</p>
 
         <div class="read-more-link">
           <a href="/blog/2006/08/27/specify-creation-roles-for-agx-generated-content/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/23/creating-and-managing-a-windows-service-part-4/">Creating and managing a Windows service (part 4)</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Aug 23, 2006</time></span>
-
-        <p class="discreet">The final step is to "compile" everything into Windows executables using py2exe. For this I have the following setup.py file:
-from distutils.core import setup
-import py2exe
-import sys
-# If run without args, build executables, in quiet mode.
-if len(sys.argv) == 1:
-sys.argv.append("py2exe")
-sys.argv.append("-q")
-class Target:
-def __init__(self, **kw):
-self.__dict__.update(kw)
-# for the versioninfo resources
-self.version = "0.1.0"
-self.company_name = "Pixelblaster Romania"
-self.copyright = "Copyright 2006 Pixelblaster Romania"
-self.name = " [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/23/creating-and-managing-a-windows-service-part-4/">Read More&rarr;</a>
         </div>
 
       </div>

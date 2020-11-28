@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.20.2" />
+
+  <meta name="google-site-verification" content="hhGMo4F_Uk22qjSxDH4EDkMsLh6gDQnytKz2l6kb3aE" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>A Volto gotcha when dealing with async calls &middot; The Plone Expanse</title>
+  
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/hyde.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/gruvbox-dark.min.css">
+  
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="The Plone Expanse" />
+
+</head>
+
+<body class=" ">
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="/"><h1>The Plone Expanse </h1></a>
+      <p class="lead">
+       A bit of Plone, Zope and a dash of everything else 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><i class='fa fa-home' aria-hidden='true'></i> <a href="/">Home</a> </li>
+      
+      <li><i class='fa fa-calendar' aria-hidden='true'></i> <a href="/archive">Archive </a></li>
+      
+      <li><i class='fa fa-tags' aria-hidden='true'></i> <a href="/tags">Tags </a></li>
+      
+      <li><i class='fa fa-rss' aria-hidden='true'></i> <a href="/index.xml">Subscribe by RSS </a></li>
+      
+      <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
+      
+    </ul>
+
+    <p>@2019 Tiberiu Ichim</p>
+  </div>
+</div>
+
+
+  <div class="content container">
+
+    <article class="post">
+      <h1>A Volto gotcha when dealing with async calls</h1>
+
+      <p class="post-tags">
+      <i class='fa fa-tags' aria-hidden='true'></i>
+      <a href="/tags/plone">Plone</a>, <a href="/tags/volto">Volto</a>
+      </p>
+
+      <div class="post-date">
+        <span >Wed, Dec 11, 2019</span>,
+        <span id="wc"> 500 Words </span>
+      </div>
+      <p>Just some quick notes, in case this might help someone. After quite a bit of time and tests in trying to use <code>asyncConnect</code> to get data in a Volto component view (strictly focusing on the SSR side), I&rsquo;ve realized that what I&rsquo;m trying to do is not supported by the redux-connect library.</p>
+
+<p>In Volto, right now there are two components that use asyncConnect: App.jsx and Search.jsx. The purpose of asyncConnect is to have the server side rendered page &ldquo;dynamic&rdquo;, depending on the input from the originating request. So, for example, a curl grab on <a href="https://volto.kitconcept.com/search?SearchableText=Plone">https://volto.kitconcept.com/search?SearchableText=Plone</a> will generate HTML that comes prefilled with the search results, instead of those results being loaded on the client, when they arrive. The use of asyncConnect calls in those two components makes the rendering of those components first wait for the backend data to arrive, then it will render them on the server and feed the populated HTML to the client.</p>
+
+<p>So why couldn&rsquo;t I make use of asyncConnect in my components? There&rsquo;s a ticket on the react-redux Github page that better explains it: <a href="https://github.com/makeomatic/redux-connect/issues/45">https://github.com/makeomatic/redux-connect/issues/45</a>
+In short, react-connect loads the async data on router load and is only aware of asyncConnected components if they are a component referenced directly by the router.</p>
+
+<p>I think it&rsquo;s important for Volto to overcome this issue, as it imposes some limitations on what is possible in regular component views. For the moment, these are the options, if you need data that&rsquo;s not already provided by the App.jsx asyncConnect (which loads breadcrumbs, content, navigation, types and workflow):</p>
+
+<ul>
+<li>customize App.jsx or View.jsx (or any other component that&rsquo;s referenced in <code>defaultRoutes</code>) and asyncConnect your own actions there</li>
+<li>override Plone&rsquo;s serializers to include the data you need, so that you can grab it from the <code>state.content</code></li>
+<li>move your view to a separate route, where you can use asyncConnect.</li>
+<li>customize routes.js and process the defaultRoutes so that you can point the <code>/</code> View route to your own asyncConnect wrapper over View.</li>
+</ul>
+
+<p>For the future, here are some libraries that might provide a solution to this problem:</p>
+
+<ul>
+<li>An article by Mozilla explaining how to do a double rendering: <a href="http://farmdev.com/thoughts/107/why-server-side-rendering-in-react-is-so-hard/">http://farmdev.com/thoughts/107/why-server-side-rendering-in-react-is-so-hard/</a></li>
+<li>Vue&rsquo;s solution in dealing with this problem: <a href="https://github.com/vuejs/vue/pull/9017">https://github.com/vuejs/vue/pull/9017</a></li>
+<li><a href="https://github.com/FormidableLabs/react-ssr-prepass">https://github.com/FormidableLabs/react-ssr-prepass</a></li>
+<li><a href="https://github.com/overlookmotel/react-async-ssr">https://github.com/overlookmotel/react-async-ssr</a></li>
+<li><a href="https://github.com/ctrlplusb/react-async-component">https://github.com/ctrlplusb/react-async-component</a></li>
+</ul>
+
+<p>As far as I understand, there&rsquo;s no drop-in solution, some sort of API needs to be developed on the Volto side, to provide a way for components to declare their SSR prefetch dependencies.</p>
+
+<p>Many thanks to my colleague Mihai Macaneata who has patiently walked with me through understanding the source of this problems. Cheers!</p>
+
+
+      <div id="nextprev">
+        
+        <p class="previous-link">
+        <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
+        Previous:
+        <a class="previous" href="/blog/2019/11/17/speedup-volto-razzle-builds/"> Speedup volto razzle builds</a>
+        </p>
+        
+        
+      </div>
+    </article>
+
+
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+     
+    var disqus_shortname = 'play-pixelblaster-ro'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    $('pre').each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-104721960-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
