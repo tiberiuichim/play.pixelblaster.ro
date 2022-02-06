@@ -56,6 +56,8 @@
       
       <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
       
+      <li> <a href="/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/">Custom Volto configuration to fix Babel problems with react-leaflet </a></li>
+      
     </ul>
 
     <p>@2019 Tiberiu Ichim</p>
@@ -65,6 +67,28 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2011/06/28/getting-the-superclasses-for-a-python-object/">Getting the superclasses for a python object</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jun 28, 2011</time></span>
+
+        <p class="discreet">Zope 2 (and Plone) persistent objects usually have an intricate inheritance tree. Finding what classes an object inherits can be a time consuming task, hunting through the various eggs for the relevant source code. Below is a little snippet that shows how to easily get the list of superclasses:
+(Pdb) pp type(ff).mro() (&lt;class 'plone.app.blob.subtypes.image.ExtensionBlobField'&gt;, &nbsp;&lt;class 'archetypes.schemaextender.field.TranslatableExtensionField'&gt;, &nbsp;&lt;class 'archetypes.schemaextender.field.BaseExtensionField'&gt;, &nbsp;&lt;class 'plone.app.blob.field.BlobField'&gt;, &nbsp;&lt;class 'Products.Archetypes.Field.ObjectField'&gt;, &nbsp;&lt;class 'Products.Archetypes.Field.Field'&gt;, &nbsp;&lt;class 'Products.Archetypes.Layer.DefaultLayerContainer'&gt;, &nbsp;&lt;class 'plone.app.blob.mixins.ImageFieldMixin'&gt;, &nbsp;&lt;class 'Products.Archetypes.Field.ImageField'&gt;, &nbsp;&lt;class 'Products. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2011/06/28/getting-the-superclasses-for-a-python-object/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -258,28 +282,6 @@ Fortunately, Gloworm has been updated in svn trunk. To get the latest version yo
 
         <div class="read-more-link">
           <a href="/blog/2010/05/12/some-issues-with-zc.recipe.eggs-python-option/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2010/02/25/can-you-do-this-on-your-shiny-mac/">Can you do this on your shiny Mac?</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/colaborative">colaborative</a>
-        </p>
-
-        <span class="post-date"><time>Feb 25, 2010</time></span>
-
-        <p class="discreet">Probably you can, but you have never done it because you have a shiny interface for everything. I'm talking about this discovery of mine:
-svn diff | kompare - What it does is to take the output from svn diff and pipe it into Kompare, a merge/diff utility from the KDE Project. I can do this from the command line, straight from the directory that I'm in, and bang! I get a nice graphical overview, complete with the tree structure that I can navigate to see what I'm about to commit. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2010/02/25/can-you-do-this-on-your-shiny-mac/">Read More&rarr;</a>
         </div>
 
       </div>

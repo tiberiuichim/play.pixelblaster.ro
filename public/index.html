@@ -56,6 +56,8 @@
       
       <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
       
+      <li> <a href="/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/">Custom Volto configuration to fix Babel problems with react-leaflet </a></li>
+      
     </ul>
 
     <p>@2019 Tiberiu Ichim</p>
@@ -65,6 +67,29 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/">Custom Volto configuration to fix Babel problems with react-leaflet</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/volto">Volto</a>
+        </p>
+
+        <span class="post-date"><time>Feb 6, 2022</time></span>
+
+        <p class="discreet">I&rsquo;ve started working on a new Leaflet-powered Volto map block and the first thing that happened while loading react-leaftlet was an error reported by the browser:
+Module parse failed: Unexpected token (10:41) in @react-leaflet/core/esm/path.js ... const options = props.pathOptions ?? {}; ...  The problem is that is, for some reasons, the transpiled JS bundle includes code using the nulish coalescing operator
+This is already a problem reported in react-leaflet and it happens because the distributed transpiled library includes that code. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -262,30 +287,6 @@ After installing virtualbox, it complained about some missing libssl2.0.0 lib&he
 
         <div class="read-more-link">
           <a href="/blog/2017/04/27/how-i-broke-my-archlinux-and-fixed-it/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2017/04/23/hello-world-with-plone-and-riot-javascript-frontent-library/">Hello world with Plone and Riot (Javascript frontent library)</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/plone">Plone</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/javascript">Javascript</a>, <a href="/tags/requirejs">requirejs</a>, <a href="/tags/riotjs">riotjs</a>
-        </p>
-
-        <span class="post-date"><time>Apr 23, 2017</time></span>
-
-        <p class="discreet">I&rsquo;m working on a somewhat weird experiment. My end goal is to have a user friendly (and mobile friendly) faceted search interface over the items of a collection.
-Seen through the eyes of my recent experience with VueJS, the classic Plone frontend APIs, such as JQuery and Patternslib/Mockup seem outdated and hard to digest. Any dedicated frontend UI library will seem much friendlier.
-My self-imposed requirements were:
- easy to work with, easily integrated. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2017/04/23/hello-world-with-plone-and-riot-javascript-frontent-library/">Read More&rarr;</a>
         </div>
 
       </div>

@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2019 Tiberiu Ichim</copyright>
-    <lastBuildDate>Wed, 11 Dec 2019 21:35:24 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 06 Feb 2022 18:05:18 +0200</lastBuildDate>
     
 	<atom:link href="/tags/volto/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Custom Volto configuration to fix Babel problems with react-leaflet</title>
+      <link>/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/</link>
+      <pubDate>Sun, 06 Feb 2022 18:05:18 +0200</pubDate>
+      
+      <guid>/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/</guid>
+      <description>I&amp;rsquo;ve started working on a new Leaflet-powered Volto map block and the first thing that happened while loading react-leaftlet was an error reported by the browser:
+Module parse failed: Unexpected token (10:41) in @react-leaflet/core/esm/path.js ... const options = props.pathOptions ?? {}; ...  The problem is that is, for some reasons, the transpiled JS bundle includes code using the nulish coalescing operator
+This is already a problem reported in react-leaflet and it happens because the distributed transpiled library includes that code.</description>
+    </item>
     
     <item>
       <title>A Volto gotcha when dealing with async calls</title>

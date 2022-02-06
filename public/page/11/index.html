@@ -56,6 +56,8 @@
       
       <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
       
+      <li> <a href="/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/">Custom Volto configuration to fix Babel problems with react-leaflet </a></li>
+      
     </ul>
 
     <p>@2019 Tiberiu Ichim</p>
@@ -65,6 +67,27 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2007/09/09/the-problem-with-buildout-and-pydev/">The problem with buildout and PyDev</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Sep 9, 2007</time></span>
+
+        <p class="discreet">Lately it has been possible to develop and simply deploy a Zope 3 based application by organizing code in a single Python package that uses zope3 packages as dependency, plus a buildout recipe that creates a running zope 3 instance based on these eggs. For anyone using Eclipse + PyDev, this approach has the following inconvenience: the `eggs` folder can't be properly imported as external source folder for the project. Eclipse knows about eggs, but only when they're in marked in a . [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2007/09/09/the-problem-with-buildout-and-pydev/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -253,28 +276,6 @@ The idea is: I have a page along these lines: http://localhost/site/tips/page_co
 
         <div class="read-more-link">
           <a href="/blog/2007/04/13/traversing-from-python-a-zope-3-page-that-uses-the-traverse-subpath/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2007/04/13/starting-the-fans-for-an-hp-compaq-nx6125-with-ubuntu-feisty-after-suspend/">Starting the fans for an HP Compaq NX6125 with Ubuntu Feisty after suspend</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/linux">Linux</a>
-        </p>
-
-        <span class="post-date"><time>Apr 13, 2007</time></span>
-
-        <p class="discreet">In the saga to make my laptop behave as best as I can I've encountered a new obstacle: using Ubuntu Feisty Fawn (the beta) with kubuntu-desktop installed and using KDE, I can put the laptop in suspend mode, but the CPU fan won't turn on when I wake it. After a bit of searching I've found out that I need to do:
-root@ubuntu:~# echo 0 &gt; /proc/acpi/fan/C262/stateThis starts the fan. Writing 3 in that fan ACPI state will turn off the fan. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2007/04/13/starting-the-fans-for-an-hp-compaq-nx6125-with-ubuntu-feisty-after-suspend/">Read More&rarr;</a>
         </div>
 
       </div>

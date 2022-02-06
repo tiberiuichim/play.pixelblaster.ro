@@ -56,6 +56,8 @@
       
       <li><i class='fa fa-github-alt' aria-hidden='true'></i> <a href="https://github.com/tiberiuichim">Github </a></li>
       
+      <li> <a href="/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/">Custom Volto configuration to fix Babel problems with react-leaflet </a></li>
+      
     </ul>
 
     <p>@2019 Tiberiu Ichim</p>
@@ -65,6 +67,32 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/09/05/override-the-default-actions-for-an-archgenxml-based-archetype/">Override the default actions for an ArchGenXML based Archetype</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Sep 5, 2006</time></span>
+
+        <p class="discreet">To specify the default view for an AT archetype the "view" action needs to be overriden. Adding a default_actions=True tagged value in the model will generate a view action that will use the base_view template. To be able to change the view action, default_actions should be deleted from the model and replaced with a base_actions=my_actions.
+The my_actions statement could look like this:
+my_actions = (
+{'action': 'string:${object_url}/base_edit',
+'category': 'object',
+'id': 'edit', [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/09/05/override-the-default-actions-for-an-archgenxml-based-archetype/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -265,33 +293,6 @@ validation.register(SamePasswordValidator('isSamePassword'))Next, the source cod
 
         <div class="read-more-link">
           <a href="/blog/2006/08/27/creating-an-archetypes-validator/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/27/specify-creation-roles-for-agx-generated-content/">Specify creation roles for AGX generated content</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Aug 27, 2006</time></span>
-
-        <p class="discreet">An observation: when you want to specify the roles that are required for a user to have in order to create a piece of content, you'll have to also specify a creation permission.
-This means that the following tagged values are required, to something like:
-creation_permission = Create MyContent
-creation_roles = python: ('Anonymous', 'Member')This generates the following code in config.py:
-DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
-setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, ('Manager', 'Owner'))
-ADD_CONTENT_PERMISSIONS = { [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/27/specify-creation-roles-for-agx-generated-content/">Read More&rarr;</a>
         </div>
 
       </div>
