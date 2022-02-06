@@ -79,10 +79,3 @@ The solution envolves pushing the `@react-leaflet` package paths to Babel's
 webpack loader's `include` option, so that they are included in the
 transpilation process. By default all packages in `node_modules` are excluded
 from the transpilation.
-
-Incidentally, I'm aware of the
-[volto-leaflet-block](https://github.com/adeweb-be/volto-leaflet-block/) addon,
-and that one uses an older version of react-leaflet. Is this done because the
-later version, `^4.0` has the tranpilation problem. In any case, all Volto
-addons have the ability to "fix" webpack and babel issues similarly, via
-`razzle.extend.js` placed in the addon package.

@@ -76,7 +76,7 @@
 
       <div class="post-date">
         <span >Sun, Feb 6, 2022</span>,
-        <span id="wc"> 400 Words </span>
+        <span id="wc"> 300 Words </span>
       </div>
       <p>I&rsquo;ve started working on a new Leaflet-powered Volto map block and the first
 thing that happened while loading react-leaftlet was an error reported by the
@@ -147,13 +147,6 @@ module.exports = { modifyWebpackConfig: customModifyWebpackConfig, plugins };
 webpack loader&rsquo;s <code>include</code> option, so that they are included in the
 transpilation process. By default all packages in <code>node_modules</code> are excluded
 from the transpilation.</p>
-
-<p>Incidentally, I&rsquo;m aware of the
-<a href="https://github.com/adeweb-be/volto-leaflet-block/">volto-leaflet-block</a> addon,
-and that one uses an older version of react-leaflet. Is this done because the
-later version, <code>^4.0</code> has the tranpilation problem. In any case, all Volto
-addons have the ability to &ldquo;fix&rdquo; webpack and babel issues similarly, via
-<code>razzle.extend.js</code> placed in the addon package.</p>
 
 
       <div id="nextprev">
