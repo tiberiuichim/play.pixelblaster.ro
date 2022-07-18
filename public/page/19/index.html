@@ -58,6 +58,8 @@
       
       <li> <a href="/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/">Custom Volto configuration to fix Babel problems with react-leaflet </a></li>
       
+      <li> <a href="/blog/2022/07/18/volto-recipe-for-footer-actions-managed-as-site-content/">Volto recipe for footer actions managed as site content </a></li>
+      
     </ul>
 
     <p>@2019 Tiberiu Ichim</p>
@@ -67,6 +69,31 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/27/creating-an-archetypes-validator/">Creating an Archetypes validator</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 27, 2006</time></span>
+
+        <p class="discreet">Archetypes validators are used in the schema definition for a field. Default validators include isEmail, isURL, etc. This is how to create a new validator:
+First, the validator has to be registered with Archetypes, or zope will complain at startup and ignore the validator. So add something like this in the __init__.py of the product:
+from Products.validation import validation
+from validators import SamePasswordValidator
+validation.register(SamePasswordValidator('isSamePassword'))Next, the source code for the validator (validators. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/27/creating-an-archetypes-validator/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -328,28 +355,6 @@ Anyway, here's his recipe to running ZEO
 
         <div class="read-more-link">
           <a href="/blog/2006/08/14/short-intro-to-zeo/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/13/small-tip-when-using-wxwidgets/">Small tip when using wxWidgets</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Aug 13, 2006</time></span>
-
-        <p class="discreet">Always put your controls in a sizer inside a panel. So, the actual tree would be frame &gt; sizer &gt; panel &gt; sizer &gt; ... controls
-The reason is that the panel component will enable tab traversal. Also, the panel can so be used to group the widgets into logical groups, to facilitate traversing them with the tab key. Oh, did I mention wxGlade (from cvs) rules?  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/13/small-tip-when-using-wxwidgets/">Read More&rarr;</a>
         </div>
 
       </div>

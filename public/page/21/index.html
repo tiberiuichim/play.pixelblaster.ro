@@ -58,6 +58,8 @@
       
       <li> <a href="/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/">Custom Volto configuration to fix Babel problems with react-leaflet </a></li>
       
+      <li> <a href="/blog/2022/07/18/volto-recipe-for-footer-actions-managed-as-site-content/">Volto recipe for footer actions managed as site content </a></li>
+      
     </ul>
 
     <p>@2019 Tiberiu Ichim</p>
@@ -67,6 +69,43 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/04/basic-unittesting-for-plone/">Basic unittesting for Plone</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 4, 2006</time></span>
+
+        <p class="discreet">Create a new package called "tests" inside the product. Add modules that begin with test*, like testSetup. Next, run the tests with zope/bin/zopectl test -s Products.MyProduct (zope 2.9)
+from Testing import ZopeTestCase
+ZopeTestCase.installProduct('DRFSkin')
+from Products.PloneTestCase.PloneTestCase import PloneTestCase
+from Products.PloneTestCase.PloneTestCase import FunctionalTestCase
+from Products.PloneTestCase.PloneTestCase import setupPloneSite
+setupPloneSite(products=('DRFSkin',))
+class TestTool(PloneTestCase):
+def afterSetUp(self):
+pass
+def testProductPath(self):
+x = True
+self.failUnless( x )
+def test_suite():
+from unittest import TestSuite, makeSuite
+suite = TestSuite()
+suite.addTest(makeSuite(TestTool)) [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/04/basic-unittesting-for-plone/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -280,32 +319,6 @@ Of course, there's always the default generated AT getters, but sometimes it's n
       
       
 
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/07/21/how-to-use-at_post_create_script-to-with-multi-schemata-content-types/">How to use at_post_create_script to with multi-schemata content types</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Jul 21, 2006</time></span>
-
-        <p class="discreet">When using at_post_create_script to hook up in the "post creation" events of AT, if the content type has multiple schematas, the script will be called each time the "next" button is pushed.
-To properly use the script, a check can be added to see if the "save" button was pressed:
-security.declarePrivate('at_post_create_script')
-def at_post_create_script(self, **kwargs):
-if self.REQUEST.get('form_submit', None) == 'Save':
-pass #do something here  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/07/21/how-to-use-at_post_create_script-to-with-multi-schemata-content-types/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
       <nav id="page-nav">
 
     
@@ -314,6 +327,10 @@ pass #do something here  [...]</p>
         </a>
     
     <a href="/">Home</a>
+    
+        <a class="extend next" rel="next" href="/page/22/">
+             Next »
+        </a>
     
 
 </nav>

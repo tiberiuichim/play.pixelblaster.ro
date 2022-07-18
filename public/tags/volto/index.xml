@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2019 Tiberiu Ichim</copyright>
-    <lastBuildDate>Sun, 06 Feb 2022 18:05:18 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 18 Jul 2022 17:10:16 +0300</lastBuildDate>
     
 	<atom:link href="/tags/volto/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Volto recipe for footer actions managed as site content</title>
+      <link>/blog/2022/07/18/volto-recipe-for-footer-actions-managed-as-site-content/</link>
+      <pubDate>Mon, 18 Jul 2022 17:10:16 +0300</pubDate>
+      
+      <guid>/blog/2022/07/18/volto-recipe-for-footer-actions-managed-as-site-content/</guid>
+      <description>Managing the Footer as content is one of the common tasks on a Plone / Volto website. One typical approach is to designate some root folder, let&amp;rsquo;s say footer-links as a container for Link instances, and use those links as shortcuts to dedicated pages.
+So, a footer component may look like this:
+import React from &#39;react&#39;; import { getContent } from &#39;@plone/volto/actions&#39;; import { useSelector } from &#39;react-redux&#39;; import {UniversalLink} from &#39;@plone/volto/components&#39;; const Footer = () =&amp;gt; { const footerLinks = useSelector((state) =&amp;gt; state.</description>
+    </item>
     
     <item>
       <title>Custom Volto configuration to fix Babel problems with react-leaflet</title>

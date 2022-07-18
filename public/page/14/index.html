@@ -58,6 +58,8 @@
       
       <li> <a href="/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/">Custom Volto configuration to fix Babel problems with react-leaflet </a></li>
       
+      <li> <a href="/blog/2022/07/18/volto-recipe-for-footer-actions-managed-as-site-content/">Volto recipe for footer actions managed as site content </a></li>
+      
     </ul>
 
     <p>@2019 Tiberiu Ichim</p>
@@ -67,6 +69,27 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2007/01/30/problems-with-migrating-at-content-from-plone-2.0-to-plone-2.5/">Problems with migrating AT content from Plone 2.0 to Plone 2.5</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jan 30, 2007</time></span>
+
+        <p class="discreet">Latest problem that ate too much of my life already (took me a night to get through) was importing some content from a Plone 2.0 site to a new instance of Plone 2.5. The old content was created using an old version of AT (probably 1.2). To prepare the migration I've created a new content type using ArchGenXML that mimicked the old product name, classes and fields and exported the content from the old Zope instance as a . [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2007/01/30/problems-with-migrating-at-content-from-plone-2.0-to-plone-2.5/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -276,54 +299,6 @@ ZeroDivisionError: integer division or modulo by zero
 
         <div class="read-more-link">
           <a href="/blog/2006/10/27/catching-and-printing-python-exceptions/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/10/24/how-to-define-a-new-skin-in-zope-3/">How to define a new skin in Zope 3</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Oct 24, 2006</time></span>
-
-        <p class="discreet">Lifted from zope.app.rotterdam
-Create a new browser skin layerfrom zope.publisher.interfaces.browser import IBrowserRequest
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-class rotterdam(IBrowserRequest):
-"""Layer for registering Rotterdam-specific macros."""
-class Rotterdam(rotterdam, IDefaultBrowserLayer):
-"""The ``Rotterdam`` skin.
-It is available via ``++skin++Rotterdam``.
-"""
-Register the skin in configure.zcml&lt;interface
-interface="zope.app.rotterdam.Rotterdam"
-type="zope.publisher.interfaces.browser.IBrowserSkinType"
-name="Rotterdam"
-/&gt;
-Declaring a resource and a page for the skin
- &lt;browser:resource
-name="zope3.css"
-file="zope3.css"
-layer="zope.app.rotterdam.rotterdam" /&gt;
-&lt;browser:page
-for="*"
-name="standard_macros"
-permission="zope.View"
-class=".standardmacros.StandardMacros"
-layer="zope.app.rotterdam.rotterdam"
-allowed_interface="zope.interface.common.mapping.IItemMapping"
-/&gt;
-  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/10/24/how-to-define-a-new-skin-in-zope-3/">Read More&rarr;</a>
         </div>
 
       </div>

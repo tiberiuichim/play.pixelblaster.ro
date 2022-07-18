@@ -58,6 +58,8 @@
       
       <li> <a href="/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/">Custom Volto configuration to fix Babel problems with react-leaflet </a></li>
       
+      <li> <a href="/blog/2022/07/18/volto-recipe-for-footer-actions-managed-as-site-content/">Volto recipe for footer actions managed as site content </a></li>
+      
     </ul>
 
     <p>@2019 Tiberiu Ichim</p>
@@ -67,6 +69,29 @@
 
   <div class="content container">
     <section class="posts">
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2022/07/18/volto-recipe-for-footer-actions-managed-as-site-content/">Volto recipe for footer actions managed as site content</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/volto">Volto</a>
+        </p>
+
+        <span class="post-date"><time>Jul 18, 2022</time></span>
+
+        <p class="discreet">Managing the Footer as content is one of the common tasks on a Plone / Volto website. One typical approach is to designate some root folder, let&rsquo;s say footer-links as a container for Link instances, and use those links as shortcuts to dedicated pages.
+So, a footer component may look like this:
+import React from 'react'; import { getContent } from '@plone/volto/actions'; import { useSelector } from 'react-redux'; import {UniversalLink} from '@plone/volto/components'; const Footer = () =&gt; { const footerLinks = useSelector((state) =&gt; state. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2022/07/18/volto-recipe-for-footer-actions-managed-as-site-content/">Read More&rarr;</a>
+        </div>
+
+      </div>
       
       
 
@@ -265,28 +290,6 @@ systemctl daemon-reload systemctl restart docker   [...]</p>
 
         <div class="read-more-link">
           <a href="/blog/2017/05/08/restart-docker-after-archlinux-upgrade/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2017/04/27/how-i-broke-my-archlinux-and-fixed-it/">How I broke my archlinux and fixed it</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/linux">Linux</a>, <a href="/tags/archlinux">ArchLinux</a>, <a href="/tags/cookbook">Cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Apr 27, 2017</time></span>
-
-        <p class="discreet">Today, new lesson learnt. I needed to test something with Internet Explorer and Edge, so I&rsquo;ve downloaded the test images from the Microsoft website, then proceeded to install virtualbox, in my current KDE based ArchLinux desktop (which I love a lot). A simple pacman -S virtualbox perhaps? Yes, except&hellip;
-After installing virtualbox, it complained about some missing libssl2.0.0 lib&hellip; so I thought maybe I don&rsquo;t have that installed? I didn&rsquo;t really research it, just installed openssl. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2017/04/27/how-i-broke-my-archlinux-and-fixed-it/">Read More&rarr;</a>
         </div>
 
       </div>
