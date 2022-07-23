@@ -3,7 +3,6 @@ Categories = ["Volto", "Plone"]
 Description = ""
 Tags = ["cookbook","Plone", "Volto"]
 date = "2022-02-06T18:05:18+02:00"
-menu = "main"
 title = "Custom Volto configuration to fix Babel problems with react-leaflet"
 
 +++

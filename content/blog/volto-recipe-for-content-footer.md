@@ -3,7 +3,6 @@ Categories = ["Volto", "Plone"]
 Description = ""
 Tags = ["cookbook","Plone", "Volto"]
 date = "2022-07-18T17:10:16+03:00"
-menu = "main"
 title = "Volto recipe for footer actions managed as site content"
 
 +++
