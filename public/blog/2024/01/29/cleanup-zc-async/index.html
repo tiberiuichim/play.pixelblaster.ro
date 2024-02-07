@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
   
-  <title>Volto recipe for footer actions managed as site content &middot; The Plone Expanse</title>
+  <title>Cleanup zc async &middot; The Plone Expanse</title>
   
 
   
@@ -65,107 +65,23 @@
   <div class="content container">
 
     <article class="post">
-      <h1>Volto recipe for footer actions managed as site content</h1>
+      <h1>Cleanup zc async</h1>
 
       <p class="post-tags">
       <i class='fa fa-tags' aria-hidden='true'></i>
-      <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/volto">Volto</a>
+      <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
       </p>
 
       <div class="post-date">
-        <span >Mon, Jul 18, 2022</span>,
-        <span id="wc"> 400 Words </span>
+        <span >Mon, Jan 29, 2024</span>,
+        <span id="wc"> 100 Words </span>
       </div>
-      <p>Managing the Footer as content is one of the common tasks on a Plone / Volto
-website. One typical approach is to designate some root folder, let&rsquo;s say
-<code>footer-links</code> as a container for Link instances, and use those links as
-shortcuts to dedicated pages.</p>
+      <p>For my own reference, as I had to do a cleanup of zc.async tasks. The interface was too slow.</p>
 
-<p>So, a footer component may look like this:</p>
-
-<pre><code class="language-jsx">import React from 'react';
-import { getContent } from '@plone/volto/actions';
-import { useSelector } from 'react-redux';
-import {UniversalLink} from '@plone/volto/components';
-
-const Footer = () =&gt; {
-
-  const footerLinks = useSelector((state) =&gt; state.content.subrequests?.footer?.data?.items || []);
-
-  React.useEffect(() =&gt; {
-    getContent('/footer-links', null, 'footer');
-  }, []);
-
-  return footerLinks.map((item) =&gt;
-    &lt;UniversalLink item={item} key={item['@id']}&gt;{item.title}&lt;/UniversalLink&gt;)
-}
-</code></pre>
-
-<p>This approach works, but it&rsquo;s a bit naive. There may be unneeded network
-requests and, most important, the content of this footer is not included in the
-server-side rendered HTML.</p>
-
-<p>If you&rsquo;re willing to write some Python code, this may be a relatively
-straight-forward fix: write some expander that automatically inserts the links
-as a <code>@component</code> in the current content response, so it can be picked up by
-the Footer component.</p>
-
-<p>There is a solution for this problem, in case we want to keep things pure
-frontend-level. Volto provides an extension mechanism for its SSR framework,
-the <code>config.settings.asyncPropsExtenders</code>.</p>
-
-<p>Here&rsquo;s how I did it for a multilingual website:</p>
-
-<pre><code class="language-jsx">  config.settings.asyncPropsExtenders = [
-    ...(config.settings.asyncPropsExtenders || []),
-    {
-      path: '/',
-      extend: (dispatchActions) =&gt; {
-        const action = {
-          key: 'footer',
-          promise: ({ location, store }) =&gt; {
-            // const currentLang = state.intl.locale;
-            const bits = location.pathname.split('/');
-            const currentLang =
-              bits.length &gt;= 2 ? bits[1] || DEFAULT_LANG : DEFAULT_LANG;
-
-            const state = store.getState();
-            if (state.content.subrequests?.[`footer-${currentLang}`]?.data) {
-              return;
-            }
-
-            const url = `/${currentLang}/footer-links`;
-            const action = getContent(url, null, `footer-${currentLang}`);
-            return store.dispatch(action).catch((e) =&gt; {
-              // eslint-disable-next-line
-              console.log(
-                `Footer links folder not found: ${url}. Please create as folder
-                named footer-links in the root of your current language`,
-              );
-            });
-          },
-        };
-        return [...dispatchActions, action];
-      },
-    },
-  ];
-</code></pre>
-
-<p>And my Footer component is now simply:</p>
-
-<pre><code class="language-jsx">function Footer(props) {
-  const currentLang = useSelector((state) =&gt; state.intl.locale);
-  const footerLinks = useSelector(
-    (state) =&gt;
-      state.content.subrequests?.[`footer-${currentLang}`]?.data?.items || [],
-  );
-
-  return footerLinks.map((item, i) =&gt; (
-    &lt;UniversalLink key={`${item.id}-${i}`} item={item}&gt;
-      {item.title}
-    &lt;/UniversalLink&gt;
-  ));
-}
+<pre><code>bin/zeo_client debug
+queue = app._p_jar.root()['zc.async']['']
+for i in range(len(queue)):
+    queue.pull(0)
 </code></pre>
 
 
@@ -174,13 +90,13 @@ the <code>config.settings.asyncPropsExtenders</code>.</p>
         <p class="previous-link">
         <i class='fa fa-arrow-circle-left' aria-hidden='true'></i>
         Previous:
-        <a class="previous" href="/blog/2022/02/06/custom-volto-configuration-to-fix-babel-problems-with-react-leaflet/"> Custom Volto configuration to fix Babel problems with react-leaflet</a>
+        <a class="previous" href="/blog/2022/07/18/volto-recipe-for-footer-actions-managed-as-site-content/"> Volto recipe for footer actions managed as site content</a>
         </p>
         
         
         <p class="next-link">
         Next:
-        <a class="next" href="/blog/2024/01/29/cleanup-zc-async/"> Cleanup zc async</a>
+        <a class="next" href="/blog/2024/02/07/image-scales-wrongly-regenerating/"> Image scales wrongly regenerating</a>
         <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>
         </p>
         

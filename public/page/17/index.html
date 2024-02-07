@@ -70,6 +70,69 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/02/override-__bobo_traverse__-to-provide-custom-url--lookup/">Override __bobo_traverse__ to provide custom URL  lookup</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Oct 2, 2006</time></span>
+
+        <p class="discreet">This technique is lifted from ATContentTypes/content/image.py
+ def __bobo_traverse__(self, REQUEST, name):
+"""Transparent access to image scales
+"""
+if name.startswith('image'):
+field = self.getField('image')
+image = None
+if name == 'image':
+image = field.getScale(self)
+else:
+scalename = name[len('image_'):]
+if scalename in field.getAvailableSizes(self):
+image = field.getScale(self, scale=scalename)
+if image is not None and not isinstance(image, basestring):
+# image might be None or '' for empty images
+return image
+return ATCTFileContent.__bobo_traverse__(self, REQUEST, name)
+  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/02/override-__bobo_traverse__-to-provide-custom-url--lookup/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/10/02/zope3-zcml-a-content-class-declaration-that-provides-an-interface/">Zope3 zcml: A content class declaration that provides an interface</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>
+        </p>
+
+        <span class="post-date"><time>Oct 2, 2006</time></span>
+
+        <p class="discreet">&lt;content class=".bookmarker.BookMarker"&gt;
+&lt;implements
+interface="zope.app.annotation.interfaces.IAttributeAnnotatable"
+/&gt;
+&lt;/content&gt;  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/10/02/zope3-zcml-a-content-class-declaration-that-provides-an-interface/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/10/01/zope3-registering-a-help-page/">Zope3: Registering a help page</a></h2>
 
         <p class="post-tags">
@@ -285,52 +348,6 @@ First, things should be done the newly recommended " [...]</p>
 
         <div class="read-more-link">
           <a href="/blog/2006/09/20/basic-recipe-for-a-five-view/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/09/16/short-checklist-for-postfix---mysql---dovecot---sasl-authentication-on-fedora/">Short checklist for Postfix &#43; MySQL &#43; Dovecot &#43; SASL authentication on Fedora</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/linux">Linux</a>
-        </p>
-
-        <span class="post-date"><time>Sep 16, 2006</time></span>
-
-        <p class="discreet">1. Postfix needs to be rebuilt with Mysql enabled
-Follow this tutorial: http://postfix.wiki.xs4all.nl/index.php?title=Virtual_Users_and_Domains_with_Courier-IMAP_and_MySQL
-This one also helps: Virtual Users And Domains With Postfix, Courier And MySQL (Fedora Core 5) | HowtoForge - Linux Howtos and Tutorials
-2. Instal cyrus-sasl and cyrus-sasl-sql.
-Configure /etc/sysconfig/saslauthd to run with the rimap mechanism 3. Start saslauthd [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/09/16/short-checklist-for-postfix---mysql---dovecot---sasl-authentication-on-fedora/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/09/10/adaptation-explained/">Adaptation explained</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/zope3">zope3</a>
-        </p>
-
-        <span class="post-date"><time>Sep 10, 2006</time></span>
-
-        <p class="discreet">It seems that there's a proposal to introduce adaptation in Python 3000, which sparked a discussion and a nice introduction to adaptation on the python-dev list. Another explanation here. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/09/10/adaptation-explained/">Read More&rarr;</a>
         </div>
 
       </div>

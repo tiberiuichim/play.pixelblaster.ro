@@ -70,6 +70,51 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2017/08/03/restore-missing-blobs-from-blob-cache/">Restore missing blobs from blob cache</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/zope">Zope</a>, <a href="/tags/python">Python</a>
+        </p>
+
+        <span class="post-date"><time>Aug 3, 2017</time></span>
+
+        <p class="discreet">I had a curious case of missing-but-present blobs in an old Plone service, configured with a Zeo server and 2 Zope instances.
+The root of the problem (I think) was that the blob folder configuration was broken: the Zope client instances were configured with shared blobs to &ldquo;off&rdquo;, but they were really sharing the same caching folder.
+In the end, the blobs were loaded by the Zope services and everything appeared to be working, but when I&rsquo;ve tried to move the blobstorage folder to a new machine, I ended up with missing blobs. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2017/08/03/restore-missing-blobs-from-blob-cache/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2017/05/08/restart-docker-after-archlinux-upgrade/">Restart docker after archlinux upgrade</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>May 8, 2017</time></span>
+
+        <p class="discreet">My main reason for avoiding ArchLinux upgrades (sudo pacman -Syu) was because I always needed to reboot my computer, to allow starting docker services after the upgrade. Today, I found the solution is a simple:
+systemctl daemon-reload systemctl restart docker   [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2017/05/08/restart-docker-after-archlinux-upgrade/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2017/04/27/how-i-broke-my-archlinux-and-fixed-it/">How I broke my archlinux and fixed it</a></h2>
 
         <p class="post-tags">
@@ -243,52 +288,6 @@ python:object.restrictedTraverse(&quot;@@plone_interface_info&quot;).provides('d
 
         <div class="read-more-link">
           <a href="/blog/2017/02/23/test-for-an-interface-provided-by-object-in-plone-action-condition/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2017/02/22/plone-assign-permission-to-role/">Plone: assign permission to role</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/plone">Plone</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Feb 22, 2017</time></span>
-
-        <p class="discreet">I always forget, and a quick search through the eggs folder didn&rsquo;t yield anything easy to find: how to I assign a permission to a role, in a context?
-This is a bit of code:
-from Products.DCWorkflow.utils import modifyRolesForPermission from AccessControl.PermissionMapping import getPermissionMapping perm = 'Delete objects' pm = set(getPermissionMapping(perm, context, st=tuple)) pm.add('Contributor') pm.add('Owner') modifyRolesForPermission(wc, perm, tuple(pm))  This is based on code found in DCWorkflow. I know, the proper code would be: [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2017/02/22/plone-assign-permission-to-role/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2017/02/22/python-packaging-vs-npm/">Python packaging vs npm</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/python">Python</a>, <a href="/tags/npm">npm</a>, <a href="/tags/rant">rant</a>
-        </p>
-
-        <span class="post-date"><time>Feb 22, 2017</time></span>
-
-        <p class="discreet">I admit, Python packages are a bit more difficult to understand, for a newbie. I have witnessed this problem a lot, lately, when dealing with new people trying to learn the Python development process.
-There is a mountain of information that needs to be climbed, to understand Python packages:
- the namespace concept the matter of OS security the full cycle of an application, from development to deployment and maintainance  And this are just basics, in addition to the distutils/setuptools/virtualenv/pip or zc. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2017/02/22/python-packaging-vs-npm/">Read More&rarr;</a>
         </div>
 
       </div>

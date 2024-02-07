@@ -70,6 +70,50 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2024/02/07/image-scales-wrongly-regenerating/">Image scales wrongly regenerating</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Feb 7, 2024</time></span>
+
+        <p class="discreet">I had a problem with my Frankenstein stack of Plone 4 with various bits (core libraries) upgraded on it. Here&rsquo;s a description of my bug:
+When I upload an image and try to use it in a Volto block that referenced its image scales download url (such as @@images/&lt;random-uuid4&gt;.jpg) the image URL didn&rsquo;t work, it resulted in 404 error. When I reindexed the image in the catalog, then it worked. Now, the funky part is that I could reproduce the problem not only on my &ldquo;doomed&rdquo; Plone 4 stack, but also in the modern Plone 6 stack that we use for our main customer. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2024/02/07/image-scales-wrongly-regenerating/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2024/01/29/cleanup-zc-async/">Cleanup zc async</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jan 29, 2024</time></span>
+
+        <p class="discreet">For my own reference, as I had to do a cleanup of zc.async tasks. The interface was too slow.
+bin/zeo_client debug queue = app._p_jar.root()['zc.async'][''] for i in range(len(queue)): queue.pull(0)   [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2024/01/29/cleanup-zc-async/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2022/07/18/volto-recipe-for-footer-actions-managed-as-site-content/">Volto recipe for footer actions managed as site content</a></h2>
 
         <p class="post-tags">
@@ -241,51 +285,6 @@ Normally, in a production scenario, uwsgi would be used to split and map the URL
 
         <div class="read-more-link">
           <a href="/blog/2017/08/14/running-pyramid-with-flask-in-the-same-python-process/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2017/08/03/restore-missing-blobs-from-blob-cache/">Restore missing blobs from blob cache</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/zope">Zope</a>, <a href="/tags/python">Python</a>
-        </p>
-
-        <span class="post-date"><time>Aug 3, 2017</time></span>
-
-        <p class="discreet">I had a curious case of missing-but-present blobs in an old Plone service, configured with a Zeo server and 2 Zope instances.
-The root of the problem (I think) was that the blob folder configuration was broken: the Zope client instances were configured with shared blobs to &ldquo;off&rdquo;, but they were really sharing the same caching folder.
-In the end, the blobs were loaded by the Zope services and everything appeared to be working, but when I&rsquo;ve tried to move the blobstorage folder to a new machine, I ended up with missing blobs. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2017/08/03/restore-missing-blobs-from-blob-cache/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2017/05/08/restart-docker-after-archlinux-upgrade/">Restart docker after archlinux upgrade</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/linux">Linux</a>
-        </p>
-
-        <span class="post-date"><time>May 8, 2017</time></span>
-
-        <p class="discreet">My main reason for avoiding ArchLinux upgrades (sudo pacman -Syu) was because I always needed to reboot my computer, to allow starting docker services after the upgrade. Today, I found the solution is a simple:
-systemctl daemon-reload systemctl restart docker   [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2017/05/08/restart-docker-after-archlinux-upgrade/">Read More&rarr;</a>
         </div>
 
       </div>

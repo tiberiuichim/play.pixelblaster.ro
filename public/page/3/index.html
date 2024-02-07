@@ -70,6 +70,52 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2017/02/22/plone-assign-permission-to-role/">Plone: assign permission to role</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/plone">Plone</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Feb 22, 2017</time></span>
+
+        <p class="discreet">I always forget, and a quick search through the eggs folder didn&rsquo;t yield anything easy to find: how to I assign a permission to a role, in a context?
+This is a bit of code:
+from Products.DCWorkflow.utils import modifyRolesForPermission from AccessControl.PermissionMapping import getPermissionMapping perm = 'Delete objects' pm = set(getPermissionMapping(perm, context, st=tuple)) pm.add('Contributor') pm.add('Owner') modifyRolesForPermission(wc, perm, tuple(pm))  This is based on code found in DCWorkflow. I know, the proper code would be: [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2017/02/22/plone-assign-permission-to-role/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2017/02/22/python-packaging-vs-npm/">Python packaging vs npm</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/npm">npm</a>, <a href="/tags/rant">rant</a>
+        </p>
+
+        <span class="post-date"><time>Feb 22, 2017</time></span>
+
+        <p class="discreet">I admit, Python packages are a bit more difficult to understand, for a newbie. I have witnessed this problem a lot, lately, when dealing with new people trying to learn the Python development process.
+There is a mountain of information that needs to be climbed, to understand Python packages:
+ the namespace concept the matter of OS security the full cycle of an application, from development to deployment and maintainance  And this are just basics, in addition to the distutils/setuptools/virtualenv/pip or zc. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2017/02/22/python-packaging-vs-npm/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2017/01/25/generate-the-route-url-for-a-cornice-service-or-resource/">Generate the route url for a Cornice service or resource</a></h2>
 
         <p class="post-tags">
@@ -239,51 +285,6 @@ One thing that I found difficult was writing code that uses some of the many DSL
 
         <div class="read-more-link">
           <a href="/blog/2016/12/24/always-fun-deciphering-ruby-dsls-part-1/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks/">Easier development when dealing with docker-compose stacks</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/docker-compose">docker-compose</a>, <a href="/tags/docker">docker</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/tutorial">tutorial</a>
-        </p>
-
-        <span class="post-date"><time>Dec 13, 2016</time></span>
-
-        <p class="discreet">For some time I've had to deal with two separate, docker-compose based application stacks. One of them combining a Ruby on Rails app with a whole suite of ElasticSearch nodes, sidekiq worker, Postgresql, nginx, the whole shebang. Another is just a plain Zope/Plone stack, but the difficulties remain the same: when I wanted to do production debugging or just plain development using that environment, I needed something that can be started manually, in the whole stack. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2016/12/13/easier-development-when-dealing-with-docker-compose-stacks/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2016/12/02/change-the-authentication-cookie-name-in-plone/">Change the authentication cookie name in Plone</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Dec 2, 2016</time></span>
-
-        <p class="discreet">Not obvious of first, there are two places to change the cookie name used in login:
-/acl_users/credentials_cookie_auth/manage_propertiesForm
-and
-/acl_users/session/manage_propertiesForm [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2016/12/02/change-the-authentication-cookie-name-in-plone/">Read More&rarr;</a>
         </div>
 
       </div>

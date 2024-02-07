@@ -7,10 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2019 Tiberiu Ichim</copyright>
-    <lastBuildDate>Mon, 18 Jul 2022 17:10:16 +0300</lastBuildDate>
+    <lastBuildDate>Wed, 07 Feb 2024 06:06:21 +0000</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Image scales wrongly regenerating</title>
+      <link>/blog/2024/02/07/image-scales-wrongly-regenerating/</link>
+      <pubDate>Wed, 07 Feb 2024 06:06:21 +0000</pubDate>
+      
+      <guid>/blog/2024/02/07/image-scales-wrongly-regenerating/</guid>
+      <description>I had a problem with my Frankenstein stack of Plone 4 with various bits (core libraries) upgraded on it. Here&amp;rsquo;s a description of my bug:
+When I upload an image and try to use it in a Volto block that referenced its image scales download url (such as @@images/&amp;lt;random-uuid4&amp;gt;.jpg) the image URL didn&amp;rsquo;t work, it resulted in 404 error. When I reindexed the image in the catalog, then it worked. Now, the funky part is that I could reproduce the problem not only on my &amp;ldquo;doomed&amp;rdquo; Plone 4 stack, but also in the modern Plone 6 stack that we use for our main customer.</description>
+    </item>
+    
+    <item>
+      <title>Cleanup zc async</title>
+      <link>/blog/2024/01/29/cleanup-zc-async/</link>
+      <pubDate>Mon, 29 Jan 2024 13:11:53 +0000</pubDate>
+      
+      <guid>/blog/2024/01/29/cleanup-zc-async/</guid>
+      <description>For my own reference, as I had to do a cleanup of zc.async tasks. The interface was too slow.
+bin/zeo_client debug queue = app._p_jar.root()[&#39;zc.async&#39;][&#39;&#39;] for i in range(len(queue)): queue.pull(0)  </description>
+    </item>
     
     <item>
       <title>Volto recipe for footer actions managed as site content</title>

@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>@2019 Tiberiu Ichim</copyright>
-    <lastBuildDate>Mon, 18 Jul 2022 17:10:16 +0300</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jan 2024 13:11:53 +0000</lastBuildDate>
     
 	<atom:link href="/tags/cookbook/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cleanup zc async</title>
+      <link>/blog/2024/01/29/cleanup-zc-async/</link>
+      <pubDate>Mon, 29 Jan 2024 13:11:53 +0000</pubDate>
+      
+      <guid>/blog/2024/01/29/cleanup-zc-async/</guid>
+      <description>For my own reference, as I had to do a cleanup of zc.async tasks. The interface was too slow.
+bin/zeo_client debug queue = app._p_jar.root()[&#39;zc.async&#39;][&#39;&#39;] for i in range(len(queue)): queue.pull(0)  </description>
+    </item>
     
     <item>
       <title>Volto recipe for footer actions managed as site content</title>

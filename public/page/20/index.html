@@ -70,6 +70,58 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace/">Creating arbitrary objects in the current module namespace</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/python">Python</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Aug 16, 2006</time></span>
+
+        <p class="discreet">This short recipe will show how to create arbitrary named objects in the current module namespace. Either globals() or locals() can be used for the task, depending on the namespace where the variables have to be created (global or local). &gt;&gt;&gt; for i in range(10):
+&gt;&gt;&gt; globals()['test%s' % i] = i
+&gt;&gt;&gt; print test0
+0
+&gt;&gt;&gt; print test1
+1
+  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/16/creating-arbitrary-objects-in-the-current-module-namespace/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/08/14/short-intro-to-zeo/">Short intro to ZEO</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Aug 14, 2006</time></span>
+
+        <p class="discreet">Joel Burton is holding ad-hoc tutorials on IRC :-)
+Anyway, here's his recipe to running ZEO
+&lt;joelburton&gt; having your site running under zeo also allows you to "zopectl debug" it while it's still running, which is insanely useful. i _always_ run zope under zeo, even during development, even on my laptop, etc., and i recommend that to others.
+&lt;joelburton&gt; thegoldenaura: zeo just splits zope-the-app-server and zope-the-database into two
+&lt;joelburton&gt; the goldenaura: for small sites, where you expect to have just one zope server for your zeo server, i do it like this: [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/08/14/short-intro-to-zeo/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/08/13/small-tip-when-using-wxwidgets/">Small tip when using wxWidgets</a></h2>
 
         <p class="post-tags">
@@ -249,54 +301,6 @@ Although a bit old, the Zope Developer Guide, with its chapter on Acquisition do
 
         <div class="read-more-link">
           <a href="/blog/2006/08/08/accessing-a-zope-object-stripped-of-acquisition/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/08/clouseau-a-new-developer-tool-for-plone/">Clouseau: A new developer tool for Plone</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Aug 8, 2006</time></span>
-
-        <p class="discreet">A new developer tool was placed in the Collective. This Ajax tool offers a python prompt similar to running "zopect debug" or breaking into the zope through a pdb call. It is really cool and useful in debugging and exploring Plone. I'd rank this tool as extremely important to the regular Plone developer, along DocFinder or the pdb debugging module.
-Current location is here:http://svn.plone.org/svn/collective/Clouseau/ [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/08/clouseau-a-new-developer-tool-for-plone/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2006/08/06/getting-a-list-of-catalog-indexes-and-metadata/">Getting a list of catalog indexes and metadata</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Aug 6, 2006</time></span>
-
-        <p class="discreet">I recently had a need to get a list of the indexes from the portal_catalog.
-While the metadata has an API method to get it, using something along:
-pc = getToolByName(self, 'portal_catalog')
-metadatas = pc.enumerateColumns()I couldn't find the equivalent API method to get the Indexes. After digging through the DTML files used by ZCatalog, I came up with the following method:
-pc = getToolByName(self, 'portal_catalog')
-indexes = pc.Indexes.objectIds()  [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2006/08/06/getting-a-list-of-catalog-indexes-and-metadata/">Read More&rarr;</a>
         </div>
 
       </div>

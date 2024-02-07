@@ -70,6 +70,53 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/11/18/if-django-templates-are-an-improvement-over-xml-templates-then-by-all-means-please-give-me-xml/">If Django templates are an improvement over XML templates, then, by all means, please give me XML</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/rants">rants</a>, <a href="/tags/django">Django</a>
+        </p>
+
+        <span class="post-date"><time>Nov 18, 2009</time></span>
+
+        <p class="discreet">I fail to see how
+{% block %} ... {% endblock %}  is in any way better or "less scary" then, let's say
+&lt;dj:block&gt; ... &lt;/dj:block&gt;  Yet another rant, this time triggered by the error I got when writing this piece of code:
+{% blocktrans with offer.offerer.username as offerer_username and offer.offered_time|date as offerer_date %} ... {% endblocktrans %}  I just wanted to split the tag on multiple lines, but it seems that's not possible. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/11/18/if-django-templates-are-an-improvement-over-xml-templates-then-by-all-means-please-give-me-xml/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2009/11/17/the-case-against-django-templates/">The case against Django templates</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/rants">rants</a>, <a href="/tags/django">Django</a>
+        </p>
+
+        <span class="post-date"><time>Nov 17, 2009</time></span>
+
+        <p class="discreet">I have many grudges against the django templating language and its templates (in short, I hate them), so I'm gathering evidence to support what my "spider sense" tells me. Today the template tag system goes under fire.
+Given the following template fragment:
+{% load i18n %} {% load avatar_tags %} {% load voting_tags %} {% load pagination_tags %} {% load extra_voting_tags %} {% load in_filter %} {% load extra_tagging_tags %} {% load sorting_tags %} Which one is responsible for the following " [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2009/11/17/the-case-against-django-templates/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2009/11/12/djangos-makemessages-sucks-for-my-use-cases/">Django&#39;s makemessages sucks for my use cases</a></h2>
 
         <p class="post-tags">
@@ -236,48 +283,6 @@ As a side note, at first I have reviewed Satchmo, as it seemed to have more trac
 
         <div class="read-more-link">
           <a href="/blog/2009/06/11/laughable-bug-in-a-new-google-webmaster-tools-feature/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2009/05/10/my-new-blog-dedicated-to-all-things-vim/">My new blog dedicated to all things VIM</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>
-        </p>
-
-        <span class="post-date"><time>May 10, 2009</time></span>
-
-        <p class="discreet">I've opened a new blog, at http://vimzone.pixelblaster.ro It runs on the latest Plone 3, with the NottreDamme skin and Scrawl as the blogging product. I'll probably install also the QuillsEnabled extension. There's not a lot of content on it, although it's already almost 2 months old. It's a place for me to scribble things I know about VIM and use or discover. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2009/05/10/my-new-blog-dedicated-to-all-things-vim/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2009/04/16/the-sorry-state-of-internationalization-in-plone/">The sorry state of internationalization in Plone</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/rants">rants</a>, <a href="/tags/plone">Plone</a>
-        </p>
-
-        <span class="post-date"><time>Apr 16, 2009</time></span>
-
-        <p class="discreet">Ever since Plone 2.5 stopped being the hot new thing in the Plone world, the state of content internationalization support in Plone has been declining. Partly due to the difficulty of extending Zope 2 products, LinguaPlone has always been a hack, but at least back then it worked. These days I'm not heavily involved with Plone, but whenever I need to add LinguaPlone to a Plone 3 site, I cringe and weep, especially that those projects never allocate time for me to fix the obvious problems. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2009/04/16/the-sorry-state-of-internationalization-in-plone/">Read More&rarr;</a>
         </div>
 
       </div>

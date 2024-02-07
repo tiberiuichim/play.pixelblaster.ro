@@ -70,6 +70,57 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/07/22/my-favorite-development-environment/">My favorite development environment</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/ubuntu">Ubuntu</a>, <a href="/tags/plone">Plone</a>, <a href="/tags/linux">Linux</a>
+        </p>
+
+        <span class="post-date"><time>Jul 22, 2006</time></span>
+
+        <p class="discreet">I thought I'd add some words about the development environment that I feel most comfortable with.
+First, I use AGX for most of my plone development. It's useful as a quick skeleton generator, but also as a way to structure the content. To generate the UML files I use Poseidon Community Edition. Up until recently it was buggy, and I still consider it to be, but I learned what to do so I won't trigger the bugs (quick tip: don't ever rename tagged values, delete it and recreate it. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/07/22/my-favorite-development-environment/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2006/07/21/how-to-access-directly-fields-and-widgets-from-an-archetypes-content/">How to access directly fields and widgets from an Archetypes content</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/cookbook">cookbook</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Jul 21, 2006</time></span>
+
+        <p class="discreet">There are two ways to access the field values and widgets from inside an AT content item. First, a more complex example on getting fields and widgets properties using self.schema:
+for fname in self.schema.keys():
+field = self.schema.get(fname)
+widget = field.widget
+widgetLabel = widget.Label(self)
+fieldValue = field.get(self))
+To get a field value, one could use  self.schema['customer_copy_to'].get(self)The second way uses self.Schema() and shows the equivalent of the above example
+self.Schema().getField('customer_copy_to').get(self)
+Of course, there's always the default generated AT getters, but sometimes it's not possible to use those (for example, when you want to get the raw value of a field. [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2006/07/21/how-to-access-directly-fields-and-widgets-from-an-archetypes-content/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2006/07/21/how-to-use-at_post_create_script-to-with-multi-schemata-content-types/">How to use at_post_create_script to with multi-schemata content types</a></h2>
 
         <p class="post-tags">

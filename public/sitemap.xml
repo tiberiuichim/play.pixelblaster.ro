@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>/blog/2024/02/07/image-scales-wrongly-regenerating/</loc>
+    <lastmod>2024-02-07T06:06:21+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2024/01/29/cleanup-zc-async/</loc>
+    <lastmod>2024-01-29T13:11:53+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/2022/07/18/volto-recipe-for-footer-actions-managed-as-site-content/</loc>
     <lastmod>2022-07-18T17:10:16+03:00</lastmod>
   </url>
@@ -1080,7 +1090,7 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2022-07-18T17:10:16+03:00</lastmod>
+    <lastmod>2024-02-07T06:06:21+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1110,7 +1120,7 @@
   
   <url>
     <loc>/tags/cookbook/</loc>
-    <lastmod>2022-07-18T17:10:16+03:00</lastmod>
+    <lastmod>2024-01-29T13:11:53+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1278,7 +1288,7 @@
   
   <url>
     <loc>/tags/plone/</loc>
-    <lastmod>2022-07-18T17:10:16+03:00</lastmod>
+    <lastmod>2024-02-07T06:06:21+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1380,7 +1390,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2022-07-18T17:10:16+03:00</lastmod>
+    <lastmod>2024-02-07T06:06:21+00:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -70,6 +70,57 @@
 
       
       <div class="post">
+        <h2 class="post-title"><a href="/blog/2008/06/01/using-views-as-information-mixins-in-templates/">Using views as information mixins in templates</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope2">zope2</a>, <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
+        </p>
+
+        <span class="post-date"><time>Jun 1, 2008</time></span>
+
+        <p class="discreet">This may be basic trick for some, a non-obvious usage of views for others, who knows, I'm documenting it here anyway. I've been using this technique for quite some time without giving it much thought.
+There are times when I have an object in a template. I want to display information associated with that object. This information is already coded in a @@detail view on this object. Suppose this example (in mostly pseudocode): [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2008/06/01/using-views-as-information-mixins-in-templates/">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
+        <h2 class="post-title"><a href="/blog/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools.../">In case you&#39;re having problems installing ssl-for-setuptools...</a></h2>
+
+        <p class="post-tags">
+          <i class='fa fa-tags' aria-hidden='true'></i>
+          <a href="/tags/zope3">zope3</a>, <a href="/tags/zope2">zope2</a>, <a href="/tags/plone">Plone</a>
+        </p>
+
+        <span class="post-date"><time>Apr 15, 2008</time></span>
+
+        <p class="discreet">I've stumbled on this error when trying to install a easyshop buildout:
+Exception: No SSL support found
+An error occured when trying to install ssl-for-setuptools 1.10.Look above this message for any errors thatwere output by easy_install.
+While:
+Installing instance.
+Getting distribution for 'ssl-for-setuptools'.
+Error: Couldn't install: ssl-for-setuptools 1.10
+ After scratching my head for a while, I've found the solution:
+# apt-get install libssl-dev  [...]</p>
+
+        <div class="read-more-link">
+          <a href="/blog/2008/04/15/in-case-youre-having-problems-installing-ssl-for-setuptools.../">Read More&rarr;</a>
+        </div>
+
+      </div>
+      
+      
+
+      
+      <div class="post">
         <h2 class="post-title"><a href="/blog/2008/04/08/a-tip-on-debugging-zope-2-with-zeo/">A tip on debugging Zope 2 with ZEO</a></h2>
 
         <p class="post-tags">
@@ -248,49 +299,6 @@ print os.popen(cmd).read() It needs the YouTube downloader script and lxml 2. [.
 
         <div class="read-more-link">
           <a href="/blog/2008/01/28/monty-python-sketches-and-download-script/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2008/01/27/problem-with-jquery-version-1.2.2-and-getjson/">Problem with jQuery version 1.2.2 and getJSON</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/jquery">jQuery</a>, <a href="/tags/javascript">JavaScript</a>
-        </p>
-
-        <span class="post-date"><time>Jan 27, 2008</time></span>
-
-        <p class="discreet">It took me a couple of hours to track this (I was just starting a new project using jQuery), but I finally nailed it: jQuery version 1.2.2 has a problem with loading JSON data from absolute urls. Use the trunk version and you'll be fine. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2008/01/27/problem-with-jquery-version-1.2.2-and-getjson/">Read More&rarr;</a>
-        </div>
-
-      </div>
-      
-      
-
-      
-      <div class="post">
-        <h2 class="post-title"><a href="/blog/2007/12/17/template-layout-options-when-developing-with-zope-3/">Template layout options when developing with Zope 3</a></h2>
-
-        <p class="post-tags">
-          <i class='fa fa-tags' aria-hidden='true'></i>
-          <a href="/tags/zope3">zope3</a>, <a href="/tags/cookbook">cookbook</a>
-        </p>
-
-        <span class="post-date"><time>Dec 17, 2007</time></span>
-
-        <p class="discreet">When developing a Zope 2 site, the way the templates would be laid out is obvious: create a template for the site layout, use macros and slots to fill in that template and use the CMF skin overriding mechanism when you have to customize a certain template or Python script for another skin. Plone has been using this mechanism very successfully.
-With Zope 3 the path is not very clear. There are several mechanisms, each with its advantages and disadvantages. [...]</p>
-
-        <div class="read-more-link">
-          <a href="/blog/2007/12/17/template-layout-options-when-developing-with-zope-3/">Read More&rarr;</a>
         </div>
 
       </div>
