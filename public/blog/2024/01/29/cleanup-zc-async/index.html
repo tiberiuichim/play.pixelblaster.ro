@@ -78,10 +78,16 @@
       </div>
       <p>For my own reference, as I had to do a cleanup of zc.async tasks. The interface was too slow.</p>
 
-<pre><code>bin/zeo_client debug
-queue = app._p_jar.root()['zc.async']['']
-for i in range(len(queue)):
-    queue.pull(0)
+<pre><code># bin/zeo_client debug
+
+&gt;&gt;&gt; queue = app._p_jar.root()['zc.async']['']
+&gt;&gt;&gt; from zc.async.queue import Queue
+&gt;&gt;&gt; Queue.__init__(queue)
+&gt;&gt;&gt; import transaction
+&gt;&gt;&gt; transaction.commit()
+
+#for i in range(len(queue)):
+#    queue.pull(0)
 </code></pre>
 
 

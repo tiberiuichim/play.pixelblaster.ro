@@ -19,7 +19,7 @@
       
       <guid>/blog/2024/01/29/cleanup-zc-async/</guid>
       <description>For my own reference, as I had to do a cleanup of zc.async tasks. The interface was too slow.
-bin/zeo_client debug queue = app._p_jar.root()[&#39;zc.async&#39;][&#39;&#39;] for i in range(len(queue)): queue.pull(0)  </description>
+# bin/zeo_client debug &amp;gt;&amp;gt;&amp;gt; queue = app._p_jar.root()[&#39;zc.async&#39;][&#39;&#39;] &amp;gt;&amp;gt;&amp;gt; from zc.async.queue import Queue &amp;gt;&amp;gt;&amp;gt; Queue.__init__(queue) &amp;gt;&amp;gt;&amp;gt; import transaction &amp;gt;&amp;gt;&amp;gt; transaction.commit() #for i in range(len(queue)): # queue.pull(0)  </description>
     </item>
     
     <item>

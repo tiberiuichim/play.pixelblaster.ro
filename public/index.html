@@ -102,7 +102,7 @@ When I upload an image and try to use it in a Volto block that referenced its im
         <span class="post-date"><time>Jan 29, 2024</time></span>
 
         <p class="discreet">For my own reference, as I had to do a cleanup of zc.async tasks. The interface was too slow.
-bin/zeo_client debug queue = app._p_jar.root()['zc.async'][''] for i in range(len(queue)): queue.pull(0)   [...]</p>
+# bin/zeo_client debug &gt;&gt;&gt; queue = app._p_jar.root()['zc.async'][''] &gt;&gt;&gt; from zc.async.queue import Queue &gt;&gt;&gt; Queue.__init__(queue) &gt;&gt;&gt; import transaction &gt;&gt;&gt; transaction.commit() #for i in range(len(queue)): # queue.pull(0)   [...]</p>
 
         <div class="read-more-link">
           <a href="/blog/2024/01/29/cleanup-zc-async/">Read More&rarr;</a>

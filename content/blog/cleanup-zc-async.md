@@ -10,8 +10,14 @@ author = "Tiberiu Ichim"
 For my own reference, as I had to do a cleanup of zc.async tasks. The interface was too slow.
 
 ```
-bin/zeo_client debug
-queue = app._p_jar.root()['zc.async']['']
-for i in range(len(queue)):
-    queue.pull(0)
+# bin/zeo_client debug
+
+>>> queue = app._p_jar.root()['zc.async']['']
+>>> from zc.async.queue import Queue
+>>> Queue.__init__(queue)
+>>> import transaction
+>>> transaction.commit()
+
+#for i in range(len(queue)):
+#    queue.pull(0)
 ```
